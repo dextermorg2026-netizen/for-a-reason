@@ -1,0 +1,24 @@
+questionText,optionA,optionB,optionC,optionD,correctAnswer,explanation,subjectId,topicId
+Which protocol is used to assign IP addresses automatically?,FTP,HTTP,DHCP,SMTP,C,DHCP assigns IP addresses dynamically.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which device operates at the Data Link Layer?,Router,Switch,Hub,Repeater,B,A switch operates at Layer 2.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+What does TCP stand for?,Transmission Control Protocol,Transfer Control Protocol,Transmission Communication Process,Transport Control Protocol,A,TCP stands for Transmission Control Protocol.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol is used for secure web browsing?,HTTP,FTP,HTTPS,TELNET,C,HTTPS encrypts communication using SSL/TLS.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which layer is responsible for end-to-end communication?,Network Layer,Transport Layer,Data Link Layer,Physical Layer,B,Transport layer ensures end-to-end communication.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+What is the default port number of HTTP?,21,80,443,25,B,HTTP runs on port 80 by default.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+What does IP stand for?,Internet Protocol,Internal Protocol,Interface Protocol,Internet Process,A,IP stands for Internet Protocol.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol is connection-oriented?,UDP,IP,TCP,ICMP,C,TCP establishes a connection before data transfer.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which device connects different networks together?,Switch,Hub,Router,Repeater,C,Router connects multiple networks.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which layer deals with MAC addresses?,Transport Layer,Data Link Layer,Application Layer,Session Layer,B,MAC addresses operate at Data Link Layer.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol is used to send emails?,FTP,SMTP,HTTP,DNS,B,SMTP is used for sending emails.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+What is the port number for HTTPS?,443,80,25,110,A,HTTPS uses port 443.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which topology has a central node?,Ring,Bus,Star,Mesh,C,Star topology has a central hub/switch.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol resolves domain names to IP addresses?,ARP,DNS,ICMP,FTP,B,DNS converts domain names into IP addresses.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol is used for file transfer?,SMTP,FTP,HTTP,POP3,B,FTP transfers files between systems.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which addressing is logical addressing?,MAC Address,IP Address,Port Address,Physical Address,B,IP address is logical addressing.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol is used to check network connectivity?,ICMP,FTP,SMTP,DHCP,A,ICMP is used for ping and diagnostics.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which layer handles encryption and compression?,Presentation Layer,Transport Layer,Physical Layer,Network Layer,A,Presentation layer manages encryption and compression.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol is used to retrieve emails?,SMTP,POP3,HTTP,FTP,B,POP3 retrieves emails from server.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which topology connects every device to every other device?,Star,Bus,Ring,Mesh,D,Mesh topology connects all devices directly.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which protocol dynamically assigns IP addresses?,DNS,DHCP,FTP,ICMP,B,DHCP assigns IP addresses dynamically.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+What is the size of IPv4 address?,16 bits,32 bits,64 bits,128 bits,B,IPv4 addresses are 32 bits long.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+Which device operates only at the Physical Layer?,Switch,Router,Hub,Firewall,C,Hub works at Physical Layer only.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj

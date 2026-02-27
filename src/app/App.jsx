@@ -4,10 +4,12 @@ import {
   Route,
   NavLink,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import routes from "./routes.jsx";
 import { XPProvider } from "../context/XPContext";
 import { AuthProvider } from "../context/AuthContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 import { QuizProvider } from "../context/QuizContext.jsx";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,6 +23,8 @@ function AppLayout() {
   const profileRef = useRef(null);
 
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logoutUser } = useAuth();
 
   const getPageTitle = () => {
     if (location.pathname === "/") return "Dashboard";
@@ -28,6 +32,15 @@ function AppLayout() {
     if (location.pathname.includes("leaderboard")) return "Leaderboard";
     if (location.pathname.includes("quiz")) return "Quiz";
     return "";
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } finally {
+      setShowProfileMenu(false);
+      navigate("/login", { replace: true });
+    }
   };
 
   // Close dropdowns on outside click
@@ -235,6 +248,7 @@ function AppLayout() {
                       cursor: "pointer",
                       color: "#ef4444",
                     }}
+                    onClick={handleLogout}
                   >
                     Logout
                   </div>

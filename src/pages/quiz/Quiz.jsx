@@ -158,6 +158,7 @@ const Quiz = () => {
         score,
         total: questions.length,
       },
+      replace: true,
     });
   };
 

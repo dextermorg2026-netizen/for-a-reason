@@ -16,6 +16,12 @@ const Result = () => {
   const [animatedXP, setAnimatedXP] = useState(0);
 
   useEffect(() => {
+    // If someone lands here directly (no state), bounce back.
+    if (!location.state) {
+      navigate("/subjects", { replace: true });
+      return;
+    }
+
     let start = 0;
     const interval = setInterval(() => {
       start += 5;
@@ -25,11 +31,10 @@ const Result = () => {
       }
       setAnimatedXP(start);
     }, 20);
-    useEffect(() => {
-      addXP(score * 10);
-    }, []);
+
+    addXP(earnedXP);
     return () => clearInterval(interval);
-  }, []);
+  }, [addXP, earnedXP, location.state, navigate]);
 
   const level = Math.floor(animatedXP / 100);
   const progress = animatedXP % 100;

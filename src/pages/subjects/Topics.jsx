@@ -1,34 +1,69 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getTopicsBySubject } from "../../services/subjectService";
 
 const Topics = () => {
   const navigate = useNavigate();
   const { subjectId } = useParams();
 
-  // 🔹 Dummy Data (Replace later with backend)
-  const [topics] = useState([
-    {
-      id: "arrays",
-      title: "Arrays",
-      theoryDescription: "Introduction to arrays, operations & problems",
-      difficulty: "Easy",
-      theoryCompleted: true,
-    },
-    {
-      id: "linked-list",
-      title: "Linked List",
-      theoryDescription: "Singly & doubly linked list concepts",
-      difficulty: "Medium",
-      theoryCompleted: false,
-    },
-    {
-      id: "trees",
-      title: "Trees",
-      theoryDescription: "Binary trees, BST & traversals",
-      difficulty: "Hard",
-      theoryCompleted: false,
-    },
-  ]);
+  const [topics, setTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+
+    const normalizeDifficulty = (value) => {
+      if (value == null) return "Medium";
+      const raw = String(value).trim();
+      if (!raw) return "Medium";
+      const lower = raw.toLowerCase();
+      if (lower === "easy" || lower === "medium" || lower === "hard") {
+        return lower[0].toUpperCase() + lower.slice(1);
+      }
+      return raw;
+    };
+
+    const load = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const rawTopics = await getTopicsBySubject(subjectId);
+
+        const normalized = rawTopics.map((t) => ({
+          id: t.id,
+          title: t.title ?? t.name ?? "Untitled Topic",
+          theoryDescription:
+            t.theoryDescription ??
+            t.description ??
+            t.theory ??
+            "Learn the core concepts and key ideas for this topic.",
+          difficulty: normalizeDifficulty(t.difficulty),
+          theoryCompleted: Boolean(t.theoryCompleted ?? t.completedTheory ?? false),
+        }));
+
+        if (mounted) setTopics(normalized);
+      } catch (e) {
+        if (mounted) setError(e?.message || "Failed to load topics.");
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    if (subjectId) load();
+    else {
+      setTopics([]);
+      setLoading(false);
+      setError("Missing subject id.");
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [subjectId]);
+
+  const hasTopics = useMemo(() => topics.length > 0, [topics.length]);
 
   return (
     <div>
@@ -37,13 +72,31 @@ const Topics = () => {
         Learn theory or jump straight into practice
       </p>
 
+      {loading && (
+        <div className="glass-card" style={{ marginTop: "30px" }}>
+          Loading topics...
+        </div>
+      )}
+
+      {!loading && error && (
+        <div className="glass-card" style={{ marginTop: "30px", color: "#ef4444" }}>
+          {error}
+        </div>
+      )}
+
+      {!loading && !error && !hasTopics && (
+        <div className="glass-card" style={{ marginTop: "30px" }}>
+          No topics found for this subject yet.
+        </div>
+      )}
+
       {/* ================= THEORY SECTION ================= */}
       <div style={{ marginTop: "40px" }}>
         <h2 style={{ marginBottom: "20px" }}>
           📘 Theory Section
         </h2>
 
-        {topics.map((topic) => (
+        {!loading && !error && topics.map((topic) => (
           <div
             key={topic.id}
             className="glass-card"
@@ -78,7 +131,7 @@ const Topics = () => {
           🧠 Practice Quiz
         </h2>
 
-        {topics.map((topic) => (
+        {!loading && !error && topics.map((topic) => (
           <div
             key={topic.id}
             className="glass-card"

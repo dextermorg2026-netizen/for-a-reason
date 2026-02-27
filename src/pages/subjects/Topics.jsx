@@ -1,115 +1,125 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { getTopicsBySubject } from "../../services/subjectService";
-import { getTopicProgress } from "../../services/progressService";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Topics = () => {
-  const { subjectId } = useParams();
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const { subjectId } = useParams();
 
-  const [topics, setTopics] = useState([]);
-  const [progressData, setProgressData] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Do nothing until both exist
-    if (!subjectId || !currentUser) return;
-  
-    const fetchTopicsWithProgress = async () => {
-      try {
-        setLoading(true);
-  
-        const data = await getTopicsBySubject(subjectId);
-        setTopics(data);
-  
-        const progressMap = {};
-  
-        for (let topic of data) {
-          const stats = await getTopicProgress(
-            currentUser.uid,
-            topic.id
-          );
-          progressMap[topic.id] = stats;
-        }
-  
-        setProgressData(progressMap);
-      } catch (err) {
-        console.error("Topics error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchTopicsWithProgress();
-  }, [subjectId, currentUser]);
-
-  if (loading) {
-    return <p style={{ padding: "20px" }}>Loading topics...</p>;
-  }
-
-  if (topics.length === 0) {
-    return <p style={{ padding: "20px" }}>No topics found.</p>;
-  }
+  // 🔹 Dummy Data (Replace later with backend)
+  const [topics] = useState([
+    {
+      id: "arrays",
+      title: "Arrays",
+      theoryDescription: "Introduction to arrays, operations & problems",
+      difficulty: "Easy",
+      theoryCompleted: true,
+    },
+    {
+      id: "linked-list",
+      title: "Linked List",
+      theoryDescription: "Singly & doubly linked list concepts",
+      difficulty: "Medium",
+      theoryCompleted: false,
+    },
+    {
+      id: "trees",
+      title: "Trees",
+      theoryDescription: "Binary trees, BST & traversals",
+      difficulty: "Hard",
+      theoryCompleted: false,
+    },
+  ]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Topics</h2>
+    <div>
+      <h1 className="page-title">Subject Structure</h1>
+      <p className="page-subtitle">
+        Learn theory or jump straight into practice
+      </p>
 
-      {topics.map((topic) => {
-        const stats = progressData[topic.id];
+      {/* ================= THEORY SECTION ================= */}
+      <div style={{ marginTop: "40px" }}>
+        <h2 style={{ marginBottom: "20px" }}>
+          📘 Theory Section
+        </h2>
 
-        return (
+        {topics.map((topic) => (
           <div
             key={topic.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              marginBottom: "15px",
-              cursor: "pointer",
-            }}
+            className="glass-card"
+            style={{ marginBottom: "20px", cursor: "pointer" }}
+            onClick={() =>
+              navigate(`/resources?topic=${topic.id}`)
+            }
+          >
+            <h3>{topic.title}</h3>
+
+            <p className="muted">
+              {topic.theoryDescription}
+            </p>
+
+            {topic.theoryCompleted && (
+              <span
+                style={{
+                  color: "#10b981",
+                  fontWeight: 600,
+                }}
+              >
+                ✔ Completed
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* ================= QUIZ SECTION ================= */}
+      <div style={{ marginTop: "60px" }}>
+        <h2 style={{ marginBottom: "20px" }}>
+          🧠 Practice Quiz
+        </h2>
+
+        {topics.map((topic) => (
+          <div
+            key={topic.id}
+            className="glass-card"
+            style={{ marginBottom: "20px", cursor: "pointer" }}
             onClick={() =>
               navigate(`/quiz/${topic.id}`)
             }
           >
-            <h3>{topic.title}</h3>
-            <p>{topic.description}</p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h3>{topic.title} Quiz</h3>
 
-            {stats && (
-              <>
-                <p>
-                  Mastery: {stats.masteryPercent}% (
-                  {stats.masteredCount}/
-                  {stats.totalQuestions})
-                </p>
+              <span
+                style={{
+                  padding: "4px 10px",
+                  borderRadius: "20px",
+                  fontSize: "12px",
+                  background:
+                    topic.difficulty === "Hard"
+                      ? "#ef4444"
+                      : topic.difficulty === "Medium"
+                      ? "#f59e0b"
+                      : "#10b981",
+                  color: "white",
+                }}
+              >
+                {topic.difficulty}
+              </span>
+            </div>
 
-                <p>
-                  Accuracy: {stats.accuracyPercent}%
-                </p>
-
-                <div
-                  style={{
-                    height: "10px",
-                    width: "100%",
-                    background: "#eee",
-                    borderRadius: "5px",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "10px",
-                      width: `${stats.masteryPercent}%`,
-                      background: "green",
-                      borderRadius: "5px",
-                    }}
-                  />
-                </div>
-              </>
-            )}
+            <p className="muted" style={{ marginTop: "6px" }}>
+              Attempt topic-based questions
+            </p>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 };

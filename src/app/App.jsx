@@ -8,8 +8,7 @@ import {
 } from "react-router-dom";
 import routes from "./routes.jsx";
 import { XPProvider } from "../context/XPContext";
-import { AuthProvider } from "../context/AuthContext.jsx";
-import { useAuth } from "../context/AuthContext.jsx";
+import { AuthProvider, useAuth } from "../context/AuthContext.jsx";
 import { QuizProvider } from "../context/QuizContext.jsx";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +17,9 @@ function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
 
   const notifRef = useRef(null);
   const profileRef = useRef(null);
@@ -26,14 +28,23 @@ function AppLayout() {
   const navigate = useNavigate();
   const { logoutUser } = useAuth();
 
+  /* ================= THEME ================= */
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  /* ================= PAGE TITLE ================= */
   const getPageTitle = () => {
     if (location.pathname === "/") return "Dashboard";
-    if (location.pathname.includes("subjects")) return "Subjects";
-    if (location.pathname.includes("leaderboard")) return "Leaderboard";
-    if (location.pathname.includes("quiz")) return "Quiz";
+    if (location.pathname.includes("/subjects")) return "Subjects";
+    if (location.pathname.includes("/quizzes")) return "Quizzes";
+    if (location.pathname.includes("/leaderboard")) return "Leaderboard";
+    if (location.pathname.includes("/quiz/")) return "Quiz";
     return "";
   };
 
+  /* ================= LOGOUT ================= */
   const handleLogout = async () => {
     try {
       await logoutUser();
@@ -43,13 +54,20 @@ function AppLayout() {
     }
   };
 
-  // Close dropdowns on outside click
+  /* ================= CLOSE DROPDOWNS ================= */
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (notifRef.current && !notifRef.current.contains(event.target)) {
+      if (
+        notifRef.current &&
+        !notifRef.current.contains(event.target)
+      ) {
         setShowNotifications(false);
       }
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
         setShowProfileMenu(false);
       }
     };
@@ -61,15 +79,10 @@ function AppLayout() {
 
   return (
     <div className="app-shell">
-
       {/* ================= SIDEBAR ================= */}
       <aside
         className={`sidebar ${collapsed ? "collapsed" : ""}`}
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-        }}
+        style={{ position: "sticky", top: 0, height: "100vh" }}
       >
         <div
           className="sidebar-title"
@@ -85,22 +98,6 @@ function AppLayout() {
           <span>{collapsed ? "➤" : "◀"}</span>
         </div>
 
-        {!collapsed && (
-          <input
-            type="text"
-            placeholder="Search..."
-            style={{
-              padding: "10px 14px",
-              borderRadius: "12px",
-              border: "none",
-              marginBottom: "20px",
-              background: "rgba(255,255,255,0.06)",
-              color: "white",
-              outline: "none",
-            }}
-          />
-        )}
-
         <NavLink to="/" className="sidebar-link">
           Dashboard
         </NavLink>
@@ -109,21 +106,24 @@ function AppLayout() {
           Subjects
         </NavLink>
 
+        <NavLink to="/quizzes" className="sidebar-link">
+          Quizzes
+        </NavLink>
+
         <NavLink to="/leaderboard" className="sidebar-link">
           Leaderboard
         </NavLink>
       </aside>
 
-      {/* ================= MAIN AREA ================= */}
+      {/* ================= MAIN CONTENT ================= */}
       <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-
-        {/* ========== STICKY HEADER ========== */}
+        {/* ================= HEADER ================= */}
         <div
           style={{
             height: "70px",
-            backdropFilter: "blur(20px)",
-            background: "rgba(255,255,255,0.04)",
-            borderBottom: "1px solid rgba(255,255,255,0.05)",
+            backdropFilter: "blur(18px)",
+            background: "var(--bg-glass)",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -133,21 +133,37 @@ function AppLayout() {
             zIndex: 100,
           }}
         >
-          {/* Breadcrumb */}
           <div style={{ fontWeight: 600 }}>
             Home / {getPageTitle()}
           </div>
 
-          {/* Right Side Controls */}
           <div
             style={{
               display: "flex",
-              gap: "20px",
+              gap: "18px",
               alignItems: "center",
               position: "relative",
             }}
           >
-            {/* Notifications */}
+            {/* THEME TOGGLE */}
+            <button
+              onClick={() =>
+                setTheme(theme === "light" ? "dark" : "light")
+              }
+              style={{
+                padding: "6px 14px",
+                borderRadius: "20px",
+                border: "none",
+                cursor: "pointer",
+                background: "var(--bg-glass)",
+                color: "var(--text-primary)",
+                fontSize: "14px",
+              }}
+            >
+              {theme === "light" ? "🌙 Dark" : "☀ Light"}
+            </button>
+
+            {/* NOTIFICATIONS */}
             <div ref={notifRef} style={{ position: "relative" }}>
               <div
                 style={{ cursor: "pointer", fontSize: "18px" }}
@@ -160,34 +176,21 @@ function AppLayout() {
 
               {showNotifications && (
                 <div
+                  className="glass-card"
                   style={{
                     position: "absolute",
                     right: 0,
-                    top: "40px",
+                    top: "45px",
                     width: "280px",
-                    background: "rgba(20,20,25,0.95)",
-                    backdropFilter: "blur(20px)",
-                    borderRadius: "16px",
-                    padding: "16px",
-                    boxShadow:
-                      "0 10px 40px rgba(0,0,0,0.5)",
-                    border:
-                      "1px solid rgba(255,255,255,0.05)",
                   }}
                 >
-                  <p
-                    style={{
-                      marginBottom: "10px",
-                      fontWeight: 600,
-                    }}
-                  >
+                  <p style={{ fontWeight: 600, marginBottom: "12px" }}>
                     Notifications
                   </p>
-
                   <div
                     style={{
                       fontSize: "14px",
-                      color: "#a1a1aa",
+                      color: "var(--text-muted)",
                       lineHeight: "1.6",
                     }}
                   >
@@ -201,7 +204,7 @@ function AppLayout() {
               )}
             </div>
 
-            {/* Profile */}
+            {/* PROFILE MENU */}
             <div ref={profileRef} style={{ position: "relative" }}>
               <div
                 onClick={() =>
@@ -212,41 +215,34 @@ function AppLayout() {
                   height: "38px",
                   borderRadius: "50%",
                   background:
-                    "linear-gradient(90deg,#8b5cf6,#6366f1)",
-                  boxShadow:
-                    "0 0 20px rgba(139,92,246,0.5)",
+                    "linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))",
                   cursor: "pointer",
                 }}
               />
 
               {showProfileMenu && (
                 <div
+                  className="glass-card"
                   style={{
                     position: "absolute",
                     right: 0,
                     top: "50px",
                     width: "200px",
-                    background: "rgba(20,20,25,0.95)",
-                    backdropFilter: "blur(20px)",
-                    borderRadius: "14px",
-                    padding: "12px",
-                    boxShadow:
-                      "0 10px 40px rgba(0,0,0,0.5)",
-                    border:
-                      "1px solid rgba(255,255,255,0.05)",
                   }}
                 >
                   <div style={{ padding: "8px 12px", cursor: "pointer" }}>
                     Profile
                   </div>
+
                   <div style={{ padding: "8px 12px", cursor: "pointer" }}>
                     Settings
                   </div>
+
                   <div
                     style={{
                       padding: "8px 12px",
                       cursor: "pointer",
-                      color: "#ef4444",
+                      color: "var(--danger)",
                     }}
                     onClick={handleLogout}
                   >
@@ -258,7 +254,7 @@ function AppLayout() {
           </div>
         </div>
 
-        {/* ========== PAGE CONTENT WITH ANIMATION ========== */}
+        {/* ================= PAGE TRANSITION ================= */}
         <div style={{ padding: "50px" }}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -280,7 +276,6 @@ function AppLayout() {
             </motion.div>
           </AnimatePresence>
         </div>
-
       </main>
     </div>
   );

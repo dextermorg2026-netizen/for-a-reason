@@ -9,81 +9,245 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Auto redirect if user exists
+  /* ================= AUTO REDIRECT ================= */
   useEffect(() => {
     if (currentUser) {
-      navigate("/dashboard");
+      navigate("/");
     }
   }, [currentUser, navigate]);
 
+  /* ================= SIGNUP ================= */
   const handleSignup = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
       setError("");
       await signupUser(name, email, password);
+      navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Signup failed");
     } finally {
       setLoading(false);
     }
   };
 
+  /* ================= GOOGLE SIGNUP ================= */
   const handleGoogleSignup = async () => {
     try {
+      setError("");
       await signInWithGoogle();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Google signup failed");
     }
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "40px",
+      }}
+    >
+      <div
+        className="glass-card"
+        style={{
+          width: "420px",
+          padding: "40px",
+        }}
+      >
+        <h1
+          className="page-title"
+          style={{ textAlign: "center" }}
+        >
+          Create Account 🚀
+        </h1>
 
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br /><br />
+        <p
+          className="page-subtitle"
+          style={{
+            textAlign: "center",
+            marginBottom: "30px",
+          }}
+        >
+          Start your structured learning journey
+        </p>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br /><br />
+        {/* ERROR MESSAGE */}
+        {error && (
+          <div
+            style={{
+              marginBottom: "20px",
+              padding: "10px 14px",
+              borderRadius: "10px",
+              background: "rgba(239,68,68,0.1)",
+              color: "var(--danger)",
+              fontSize: "14px",
+            }}
+          >
+            {error}
+          </div>
+        )}
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br /><br />
+        <form onSubmit={handleSignup}>
+          {/* NAME */}
+          <div style={{ marginBottom: "20px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "6px",
+                fontSize: "14px",
+                color: "var(--text-muted)",
+              }}
+            >
+              Full Name
+            </label>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Signup"}
-        </button>
-      </form>
+            <input
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "12px 14px",
+                borderRadius: "12px",
+                border: "none",
+                background: "var(--bg-glass)",
+                color: "var(--text-primary)",
+                outline: "none",
+              }}
+            />
+          </div>
 
-      <br />
+          {/* EMAIL */}
+          <div style={{ marginBottom: "20px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "6px",
+                fontSize: "14px",
+                color: "var(--text-muted)",
+              }}
+            >
+              Email
+            </label>
 
-      <button onClick={handleGoogleSignup}>
-        Sign up with Google
-      </button>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "12px 14px",
+                borderRadius: "12px",
+                border: "none",
+                background: "var(--bg-glass)",
+                color: "var(--text-primary)",
+                outline: "none",
+              }}
+            />
+          </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+          {/* PASSWORD */}
+          <div style={{ marginBottom: "25px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "6px",
+                fontSize: "14px",
+                color: "var(--text-muted)",
+              }}
+            >
+              Password
+            </label>
+
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "12px 14px",
+                borderRadius: "12px",
+                border: "none",
+                background: "var(--bg-glass)",
+                color: "var(--text-primary)",
+                outline: "none",
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn-primary"
+            style={{ width: "100%" }}
+            disabled={loading}
+          >
+            {loading ? "Creating Account..." : "Sign Up"}
+          </button>
+        </form>
+
+        {/* DIVIDER */}
+        <div
+          style={{
+            margin: "25px 0",
+            textAlign: "center",
+            fontSize: "14px",
+            color: "var(--text-muted)",
+          }}
+        >
+          — OR —
+        </div>
+
+        {/* GOOGLE SIGNUP */}
+        <button
+            onClick={handleGoogleSignup}
+            style={{
+              width: "100%",
+              padding: "12px",
+              borderRadius: "12px",
+              border: "1px solid var(--accent-primary)",
+              cursor: "pointer",
+              fontWeight: 600,
+              background: "transparent",
+              color: "var(--accent-primary)",
+            }}
+          >
+  Continue with Google
+</button>
+
+        {/* LOGIN LINK */}
+        <p
+          style={{
+            marginTop: "25px",
+            textAlign: "center",
+            fontSize: "14px",
+            color: "var(--text-muted)",
+          }}
+        >
+          Already have an account?{" "}
+          <span
+            style={{
+              color: "var(--accent-primary)",
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

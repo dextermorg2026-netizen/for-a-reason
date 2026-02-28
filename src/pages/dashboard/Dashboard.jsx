@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 import { useXP } from "../../context/XPContext";
+import { useAuth } from "../../context/AuthContext";
+import { getGlobalScore } from "../../services/statsService";
+import {
+  getUserStreak,
+  getWeeklyStats,
+  getCurrentWeekStats,
+} from "../../services/streakService";
+import { getGlobalLeaderboard } from "../../services/leaderboardService";
 import {
   LineChart,
   Line,
@@ -11,40 +19,124 @@ import {
 } from "recharts";
 
 const Dashboard = () => {
-  const stats = {
-    score: 320,
-    rank: 12,
-    quizzes: 24,
-    streak: 5,
-  };
-
+  const { currentUser } = useAuth();
   const { level, progress, totalXP } = useXP();
+
+  const [stats, setStats] = useState({
+    score: 0,
+    rank: null,
+    quizzes: 0,
+    streak: 0,
+  });
+
+  const [performanceData, setPerformanceData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const [animatedScore, setAnimatedScore] = useState(0);
 
-  const performanceData = [
-    { day: "Mon", score: 40 },
-    { day: "Tue", score: 60 },
-    { day: "Wed", score: 80 },
-    { day: "Thu", score: 70 },
-    { day: "Fri", score: 100 },
-    { day: "Sat", score: 120 },
-    { day: "Sun", score: 140 },
-  ];
+  useEffect(() => {
+    let mounted = true;
+
+    const load = async () => {
+      if (!currentUser?.uid) {
+        if (mounted) setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError("");
+
+        const [score, streak, weekly, currentWeek, leaderboard] = await Promise.all([
+          getGlobalScore(currentUser.uid),
+          getUserStreak(currentUser.uid),
+          getWeeklyStats(currentUser.uid),
+          getCurrentWeekStats(currentUser.uid),
+          getGlobalLeaderboard(),
+        ]);
+
+        const safeWeekly = Array.isArray(weekly) ? weekly : [];
+        const quizzes = safeWeekly.reduce((sum, n) => sum + (Number(n) || 0), 0);
+
+        const rankIndex = Array.isArray(leaderboard)
+          ? leaderboard.findIndex((x) => x.userId === currentUser.uid)
+          : -1;
+        const rank = rankIndex >= 0 ? rankIndex + 1 : null;
+
+        if (!mounted) return;
+
+        setStats({
+          score: Number(score) || 0,
+          rank,
+          quizzes,
+          streak: Number(streak) || 0,
+        });
+
+        const safeCurrentWeek = Array.isArray(currentWeek) ? currentWeek : [];
+
+// Force exactly 5 days (Mon–Fri)
+const defaultFiveDays = [
+  { day: "Mon", questions: 0 },
+  { day: "Tue", questions: 0 },
+  { day: "Wed", questions: 0 },
+  { day: "Thu", questions: 0 },
+  { day: "Fri", questions: 0 },
+  { day: "Sat", questions: 0 },
+  { day: "Sun", questions: 0 },
+];
+
+if (safeCurrentWeek.length) {
+  // Ensure only first 5 days are used
+  const formatted = defaultFiveDays.map((d, index) => ({
+    day: d.day,
+    questions: Number(safeCurrentWeek[index]?.questions) || 0,
+  }));
+  setPerformanceData(formatted);
+} else {
+  setPerformanceData(defaultFiveDays);
+}
+      } catch (e) {
+        if (!mounted) return;
+        setError(e?.message || "Failed to load dashboard stats.");
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    load();
+
+    return () => {
+      mounted = false;
+    };
+  }, [currentUser?.uid]);
 
   // Animate score counter
   useEffect(() => {
+    const target = Number(stats.score) || 0;
     let start = 0;
+    setAnimatedScore(0);
+
+    if (target <= 0) return;
+
+    const step = Math.max(1, Math.ceil(target / 120));
     const interval = setInterval(() => {
-      start += 5;
-      if (start >= stats.score) {
-        start = stats.score;
+      start = Math.min(target, start + step);
+      if (start >= target) {
         clearInterval(interval);
       }
       setAnimatedScore(start);
     }, 15);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [stats.score]);
+
+  const maxQuestions = Math.max(
+    0,
+    ...performanceData.map((d) => Number(d.questions) || 0)
+  );
+
+  const yAxisMax = maxQuestions === 0 ? 5 : Math.ceil(maxQuestions);
 
   return (
     <div>
@@ -53,26 +145,32 @@ const Dashboard = () => {
         Track your performance & roadmap
       </p>
 
+      {error && (
+        <div className="glass-card" style={{ marginTop: "30px", color: "#ef4444" }}>
+          {error}
+        </div>
+      )}
+
       {/* ===== Stats Section ===== */}
       <div className="grid-3" style={{ marginTop: "40px" }}>
         <div className="glass-card">
           <p style={{ color: "var(--text-muted)" }}>Total Score</p>
           <h2 style={{ fontSize: "30px", marginTop: "8px" }}>
-            {animatedScore}
+            {loading ? "…" : animatedScore}
           </h2>
         </div>
 
         <div className="glass-card">
           <p style={{ color: "var(--text-muted)" }}>Global Rank</p>
           <h2 style={{ fontSize: "30px", marginTop: "8px" }}>
-            #{stats.rank}
+            {loading ? "…" : (stats.rank == null ? "—" : `#${stats.rank}`)}
           </h2>
         </div>
 
         <div className="glass-card">
           <p style={{ color: "var(--text-muted)" }}>Streak 🔥</p>
           <h2 style={{ fontSize: "30px", marginTop: "8px" }}>
-            {stats.streak} Days
+            {loading ? "…" : `${stats.streak} Days`}
           </h2>
         </div>
       </div>
@@ -133,26 +231,46 @@ const Dashboard = () => {
         </h3>
 
         <ResponsiveContainer width="100%" height="85%">
-          <LineChart data={performanceData}>
-            <CartesianGrid stroke="rgba(255,255,255,0.05)" />
-            <XAxis dataKey="day" stroke="#a1a1aa" />
-            <YAxis stroke="#a1a1aa" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#1e1e25",
-                border: "none",
-                borderRadius: "12px",
-              }}
-            />
-            <Line
-              type="monotone"
-              dataKey="score"
-              stroke="#8b5cf6"
-              strokeWidth={3}
-              dot={{ r: 4 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+  <LineChart
+    data={performanceData}
+    margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+  >
+    {/* Horizontal lines only */}
+    <CartesianGrid
+      stroke="rgba(255,255,255,0.08)"
+      vertical={false}
+    />
+
+    <XAxis
+      dataKey="day"
+      stroke="#a1a1aa"
+    />
+
+<YAxis
+  stroke="#a1a1aa"
+  allowDecimals={false}
+  domain={[0, yAxisMax]}
+  ticks={Array.from({ length: yAxisMax + 1 }, (_, i) => i)}
+/>
+
+    <Tooltip
+      contentStyle={{
+        backgroundColor: "#1e1e25",
+        border: "none",
+        borderRadius: "12px",
+      }}
+      formatter={(value) => `${value} questions`}
+    />
+
+<Line
+  type="linear"
+  dataKey="questions"
+  stroke="#8b5cf6"
+  strokeWidth={3}
+  dot={{ r: 5 }}
+/>
+  </LineChart>
+</ResponsiveContainer>
       </div>
       {/* ===== Achievements Section ===== */}
 <div

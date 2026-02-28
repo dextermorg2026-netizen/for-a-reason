@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { getQuestionsByTopic } from "../../services/subjectService";
+import { getQuestionsByTopic, getTopicById } from "../../services/subjectService";
 import {
   getUserAttemptsByTopic,
   saveQuizAttempt,
@@ -20,6 +20,7 @@ const Quiz = () => {
   const { currentUser } = useAuth();
 
   const [questions, setQuestions] = useState([]);
+  const [subjectId, setSubjectId] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -31,6 +32,9 @@ const Quiz = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        const topic = await getTopicById(topicId);
+        setSubjectId(topic?.subjectId ?? null);
+
         const allQuestions = await getQuestionsByTopic(topicId);
 
         const previousAttempts = await getUserAttemptsByTopic(
@@ -146,6 +150,7 @@ const Quiz = () => {
 
     await saveQuizAttempt({
       userId: currentUser.uid,
+      subjectId,
       topicId,
       correctQuestionIds: correctIds,
       wrongQuestionIds: wrongIds,

@@ -1,8 +1,10 @@
 import { 
   collection, 
   getDocs, 
+  getDoc,
   query, 
-  where 
+  where,
+  doc,
 } from "firebase/firestore";
 
 import { db } from "./firebase";
@@ -43,4 +45,16 @@ export const getQuestionsByTopic = async (topicId) => {
     id: doc.id,
     ...doc.data()
   }));
+};
+
+export const getTopicById = async (topicId) => {
+  const ref = doc(db, "topics", topicId);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) return null;
+
+  return {
+    id: snap.id,
+    ...snap.data(),
+  };
 };

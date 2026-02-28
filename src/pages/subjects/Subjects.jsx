@@ -133,6 +133,15 @@ const Subjects = () => {
 
   return (
     <div>
+      {/* Debug: mark subjects mount */}
+      {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
+      {(() => {
+        try {
+          console.timeEnd('navigate-to-subjects')
+          console.log('Subjects: mounted')
+        } catch (e) {}
+        return null
+      })()}
       <h1 className="page-title">Learning Roadmap</h1>
       <p className="page-subtitle">
         Structured progression to mastery

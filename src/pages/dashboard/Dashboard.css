@@ -1,0 +1,46 @@
+.dashboard-container {
+  padding: 30px;
+}
+
+.heatmap-card {
+  margin-top: 40px;
+  padding: 20px;
+  overflow: visible !important; /* Prevent clipping */
+}
+
+.heatmap-wrapper {
+  position: relative;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 18px);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.heatmap-tile {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.heatmap-tile:hover {
+  transform: scale(1.2);
+}
+
+.heatmap-tooltip {
+  position: fixed;
+  background: #111827;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 999999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  min-width: 120px;
+  text-align: center;
+}

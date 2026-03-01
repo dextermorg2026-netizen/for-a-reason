@@ -1,0 +1,89 @@
+.subjects-container {
+    padding: 30px;
+  }
+  
+  .subjects-status {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  
+  .subjects-status.error {
+    color: #ef4444;
+  }
+  
+  .continue-card {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  
+  .subject-search {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .subject-search-input {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255,255,255,0.06);
+    color: white;
+    outline: none;
+  }
+  
+  .subject-grid {
+    margin-top: 40px;
+  }
+  
+  .subject-card {
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .subject-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .difficulty-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 8px;
+    color: white;
+  }
+  
+  .difficulty-tag.easy {
+    background: #10b981;
+  }
+  
+  .difficulty-tag.medium {
+    background: #f59e0b;
+  }
+  
+  .difficulty-tag.hard {
+    background: #ef4444;
+  }
+  
+  .completed-badge {
+    margin-left: 10px;
+    color: #10b981;
+    font-weight: 600;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    margin-top: 15px;
+  }
+  
+  .progress-fill {
+    height: 6px;
+    border-radius: 6px;
+    background: linear-gradient(
+      90deg,
+      #6366f1,
+      #4f46e5
+    );
+  }

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllSubjects } from "../../services/subjectService";
+import { getLastAttemptedSubject } from "../../services/statsService";
+import { useAuth } from "../../context/AuthContext";
 
 const DUMMY_SUBJECTS = [
   {
@@ -43,9 +45,11 @@ const DUMMY_SUBJECTS = [
 
 const Subjects = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const { currentUser } = useAuth();
 
+  const [search, setSearch] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [lastAttempt, setLastAttempt] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -53,14 +57,12 @@ const Subjects = () => {
     let mounted = true;
 
     const normalizeDifficulty = (value) => {
-      if (value == null) return "Medium";
-      const raw = String(value).trim();
-      if (!raw) return "Medium";
-      const lower = raw.toLowerCase();
-      if (lower === "easy" || lower === "medium" || lower === "hard") {
-        return lower[0].toUpperCase() + lower.slice(1);
+      if (!value) return "Medium";
+      const lower = String(value).toLowerCase();
+      if (["easy", "medium", "hard"].includes(lower)) {
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
       }
-      return raw;
+      return value;
     };
 
     const clampProgress = (value) => {
@@ -69,13 +71,19 @@ const Subjects = () => {
       return Math.max(0, Math.min(100, n));
     };
 
-    const load = async () => {
+    const loadSubjects = async () => {
       try {
         setLoading(true);
         setError("");
 
         const rawSubjects = await getAllSubjects();
-        const normalizedBackendSubjects = rawSubjects.map((s) => {
+
+        let last = null;
+        if (currentUser?.uid) {
+          last = await getLastAttemptedSubject(currentUser.uid);
+        }
+
+        const normalizedBackendSubjects = (rawSubjects || []).map((s) => {
           const progress = clampProgress(s.progress ?? s.xpProgress ?? 0);
           const completed =
             typeof s.completed === "boolean" ? s.completed : progress >= 100;
@@ -92,74 +100,76 @@ const Subjects = () => {
           };
         });
 
-        // Keep backend subjects first, then dummy subjects (helps while backend has few entries).
-        // Avoid duplicates by title (case-insensitive).
         const backendTitles = new Set(
-          normalizedBackendSubjects.map((s) => s.title.trim().toLowerCase())
+          normalizedBackendSubjects.map((s) =>
+            s.title.trim().toLowerCase()
+          )
         );
+
         const dummySubjects = DUMMY_SUBJECTS.filter(
           (s) => !backendTitles.has(s.title.trim().toLowerCase())
         );
 
         const merged = [...normalizedBackendSubjects, ...dummySubjects];
 
-        if (mounted) setSubjects(merged);
-      } catch (e) {
-        if (mounted) setError(e?.message || "Failed to load subjects.");
+        if (mounted) {
+          setSubjects(merged);
+          setLastAttempt(last);
+        }
+      } catch (err) {
+        if (mounted) {
+          setError(err?.message || "Failed to load subjects.");
+        }
       } finally {
-        if (mounted) setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     };
 
-    load();
+    loadSubjects();
 
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [currentUser]);
 
   const filteredSubjects = useMemo(() => {
     const searchLower = search.trim().toLowerCase();
-
-    return subjects.filter((subject) => {
-      const matchesSearch = subject.title.toLowerCase().includes(searchLower);
-      return matchesSearch;
-    });
+    return subjects.filter((subject) =>
+      subject.title.toLowerCase().includes(searchLower)
+    );
   }, [subjects, search]);
 
-  const continueSubject = subjects.find(
-    (s) => s.progress > 0 && s.progress < 100
-  );
+  const continueSubject = lastAttempt
+    ? subjects.find((s) => s.id === lastAttempt.subjectId)
+    : null;
 
   return (
     <div>
-      {/* Debug: mark subjects mount */}
-      {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
-      {(() => {
-        try {
-          console.timeEnd('navigate-to-subjects')
-          console.log('Subjects: mounted')
-        } catch (e) {}
-        return null
-      })()}
       <h1 className="page-title">Learning Roadmap</h1>
       <p className="page-subtitle">
         Structured progression to mastery
       </p>
 
+      {/* Loading */}
       {loading && (
         <div className="glass-card" style={{ marginTop: "30px" }}>
           Loading subjects...
         </div>
       )}
 
+      {/* Error */}
       {!loading && error && (
-        <div className="glass-card" style={{ marginTop: "30px", color: "#ef4444" }}>
+        <div
+          className="glass-card"
+          style={{ marginTop: "30px", color: "#ef4444" }}
+        >
           {error}
         </div>
       )}
 
-      {/* ===== Continue Learning Section ===== */}
+      {/* Continue Section */}
       {!loading && !error && continueSubject && (
         <div className="glass-card" style={{ marginTop: "30px" }}>
           <h3>Continue Where You Left Off</h3>
@@ -177,8 +187,7 @@ const Subjects = () => {
               style={{
                 height: "6px",
                 width: `${continueSubject.progress}%`,
-                background:
-                  "linear-gradient(90deg,#6366f1,#4f46e5)",
+                background: "linear-gradient(90deg,#6366f1,#4f46e5)",
                 borderRadius: "6px",
               }}
             />
@@ -196,105 +205,103 @@ const Subjects = () => {
         </div>
       )}
 
-      {/* ===== Search ===== */}
-      <div
-        style={{
-          marginTop: "40px",
-          display: "flex",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search subjects..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+      {/* Search */}
+      {!loading && !error && (
+        <div
           style={{
-            padding: "10px 14px",
-            borderRadius: "12px",
-            border: "none",
-            background: "rgba(255,255,255,0.06)",
-            color: "white",
-            outline: "none",
+            marginTop: "40px",
+            display: "flex",
+            gap: "20px",
+            alignItems: "center",
           }}
-        />
-      </div>
-
-      {/* ===== Subject Grid ===== */}
-      <div
-        className="grid-3"
-        style={{ marginTop: "40px" }}
-      >
-        {!loading && !error && filteredSubjects.map((subject) => (
-          <div
-            key={subject.id}
-            className="glass-card"
+        >
+          <input
+            type="text"
+            placeholder="Search subjects..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             style={{
-              cursor: "pointer",
-              transition: "all 0.3s ease",
+              padding: "10px 14px",
+              borderRadius: "12px",
+              border: "none",
+              background: "rgba(255,255,255,0.06)",
+              color: "white",
+              outline: "none",
             }}
-            onClick={() => navigate(`/subjects/${subject.id}/topics`)}
-          >
-            <h3>{subject.title}</h3>
-            <p className="muted">
-              {subject.description}
-            </p>
+          />
+        </div>
+      )}
 
-            {/* Difficulty Tag */}
-            <span
+      {/* Subjects Grid */}
+      <div className="grid-3" style={{ marginTop: "40px" }}>
+        {!loading &&
+          !error &&
+          filteredSubjects.map((subject) => (
+            <div
+              key={subject.id}
+              className="glass-card"
               style={{
-                display: "inline-block",
-                padding: "4px 10px",
-                borderRadius: "20px",
-                fontSize: "12px",
-                marginTop: "8px",
-                background:
-                  subject.difficulty === "Hard"
-                    ? "#ef4444"
-                    : subject.difficulty === "Medium"
-                    ? "#f59e0b"
-                    : "#10b981",
-                color: "white",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
               }}
+              onClick={() =>
+                navigate(`/subjects/${subject.id}/topics`)
+              }
             >
-              {subject.difficulty}
-            </span>
+              <h3>{subject.title}</h3>
+              <p className="muted">{subject.description}</p>
 
-            {/* Completed Badge */}
-            {subject.completed && (
               <span
                 style={{
-                  marginLeft: "10px",
-                  color: "#10b981",
-                  fontWeight: 600,
+                  display: "inline-block",
+                  padding: "4px 10px",
+                  borderRadius: "20px",
+                  fontSize: "12px",
+                  marginTop: "8px",
+                  background:
+                    subject.difficulty === "Hard"
+                      ? "#ef4444"
+                      : subject.difficulty === "Medium"
+                      ? "#f59e0b"
+                      : "#10b981",
+                  color: "white",
                 }}
               >
-                ✔ Completed
+                {subject.difficulty}
               </span>
-            )}
 
-            {/* Progress Bar */}
-            <div
-              style={{
-                height: "6px",
-                background: "#e5e7eb",
-                borderRadius: "6px",
-                marginTop: "15px",
-              }}
-            >
+              {subject.completed && (
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    color: "#10b981",
+                    fontWeight: 600,
+                  }}
+                >
+                  ✔ Completed
+                </span>
+              )}
+
               <div
                 style={{
                   height: "6px",
-                  width: `${subject.progress}%`,
-                  background:
-                    "linear-gradient(90deg,#6366f1,#4f46e5)",
+                  background: "#e5e7eb",
                   borderRadius: "6px",
+                  marginTop: "15px",
                 }}
-              />
+              >
+                <div
+                  style={{
+                    height: "6px",
+                    width: `${subject.progress}%`,
+                    background:
+                      "linear-gradient(90deg,#6366f1,#4f46e5)",
+                    borderRadius: "6px",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

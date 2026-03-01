@@ -1,3 +1,7 @@
+/* =========================
+   Page Layout
+========================= */
+
 .subjects-container {
     padding: 30px;
   }
@@ -11,10 +15,33 @@
     color: #ef4444;
   }
   
+  
+  /* =========================
+     Continue Card
+  ========================= */
+  
   .continue-card {
     margin-top: 30px;
-    padding: 20px;
+    padding: 24px;
   }
+  
+  .continue-title {
+    margin-bottom: 8px;
+  }
+  
+  .continue-subject {
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  
+  .continue-btn {
+    margin-top: 15px;
+  }
+  
+  
+  /* =========================
+     Search
+  ========================= */
   
   .subject-search {
     margin-top: 40px;
@@ -29,27 +56,61 @@
     background: rgba(255,255,255,0.06);
     color: white;
     outline: none;
+    width: 260px;
   }
+  
+  .subject-search-input::placeholder {
+    color: var(--text-muted);
+  }
+  
+  
+  /* =========================
+     Grid
+  ========================= */
   
   .subject-grid {
     margin-top: 40px;
   }
   
+  
+  /* =========================
+     Subject Card
+  ========================= */
+  
   .subject-card {
     cursor: pointer;
     transition: 0.3s ease;
+    padding: 22px;
   }
   
   .subject-card:hover {
     transform: translateY(-4px);
   }
   
+  .subject-title {
+    margin-bottom: 6px;
+  }
+  
+  .subject-description {
+    margin-bottom: 10px;
+  }
+  
+  .subject-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  
+  /* =========================
+     Difficulty Tag
+  ========================= */
+  
   .difficulty-tag {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 12px;
-    margin-top: 8px;
     color: white;
   }
   
@@ -65,17 +126,27 @@
     background: #ef4444;
   }
   
+  
+  /* =========================
+     Completed Badge
+  ========================= */
+  
   .completed-badge {
-    margin-left: 10px;
     color: #10b981;
     font-weight: 600;
   }
+  
+  
+  /* =========================
+     Progress Bar
+  ========================= */
   
   .progress-bar {
     height: 6px;
     background: #e5e7eb;
     border-radius: 6px;
     margin-top: 15px;
+    overflow: hidden;
   }
   
   .progress-fill {
@@ -86,4 +157,5 @@
       #6366f1,
       #4f46e5
     );
+    transition: width 0.4s ease;
   }

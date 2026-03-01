@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllSubjects } from "../../services/subjectService";
+import { getLastAttemptedSubject } from "../../services/statsService";
+import { useAuth } from "../../context/AuthContext";
 
 import ContinueLearningCard from "./components/ContinueLearningCard";
 import SubjectSearch from "./components/SubjectSearch";
@@ -10,8 +12,11 @@ import "./Subjects.css";
 
 const Subjects = () => {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
   const [search, setSearch] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [lastAttempt, setLastAttempt] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -33,15 +38,20 @@ const Subjects = () => {
       return Math.max(0, Math.min(100, n));
     };
 
-    const load = async () => {
+    const loadSubjects = async () => {
       try {
         setLoading(true);
         setError("");
 
         const raw = await getAllSubjects();
 
-        const normalized = raw.map((s) => {
-          const progress = clampProgress(s.progress ?? 0);
+        let last = null;
+        if (currentUser?.uid) {
+          last = await getLastAttemptedSubject(currentUser.uid);
+        }
+
+        const normalized = (raw || []).map((s) => {
+          const progress = clampProgress(s.progress ?? s.xpProgress ?? 0);
           const completed =
             typeof s.completed === "boolean"
               ? s.completed
@@ -54,22 +64,29 @@ const Subjects = () => {
             progress,
             completed,
             description:
-              s.description ?? "No description available",
+              s.description ?? s.desc ?? "No description available",
           };
         });
 
-        if (mounted) setSubjects(normalized);
+        if (mounted) {
+          setSubjects(normalized);
+          setLastAttempt(last);
+        }
       } catch (e) {
-        if (mounted)
+        if (mounted) {
           setError(e?.message || "Failed to load subjects.");
+        }
       } finally {
         if (mounted) setLoading(false);
       }
     };
 
-    load();
-    return () => (mounted = false);
-  }, []);
+    loadSubjects();
+
+    return () => {
+      mounted = false;
+    };
+  }, [currentUser]);
 
   const filteredSubjects = useMemo(() => {
     const lower = search.trim().toLowerCase();
@@ -78,9 +95,9 @@ const Subjects = () => {
     );
   }, [subjects, search]);
 
-  const continueSubject = subjects.find(
-    (s) => s.progress > 0 && s.progress < 100
-  );
+  const continueSubject = lastAttempt
+    ? subjects.find((s) => s.id === lastAttempt.subjectId)
+    : null;
 
   return (
     <div className="subjects-container">

@@ -59,7 +59,7 @@ const ActivityHeatmap = ({
     <>
       <div className="glass-card heatmap-card">
         <h3 className="heatmap-title">
-          Activity Heatmap (28 days)
+          Activity Heatmap ( past 4 weeks data)
         </h3>
 
         <div className="heatmap-wrapper">

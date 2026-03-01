@@ -7,22 +7,27 @@ const SubjectCard = ({ subject, onClick }) => {
         className="glass-card subject-card"
         onClick={onClick}
       >
-        <h3>{subject.title}</h3>
-        <p className="muted">
+        <h3 className="subject-title">
+          {subject.title}
+        </h3>
+  
+        <p className="muted subject-description">
           {subject.description}
         </p>
   
-        <span
-          className={`difficulty-tag ${difficultyClass}`}
-        >
-          {subject.difficulty}
-        </span>
-  
-        {subject.completed && (
-          <span className="completed-badge">
-            ✔ Completed
+        <div className="subject-meta">
+          <span
+            className={`difficulty-tag ${difficultyClass}`}
+          >
+            {subject.difficulty}
           </span>
-        )}
+  
+          {subject.completed && (
+            <span className="completed-badge">
+              ✔ Completed
+            </span>
+          )}
+        </div>
   
         <div className="progress-bar">
           <div

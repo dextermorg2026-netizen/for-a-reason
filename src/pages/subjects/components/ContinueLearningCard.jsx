@@ -1,8 +1,13 @@
 const ContinueLearningCard = ({ subject, onResume }) => {
     return (
       <div className="glass-card continue-card">
-        <h3>Continue Where You Left Off</h3>
-        <p>{subject.title}</p>
+        <h3 className="continue-title">
+          Continue Where You Left Off
+        </h3>
+  
+        <p className="continue-subject">
+          {subject.title}
+        </p>
   
         <div className="progress-bar">
           <div
@@ -12,7 +17,7 @@ const ContinueLearningCard = ({ subject, onResume }) => {
         </div>
   
         <button
-          className="btn-primary"
+          className="btn-primary continue-btn"
           onClick={onResume}
         >
           Resume

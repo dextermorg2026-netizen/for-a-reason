@@ -6,6 +6,14 @@ const SubjectCard = ({ subject, onClick }) => {
       <div
         className="glass-card subject-card"
         onClick={onClick}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        tabIndex={0}
+        role="button"
       >
         <h3 className="subject-title">
           {subject.title}

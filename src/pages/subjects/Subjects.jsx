@@ -19,6 +19,7 @@ const Subjects = () => {
   const [lastAttempt, setLastAttempt] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [retryTrigger, setRetryTrigger] = useState(0);
 
   useEffect(() => {
     let mounted = true;
@@ -86,7 +87,7 @@ const Subjects = () => {
     return () => {
       mounted = false;
     };
-  }, [currentUser]);
+  }, [currentUser, retryTrigger]);
 
   const filteredSubjects = useMemo(() => {
     const lower = search.trim().toLowerCase();
@@ -107,14 +108,33 @@ const Subjects = () => {
       </p>
 
       {loading && (
-        <div className="glass-card subjects-status">
-          Loading subjects...
+        <div className="subject-grid" aria-busy="true">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="glass-card subject-card">
+              <div className="skeleton skeleton-title" />
+              <div className="skeleton skeleton-text" style={{ width: "90%", marginTop: 8 }} />
+              <div className="skeleton skeleton-text" style={{ width: "60%", marginTop: 4 }} />
+              <div className="skeleton skeleton-progress" />
+            </div>
+          ))}
         </div>
       )}
 
       {!loading && error && (
         <div className="glass-card subjects-status error">
-          {error}
+          <p>{error}</p>
+          <button
+            type="button"
+            className="btn-primary"
+            style={{ marginTop: 16 }}
+            onClick={() => {
+              setError("");
+              setLoading(true);
+              setRetryTrigger((t) => t + 1);
+            }}
+          >
+            Retry
+          </button>
         </div>
       )}
 
@@ -127,14 +147,39 @@ const Subjects = () => {
         />
       )}
 
-      <SubjectSearch value={search} onChange={setSearch} />
+      {!loading && !error && (
+        <>
+          <SubjectSearch
+            value={search}
+            onChange={setSearch}
+            resultCount={filteredSubjects.length}
+            totalCount={subjects.length}
+          />
 
-      <SubjectGrid
-        subjects={filteredSubjects}
-        onSelect={(id) =>
-          navigate(`/subjects/${id}/topics`)
-        }
-      />
+          {filteredSubjects.length === 0 && subjects.length > 0 ? (
+            <div className="empty-state">
+              <p className="empty-state-title">No subjects match your search</p>
+              <p>Try a different term or clear the search to see all subjects.</p>
+              <div className="empty-state-actions">
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={() => setSearch("")}
+                >
+                  Clear search
+                </button>
+              </div>
+            </div>
+          ) : (
+            <SubjectGrid
+              subjects={filteredSubjects}
+              onSelect={(id) =>
+                navigate(`/subjects/${id}/topics`)
+              }
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

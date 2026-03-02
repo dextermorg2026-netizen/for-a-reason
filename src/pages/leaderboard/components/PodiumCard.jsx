@@ -1,4 +1,4 @@
-const PodiumCard = ({ user, rank, score, getInitials, large }) => {
+const PodiumCard = ({ user, rank, getInitials, large }) => {
     const size = large ? 130 : 100;
   
     const rankColor =
@@ -25,7 +25,7 @@ const PodiumCard = ({ user, rank, score, getInitials, large }) => {
               border: `4px solid ${rankColor}`,
             }}
           >
-            {getInitials(user.name)}
+            {getInitials(user?.name)}
           </div>
   
           <div
@@ -37,9 +37,11 @@ const PodiumCard = ({ user, rank, score, getInitials, large }) => {
         </div>
   
         <div className="glass-card podium-info-card">
-          <h3>{user.name}</h3>
+          <h3>{user?.name || "Unknown"}</h3>
+  
+          {/* 🔥 NOW USING COINS */}
           <p className="podium-score">
-            {score} Correct
+            🪙 {user?.coins ?? 0} Coins
           </p>
         </div>
       </div>

@@ -10,17 +10,17 @@ const LeaderboardTable = ({ users, loading }) => {
             No entries yet for this subject.
           </div>
         ) : (
-          users.map((user, index) => (
+          users.map((user) => (
             <div
               key={user.id}
               className="leaderboard-row"
             >
               <span>
-                #{index + 4} {user.name}
+                #{user.rank} {user.name}
               </span>
   
               <span className="leaderboard-score">
-                {user.score} Correct
+                🪙 {user.coins} Coins
               </span>
             </div>
           ))

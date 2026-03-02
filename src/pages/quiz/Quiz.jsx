@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useCoins } from "../../context/CoinContext"; // ✅ ADDED
 import { getQuestionsByTopic, getTopicById } from "../../services/subjectService";
 import {
   getUserAttemptsByTopic,
@@ -18,6 +19,7 @@ const Quiz = () => {
   const { topicId } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { addCoins } = useCoins(); // ✅ ADDED
 
   const [questions, setQuestions] = useState([]);
   const [subjectId, setSubjectId] = useState(null);
@@ -134,38 +136,47 @@ const Quiz = () => {
     setCurrentIndex((prev) => prev + 1);
   };
 
-  const handleFinalSubmit = async () => {
-    const correctIds = [];
-    const wrongIds = [];
+  // ================= FINAL SUBMIT =================
+// ================= FINAL SUBMIT =================
+const handleFinalSubmit = async () => {
+  const correctIds = [];
+  const wrongIds = [];
 
-    questions.forEach((q) => {
-      if (answers[q.id] === q.correctAnswer) {
-        correctIds.push(q.id);
-      } else {
-        wrongIds.push(q.id);
-      }
-    });
+  questions.forEach((q) => {
+    if (answers[q.id] === q.correctAnswer) {
+      correctIds.push(q.id);
+    } else {
+      wrongIds.push(q.id);
+    }
+  });
 
-    const score = correctIds.length;
+  const score = correctIds.length;
 
-    await saveQuizAttempt({
-      userId: currentUser.uid,
-      subjectId,
-      topicId,
-      correctQuestionIds: correctIds,
-      wrongQuestionIds: wrongIds,
+  // 🔥 10 coins per correct answer
+  const coinsEarned = score * 10;
+
+  // ✅ PASS subjectId HERE (CRITICAL FIX)
+  await addCoins(coinsEarned, subjectId);
+
+  await saveQuizAttempt({
+    userId: currentUser.uid,
+    subjectId,
+    topicId,
+    correctQuestionIds: correctIds,
+    wrongQuestionIds: wrongIds,
+    score,
+    createdAt: new Date(),
+  });
+
+  navigate("/quiz/result", {
+    state: {
       score,
-      createdAt: new Date(),
-    });
-
-    navigate("/quiz/result", {
-      state: {
-        score,
-        total: questions.length,
-      },
-      replace: true,
-    });
-  };
+      total: questions.length,
+      coinsEarned,
+    },
+    replace: true,
+  });
+};
 
   // ================= REVIEW SCREEN =================
   if (showReviewScreen) {
@@ -242,7 +253,6 @@ const Quiz = () => {
       <h1 className="page-title">Topic Quiz</h1>
 
       <div className="page-card" style={{ marginTop: "2rem" }}>
-        {/* TIMER */}
         <div style={{ width: "80px", marginBottom: "20px" }}>
           <CircularProgressbar
             value={(timeLeft / QUESTION_TIME) * 100}

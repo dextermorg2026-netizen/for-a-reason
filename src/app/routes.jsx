@@ -4,6 +4,7 @@ import Signup from '../pages/auth/Signup.jsx'
 
 import Subjects from '../pages/subjects/Subjects.jsx'
 import SubjectTheoryPage from '../pages/subjects/SubjectTheoryPage.jsx'
+import Topics from '../pages/subjects/Topics.jsx' // ✅ ADDED
 
 import Quiz from '../pages/quiz/Quiz.jsx'
 import Result from '../pages/quiz/Result.jsx'
@@ -22,14 +23,8 @@ import ProtectedRoute from '../components/common/ProtectedRoute.jsx'
 const routes = [
 
   // ================= PUBLIC ROUTES =================
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-  },
+  { path: '/login', element: <Login /> },
+  { path: '/signup', element: <Signup /> },
 
   // ================= PROTECTED ROUTES =================
 
@@ -53,12 +48,21 @@ const routes = [
     ),
   },
 
-  // Direct theory page
   {
     path: '/subjects/:subjectId',
     element: (
       <ProtectedRoute>
         <SubjectTheoryPage />
+      </ProtectedRoute>
+    ),
+  },
+
+  // ✅ FIXED ROUTE (THIS WAS MISSING)
+  {
+    path: '/subjects/:subjectId/topics',
+    element: (
+      <ProtectedRoute>
+        <Topics />
       </ProtectedRoute>
     ),
   },

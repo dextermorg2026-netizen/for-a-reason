@@ -1,53 +1,63 @@
-import { useEffect, useState } from 'react'
-import { getSubjectLeaderboard } from '../services/leaderboardService'
-import { getUserProfile } from '../services/userService'
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 export function useLeaderboard(subjectId) {
-  const [entries, setEntries] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!subjectId) {
-      setEntries([])
-      return
+      setEntries([]);
+      return;
     }
 
-    let cancelled = false
+    let cancelled = false;
 
     const load = async () => {
-      setLoading(true)
+      setLoading(true);
+
       try {
-        const data = await getSubjectLeaderboard(subjectId)
+        const snapshot = await getDocs(collection(db, "users"));
 
-        const enriched = await Promise.all(
-          data.map(async (row, idx) => {
-            const profile = await getUserProfile(row.userId)
-            return {
-              id: row.userId,
-              name: profile?.name || 'Unknown',
-              score: row.totalScore,
-              rank: idx + 1,
-            }
-          })
-        )
+        const users = snapshot.docs.map((doc) => {
+          const data = doc.data();
 
-        if (!cancelled) setEntries(enriched)
+          const subjectCoins =
+            data?.subjectCoins?.[subjectId] ?? 0;
+
+          return {
+            id: doc.id,
+            name: data?.name || "Unknown",
+            coins: subjectCoins,
+          };
+        });
+
+        // 🔥 SORT ONLY (no filtering)
+        users.sort((a, b) => b.coins - a.coins);
+
+        const ranked = users.map((user, index) => ({
+          ...user,
+          rank: index + 1,
+        }));
+
+        if (!cancelled) setEntries(ranked);
       } catch (err) {
-        if (!cancelled) setEntries([])
+        console.error(err);
+        if (!cancelled) setEntries([]);
       } finally {
-        if (!cancelled) setLoading(false)
+        if (!cancelled) setLoading(false);
       }
-    }
+    };
 
-    load()
+    load();
 
     return () => {
-      cancelled = true
-    }
-  }, [subjectId])
+      cancelled = true;
+    };
+  }, [subjectId]);
 
-  return { entries, loading }
+  return { entries, loading };
 }
 
-export default useLeaderboard
-
+export default useLeaderboard;

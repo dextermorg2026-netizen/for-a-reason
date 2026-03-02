@@ -10,6 +10,7 @@ import routes from "./routes.jsx";
 import { XPProvider } from "../context/XPContext";
 import { AuthProvider, useAuth } from "../context/AuthContext.jsx";
 import { QuizProvider } from "../context/QuizContext.jsx";
+import { CoinProvider, useCoins } from "../context/CoinContext";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -27,6 +28,7 @@ function AppLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const { logoutUser } = useAuth();
+  const { coins } = useCoins(); // 🪙 Coins
 
   /* ================= THEME ================= */
   useEffect(() => {
@@ -57,17 +59,11 @@ function AppLayout() {
   /* ================= CLOSE DROPDOWNS ================= */
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        notifRef.current &&
-        !notifRef.current.contains(event.target)
-      ) {
+      if (notifRef.current && !notifRef.current.contains(event.target)) {
         setShowNotifications(false);
       }
 
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target)
-      ) {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
         setShowProfileMenu(false);
       }
     };
@@ -133,10 +129,12 @@ function AppLayout() {
             zIndex: 100,
           }}
         >
+          {/* LEFT TITLE + COINS */}
           <div style={{ fontWeight: 600 }}>
-            Home / {getPageTitle()}
+            Home / {getPageTitle()} • 🪙 {coins}
           </div>
 
+          {/* RIGHT CONTROLS */}
           <div
             style={{
               display: "flex",
@@ -287,7 +285,9 @@ function App() {
       <AuthProvider>
         <QuizProvider>
           <XPProvider>
-            <AppLayout />
+            <CoinProvider>
+              <AppLayout />
+            </CoinProvider>
           </XPProvider>
         </QuizProvider>
       </AuthProvider>

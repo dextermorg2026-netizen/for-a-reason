@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import { useEffect, useMemo, useState } from "react";
 
-const WeeklyPerformance = ({ performanceData }) => {
+const WeeklyPerformance = ({ performanceData = [] }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,29 +17,36 @@ const WeeklyPerformance = ({ performanceData }) => {
     return () => clearTimeout(t);
   }, []);
 
+  /* ================= CALCULATIONS ================= */
+
   const totalQuestions = useMemo(() => {
     return performanceData.reduce(
-      (sum, d) => sum + (Number(d.questions) || 0),
+      (sum, d) => sum + (Number(d?.questions) || 0),
       0
     );
   }, [performanceData]);
 
   const bestDay = useMemo(() => {
     if (!performanceData.length) return null;
+
     return performanceData.reduce((prev, curr) =>
-      curr.questions > prev.questions ? curr : prev
+      Number(curr?.questions) > Number(prev?.questions)
+        ? curr
+        : prev
     );
   }, [performanceData]);
 
   const maxQuestions = Math.max(
     0,
-    ...performanceData.map((d) => Number(d.questions) || 0)
+    ...performanceData.map((d) => Number(d?.questions) || 0)
   );
 
   const yAxisMax =
     maxQuestions === 0 ? 5 : Math.ceil(maxQuestions);
 
   const isEmpty = totalQuestions === 0;
+
+  /* ================= UI ================= */
 
   return (
     <div className="glass-card weekly-card">
@@ -51,7 +58,7 @@ const WeeklyPerformance = ({ performanceData }) => {
         <p className="weekly-subtitle">
           {isEmpty
             ? "Start practicing to see your growth 📈"
-            : `Best day: ${bestDay.day} (${bestDay.questions} questions)`}
+            : `Best day: ${bestDay?.day} (${bestDay?.questions} questions)`}
         </p>
       </div>
 
@@ -109,13 +116,23 @@ const WeeklyPerformance = ({ performanceData }) => {
               dataKey="questions"
               stroke="#8b5cf6"
               strokeWidth={3}
-              dot={({ payload }) => ({
-                r:
-                  payload.questions ===
-                  bestDay?.questions
-                    ? 6
-                    : 4,
-              })}
+              dot={(props) => {
+                const { cx, cy, payload } = props;
+                const isBest =
+                  Number(payload?.questions) ===
+                  Number(bestDay?.questions);
+
+                return (
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={isBest ? 6 : 4}
+                    fill="#8b5cf6"
+                    stroke="#ffffff"
+                    strokeWidth={isBest ? 2 : 1}
+                  />
+                );
+              }}
               activeDot={{
                 r: 7,
                 strokeWidth: 2,

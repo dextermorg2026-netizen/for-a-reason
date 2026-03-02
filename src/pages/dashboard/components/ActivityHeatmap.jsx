@@ -1,16 +1,29 @@
+import { useEffect, useState } from "react";
+
 const ActivityHeatmap = ({
   last28,
   loading,
   hoverInfo,
   setHoverInfo,
 }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setMounted(true);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
   if (loading) {
     return (
       <div className="glass-card heatmap-card">
         <h3 className="heatmap-title">
-          Activity Heatmap (28 days)
+          Activity
         </h3>
-        <div className="muted">Loading activity…</div>
+        <div className="muted">
+          Loading activity…
+        </div>
       </div>
     );
   }
@@ -21,6 +34,8 @@ const ActivityHeatmap = ({
       : new Array(28).fill(0);
 
   const max = Math.max(...countsArr, 1);
+
+  const today = new Date().toDateString();
 
   const theme =
     typeof document !== "undefined"
@@ -55,26 +70,50 @@ const ActivityHeatmap = ({
     return palette[Math.min(palette.length - 1, step)];
   };
 
+  const totalActivity = countsArr.reduce(
+    (a, b) => a + b,
+    0
+  );
+
   return (
     <>
       <div className="glass-card heatmap-card">
-        <h3 className="heatmap-title">
-          Activity Heatmap ( past 4 weeks data)
-        </h3>
+        <div className="heatmap-header">
+          <h3 className="heatmap-title">
+            Activity (Last 4 Weeks)
+          </h3>
+          <p className="heatmap-subtitle">
+            {totalActivity > 0
+              ? `${totalActivity} total submissions`
+              : "Start practicing to build your streak 🚀"}
+          </p>
+        </div>
 
         <div className="heatmap-wrapper">
           <div className="heatmap-grid">
             {countsArr.map((cnt, i) => {
               const dayObj = last28[i];
               const safeDate = dayObj?.date || null;
+              const isToday =
+                safeDate &&
+                new Date(safeDate).toDateString() ===
+                  today;
 
               return (
                 <div
                   key={i}
-                  className="heatmap-tile"
+                  className={`heatmap-tile ${
+                    mounted ? "tile-visible" : ""
+                  } ${
+                    isToday ? "heatmap-today" : ""
+                  }`}
                   style={{
                     background: getColor(cnt),
+                    animationDelay: `${i * 20}ms`,
                   }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${cnt} submissions`}
                   onMouseEnter={(e) =>
                     setHoverInfo({
                       index: i,
@@ -98,27 +137,55 @@ const ActivityHeatmap = ({
                   onMouseLeave={() =>
                     setHoverInfo(null)
                   }
+                  onFocus={(e) =>
+                    setHoverInfo({
+                      index: i,
+                      count: cnt,
+                      date: safeDate,
+                      x:
+                        e.target.getBoundingClientRect()
+                          .left,
+                      y:
+                        e.target.getBoundingClientRect()
+                          .top,
+                    })
+                  }
+                  onBlur={() =>
+                    setHoverInfo(null)
+                  }
                 />
               );
             })}
           </div>
+
+          {/* Legend */}
+          <div className="heatmap-legend">
+            <span>Less</span>
+            {palette.map((color, i) => (
+              <div
+                key={i}
+                className="heatmap-legend-box"
+                style={{ background: color }}
+              />
+            ))}
+            <span>More</span>
+          </div>
         </div>
       </div>
 
-      {/* Tooltip OUTSIDE glass-card to prevent clipping */}
       {hoverInfo && (
         <div
-          className="heatmap-tooltip"
+          className="heatmap-tooltip heatmap-tooltip-visible"
           style={{
             left: hoverInfo.x + 12,
             top: hoverInfo.y + 12,
           }}
         >
-          <strong className="heatmap-tooltip-count">
+          <strong>
             {hoverInfo.count}
           </strong>
 
-          <div className="heatmap-tooltip-text">
+          <div>
             {hoverInfo.count === 1
               ? "submission"
               : "submissions"}

@@ -2,6 +2,13 @@ const SubjectCard = ({ subject, onClick }) => {
     const difficultyClass =
       subject.difficulty.toLowerCase();
   
+    const actionLabel =
+      subject.progress > 0 && subject.progress < 100
+        ? "Continue"
+        : subject.completed
+        ? "Review"
+        : "Start";
+  
     return (
       <div
         className="glass-card subject-card"
@@ -15,33 +22,52 @@ const SubjectCard = ({ subject, onClick }) => {
         tabIndex={0}
         role="button"
       >
-        <h3 className="subject-title">
-          {subject.title}
-        </h3>
+        {/* Top Accent Bar */}
+        <div className="subject-accent" />
   
-        <p className="muted subject-description">
-          {subject.description}
-        </p>
+        <div className="subject-content">
   
-        <div className="subject-meta">
-          <span
-            className={`difficulty-tag ${difficultyClass}`}
-          >
-            {subject.difficulty}
-          </span>
+          <div className="subject-header">
+            <h3 className="subject-title">
+              {subject.title}
+            </h3>
   
-          {subject.completed && (
-            <span className="completed-badge">
-              ✔ Completed
+            <span
+              className={`difficulty-tag ${difficultyClass}`}
+            >
+              {subject.difficulty}
             </span>
-          )}
-        </div>
+          </div>
   
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${subject.progress}%` }}
-          />
+          <p className="muted subject-description">
+            {subject.description}
+          </p>
+  
+          <div className="subject-progress-row">
+            <div className="progress-bar">
+              <div
+                className="progress-fill"
+                style={{ width: `${subject.progress}%` }}
+              />
+            </div>
+  
+            <span className="progress-percent">
+              {subject.progress}%
+            </span>
+          </div>
+  
+          <div className="subject-footer">
+            {subject.completed && (
+              <span className="completed-badge">
+                ✔ Completed
+              </span>
+            )}
+  
+            <span className="subject-action">
+              {actionLabel} →
+            </span>
+          </div>
+  
         </div>
       </div>
     );

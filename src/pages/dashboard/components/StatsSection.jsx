@@ -1,25 +1,63 @@
 const StatsSection = ({ loading, stats, animatedScore }) => {
+  const streakMessage =
+    stats.streak >= 5
+      ? "🔥 On fire!"
+      : stats.streak > 0
+      ? "Keep it going 💪"
+      : "Start today 🚀";
+
   return (
-    <div className="grid-3" style={{ marginTop: "40px" }}>
-      <div className="glass-card">
-        <p style={{ color: "var(--text-muted)" }}>Total Score</p>
-        <h2 style={{ fontSize: "30px", marginTop: "8px" }}>
+    <div className="stats-grid grid-3">
+
+      {/* TOTAL SCORE */}
+      <div className="glass-card stat-card">
+        <div className="stat-label">
+          Total Score
+        </div>
+
+        <div className="stat-value">
           {loading ? "…" : animatedScore}
-        </h2>
+        </div>
+
+        <div className="stat-meta">
+          All-time performance
+        </div>
       </div>
 
-      <div className="glass-card">
-        <p style={{ color: "var(--text-muted)" }}>Global Rank</p>
-        <h2 style={{ fontSize: "30px", marginTop: "8px" }}>
-          {loading ? "…" : stats.rank == null ? "—" : `#${stats.rank}`}
-        </h2>
+      {/* GLOBAL RANK */}
+      <div className="glass-card stat-card">
+        <div className="stat-label">
+          Global Rank
+        </div>
+
+        <div className="stat-value">
+          {loading
+            ? "…"
+            : stats.rank == null
+            ? "—"
+            : `#${stats.rank}`}
+        </div>
+
+        <div className="stat-meta">
+          Among all learners
+        </div>
       </div>
 
-      <div className="glass-card">
-        <p style={{ color: "var(--text-muted)" }}>Streak 🔥</p>
-        <h2 style={{ fontSize: "30px", marginTop: "8px" }}>
-          {loading ? "…" : `${stats.streak} Days`}
-        </h2>
+      {/* STREAK */}
+      <div className="glass-card stat-card stat-streak">
+        <div className="stat-label">
+          Streak
+        </div>
+
+        <div className="stat-value">
+          {loading
+            ? "…"
+            : `${stats.streak} Days`}
+        </div>
+
+        <div className="stat-meta">
+          {streakMessage}
+        </div>
       </div>
     </div>
   );

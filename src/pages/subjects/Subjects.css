@@ -370,3 +370,319 @@
 .page-back:hover {
   color: var(--accent-primary);
 }
+/* ======================================================
+   CONTINUE CARD — PREMIUM
+====================================================== */
+
+.continue-card {
+    padding: 32px;
+    border-radius: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+  
+  .continue-card::after {
+    content: "";
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba(99,102,241,0.2),
+      transparent 70%
+    );
+    filter: blur(60px);
+  }
+  
+  .continue-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(99,102,241,0.25);
+  }
+  
+  .continue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .continue-progress-label {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  
+  .continue-subject {
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .continue-progress {
+    margin-top: 20px;
+  }
+  
+  .continue-footer {
+    margin-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .continue-meta {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  
+  /* ======================================================
+     SUBJECT CARD — PREMIUM
+  ====================================================== */
+  
+  .subject-card {
+    position: relative;
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+  
+  .subject-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+  }
+  
+  .subject-accent {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      #6366f1,
+      #8b5cf6
+    );
+  }
+  
+  .subject-content {
+    padding: 24px;
+  }
+  
+  .subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .subject-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .subject-description {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .subject-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  
+  .progress-percent {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  
+  .subject-footer {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .subject-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-primary);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+  
+  .subject-card:hover .subject-action {
+    opacity: 1;
+  }
+  
+  .completed-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #10b981;
+  }
+  /* ======================================================
+   SUBJECT GRID STAGGER ANIMATION
+====================================================== */
+
+.subject-grid-item {
+    animation: subjectFadeUp 0.5s ease both;
+  }
+  
+  @keyframes subjectFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ======================================================
+     EMPTY STATE IMPROVEMENT
+  ====================================================== */
+  
+  .subjects-empty {
+    margin-top: 40px;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .empty-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  
+  .empty-state-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .empty-state-subtitle {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  
+  /* ======================================================
+     SEARCH PREMIUM
+  ====================================================== */
+  
+  .subject-search {
+    margin: 30px 0 20px;
+  }
+  
+  .subject-search-row {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    padding: 12px 16px;
+    border-radius: 16px;
+    transition: box-shadow 0.2s ease,
+                background 0.2s ease;
+  }
+  
+  .subject-search-row:focus-within {
+    box-shadow: 0 0 0 2px var(--accent-primary);
+    background: rgba(255,255,255,0.08);
+  }
+  
+  .subject-search-icon {
+    margin-right: 10px;
+    opacity: 0.7;
+  }
+  
+  .subject-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: inherit;
+  }
+  
+  .subject-search-clear {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+  
+  .subject-search-clear:hover {
+    opacity: 1;
+  }
+  
+  .subject-search-meta {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  
+  .meta-empty {
+    color: #ef4444;
+  }
+  /* ======================================================
+   HERO POLISH
+====================================================== */
+
+.subjects-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+  
+  .hero-text {
+    max-width: 480px;
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 18px; /* Proper spacing between buttons */
+    flex-wrap: wrap;
+  }
+  
+  .hero-btn {
+    padding: 14px 26px;
+    font-size: 15px;
+    border-radius: 14px;
+    transition: all 0.25s ease;
+  }
+  
+  /* Secondary Button Styling */
+  
+  .btn-secondary {
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.4);
+    color: var(--accent-primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(99,102,241,0.15);
+    transform: translateY(-2px);
+  }
+  
+  /* Wave animation */
+  
+  .wave {
+    display: inline-block;
+    animation: waveAnim 2s infinite;
+    transform-origin: 70% 70%;
+  }
+  
+  @keyframes waveAnim {
+    0% { transform: rotate(0deg); }
+    15% { transform: rotate(14deg); }
+    30% { transform: rotate(-8deg); }
+    45% { transform: rotate(14deg); }
+    60% { transform: rotate(-4deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+  }

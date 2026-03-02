@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useXP } from "../../context/XPContext";
 import { useAuth } from "../../context/AuthContext";
 import { getGlobalScore } from "../../services/statsService";
@@ -18,6 +19,7 @@ import ActivityHeatmap from "./components/ActivityHeatmap";
 import Achievements from "./components/Achievements";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
   const { level, progress, totalXP } = useXP();
 
@@ -34,6 +36,10 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [animatedScore, setAnimatedScore] = useState(0);
+
+  // =========================
+  // Data Load
+  // =========================
 
   useEffect(() => {
     let mounted = true;
@@ -67,6 +73,7 @@ const Dashboard = () => {
         const rankIndex = Array.isArray(leaderboard)
           ? leaderboard.findIndex((x) => x.userId === currentUser.uid)
           : -1;
+
         const rank = rankIndex >= 0 ? rankIndex + 1 : null;
 
         if (!mounted) return;
@@ -78,7 +85,7 @@ const Dashboard = () => {
           streak: Number(streak) || 0,
         });
 
-        const defaultFiveDays = [
+        const defaultWeek = [
           { day: "Mon", questions: 0 },
           { day: "Tue", questions: 0 },
           { day: "Wed", questions: 0 },
@@ -93,14 +100,14 @@ const Dashboard = () => {
           : [];
 
         if (safeCurrentWeek.length) {
-          const formatted = defaultFiveDays.map((d, index) => ({
+          const formatted = defaultWeek.map((d, index) => ({
             day: d.day,
             questions:
               Number(safeCurrentWeek[index]?.questions) || 0,
           }));
           setPerformanceData(formatted);
         } else {
-          setPerformanceData(defaultFiveDays);
+          setPerformanceData(defaultWeek);
         }
 
         if (Array.isArray(last28Raw) && last28Raw.length === 28) {
@@ -125,6 +132,10 @@ const Dashboard = () => {
     };
   }, [currentUser?.uid]);
 
+  // =========================
+  // Animated Score
+  // =========================
+
   useEffect(() => {
     const target = Number(stats.score) || 0;
     let start = 0;
@@ -133,6 +144,7 @@ const Dashboard = () => {
     if (target <= 0) return;
 
     const step = Math.max(1, Math.ceil(target / 120));
+
     const interval = setInterval(() => {
       start = Math.min(target, start + step);
       if (start >= target) clearInterval(interval);
@@ -142,41 +154,99 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [stats.score]);
 
+  // =========================
+  // Derived UI Logic
+  // =========================
+
+  const firstName =
+    currentUser?.displayName?.split(" ")[0] || "Learner";
+
+  const xpToNext = 100 - progress;
+
+  const streakMessage =
+    stats.streak >= 3
+      ? `You're on a ${stats.streak} day streak 🔥`
+      : stats.streak > 0
+      ? `Keep going! ${stats.streak} day streak 💪`
+      : "Start your streak today 🚀";
+
+  // =========================
+  // Render
+  // =========================
+
   return (
-    <div>
-      <h1 className="page-title">Dashboard</h1>
-      <p className="page-subtitle">
-        Track your performance & roadmap
-      </p>
+    <div className="dashboard-container dashboard-fade-in">
+
+      {/* HERO SECTION */}
+      <div className="dashboard-hero glass-card">
+        <div>
+          <h1 className="hero-title">
+            Welcome back, {firstName} 👋
+          </h1>
+          <p className="hero-subtitle">
+            {streakMessage}
+          </p>
+          <p className="hero-xp">
+            {xpToNext > 0
+              ? `Only ${xpToNext}% to reach Level ${level + 1}`
+              : "Level up unlocked! 🎉"}
+          </p>
+        </div>
+
+        <button
+          className="btn-primary hero-cta"
+          onClick={() => navigate("/subjects")}
+        >
+          Continue Learning
+        </button>
+      </div>
 
       {error && (
-        <div className="glass-card" style={{ marginTop: 30, color: "#ef4444" }}>
+        <div className="glass-card dashboard-error">
           {error}
         </div>
       )}
 
-      <StatsSection
-        loading={loading}
-        stats={stats}
-        animatedScore={animatedScore}
-      />
+      {/* LEVEL FIRST (Motivation before stats) */}
+      <div className="dashboard-section">
+        <LevelCard
+          level={level}
+          progress={progress}
+          totalXP={totalXP}
+        />
+      </div>
 
-      <LevelCard
-        level={level}
-        progress={progress}
-        totalXP={totalXP}
-      />
+      {/* STATS */}
+      <div className="dashboard-section">
+        <StatsSection
+          loading={loading}
+          stats={stats}
+          animatedScore={animatedScore}
+        />
+      </div>
 
-      <WeeklyPerformance performanceData={performanceData} />
+      {/* WEEKLY PROOF */}
+      <div className="dashboard-section">
+        <WeeklyPerformance performanceData={performanceData} />
+      </div>
 
-      <ActivityHeatmap
-        last28={last28}
-        loading={loading}
-        hoverInfo={hoverInfo}
-        setHoverInfo={setHoverInfo}
-      />
+      {/* ACTIVITY HISTORY */}
+      <div className="dashboard-section">
+        <ActivityHeatmap
+          last28={last28}
+          loading={loading}
+          hoverInfo={hoverInfo}
+          setHoverInfo={setHoverInfo}
+        />
+      </div>
 
-      <Achievements stats={stats} totalXP={totalXP} />
+      {/* REWARDS */}
+      <div className="dashboard-section">
+        <Achievements
+          stats={stats}
+          totalXP={totalXP}
+        />
+      </div>
     </div>
   );
 };

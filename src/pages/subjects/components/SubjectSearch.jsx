@@ -1,45 +1,65 @@
-const SubjectSearch = ({ value, onChange, resultCount, totalCount }) => {
-  const hasQuery = value.trim().length > 0;
-  const showClear = hasQuery;
-
-  return (
-    <div className="subject-search">
-      <div className="subject-search-row">
-        <span className="subject-search-icon" aria-hidden="true">
-          🔍
-        </span>
-        <input
-          type="search"
-          placeholder="Search subjects..."
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="subject-search-input"
-          aria-label="Search subjects"
-        />
-        {showClear && (
-          <button
-            type="button"
-            className="subject-search-clear"
-            onClick={() => onChange("")}
-            aria-label="Clear search"
+const SubjectSearch = ({
+    value,
+    onChange,
+    resultCount,
+    totalCount,
+  }) => {
+    const hasQuery = value.trim().length > 0;
+  
+    return (
+      <div className="subject-search">
+  
+        <div className="subject-search-row">
+          <span
+            className="subject-search-icon"
+            aria-hidden="true"
           >
-            Clear
-          </button>
-        )}
+            🔍
+          </span>
+  
+          <input
+            type="search"
+            placeholder="Search subjects..."
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="subject-search-input"
+            aria-label="Search subjects"
+          />
+  
+          {hasQuery && (
+            <button
+              type="button"
+              className="subject-search-clear"
+              onClick={() => onChange("")}
+              aria-label="Clear search"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+  
+        <div className="subject-search-meta">
+          {hasQuery ? (
+            resultCount === 0 ? (
+              <span className="meta-empty">
+                No matches found
+              </span>
+            ) : (
+              <span>
+                Showing{" "}
+                <strong>{resultCount}</strong>{" "}
+                result{resultCount === 1 ? "" : "s"}
+              </span>
+            )
+          ) : totalCount !== undefined ? (
+            <span>
+              <strong>{totalCount}</strong>{" "}
+              subject{totalCount === 1 ? "" : "s"} available
+            </span>
+          ) : null}
+        </div>
       </div>
-      {(totalCount !== undefined || (hasQuery && resultCount !== undefined)) && (
-        <p className="subject-search-meta">
-          {hasQuery
-            ? resultCount === 0
-              ? "No subjects match your search."
-              : `Showing ${resultCount} subject${resultCount === 1 ? "" : "s"}`
-            : totalCount !== undefined
-            ? `${totalCount} subject${totalCount === 1 ? "" : "s"}`
-            : null}
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default SubjectSearch;
+    );
+  };
+  
+  export default SubjectSearch;

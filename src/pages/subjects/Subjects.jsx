@@ -83,7 +83,6 @@ const Subjects = () => {
     };
 
     loadSubjects();
-
     return () => {
       mounted = false;
     };
@@ -102,10 +101,43 @@ const Subjects = () => {
 
   return (
     <div className="subjects-container">
-      <h1 className="page-title">Learning Roadmap</h1>
-      <p className="page-subtitle">
-        Structured progression to mastery
-      </p>
+
+      {/* ================= HERO ================= */}
+
+      {/* ================= HERO ================= */}
+
+<div className="subjects-hero">
+  <div className="hero-text">
+    <h1 className="page-title">
+      Welcome back <span className="wave">👋</span>
+    </h1>
+    <p className="page-subtitle">
+      Continue your journey toward mastery.
+    </p>
+  </div>
+
+  <div className="hero-actions">
+    {continueSubject && (
+      <button
+        className="btn-primary hero-btn"
+        onClick={() =>
+          navigate(`/subjects/${continueSubject.id}/topics`)
+        }
+      >
+        Resume Learning
+      </button>
+    )}
+
+    <button
+      className="btn-secondary hero-btn"
+      onClick={() => navigate("/leaderboard")}
+    >
+      View Leaderboard
+    </button>
+  </div>
+</div>
+
+      {/* ================= LOADING ================= */}
 
       {loading && (
         <div className="subject-grid" aria-busy="true">
@@ -120,16 +152,15 @@ const Subjects = () => {
         </div>
       )}
 
+      {/* ================= ERROR ================= */}
+
       {!loading && error && (
         <div className="glass-card subjects-status error">
           <p>{error}</p>
           <button
-            type="button"
             className="btn-primary"
-            style={{ marginTop: 16 }}
             onClick={() => {
               setError("");
-              setLoading(true);
               setRetryTrigger((t) => t + 1);
             }}
           >
@@ -138,17 +169,31 @@ const Subjects = () => {
         </div>
       )}
 
+      {/* ================= CONTINUE SECTION ================= */}
+
       {!loading && !error && continueSubject && (
-        <ContinueLearningCard
-          subject={continueSubject}
-          onResume={() =>
-            navigate(`/subjects/${continueSubject.id}/topics`)
-          }
-        />
+        <div className="subjects-section">
+          <h2 className="section-title">
+            Continue Learning
+          </h2>
+
+          <ContinueLearningCard
+            subject={continueSubject}
+            onResume={() =>
+              navigate(`/subjects/${continueSubject.id}/topics`)
+            }
+          />
+        </div>
       )}
 
+      {/* ================= EXPLORE SECTION ================= */}
+
       {!loading && !error && (
-        <>
+        <div className="subjects-section">
+          <h2 className="section-title">
+            Explore Subjects
+          </h2>
+
           <SubjectSearch
             value={search}
             onChange={setSearch}
@@ -158,17 +203,18 @@ const Subjects = () => {
 
           {filteredSubjects.length === 0 && subjects.length > 0 ? (
             <div className="empty-state">
-              <p className="empty-state-title">No subjects match your search</p>
-              <p>Try a different term or clear the search to see all subjects.</p>
-              <div className="empty-state-actions">
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={() => setSearch("")}
-                >
-                  Clear search
-                </button>
-              </div>
+              <p className="empty-state-title">
+                No subjects match your search
+              </p>
+              <p>
+                Try a different keyword or clear the search.
+              </p>
+              <button
+                className="btn-primary"
+                onClick={() => setSearch("")}
+              >
+                Clear search
+              </button>
             </div>
           ) : (
             <SubjectGrid
@@ -178,7 +224,7 @@ const Subjects = () => {
               }
             />
           )}
-        </>
+        </div>
       )}
     </div>
   );

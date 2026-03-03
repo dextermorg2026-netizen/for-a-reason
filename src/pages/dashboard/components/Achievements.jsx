@@ -19,10 +19,10 @@ const Achievements = ({ stats, totalXP }) => {
       progress: `${stats.streak}/5 day streak`,
     },
     {
-      title: "High Scorer",
+      title: "Wealthy Learner",
       icon: "🏆",
-      unlocked: stats.score >= 300,
-      progress: `${stats.score}/300 score`,
+      unlocked: stats.coins >= 300,
+      progress: `${stats.coins}/300 coins`,
     },
   ];
 

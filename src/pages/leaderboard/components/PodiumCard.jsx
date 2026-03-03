@@ -40,7 +40,7 @@ const PodiumCard = ({ user, rank, getInitials, large }) => {
           <h3>{user?.name || "Unknown"}</h3>
   
           {/* 🔥 NOW USING COINS */}
-          <p className="podium-score">
+          <p className="podium-coins">
             🪙 {user?.coins ?? 0} Coins
           </p>
         </div>

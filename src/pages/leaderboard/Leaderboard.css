@@ -145,7 +145,7 @@
     min-width: 220px;
   }
   
-  .podium-score {
+  .podium-coins {
     margin-top: 8px;
     font-weight: 600;
     font-size: 18px;
@@ -181,7 +181,7 @@
     background: var(--bg-elevated);
   }
   
-  .leaderboard-score {
+  .leaderboard-coins {
     font-weight: 600;
     color: var(--accent-primary);
   }

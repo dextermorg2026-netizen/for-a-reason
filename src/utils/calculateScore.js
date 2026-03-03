@@ -1,6 +1,11 @@
+import { COINS_PER_CORRECT } from "./constants";
+
 export function calculateScore(answerEntries) {
+  // calculates coins earned (  // with a total count.  Returns `{coins, total}` so it matches the
+  // rest of the app's terminology; legacy code can still divide
+  // coins by 10 to recover the raw score.
   if (!answerEntries || answerEntries.length === 0) {
-    return { score: 0, total: 0 }
+    return { coins: 0, total: 0 }
   }
 
   let score = 0
@@ -14,7 +19,7 @@ export function calculateScore(answerEntries) {
     }
   }
 
-  return { score, total }
+  return { coins: score * COINS_PER_CORRECT, total }
 }
 
 export default calculateScore

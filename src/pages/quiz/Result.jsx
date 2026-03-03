@@ -4,7 +4,8 @@ import { useEffect } from "react";
 const Result = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { score, total } = location.state || { score: 0, total: 0 };
+  const { score, total, coinsEarned } =
+    location.state || { score: 0, total: 0, coinsEarned: 0 };
 
   useEffect(() => {
     // If someone lands here directly (no state), redirect back to subjects.
@@ -19,7 +20,7 @@ const Result = () => {
 
       <div className="page-card" style={{ marginTop: "2rem" }}>
         <h2>
-          Score: {score} / {total}
+          🪙 Coins earned: {coinsEarned}
         </h2>
 
         <p style={{ marginTop: "10px" }}>Thanks for completing the quiz.</p>

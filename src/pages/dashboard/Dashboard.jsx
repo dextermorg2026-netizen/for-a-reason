@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useXP } from "../../context/XPContext";
 import { useAuth } from "../../context/AuthContext";
-import { getGlobalScore } from "../../services/statsService";
+import { getGlobalCoins } from "../../services/statsService";
 import "./Dashboard.css";
 import {
   getUserStreak,
@@ -24,7 +24,7 @@ const Dashboard = () => {
   const { level, progress, totalXP } = useXP();
 
   const [stats, setStats] = useState({
-    score: 0,
+    coins: 0,
     rank: null,
     quizzes: 0,
     streak: 0,
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const [hoverInfo, setHoverInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [animatedScore, setAnimatedScore] = useState(0);
+  const [animatedCoins, setAnimatedCoins] = useState(0);
 
   // =========================
   // Data Load
@@ -54,9 +54,9 @@ const Dashboard = () => {
         setLoading(true);
         setError("");
 
-        const [score, streak, weekly, currentWeek, last28Raw, leaderboard] =
+        const [coins, streak, weekly, currentWeek, last28Raw, leaderboard] =
           await Promise.all([
-            getGlobalScore(currentUser.uid),
+            getGlobalCoins(currentUser.uid),
             getUserStreak(currentUser.uid),
             getWeeklyStats(currentUser.uid),
             getCurrentWeekStats(currentUser.uid),
@@ -79,7 +79,7 @@ const Dashboard = () => {
         if (!mounted) return;
 
         setStats({
-          score: Number(score) || 0,
+          coins: Number(coins) || 0,
           rank,
           quizzes,
           streak: Number(streak) || 0,
@@ -133,13 +133,13 @@ const Dashboard = () => {
   }, [currentUser?.uid]);
 
   // =========================
-  // Animated Score
+  // Animated Coins
   // =========================
 
   useEffect(() => {
-    const target = Number(stats.score) || 0;
+    const target = Number(stats.coins) || 0;
     let start = 0;
-    setAnimatedScore(0);
+    setAnimatedCoins(0);
 
     if (target <= 0) return;
 
@@ -148,11 +148,11 @@ const Dashboard = () => {
     const interval = setInterval(() => {
       start = Math.min(target, start + step);
       if (start >= target) clearInterval(interval);
-      setAnimatedScore(start);
+      setAnimatedCoins(start);
     }, 15);
 
     return () => clearInterval(interval);
-  }, [stats.score]);
+  }, [stats.coins]);
 
   // =========================
   // Derived UI Logic
@@ -221,7 +221,7 @@ const Dashboard = () => {
         <StatsSection
           loading={loading}
           stats={stats}
-          animatedScore={animatedScore}
+          animatedCoins={animatedCoins}
         />
       </div>
 

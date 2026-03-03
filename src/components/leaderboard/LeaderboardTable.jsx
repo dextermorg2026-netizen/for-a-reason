@@ -3,9 +3,9 @@ function LeaderboardTable({ entries = [] }) {
     entries.length > 0
       ? entries
       : [
-          { id: 1, name: 'Riya', score: 980, rank: 1 },
-          { id: 2, name: 'Arjun', score: 940, rank: 2 },
-          { id: 3, name: 'Sara', score: 910, rank: 3 },
+          { id: 1, name: 'Riya', coins: 980, rank: 1 },
+          { id: 2, name: 'Arjun', coins: 940, rank: 2 },
+          { id: 3, name: 'Sara', coins: 910, rank: 3 },
         ]
 
   return (
@@ -14,7 +14,7 @@ function LeaderboardTable({ entries = [] }) {
         <tr>
           <th>Rank</th>
           <th>Player</th>
-          <th>Score</th>
+          <th>Coins</th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@ function LeaderboardTable({ entries = [] }) {
           <tr key={row.id}>
             <td>#{row.rank}</td>
             <td>{row.name}</td>
-            <td>{row.score}</td>
+            <td>{row.coins}</td>
           </tr>
         ))}
       </tbody>

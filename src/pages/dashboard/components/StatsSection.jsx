@@ -1,4 +1,4 @@
-const StatsSection = ({ loading, stats, animatedScore }) => {
+const StatsSection = ({ loading, stats, animatedCoins }) => {
   const streakMessage =
     stats.streak >= 5
       ? "🔥 On fire!"
@@ -9,14 +9,14 @@ const StatsSection = ({ loading, stats, animatedScore }) => {
   return (
     <div className="stats-grid grid-3">
 
-      {/* TOTAL SCORE */}
+      {/* TOTAL COINS */}
       <div className="glass-card stat-card">
         <div className="stat-label">
-          Total Score
+          Total Coins
         </div>
 
         <div className="stat-value">
-          {loading ? "…" : animatedScore}
+          {loading ? "…" : animatedCoins}
         </div>
 
         <div className="stat-meta">

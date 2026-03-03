@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useCoins } from "../../context/CoinContext"; // ✅ ADDED
+import { COINS_PER_CORRECT } from "../../utils/constants";
 import { getQuestionsByTopic, getTopicById } from "../../services/subjectService";
 import {
   getUserAttemptsByTopic,
@@ -150,12 +151,12 @@ const handleFinalSubmit = async () => {
     }
   });
 
-  const score = correctIds.length;
+  const correctCount = correctIds.length;
 
   // 🔥 10 coins per correct answer
-  const coinsEarned = score * 10;
+  const coinsEarned = correctCount * COINS_PER_CORRECT;
 
-  // ✅ PASS subjectId HERE (CRITICAL FIX)
+  // ✅ PASS subjectId HERE (CRITICAL Fix)
   await addCoins(coinsEarned, subjectId);
 
   await saveQuizAttempt({
@@ -164,13 +165,14 @@ const handleFinalSubmit = async () => {
     topicId,
     correctQuestionIds: correctIds,
     wrongQuestionIds: wrongIds,
-    score,
+    score: correctCount,        // raw correct count (legacy property)
+    coinsEarned,                // new field for analytics
     createdAt: new Date(),
   });
 
   navigate("/quiz/result", {
     state: {
-      score,
+      score: correctCount,
       total: questions.length,
       coinsEarned,
     },

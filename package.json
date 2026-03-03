@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "migrate:coins": "node scripts/migrateScoresToCoins.cjs"
   },
   "dependencies": {
     "firebase": "^12.9.0",
+    "firebase-admin": "^13.7.0",
     "framer-motion": "^12.34.3",
     "react": "^19.2.0",
     "react-circular-progressbar": "^2.2.0",

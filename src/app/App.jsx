@@ -10,7 +10,7 @@ import routes from "./routes.jsx";
 import { XPProvider } from "../context/XPContext";
 import { AuthProvider, useAuth } from "../context/AuthContext.jsx";
 import { QuizProvider } from "../context/QuizContext.jsx";
-import { CoinProvider, useCoins } from "../context/CoinContext";
+import { CoinProvider } from "../context/CoinContext";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -28,7 +28,6 @@ function AppLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const { logoutUser } = useAuth();
-  const { coins } = useCoins(); // 🪙 Coins
 
   /* ================= THEME ================= */
   useEffect(() => {
@@ -129,10 +128,11 @@ function AppLayout() {
             zIndex: 100,
           }}
         >
-          {/* LEFT TITLE + COINS */}
+          {/* LEFT TITLE */}
           <div style={{ fontWeight: 600 }}>
-            Home / {getPageTitle()} • 🪙 {coins}
+            Home / {getPageTitle()}
           </div>
+
 
           {/* RIGHT CONTROLS */}
           <div

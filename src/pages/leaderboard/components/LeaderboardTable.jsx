@@ -19,7 +19,7 @@ const LeaderboardTable = ({ users, loading }) => {
                 #{user.rank} {user.name}
               </span>
   
-              <span className="leaderboard-score">
+              <span className="leaderboard-coins">
                 🪙 {user.coins} Coins
               </span>
             </div>

@@ -21,9 +21,9 @@ export const createUserProfile = async (uid, name, email) => {
       email: email || "",
       coins: 0,
       xp: 0,
-      totalScore: 0,
       quizzesAttempted: 0,
       streak: 0,
+      subjectCoins: {}, // per-subject breakdown
       createdAt: new Date()
     });
   }
@@ -44,17 +44,21 @@ export const getUserProfile = async (uid) => {
 };
 
 /* =====================================================
-   🔹 UPDATE USER QUIZ STATS
-   Adds score instead of replacing it
+   🔹 (legacy) UPDATE USER QUIZ STATS
+   This project now uses coins instead of a raw score.  The
+   helper below is no longer invoked anywhere and can be
+   removed once the database has migrated.  Coins are added
+   via `addUserCoins` instead (which also tracks
+   per-subject breakdown).
 ===================================================== */
-export const updateUserStats = async (uid, scoreToAdd) => {
-  const userRef = doc(db, "users", uid);
-
-  await updateDoc(userRef, {
-    totalScore: increment(scoreToAdd),
-    quizzesAttempted: increment(1)
-  });
-};
+// export const updateUserStats = async (uid, scoreToAdd) => {
+//   const userRef = doc(db, "users", uid);
+//
+//   await updateDoc(userRef, {
+//     totalScore: increment(scoreToAdd),
+//     quizzesAttempted: increment(1)
+//   });
+//};
 
 /* =====================================================
    🔹 ADD COINS

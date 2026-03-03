@@ -117,7 +117,7 @@ Below is a quick tour of the main files and folders so you can understand and na
 ## Leaderboard components (`src/components/leaderboard/`)
 
 - **`LeaderboardTable.jsx`**  
-  - Simple table component for listing players with rank and score.  
+  - Simple table component for listing players with rank and coins.  
   - Accepts `entries` as a prop; if none provided, shows demo data.
 
 ---
@@ -140,7 +140,7 @@ Below is a quick tour of the main files and folders so you can understand and na
 
 - **`Dashboard.jsx`**  
   - Currently a **placeholder RFCE**: minimal heading + text.  
-  - This is the landing page after login where youll later add history, scores, rank, and performance overview.
+  - This is the landing page after login where you’ll later add history, coins, rank, and performance overview.
 
 ### Subjects & topics (`src/pages/subjects/`)
 
@@ -159,11 +159,11 @@ Below is a quick tour of the main files and folders so you can understand and na
   - Uses React Routers `useParams` to read `topicId` and `useNavigate` to redirect to the result screen.  
   - Fetches questions for a topic via `getQuestionsByTopic` from `subjectService`.  
   - Reads user info from `useAuth` to load previous attempts via `getUserAttemptsByTopic` (from `quizAttemptService`) and avoid alreadymastered questions.  
-  - Tracks current question index, selected answer, and user answers; on completion it saves an attempt using `saveQuizAttempt` and navigates to `/quiz/result` with `score`/`total` in router state.  
+  - Tracks current question index, selected answer, and user answers; on completion it saves an attempt using `saveQuizAttempt` and navigates to `/quiz/result` with `score`/`total` (and coins earned) in router state.  
   - Also shows immediate feedback + explanation after submitting each question.
 
 - **`Result.jsx`**  
-  - Quiz result page. Reads `score` and `total` from navigation state.  
+  - Quiz result page. Reads `coinsEarned` (formerly score/total) from navigation state.  
   - Intended to show history, performance summary, and leaderboard impact (you can extend this over time).
 
 ### Live quiz (`src/pages/liveQuiz/`)
@@ -228,12 +228,29 @@ Below is a quick tour of the main files and folders so you can understand and na
 
 ## Utilities (`src/utils/`)
 
+### Database migration
+
+A one‑time helper is included to convert existing `totalScore` values
+(and past quiz attempts) into the new coin economy.  The script lives in
+`scripts/migrateScoresToCoins.cjs` and is invoked by the `migrate:coins`
+npm task.  Run it as follows:
+
+```bash
+npm install firebase-admin --save-dev   # or globally
+npm run migrate:coins   # executes node scripts/migrateScoresToCoins.cjs
+```
+
+It reads every user document and associated quizAttempts, writes
+`coins` and `subjectCoins`, and optionally can remove the legacy
+`totalScore` field (see the script comments).
+
+
 - **`shuffle.js`**  
   - Implements an inplace FisherYates shuffle and returns a new shuffled array.  
   - Used for randomizing question order.
 
 - **`calculateScore.js`**  
-  - Takes an array of `{ selectedId, correctId }` objects and returns `{ score, total }`.  
+  - Takes an array of `{ selectedId, correctId }` objects and returns `{ coins, total }` (10 coins per correct answer).  
   - Safely handles empty or missing entries.
 
 - **`constants.js`**  

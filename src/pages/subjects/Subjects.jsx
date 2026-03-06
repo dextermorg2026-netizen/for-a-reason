@@ -21,22 +21,10 @@ const Subjects = () => {
   const [error, setError] = useState("");
   const [retryTrigger, setRetryTrigger] = useState(0);
 
-  const [sortBy, setSortBy] = useState("az");
-  const [difficultyFilter, setDifficultyFilter] = useState("all");
-
   /* ================= DATA LOAD ================= */
 
   useEffect(() => {
     let mounted = true;
-
-    const normalizeDifficulty = (value) => {
-      if (!value) return "Medium";
-      const lower = String(value).toLowerCase();
-      if (["easy", "medium", "hard"].includes(lower)) {
-        return lower[0].toUpperCase() + lower.slice(1);
-      }
-      return "Medium";
-    };
 
     const clampProgress = (value) => {
       const n = Number(value);
@@ -64,7 +52,6 @@ const Subjects = () => {
           return {
             id: s.id,
             title: s.title ?? s.name ?? "Untitled Subject",
-            difficulty: normalizeDifficulty(s.difficulty),
             progress,
             completed: progress >= 100,
             description:
@@ -95,51 +82,21 @@ const Subjects = () => {
     };
   }, [currentUser, retryTrigger]);
 
-  /* ================= FILTER + SORT ================= */
+  /* ================= SEARCH ================= */
 
   const filteredSubjects = useMemo(() => {
     let list = [...subjects];
 
     const lower = search.trim().toLowerCase();
+
     if (lower) {
       list = list.filter((s) =>
         s.title?.toLowerCase().includes(lower)
       );
     }
 
-    if (difficultyFilter !== "all") {
-      list = list.filter(
-        (s) =>
-          s.difficulty?.toLowerCase() === difficultyFilter
-      );
-    }
-
-    if (sortBy === "az") {
-      list.sort((a, b) =>
-        (a.title ?? "").localeCompare(b.title ?? "")
-      );
-    }
-
-    if (sortBy === "progress") {
-      list.sort(
-        (a, b) => (b.progress ?? 0) - (a.progress ?? 0)
-      );
-    }
-
-    if (sortBy === "difficulty") {
-      const order = { easy: 1, medium: 2, hard: 3 };
-
-      list.sort((a, b) => {
-        const aKey =
-          order[a.difficulty?.toLowerCase()] ?? 99;
-        const bKey =
-          order[b.difficulty?.toLowerCase()] ?? 99;
-        return aKey - bKey;
-      });
-    }
-
     return list;
-  }, [subjects, search, sortBy, difficultyFilter]);
+  }, [subjects, search]);
 
   const continueSubject = lastAttempt
     ? subjects.find(
@@ -255,63 +212,6 @@ const Subjects = () => {
           <h2 className="section-title">
             Explore Subjects
           </h2>
-
-          {/* NEW PREMIUM CONTROLS */}
-
-          <div className="subjects-controls">
-
-            <div className="controls-left">
-              <span className="controls-label">
-                Filter
-              </span>
-
-              <div className="filter-chips">
-                {["all", "easy", "medium", "hard"].map(
-                  (level) => (
-                    <button
-                      key={level}
-                      className={`chip ${
-                        difficultyFilter === level
-                          ? "chip-active"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        setDifficultyFilter(level)
-                      }
-                    >
-                      {level
-                        .charAt(0)
-                        .toUpperCase() +
-                        level.slice(1)}
-                    </button>
-                  )
-                )}
-              </div>
-            </div>
-
-            <div className="controls-right">
-              <span className="controls-label">
-                Sort
-              </span>
-
-              <select
-                className="sort-select"
-                value={sortBy}
-                onChange={(e) =>
-                  setSortBy(e.target.value)
-                }
-              >
-                <option value="az">A–Z</option>
-                <option value="progress">
-                  Progress
-                </option>
-                <option value="difficulty">
-                  Difficulty
-                </option>
-              </select>
-            </div>
-
-          </div>
 
           <SubjectSearch
             value={search}

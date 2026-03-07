@@ -1,0 +1,30 @@
+{
+    "subject": {
+      "title": "Computer Networks",
+      "description": "Learn networking fundamentals"
+    },
+    "topics": [
+      {
+        "title": "OSI Model",
+        "subtopics": [
+          {
+            "title": "Introduction to OSI",
+            "theory": "OSI model divides networking into 7 layers..."
+          },
+          {
+            "title": "Physical Layer",
+            "theory": "Physical layer handles bit transmission..."
+          }
+        ]
+      },
+      {
+        "title": "TCP/IP Model",
+        "subtopics": [
+          {
+            "title": "Overview",
+            "theory": "TCP/IP model is a 4-layer architecture..."
+          }
+        ]
+      }
+    ]
+  }

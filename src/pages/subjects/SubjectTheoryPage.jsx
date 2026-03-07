@@ -1,105 +1,114 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getAllSubjects } from "../../services/subjectService";
+import { getSubtopicById } from "../../services/subjectService";
 
 const SubjectTheoryPage = () => {
-  const { subjectId } = useParams();
-  const navigate = useNavigate();
+const { subtopicId } = useParams();
+const navigate = useNavigate();
 
-  const [subject, setSubject] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const [subtopic, setSubtopic] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
 
-  useEffect(() => {
-    let mounted = true;
+useEffect(() => {
+let mounted = true;
 
-    const load = async () => {
-      try {
-        setLoading(true);
-        setError("");
+```
+const loadSubtopic = async () => {
+  try {
+    setLoading(true);
+    setError("");
 
-        const subjects = await getAllSubjects();
+    const data = await getSubtopicById(subtopicId);
 
-        const found = (subjects || []).find(
-          (s) => s.id === subjectId
-        );
+    if (!mounted) return;
 
-        if (!mounted) return;
+    if (!data) {
+      setError("Subtopic not found.");
+    } else {
+      setSubtopic(data);
+    }
 
-        if (!found) {
-          setError("Subject not found.");
-        } else {
-          setSubject({
-            title:
-              found.title ??
-              found.name ??
-              "Untitled Subject",
-            content:
-              found.theory ??
-              found.content ??
-              "No theory content available yet.",
-          });
-        }
-      } catch (err) {
-        if (mounted) {
-          setError(
-            err?.message ||
-              "Failed to load subject theory."
-          );
-        }
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
+  } catch (err) {
+    if (mounted) {
+      setError("Failed to load theory.");
+    }
+  } finally {
+    if (mounted) {
+      setLoading(false);
+    }
+  }
+};
 
-    load();
+if (subtopicId) {
+  loadSubtopic();
+}
 
-    return () => {
-      mounted = false;
-    };
-  }, [subjectId]);
+return () => {
+  mounted = false;
+};
+```
 
-  return (
-    <div className="subjects-container">
-      {loading && (
-        <div className="glass-card subjects-status">
-          Loading theory...
-        </div>
-      )}
+}, [subtopicId]);
 
-      {!loading && error && (
-        <div className="glass-card subjects-status error">
-          {error}
-        </div>
-      )}
+return ( <div className="subjects-container">
 
-      {!loading && subject && (
-        <>
-          <Link to={`/subjects/${subjectId}/topics`} className="page-back">
-            ← Back to topics
-          </Link>
-          <h1 className="page-title">
-            {subject.title} Theory
-          </h1>
+```
+  {/* Back button */}
 
-          <div className="glass-card theory-card">
-            <p className="theory-content">
-              {subject.content}
-            </p>
+  <Link to="/subjects" className="page-back">
+    ← Back to topics
+  </Link>
 
-            <button
-              className="btn-primary theory-btn"
-              onClick={() =>
-                navigate(`/quizzes/${subjectId}`)
-              }
-            >
-              Start {subject.title} Quiz
-            </button>
-          </div>
-        </>
-      )}
+  {/* Loading */}
+
+  {loading && (
+    <div className="subjects-status">
+      Loading theory...
     </div>
-  );
+  )}
+
+  {/* Error */}
+
+  {!loading && error && (
+    <div className="subjects-status error">
+      {error}
+    </div>
+  )}
+
+  {/* Theory Content */}
+
+  {!loading && subtopic && (
+    <div className="glass-card theory-card">
+
+      <h1 className="page-title">
+        {subtopic.title}
+      </h1>
+
+      <div className="theory-content">
+        {subtopic.theory || "No theory content available."}
+      </div>
+
+      {/* Quiz Button */}
+
+      <div className="quiz-button-container">
+        <button
+          className="btn-primary"
+          onClick={() =>
+            navigate(`/quizzes/${subtopic.topicId}`)
+          }
+        >
+          Take Quiz →
+        </button>
+      </div>
+
+    </div>
+  )}
+
+</div>
+
+
+);
 };
 
 export default SubjectTheoryPage;

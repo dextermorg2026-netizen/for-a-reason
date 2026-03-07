@@ -3,12 +3,8 @@ from firebase_admin import credentials, firestore
 import json
 import os
 
-# ----------------------------
-# Initialize Firebase
-# ----------------------------
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-key_path = os.path.join(BASE_DIR, "court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json")
+key_path = os.path.join(BASE_DIR, "court-side-6c75a-firebase-adminsdk.json")
 
 cred = credentials.Certificate(key_path)
 
@@ -17,10 +13,6 @@ if not firebase_admin._apps:
 
 db = firestore.client()
 
-# ----------------------------
-# Load JSON
-# ----------------------------
-
 json_path = os.path.join(BASE_DIR, "subjects_topics.json")
 
 with open(json_path, "r", encoding="utf-8") as file:
@@ -28,6 +20,7 @@ with open(json_path, "r", encoding="utf-8") as file:
 
 subjects = data.get("subjects", [])
 
+<<<<<<< HEAD
 # ----------------------------
 # Helper Functions
 # ----------------------------
@@ -65,9 +58,25 @@ def get_subtopic_by_title(title, topic_id):
 
 for subject in subjects:
     subject_title = subject["title"]
+=======
+for subject in subjects:
+
+    subject_name = subject["name"]
+>>>>>>> 793829a044bbbfecbea5faa84a7fd02994b67a3c
     subject_description = subject.get("description", "")
+
+    subject_ref = db.collection("subjects").add({
+        "name": subject_name,
+        "description": subject_description
+    })
+
+    subject_id = subject_ref[1].id
+
+    print(f"Created subject: {subject_name}")
+
     topics = subject.get("topics", [])
 
+<<<<<<< HEAD
     # ----- Check if subject exists -----
     existing_subject = get_subject_by_title(subject_title)
 
@@ -87,9 +96,16 @@ for subject in subjects:
         topic_title = topic["title"]
         topic_description = topic.get("description", "")
         subtopics = topic.get("subtopics", [])
+=======
+    for topic in topics:
+>>>>>>> 793829a044bbbfecbea5faa84a7fd02994b67a3c
 
-        existing_topic = get_topic_by_title(topic_title, subject_id)
+        topic_ref = db.collection("topics").add({
+            "title": topic["title"],
+            "subjectId": subject_id
+        })
 
+<<<<<<< HEAD
         if existing_topic:
             topic_id = existing_topic.id
             print(f"   ⚠️  Topic already exists: {topic_title}")
@@ -120,5 +136,22 @@ for subject in subjects:
                     "images": subtopic_images
                 })
                 print(f"      ✅ Created subtopic: {subtopic_title}")
+=======
+        topic_id = topic_ref[1].id
 
-print("\n🔥 Upload process completed successfully!")
+        print(f"  Created topic: {topic['title']}")
+
+        subtopics = topic.get("subtopics", [])
+
+        for sub in subtopics:
+
+            db.collection("subtopics").add({
+                "title": sub["title"],
+                "theory": sub.get("theory", ""),
+                "topicId": topic_id
+            })
+>>>>>>> 793829a044bbbfecbea5faa84a7fd02994b67a3c
+
+            print(f"     Added subtopic: {sub['title']}")
+
+print("\n🔥 Upload completed successfully")

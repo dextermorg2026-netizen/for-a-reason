@@ -1,5 +1,5 @@
 import { createContext, useMemo, useState } from 'react'
-import { quizService } from '../services/quizService.js'
+// import { quizService } from '../services/quizService.js'
 
 export const QuizContext = createContext(null)
 

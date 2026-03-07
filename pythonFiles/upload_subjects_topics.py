@@ -32,8 +32,8 @@ subjects = data.get("subjects", [])
 # Helper Functions
 # ----------------------------
 
-def get_subject_by_name(name):
-    query = db.collection("subjects").where("name", "==", name).limit(1).stream()
+def get_subject_by_title(title):
+    query = db.collection("subjects").where("title", "==", title).limit(1).stream()
     docs = list(query)
     return docs[0] if docs else None
 
@@ -48,46 +48,77 @@ def get_topic_by_title(title, subject_id):
     docs = list(query)
     return docs[0] if docs else None
 
+def get_subtopic_by_title(title, topic_id):
+    query = (
+        db.collection("subtopics")
+        .where("title", "==", title)
+        .where("topicId", "==", topic_id)
+        .limit(1)
+        .stream()
+    )
+    docs = list(query)
+    return docs[0] if docs else None
 
 # ----------------------------
 # Upload Logic
 # ----------------------------
 
 for subject in subjects:
-    subject_name = subject["name"]
+    subject_title = subject["title"]
     subject_description = subject.get("description", "")
     topics = subject.get("topics", [])
 
     # ----- Check if subject exists -----
-    existing_subject = get_subject_by_name(subject_name)
+    existing_subject = get_subject_by_title(subject_title)
 
     if existing_subject:
         subject_id = existing_subject.id
-        print(f"⚠ Subject already exists: {subject_name}")
+        print(f"⚠️  Subject already exists: {subject_title}")
     else:
-        subject_ref = db.collection("subjects").add({
-            "name": subject_name,
+        _, subject_ref = db.collection("subjects").add({
+            "title": subject_title,
             "description": subject_description
         })
-        subject_id = subject_ref[1].id
-        print(f"✅ Created subject: {subject_name}")
+        subject_id = subject_ref.id
+        print(f"✅ Created subject: {subject_title}")
 
     # ----- Handle Topics -----
     for topic in topics:
         topic_title = topic["title"]
         topic_description = topic.get("description", "")
+        subtopics = topic.get("subtopics", [])
 
         existing_topic = get_topic_by_title(topic_title, subject_id)
 
         if existing_topic:
-            print(f"   ⚠ Topic already exists: {topic_title}")
+            topic_id = existing_topic.id
+            print(f"   ⚠️  Topic already exists: {topic_title}")
         else:
-            db.collection("topics").add({
+            _, topic_ref = db.collection("topics").add({
                 "title": topic_title,
                 "description": topic_description,
-                "subjectId": subject_id,
-                "questionCount": 0
+                "subjectId": subject_id
             })
-            print(f"   ➜ Created topic: {topic_title}")
+            topic_id = topic_ref.id
+            print(f"   ✅ Created topic: {topic_title}")
+
+        # ----- Handle Subtopics -----
+        for subtopic in subtopics:
+            subtopic_title = subtopic["title"]
+            subtopic_theory = subtopic.get("theory", "")
+            subtopic_images = subtopic.get("images", [])
+
+            existing_subtopic = get_subtopic_by_title(subtopic_title, topic_id)
+
+            if existing_subtopic:
+                print(f"      ⚠️  Subtopic already exists: {subtopic_title}")
+            else:
+                db.collection("subtopics").add({
+                    "title": subtopic_title,
+                    "topicId": topic_id,
+                    "theory": subtopic_theory,
+                    "images": subtopic_images
+                })
+                print(f"      ✅ Created subtopic: {subtopic_title}")
 
 print("\n🔥 Upload process completed successfully!")

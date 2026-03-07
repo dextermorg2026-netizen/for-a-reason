@@ -58,3 +58,29 @@ export const getTopicById = async (topicId) => {
     ...snap.data(),
   };
 };
+
+export const getSubtopicsByTopic = async (topicId) => {
+  const q = query(
+    collection(db, "subtopics"),
+    where("topicId", "==", topicId)
+  );
+
+  const snapshot = await getDocs(q);
+
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+};
+
+export const getSubtopicById = async (subtopicId) => {
+  const ref = doc(db, "subtopics", subtopicId);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) return null;
+
+  return {
+    id: snap.id,
+    ...snap.data(),
+  };
+};

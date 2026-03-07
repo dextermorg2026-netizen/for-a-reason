@@ -10,7 +10,8 @@ key_path = os.path.join(BASE_DIR, "court-side-6c75a-firebase-adminsdk-fbsvc-a3e3
 
 cred = credentials.Certificate(key_path)
 
-firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
@@ -18,24 +19,35 @@ db = firestore.client()
 
 csv_path = os.path.join(BASE_DIR, "questions.csv")
 
-with open(csv_path, newline="", encoding="utf-8") as csvfile:
-    reader = csv.DictReader(csvfile)
-
-    for row in reader:
-        question_data = {
-            "questionText": row["questionText"],
-            "subjectId": row["subjectId"],
-            "topicId": row["topicId"],
-            "correctAnswer": row["correctAnswer"],
-            "explanation": row["explanation"],
-            "options": [
-                {"id": "A", "text": row["optionA"]},
-                {"id": "B", "text": row["optionB"]},
-                {"id": "C", "text": row["optionC"]},
-                {"id": "D", "text": row["optionD"]},
-            ]
-        }
-
-        db.collection("questions").add(question_data)
-
-print("✅ Questions uploaded successfully!")
+try:
+    with open(csv_path, newline="", encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
+        
+        question_count = 0
+        for row in reader:
+            question_data = {
+                "question": row.get("question", ""),
+                "options": [
+                    row.get("optionA", ""),
+                    row.get("optionB", ""),
+                    row.get("optionC", ""),
+                    row.get("optionD", "")
+                ],
+                "correctAnswer": row.get("correctAnswer", ""),
+                "topicId": row.get("topicId", ""),
+                "difficulty": row.get("difficulty", "medium").lower()
+            }
+            
+            # Optional fields
+            if "explanation" in row and row["explanation"]:
+                question_data["explanation"] = row["explanation"]
+            
+            db.collection("questions").add(question_data)
+            question_count += 1
+        
+        print(f"✅ Uploaded {question_count} questions successfully!")
+        
+except FileNotFoundError:
+    print(f"❌ Error: {csv_path} not found!")
+except Exception as e:
+    print(f"❌ Error uploading questions: {str(e)}")

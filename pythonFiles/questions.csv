@@ -1,13 +1,16 @@
-questionText,optionA,optionB,optionC,optionD,correctAnswer,explanation,subjectId,topicId
-Which protocol is used to assign IP addresses automatically?,FTP,HTTP,DHCP,SMTP,C,DHCP assigns IP addresses dynamically.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-Which device operates at the Data Link Layer?,Router,Switch,Hub,Repeater,B,A switch operates at Layer 2.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-What does TCP stand for?,Transmission Control Protocol,Transfer Control Protocol,Transmission Communication Process,Transport Control Protocol,A,TCP stands for Transmission Control Protocol.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-Which protocol is used for secure web browsing?,HTTP,FTP,HTTPS,TELNET,C,HTTPS encrypts communication using SSL/TLS.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-Which layer is responsible for end-to-end communication?,Network Layer,Transport Layer,Data Link Layer,Physical Layer,B,Transport layer ensures end-to-end communication.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-What is the default port number of HTTP?,21,80,443,25,B,HTTP runs on port 80 by default.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-What does IP stand for?,Internet Protocol,Internal Protocol,Interface Protocol,Internet Process,A,IP stands for Internet Protocol.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-Which protocol is connection-oriented?,UDP,IP,TCP,ICMP,C,TCP establishes a connection before data transfer.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
-Which device connects different networks together?,Switch,Hub,Router,Repeater,C,Router connects multiple networks.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
+question,optionA,optionB,optionC,optionD,correctAnswer,topicId,difficulty,explanation
+Which protocol is used to assign IP addresses automatically?,FTP,HTTP,DHCP,SMTP,C,hM5xIfNCBrexutJ83arj,easy,DHCP assigns IP addresses dynamically.
+Which device operates at the Data Link Layer?,Router,Switch,Hub,Repeater,B,hM5xIfNCBrexutJ83arj,medium,A switch operates at Layer 2.
+What does TCP stand for?,Transmission Control Protocol,Transfer Control Protocol,Transmission Communication Process,Transport Control Protocol,A,hM5xIfNCBrexutJ83arj,easy,TCP stands for Transmission Control Protocol.
+Which protocol is used for secure web browsing?,HTTP,FTP,HTTPS,TELNET,C,hM5xIfNCBrexutJ83arj,easy,HTTPS encrypts communication using SSL/TLS.
+Which layer is responsible for end-to-end communication?,Network Layer,Transport Layer,Data Link Layer,Physical Layer,B,hM5xIfNCBrexutJ83arj,medium,Transport layer ensures end-to-end communication.
+What is the default port number of HTTP?,21,80,443,25,B,hM5xIfNCBrexutJ83arj,hard,HTTP runs on port 80 by default.
+What does IP stand for?,Internet Protocol,Internal Protocol,Interface Protocol,Internet Process,A,hM5xIfNCBrexutJ83arj,easy,IP stands for Internet Protocol.
+Which protocol is connection-oriented?,UDP,IP,TCP,ICMP,C,hM5xIfNCBrexutJ83arj,medium,TCP establishes a connection before data transfer.
+Which device connects different networks together?,Switch,Hub,Router,Repeater,C,hM5xIfNCBrexutJ83arj,easy,Router connects multiple networks.
+What is the primary function of the OSI model?,To provide network security,To standardize network communication protocols,To increase internet speed,To reduce data corruption,B,hM5xIfNCBrexutJ83arj,easy,The OSI model provides a standardized framework for network communication.
+How many layers does the OSI model have?,5,6,7,8,C,hM5xIfNCBrexutJ83arj,easy,The OSI model has exactly 7 layers.
+Which layer manages routing?,Presentation Layer,Network Layer,Transport Layer,Application Layer,B,hM5xIfNCBrexutJ83arj,hard,The Network Layer is responsible for routing and logical addressing.
 Which layer deals with MAC addresses?,Transport Layer,Data Link Layer,Application Layer,Session Layer,B,MAC addresses operate at Data Link Layer.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
 Which protocol is used to send emails?,FTP,SMTP,HTTP,DNS,B,SMTP is used for sending emails.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj
 What is the port number for HTTPS?,443,80,25,110,A,HTTPS uses port 443.,zq6bOkq2LGarmA6YacTy,hM5xIfNCBrexutJ83arj

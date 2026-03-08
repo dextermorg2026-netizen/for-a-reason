@@ -1,0 +1,117 @@
+{
+"title": "IPv4 Addressing and Subnetting",
+"description": "IPv4 addressing provides a logical addressing system used to uniquely identify devices across networks. It allows routers to determine where packets should be delivered and enables communication across the global Internet.",
+"topics": [
+{
+"title": "Introduction to IP Addressing",
+"description": "Understanding how devices are identified in networks using IP addresses.",
+"subtopics": [
+
+{
+"title": "What is an IP Address",
+"theory": "An IP address is a unique logical identifier assigned to every device connected to a network that uses the Internet Protocol. It allows devices to locate and communicate with each other across interconnected networks. IPv4 addresses are 32-bit numbers typically written in dotted decimal notation such as 192.168.1.1. Each IP address consists of two main parts: the network portion which identifies the network and the host portion which identifies a specific device within that network."
+},
+
+{
+"title": "Structure of IPv4 Address",
+"theory": "An IPv4 address is composed of 32 bits divided into four octets, where each octet contains 8 bits. These octets are separated by periods in dotted decimal notation. Each octet can have values ranging from 0 to 255. For example, the address 192.168.1.10 consists of four octets representing the binary form of the 32-bit address."
+}
+
+]
+},
+
+{
+"title": "Classful Addressing",
+"description": "Early IP addressing scheme that divides addresses into predefined classes.",
+"subtopics": [
+
+{
+"title": "IPv4 Address Classes",
+"theory": "In classful addressing IPv4 addresses were divided into five classes: Class A, Class B, Class C, Class D, and Class E. Class A addresses support very large networks, Class B addresses support medium-sized networks, and Class C addresses support small networks. Class D addresses are used for multicast communication and Class E addresses are reserved for experimental purposes."
+},
+
+{
+"title": "Address Ranges of Classes",
+"theory": "Class A addresses range from 1.0.0.0 to 126.0.0.0 and support a very large number of hosts. Class B addresses range from 128.0.0.0 to 191.255.0.0 and support medium-sized networks. Class C addresses range from 192.0.0.0 to 223.255.255.0 and are used for smaller networks. Class D addresses range from 224.0.0.0 to 239.255.255.255 and are used for multicast communication."
+},
+
+{
+"title": "Limitations of Classful Addressing",
+"theory": "Classful addressing led to inefficient usage of IP addresses because networks were forced to choose from fixed address blocks. Many organizations received more addresses than they needed while others did not receive enough. This resulted in rapid exhaustion of IPv4 address space."
+}
+
+]
+},
+
+{
+"title": "Classless Addressing (CIDR)",
+"description": "Modern IP addressing scheme designed to improve address utilization.",
+"subtopics": [
+
+{
+"title": "What is CIDR",
+"theory": "Classless Inter-Domain Routing (CIDR) is an addressing method that removes the strict class boundaries of classful addressing. Instead of fixed classes CIDR uses prefix notation to specify how many bits represent the network portion of an address. For example the notation 192.168.1.0/24 indicates that the first 24 bits represent the network portion while the remaining 8 bits represent host addresses."
+},
+
+{
+"title": "Advantages of CIDR",
+"theory": "CIDR allows more efficient allocation of IP addresses because address blocks can be assigned based on actual requirements rather than fixed classes. It also reduces the size of routing tables by allowing route aggregation where multiple networks can be represented using a single routing entry."
+}
+
+]
+},
+
+{
+"title": "Subnetting",
+"description": "Technique used to divide a network into smaller subnetworks.",
+"subtopics": [
+
+{
+"title": "What is Subnetting",
+"theory": "Subnetting is the process of dividing a larger IP network into multiple smaller subnetworks called subnets. This is done by borrowing bits from the host portion of an IP address and using them to create subnet identifiers. Subnetting improves network organization, enhances security, and reduces broadcast traffic."
+},
+
+{
+"title": "Subnet Mask",
+"theory": "A subnet mask is used to determine which portion of an IP address represents the network and which portion represents the host. It is a 32-bit number where network bits are represented by ones and host bits are represented by zeros. For example the subnet mask 255.255.255.0 indicates that the first 24 bits belong to the network portion."
+},
+
+{
+"title": "Benefits of Subnetting",
+"theory": "Subnetting improves network performance by reducing broadcast domains, increases security by isolating network segments, and allows efficient management of IP address allocation within organizations."
+}
+
+]
+},
+
+{
+"title": "Special IPv4 Addresses",
+"description": "Important reserved IP address types used in networking.",
+"subtopics": [
+
+{
+"title": "Private IP Addresses",
+"theory": "Private IP addresses are reserved for internal networks and cannot be routed directly on the public Internet. Common private address ranges include 10.0.0.0 to 10.255.255.255, 172.16.0.0 to 172.31.255.255, and 192.168.0.0 to 192.168.255.255. These addresses are commonly used in home and corporate networks."
+},
+
+{
+"title": "Loopback Address",
+"theory": "The loopback address 127.0.0.1 is used by a device to communicate with itself. It is commonly used for testing network software and troubleshooting network services."
+},
+
+{
+"title": "Broadcast Address",
+"theory": "A broadcast address allows a device to send a message to all devices within the same network simultaneously. The broadcast address typically has all host bits set to one."
+}
+
+]
+}
+],
+"diagram_suggestions": [
+"IPv4 Address Structure Diagram",
+"Class A B C Address Range Diagram",
+"CIDR Prefix Notation Example Diagram",
+"Subnetting Example Network Division Diagram",
+"Subnet Mask Binary Representation Diagram"
+]
+}

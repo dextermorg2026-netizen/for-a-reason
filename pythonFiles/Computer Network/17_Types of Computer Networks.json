@@ -1,0 +1,73 @@
+{
+"title": "Types of Computer Networks",
+"description": "Computer networks can be categorized based on their geographical coverage and the type of communication they support.",
+"topics": [
+{
+"title": "Introduction to Network Types",
+"description": "Understanding how networks are classified based on geographical area.",
+"subtopics": [
+{
+"title": "Network Classification",
+"theory": "Computer networks are categorized based on their size and geographical coverage. Different types of networks are designed to serve different communication needs ranging from small personal networks to global internet infrastructure."
+}
+]
+},
+{
+"title": "Personal Area Network (PAN)",
+"description": "Small network used for personal devices.",
+"subtopics": [
+{
+"title": "What is PAN",
+"theory": "A Personal Area Network is a small network used to connect personal devices such as smartphones, laptops, and smartwatches within a short range typically less than 10 meters. Bluetooth is commonly used for PAN communication."
+}
+]
+},
+{
+"title": "Local Area Network (LAN)",
+"description": "Network covering a small geographical area.",
+"subtopics": [
+{
+"title": "What is LAN",
+"theory": "A Local Area Network connects computers within a limited geographical area such as a home, office, or school. LANs provide high-speed communication and are commonly used for file sharing, printing, and local resource access."
+}
+]
+},
+{
+"title": "Metropolitan Area Network (MAN)",
+"description": "Network covering a large city area.",
+"subtopics": [
+{
+"title": "What is MAN",
+"theory": "A Metropolitan Area Network connects multiple LANs within a city or metropolitan region. MANs provide high-speed connectivity across larger geographic areas such as university campuses or city-wide communication networks."
+}
+]
+},
+{
+"title": "Wide Area Network (WAN)",
+"description": "Network covering large geographical areas.",
+"subtopics": [
+{
+"title": "What is WAN",
+"theory": "A Wide Area Network connects devices across large geographic areas such as countries or continents. The Internet is the largest example of a WAN and connects millions of devices worldwide."
+}
+]
+},
+{
+"title": "Virtual Private Network (VPN)",
+"description": "Secure private network built over the internet.",
+"subtopics": [
+{
+"title": "What is VPN",
+"theory": "A Virtual Private Network creates a secure connection over a public network such as the Internet. It encrypts data transmission and allows remote users to securely access private organizational networks."
+}
+]
+}
+],
+"diagram_suggestions": [
+"PAN Network Example Diagram",
+"LAN Office Network Diagram",
+"MAN City Network Diagram",
+"WAN Global Network Diagram",
+"VPN Secure Tunnel Diagram"
+]
+}

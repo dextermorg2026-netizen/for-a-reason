@@ -1,0 +1,48 @@
+{
+"title": "Introduction to Computer Networks",
+"description": "Fundamental concepts of computer networking including data communication, components involved in communication systems, and types of data flow used in networks.",
+"topics": [
+{
+"title": "Introduction to Computer Networks",
+"description": "This topic explains the basic building blocks of networking and how computers exchange data across networks.",
+"subtopics": [
+
+{
+"title": "What is a Computer Network",
+"theory": "A computer network is a collection of interconnected devices such as computers, servers, routers, and switches that communicate with each other to share resources and exchange data. These devices are called nodes and they communicate through communication links such as cables or wireless signals. Networks enable applications like email, file sharing, video streaming, cloud computing, and web browsing. Modern networks rely on standardized protocols such as TCP/IP to ensure reliable communication between devices across the world."
+},
+
+{
+"title": "Data Communication",
+"theory": "Data communication refers to the exchange of data between two or more devices through a transmission medium. The communication can occur locally (within the same building) or remotely (across continents via the internet). For a data communication system to be effective it must ensure four main properties: delivery (data must reach the correct destination), accuracy (data should not be corrupted), timeliness (data should arrive on time especially for real-time applications), and low jitter (minimal delay variation between packets)."
+},
+
+{
+"title": "Components of Data Communication System",
+"theory": "A data communication system consists of five main components. The Message is the information that needs to be transmitted such as text, images, audio or video. The Sender is the device that generates and sends the data such as a computer or smartphone. The Receiver is the device that receives the data. The Transmission Medium is the physical path through which data travels such as twisted pair cables, fiber optics or wireless signals. The Protocol is a set of rules that governs how data is transmitted, received and interpreted between devices."
+},
+
+{
+"title": "Data Representation in Networks",
+"theory": "In computer networks all forms of information must be converted into digital signals before transmission. Text data is encoded using character encoding systems such as ASCII or Unicode. Numbers are represented in binary format to allow efficient processing by computers. Images are represented as matrices of pixels where each pixel is encoded with color information. Audio signals are converted into digital samples using sampling techniques. Video is represented as a sequence of image frames transmitted over time."
+},
+
+{
+"title": "Modes of Data Transmission",
+"theory": "Data transmission can occur in three different modes depending on the direction of communication. In Simplex communication data flows in only one direction where one device always acts as sender and the other as receiver, such as keyboard input to a computer. In Half-Duplex communication both devices can transmit and receive but not simultaneously, meaning only one device sends data at a time, like walkie-talkies. In Full-Duplex communication both devices can transmit and receive simultaneously which allows real-time conversation such as telephone calls or video conferencing."
+},
+
+{
+"title": "Key Network Performance Criteria",
+"theory": "A good network must satisfy three major criteria: performance, reliability, and security. Performance refers to how fast data can be transmitted and is typically measured using metrics such as throughput and delay. Reliability refers to the network's ability to recover from failures and maintain consistent operation. Security refers to protecting data from unauthorized access, attacks, and data loss during transmission."
+}
+
+]
+}
+],
+"diagram_suggestions": [
+"Basic Data Communication Model",
+"Simplex vs Half Duplex vs Full Duplex Communication Diagram",
+"Components of Data Communication System Diagram"
+]
+}

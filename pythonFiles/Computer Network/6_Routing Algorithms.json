@@ -1,0 +1,98 @@
+{
+"title": "Routing Algorithms",
+"description": "Routing algorithms determine the best path for packets to travel from a source network to a destination network. Routers use these algorithms to build routing tables and efficiently forward packets across interconnected networks.",
+"topics": [
+{
+"title": "Introduction to Routing",
+"description": "Understanding the concept of routing and how routers determine paths in a network.",
+"subtopics": [
+
+{
+"title": "What is Routing",
+"theory": "Routing is the process of selecting the most efficient path for data packets to travel from a source device to a destination device across multiple networks. In large networks such as the Internet, packets must pass through many intermediate routers before reaching their final destination. Each router determines the best next hop using routing algorithms and routing tables."
+},
+
+{
+"title": "Static vs Dynamic Routing",
+"theory": "Static routing involves manually configuring routing tables in routers. It is simple but not scalable for large networks. Dynamic routing automatically updates routing tables using routing protocols and algorithms. Dynamic routing adapts to network changes such as link failures and congestion, making it suitable for modern large-scale networks."
+}
+
+]
+},
+
+{
+"title": "Distance Vector Routing",
+"description": "Routing technique where routers share distance information with neighboring routers.",
+"subtopics": [
+
+{
+"title": "Concept of Distance Vector Routing",
+"theory": "Distance vector routing is a routing method in which each router maintains a table containing the distance to all known destinations and the direction (next hop) to reach them. Routers periodically share their routing tables with neighboring routers. Based on this information routers update their own tables to determine shorter paths."
+},
+
+{
+"title": "Bellman-Ford Algorithm",
+"theory": "Distance vector routing is based on the Bellman-Ford algorithm which calculates the shortest path to all destinations by iteratively updating distance values. Each router calculates the distance to a destination as the minimum of the sum of the cost to a neighbor plus the neighbor's distance to that destination."
+},
+
+{
+"title": "Advantages and Limitations of Distance Vector Routing",
+"theory": "Distance vector routing is simple to implement and requires less computational power. However it has limitations such as slow convergence and routing loops. Problems like the count-to-infinity issue may occur when routers continuously increase path cost after a network failure."
+}
+
+]
+},
+
+{
+"title": "Link State Routing",
+"description": "Routing technique where routers build a complete map of the network topology.",
+"subtopics": [
+
+{
+"title": "Concept of Link State Routing",
+"theory": "In link state routing each router builds a complete map of the entire network topology rather than relying only on neighbor information. Routers broadcast link state information to all other routers in the network. Each router then calculates the best path to all destinations using this topology information."
+},
+
+{
+"title": "Dijkstra Shortest Path Algorithm",
+"theory": "Link state routing uses Dijkstra's algorithm to compute the shortest path tree from a router to all other routers in the network. The algorithm repeatedly selects the nearest unvisited node and updates the shortest path distances to its neighbors until all nodes are processed."
+},
+
+{
+"title": "Advantages of Link State Routing",
+"theory": "Link state routing converges faster and avoids routing loops compared to distance vector routing. Because routers have a complete map of the network they can calculate more accurate routes. However it requires more memory and processing power."
+}
+
+]
+},
+
+{
+"title": "Routing Protocols",
+"description": "Protocols that implement routing algorithms in real networks.",
+"subtopics": [
+
+{
+"title": "RIP (Routing Information Protocol)",
+"theory": "RIP is a distance vector routing protocol that uses hop count as the metric for determining the best path. The maximum allowed hop count is 15 which limits its use to small networks. RIP periodically broadcasts routing updates to neighboring routers."
+},
+
+{
+"title": "OSPF (Open Shortest Path First)",
+"theory": "OSPF is a link state routing protocol widely used in large enterprise networks. It uses Dijkstra's algorithm to calculate the shortest path and supports hierarchical routing using areas. OSPF converges faster and provides better scalability than RIP."
+},
+
+{
+"title": "BGP (Border Gateway Protocol)",
+"theory": "BGP is the routing protocol used on the Internet to exchange routing information between different autonomous systems. Unlike RIP and OSPF which operate inside networks, BGP is used for inter-domain routing and determines paths based on policies rather than shortest distance."
+}
+
+]
+}
+],
+"diagram_suggestions": [
+"Distance Vector Routing Example Diagram",
+"Link State Routing Network Map Diagram",
+"Dijkstra Shortest Path Tree Diagram",
+"Routing Table Update Process Diagram"
+]
+}

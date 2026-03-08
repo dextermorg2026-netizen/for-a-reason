@@ -1,0 +1,106 @@
+{
+"title": "Transmission Control Protocol (TCP)",
+"description": "TCP is a connection-oriented transport layer protocol that provides reliable, ordered, and error-checked delivery of data between applications communicating over an IP network.",
+"topics": [
+{
+"title": "Introduction to TCP",
+"description": "Understanding the purpose and characteristics of the Transmission Control Protocol.",
+"subtopics": [
+
+{
+"title": "What is TCP",
+"theory": "Transmission Control Protocol (TCP) is a connection-oriented transport layer protocol used to ensure reliable communication between devices across a network. Before transmitting data TCP establishes a connection between the sender and receiver. It guarantees that data arrives in the correct order and without loss using acknowledgments, sequence numbers, and retransmission mechanisms. TCP is widely used in applications where reliability is critical such as web browsing, email, and file transfers."
+},
+
+{
+"title": "Key Features of TCP",
+"theory": "TCP provides several important features including connection-oriented communication, reliable data transfer, ordered delivery of packets, error detection and recovery, flow control, and congestion control. These features make TCP suitable for applications where accurate and complete data transmission is essential."
+}
+
+]
+},
+
+{
+"title": "TCP Connection Establishment",
+"description": "Process used by TCP to establish a reliable communication session between two hosts.",
+"subtopics": [
+
+{
+"title": "Three-Way Handshake",
+"theory": "Before data transmission begins TCP establishes a connection using a process called the three-way handshake. In the first step the client sends a SYN (synchronize) packet to the server indicating a request to start communication. In the second step the server responds with a SYN-ACK packet acknowledging the request and indicating readiness to communicate. In the final step the client sends an ACK packet confirming the connection establishment. After this process both devices can start exchanging data."
+},
+
+{
+"title": "Purpose of the Three-Way Handshake",
+"theory": "The three-way handshake ensures that both sender and receiver are ready to communicate and agree on initial sequence numbers for data transmission. It also prevents duplicate or delayed connection requests from creating unintended connections."
+}
+
+]
+},
+
+{
+"title": "TCP Data Transmission",
+"description": "How TCP ensures reliable delivery of data.",
+"subtopics": [
+
+{
+"title": "Sequence Numbers",
+"theory": "TCP assigns sequence numbers to every byte of data transmitted. These sequence numbers allow the receiver to reorder packets correctly and detect missing data segments. If a segment arrives out of order the receiver can rearrange the data using the sequence numbers."
+},
+
+{
+"title": "Acknowledgments",
+"theory": "After receiving data the receiver sends an acknowledgment (ACK) back to the sender indicating successful receipt of the data. If the sender does not receive an acknowledgment within a certain time it assumes that the packet was lost and retransmits it."
+},
+
+{
+"title": "Retransmission Mechanism",
+"theory": "TCP uses retransmission to recover lost packets. If the sender does not receive an acknowledgment within a predefined timeout period it retransmits the missing segment. This ensures reliable delivery even when packets are lost due to network congestion or transmission errors."
+}
+
+]
+},
+
+{
+"title": "TCP Flow Control",
+"description": "Mechanism used to prevent overwhelming the receiver.",
+"subtopics": [
+
+{
+"title": "Sliding Window Mechanism",
+"theory": "TCP uses a sliding window mechanism for flow control. The receiver advertises a window size indicating how much data it can receive at a time. The sender can transmit multiple packets within this window without waiting for acknowledgments. As acknowledgments arrive the window slides forward allowing more data to be sent."
+},
+
+{
+"title": "Receiver Buffer Management",
+"theory": "Flow control ensures that the sender does not send more data than the receiver's buffer can handle. If the receiver's buffer becomes full it reduces the advertised window size which forces the sender to slow down the transmission rate."
+}
+
+]
+},
+
+{
+"title": "TCP Connection Termination",
+"description": "Process used to close a TCP connection.",
+"subtopics": [
+
+{
+"title": "Four-Way Handshake",
+"theory": "TCP connections are terminated using a four-step process. First the client sends a FIN packet indicating that it wants to close the connection. The server responds with an ACK confirming receipt. The server then sends its own FIN packet when it is ready to terminate the connection. Finally the client sends an ACK confirming the termination. This process ensures that both sides finish transmitting data before closing the connection."
+},
+
+{
+"title": "Graceful Connection Closure",
+"theory": "TCP ensures that all remaining data is transmitted before closing the connection. This orderly release mechanism prevents data loss during connection termination."
+}
+
+]
+}
+],
+"diagram_suggestions": [
+"TCP Three Way Handshake Diagram",
+"TCP Four Way Termination Diagram",
+"TCP Reliable Data Transmission Diagram",
+"TCP Segment Structure Diagram"
+]
+}

@@ -1,0 +1,140 @@
+{
+"title": "Network Topologies",
+"description": "Network topology refers to the physical or logical arrangement of devices and communication links in a network. It determines how nodes are connected, how data flows between devices, and how scalable or fault-tolerant a network is.",
+"topics": [
+{
+"title": "Network Topology Fundamentals",
+"description": "Basic understanding of what topology means in networking and why it matters.",
+"subtopics": [
+
+{
+"title": "What is Network Topology",
+"theory": "Network topology describes the structure or layout of how devices (nodes) such as computers, switches, routers, and servers are interconnected in a network. It defines how data travels between devices and how devices communicate with each other. Topologies can be physical (actual cable layout) or logical (how data flows in the network). Choosing the right topology impacts network performance, scalability, cost, and fault tolerance."
+},
+
+{
+"title": "Physical vs Logical Topology",
+"theory": "Physical topology refers to the actual layout of cables and devices in the network. Logical topology describes how data moves within the network regardless of the physical layout. For example, Ethernet networks may use a star physical topology but logically behave like a bus because all devices share the same communication medium."
+}
+
+]
+},
+
+{
+"title": "Mesh Topology",
+"description": "Highly reliable topology where devices are directly connected with each other.",
+"subtopics": [
+
+{
+"title": "Structure of Mesh Topology",
+"theory": "In a mesh topology every device is connected directly to every other device using dedicated point-to-point communication links. This means each pair of devices has its own private communication channel. This architecture provides maximum redundancy and reliability since multiple paths exist between nodes."
+},
+
+{
+"title": "Mesh Topology Link Formula",
+"theory": "If a network has n devices, then the total number of links required for a full mesh topology is n(n−1)/2. This formula arises because each device must connect to every other device exactly once. For example, if there are 5 devices, the number of links required will be 5(5−1)/2 = 10 links."
+},
+
+{
+"title": "Advantages and Disadvantages of Mesh Topology",
+"theory": "Advantages include high reliability, fault tolerance, privacy of communication, and easy fault isolation because each connection is independent. However, mesh topology requires a large amount of cabling and hardware which increases installation cost and complexity. It is mainly used in backbone networks or mission-critical systems where reliability is extremely important."
+}
+
+]
+},
+
+{
+"title": "Star Topology",
+"description": "Most widely used topology in modern LAN networks.",
+"subtopics": [
+
+{
+"title": "Structure of Star Topology",
+"theory": "In star topology every device is connected to a central device such as a switch or hub. All communication between devices passes through this central node. The central device manages traffic and forwards data to the correct destination device."
+},
+
+{
+"title": "Working of Star Topology",
+"theory": "When one device wants to communicate with another device, it sends the data to the central hub or switch. The central device then examines the destination address and forwards the data to the appropriate node. Modern Ethernet networks typically use switches as the central device."
+},
+
+{
+"title": "Advantages and Disadvantages of Star Topology",
+"theory": "Star topology is easy to install, easy to manage, and allows simple fault detection. If one device fails, it does not affect the rest of the network. However, if the central hub or switch fails, the entire network stops functioning because all devices depend on the central node."
+}
+
+]
+},
+
+{
+"title": "Bus Topology",
+"description": "A topology where all devices share a single communication backbone.",
+"subtopics": [
+
+{
+"title": "Structure of Bus Topology",
+"theory": "In bus topology all devices are connected to a single central cable called the backbone. Each device connects to the backbone through drop lines and taps. Data travels along the backbone cable and every device checks whether the message is intended for it."
+},
+
+{
+"title": "Working of Bus Topology",
+"theory": "When a device sends data, the signal travels across the backbone cable in both directions. Every device receives the signal but only the device with the matching address processes the data. Terminators are placed at both ends of the backbone to prevent signal reflection."
+},
+
+{
+"title": "Advantages and Disadvantages of Bus Topology",
+"theory": "Bus topology requires less cabling compared to other topologies and is relatively simple to install. However it is difficult to troubleshoot and adding new devices may disrupt the network. If the backbone cable fails, the entire network becomes unusable."
+}
+
+]
+},
+
+{
+"title": "Ring Topology",
+"description": "Topology where devices are connected in a circular chain.",
+"subtopics": [
+
+{
+"title": "Structure of Ring Topology",
+"theory": "In ring topology each device is connected to exactly two neighboring devices forming a closed loop. Data travels from one device to another around the ring until it reaches the intended destination."
+},
+
+{
+"title": "Token Based Communication",
+"theory": "Many ring networks use a token passing mechanism where a small control packet called a token circulates around the ring. A device can transmit data only when it possesses the token. This method prevents collisions in the network."
+},
+
+{
+"title": "Advantages and Disadvantages of Ring Topology",
+"theory": "Ring topology provides orderly communication without collisions and can handle heavy traffic better than bus topology. However, a failure in one device or link may disrupt the entire network unless fault-tolerant techniques such as dual rings are implemented."
+}
+
+]
+},
+
+{
+"title": "Hybrid Topology",
+"description": "Combination of multiple topologies used in modern enterprise networks.",
+"subtopics": [
+
+{
+"title": "What is Hybrid Topology",
+"theory": "Hybrid topology combines two or more different network topologies to create a more flexible and scalable network architecture. For example, a large organization may use star topology within each department but connect departments using a bus or mesh backbone."
+},
+
+{
+"title": "Advantages of Hybrid Topology",
+"theory": "Hybrid networks provide scalability, flexibility, and improved fault tolerance. Network designers can choose the most appropriate topology for each part of the network depending on performance and cost requirements."
+}
+
+]
+}
+],
+"diagram_suggestions": [
+"Mesh Topology Diagram",
+"Star Topology Diagram",
+"Bus Topology Diagram",
+"Ring Topology Diagram",
+"Hybrid Network Topology Diagram"
+]
+}

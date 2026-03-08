@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-QUIZZZZ Content Upload Script
-Uploads subjects, topics, and subtopics to Firebase Firestore
+QUIZZZZ Subtopics Upload Script
+Uploads only subtopics to Firebase Firestore (requires topics to exist)
 """
 
 import firebase_admin
@@ -36,13 +36,13 @@ def initialize_firebase():
 # ----------------------------
 
 def get_subject_by_title(db, title):
-    """Check if subject exists by title"""
+    """Get subject by title"""
     query = db.collection("subjects").where("title", "==", title).limit(1).stream()
     docs = list(query)
     return docs[0] if docs else None
 
-def get_topic_by_title(db, title, subject_id):
-    """Check if topic exists"""
+def get_topic_by_title_and_subject(db, title, subject_id):
+    """Get topic by title and subject ID"""
     query = (
         db.collection("topics")
         .where("title", "==", title)
@@ -53,7 +53,7 @@ def get_topic_by_title(db, title, subject_id):
     docs = list(query)
     return docs[0] if docs else None
 
-def get_subtopic_by_title(db, title, topic_id):
+def get_subtopic_by_title_and_topic(db, title, topic_id):
     """Check if subtopic exists"""
     query = (
         db.collection("subtopics")
@@ -69,8 +69,8 @@ def get_subtopic_by_title(db, title, topic_id):
 # Upload Functions
 # ----------------------------
 
-def upload_subjects_topics(db):
-    """Upload subjects, topics, and subtopics from JSON file"""
+def upload_subtopics(db):
+    """Upload subtopics from JSON file"""
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     json_path = os.path.join(BASE_DIR, "subjects_topics.json")
@@ -89,68 +89,49 @@ def upload_subjects_topics(db):
             print("⚠️  Warning: No subjects found in JSON file")
             return False
 
-        total_subjects = len(subjects_list)
-        total_topics = sum(len(subject.get("topics", [])) for subject in subjects_list)
-        total_subtopics = sum(
-            len(topic.get("subtopics", []))
-            for subject in subjects_list
-            for topic in subject.get("topics", [])
-        )
+        print("📚 Starting subtopics upload...\n")
 
-        print(f"📚 Starting upload: {total_subjects} subjects, {total_topics} topics, {total_subtopics} subtopics\n")
-
-        uploaded_subjects = 0
-        uploaded_topics = 0
-        uploaded_subtopics = 0
+        uploaded_count = 0
+        skipped_count = 0
+        error_count = 0
 
         for subject in subjects_list:
             subject_title = subject.get("title", "").strip()
-            subject_description = subject.get("description", "").strip()
             topics_list = subject.get("topics", [])
 
             if not subject_title:
                 print("⚠️  Skipping subject with empty title")
                 continue
 
-            # Check if subject exists
-            existing_subject = get_subject_by_title(db, subject_title)
+            # Get subject ID
+            subject_doc = get_subject_by_title(db, subject_title)
+            if not subject_doc:
+                print(f"❌ Subject not found: {subject_title} (upload subjects first)")
+                # Count all subtopics under this subject
+                for topic in topics_list:
+                    error_count += len(topic.get("subtopics", []))
+                continue
 
-            if existing_subject:
-                subject_id = existing_subject.id
-                print(f"⚠️  Subject already exists: {subject_title}")
-            else:
-                subject_ref = db.collection("subjects").add({
-                    "title": subject_title,
-                    "description": subject_description
-                })
-                subject_id = subject_ref[1].id
-                uploaded_subjects += 1
-                print(f"✅ Created subject: {subject_title}")
+            subject_id = subject_doc.id
 
-            # Process topics
+            # Process topics to get to subtopics
             for topic in topics_list:
                 topic_title = topic.get("title", "").strip()
-                topic_description = topic.get("description", "").strip()
                 subtopics_list = topic.get("subtopics", [])
 
                 if not topic_title:
                     print("⚠️  Skipping topic with empty title")
                     continue
 
-                existing_topic = get_topic_by_title(db, topic_title, subject_id)
+                # Get topic ID
+                topic_doc = get_topic_by_title_and_subject(db, topic_title, subject_id)
+                if not topic_doc:
+                    print(f"❌ Topic not found: {topic_title} (upload topics first)")
+                    error_count += len(subtopics_list)
+                    continue
 
-                if existing_topic:
-                    topic_id = existing_topic.id
-                    print(f"   ⚠️  Topic already exists: {topic_title}")
-                else:
-                    topic_ref = db.collection("topics").add({
-                        "title": topic_title,
-                        "description": topic_description,
-                        "subjectId": subject_id
-                    })
-                    topic_id = topic_ref[1].id
-                    uploaded_topics += 1
-                    print(f"   ✅ Created topic: {topic_title}")
+                topic_id = topic_doc.id
+                print(f"📖 Processing subtopics for topic: {topic_title}")
 
                 # Process subtopics
                 for subtopic in subtopics_list:
@@ -162,10 +143,11 @@ def upload_subjects_topics(db):
                         print("⚠️  Skipping subtopic with empty title")
                         continue
 
-                    existing_subtopic = get_subtopic_by_title(db, subtopic_title, topic_id)
+                    existing_subtopic = get_subtopic_by_title_and_topic(db, subtopic_title, topic_id)
 
                     if existing_subtopic:
                         print(f"      ⚠️  Subtopic already exists: {subtopic_title}")
+                        skipped_count += 1
                     else:
                         db.collection("subtopics").add({
                             "title": subtopic_title,
@@ -173,18 +155,22 @@ def upload_subjects_topics(db):
                             "theory": subtopic_theory,
                             "images": subtopic_images
                         })
-                        uploaded_subtopics += 1
+                        uploaded_count += 1
                         print(f"      ✅ Created subtopic: {subtopic_title}")
 
-        print(f"\n🎉 Content upload completed!")
-        print(f"   📊 Summary: {uploaded_subjects} subjects, {uploaded_topics} topics, {uploaded_subtopics} subtopics uploaded")
-        return True
+        print(f"\n🎉 Subtopics upload completed!")
+        print(f"   📊 Summary: {uploaded_count} uploaded, {skipped_count} skipped, {error_count} errors")
+
+        if error_count > 0:
+            print(f"   ⚠️  {error_count} subtopics skipped due to missing parent subjects/topics")
+
+        return uploaded_count > 0
 
     except json.JSONDecodeError as e:
         print(f"❌ Error parsing JSON file: {str(e)}")
         return False
     except Exception as e:
-        print(f"❌ Error uploading content: {str(e)}")
+        print(f"❌ Error uploading subtopics: {str(e)}")
         return False
 
 # ----------------------------
@@ -192,19 +178,19 @@ def upload_subjects_topics(db):
 # ----------------------------
 
 def main():
-    print("🚀 QUIZZZZ Content Upload Script")
+    print("🚀 QUIZZZZ Subtopics Upload Script")
     print("=" * 40)
 
     db = initialize_firebase()
     if not db:
         return
 
-    success = upload_subjects_topics(db)
+    success = upload_subtopics(db)
 
     if success:
-        print("\n✅ Content upload completed successfully!")
+        print("\n✅ Subtopics upload completed successfully!")
     else:
-        print("\n❌ Content upload failed!")
+        print("\n❌ Subtopics upload failed!")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,70 @@
+{
+    "topics": [
+      {
+        "title": "Design a Key-Value Store",
+        "description": "Understanding distributed key-value databases, CAP theorem trade-offs, partitioning, replication, and storage engine design.",
+        "subtopics": [
+          {
+            "title": "Key-Value Store",
+            "theory": "1️⃣ Key-Value Store\n\n✅ Definition\n\nA Key-Value Store is a distributed database that stores data as a pair:\n\nKey → Value\n\nKey: unique identifier\n\nValue: arbitrary data (string, JSON, blob, binary)\n\nIt is optimized for fast key-based access.\n\n\n\n✅ Why It Is Needed\n\nHandle massive scale (millions of QPS)\n\nLow latency reads and writes\n\nSimple data model\n\nHorizontal scaling\n\n\n\n✅ Important Points\n\nSchema-less\n\nNo joins\n\nNo complex queries\n\nData accessed only via key\n\nDesigned for distribution\n\n\n\n✅ Advantages\n\nVery fast (O(1) access average)\n\nScales horizontally easily\n\nHigh availability\n\nSimple to implement\n\n\n\n❌ Disadvantages\n\nCannot query by value\n\nNo relational constraints\n\nConflict resolution complexity\n\nPossible stale reads"
+          },
+          {
+            "title": "CAP Theorem",
+            "theory": "2️⃣ CAP Theorem\n\n\n\n✅ Definition\n\nIn a distributed system, you can guarantee at most two of three:\n\nConsistency\n\nAvailability\n\nPartition Tolerance\n\n\n\n✅ Important Understanding\n\nPartition tolerance is mandatory in distributed systems.\n\nSo real trade-off:\n\nConsistency vs Availability\n\n\n\nCP System\n\nGuarantees consistency\n\nMay reject requests during partition\n\n\n\nAP System\n\nGuarantees availability\n\nMay return stale data"
+          },
+          {
+            "title": "Consistency Models",
+            "theory": "3️⃣ Consistency Models\n\n\n\n✅ Strong Consistency\n\nRead always returns latest write\n\nHigher latency\n\nRequires coordination\n\n\n\n✅ Eventual Consistency\n\nReads may be stale\n\nSystem converges eventually\n\nMost scalable option\n\n\n\n✅ Weak Consistency\n\nNo guarantees\n\nFastest"
+          },
+          {
+            "title": "Data Partitioning",
+            "theory": "4️⃣ Data Partitioning\n\n\n\n✅ Definition\n\nDividing dataset across multiple nodes.\n\n\n\n✅ Why Needed\n\nScale storage\n\nScale traffic\n\nAvoid single-node bottleneck\n\n\n\nMethods\n\nHash-Based Partitioning\n\nhash(key) % number_of_nodes\n\nProblem: massive reshuffling when nodes change."
+          },
+          {
+            "title": "Consistent Hashing",
+            "theory": "5️⃣ Consistent Hashing\n\n\n\n✅ Definition\n\nPartitioning technique that minimizes data movement when nodes join/leave.\n\n\n\nHow It Works\n\nNodes placed on hash ring\n\nKeys hashed to ring\n\nAssigned to nearest clockwise node\n\n\n\nVirtual Nodes\n\nOne physical node mapped multiple times\n\nImproves load balance\n\n\n\nAdvantage\n\nOnly small % of keys move when cluster changes."
+          },
+          {
+            "title": "Replication",
+            "theory": "6️⃣ Replication\n\n\n\n✅ Definition\n\nStoring multiple copies of data.\n\n\n\nWhy Needed\n\nFault tolerance\n\nHigh availability\n\nRead scaling\n\n\n\nReplication Factor (N)\n\nNumber of copies of each key.\n\nExample:\n\nN = 3\n\nData stored on 3 nodes.\n\n\n\nReplication Models\n\nLeader–Follower\n\nOne leader handles writes\n\nFollowers replicate\n\n\n\nLeaderless (Dynamo Style)\n\nAny node can accept write\n\nUses quorum\n\n\n\nTrade-Off\n\nMore replicas → better durability\nMore replicas → more coordination cost"
+          },
+          {
+            "title": "Quorum Mechanism",
+            "theory": "7️⃣ Quorum Mechanism\n\n\n\nParameters\n\nN = total replicas\n\nW = write acknowledgments\n\nR = read acknowledgments\n\nRule for strong consistency:\n\nR + W > N\n\n\n\nExample\n\nN = 3\nW = 2\nR = 2\n\nAt least one overlapping replica ensures latest value.\n\n\n\nTrade-Off\n\nHigher R/W → higher latency\nLower R/W → higher availability"
+          },
+          {
+            "title": "Versioning",
+            "theory": "8️⃣ Versioning\n\n\n\n✅ Definition\n\nAttaching version metadata to each value.\n\nUsed to:\n\nDetect conflicts\n\nMaintain causality\n\n\n\nTechniques\n\nTimestamp\n\nSimple\n\nRisk of clock skew\n\n\n\nVector Clock\n\nTracks causality\n\nDetects concurrent updates\n\nMore accurate"
+          },
+          {
+            "title": "Conflict Resolution",
+            "theory": "9️⃣ Conflict Resolution\n\n\n\nWhen It Happens\n\nConcurrent writes\n\nNetwork partition\n\n\n\nTechniques\n\nLast Write Wins (LWW)\n\nNewest timestamp wins.\n\nRisk: data loss.\n\n\n\nVector Clock Resolution\n\nDetects concurrent versions.\n\n\n\nApplication Merge\n\nBusiness logic decides."
+          },
+          {
+            "title": "Write Path",
+            "theory": "🔟 Write Path (Detailed Flow)\n\n\n\nClient sends PUT\n\nCoordinator node receives request\n\nWrite stored in commit log (durability)\n\nWritten to Memtable\n\nSent to N replicas\n\nWait for W acknowledgments\n\nReturn success"
+          },
+          {
+            "title": "Read Path",
+            "theory": "1️⃣1️⃣ Read Path (Detailed Flow)\n\n\n\nClient sends GET\n\nCoordinator selects R replicas\n\nRetrieves versions\n\nPicks latest version\n\nPerforms read repair if needed\n\nReturns value"
+          },
+          {
+            "title": "Failure Handling",
+            "theory": "1️⃣2️⃣ Failure Handling\n\n\n\nTemporary Failure\n\nHinted handoff stores writes\n\nDelivered later\n\n\n\nPermanent Failure\n\nData rebuilt from replicas\n\nRebalancing triggered\n\n\n\nGossip Protocol\n\nNodes exchange state periodically to detect failures."
+          },
+          {
+            "title": "Storage Engine",
+            "theory": "1️⃣3️⃣ Storage Engine\n\n\n\nMost distributed KV stores use:\n\nLSM Tree (Log Structured Merge Tree)\n\n\n\nWrite Flow\n\nWrite → Commit Log\n\nWrite → Memtable (in memory)\n\nFlush to SSTable (disk)\n\nBackground compaction merges files\n\n\n\nComponents\n\nMemtable\n\nIn-memory sorted structure.\n\n\n\nSSTable\n\nImmutable disk file.\n\n\n\nCompaction\n\nMerging old SSTables.\n\n\n\nBloom Filter\n\nProbabilistic structure to check if key exists.\nReduces disk reads."
+          },
+          {
+            "title": "Important Terms",
+            "theory": "📌 Important Terms Definitions\n\n\n\nDurability\n\nData survives crashes.\n\n\n\nLatency\n\nTime to respond.\n\n\n\nThroughput\n\nRequests per second.\n\n\n\nHotspot\n\nNode receiving uneven load.\n\n\n\nAnti-Entropy\n\nBackground synchronization to repair replicas.\n\n\n\nRead Repair\n\nFixing stale replicas during read.\n\n\n\nHinted Handoff\n\nTemporary write storage for failed nodes."
+          },
+          {
+            "title": "Final Interview Summary",
+            "theory": "🎯 Final Interview Summary\n\nA distributed key-value store achieves scalability and fault tolerance using partitioning, replication, quorum-based consistency, versioning, and LSM-tree storage engines while balancing CAP trade-offs."
+          }
+        ]
+      }
+    ]
+  }

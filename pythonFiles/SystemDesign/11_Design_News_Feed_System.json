@@ -1,0 +1,66 @@
+{
+    "topics": [
+      {
+        "title": "Design a News Feed System",
+        "description": "Understanding large-scale news feed architecture including publishing flow, feed building, fanout strategies, caching, and scalability considerations.",
+        "subtopics": [
+          {
+            "title": "What is a News Feed",
+            "theory": "1️⃣ What is a News Feed?\n\nDefinition\n\nA news feed is a continuously updating list of posts from people a user follows, typically displayed in reverse chronological order.\n\nIt includes:\n\nText posts\n\nImages\n\nVideos\n\nLinks"
+          },
+          {
+            "title": "Functional Requirements",
+            "theory": "2️⃣ Functional Requirements\n\nCore Features\n\nUser can publish a post\n\nUser can view friends’ posts\n\nFeed sorted by reverse chronological order\n\nMedia supported (text, images, videos)"
+          },
+          {
+            "title": "Non-Functional Requirements",
+            "theory": "3️⃣ Non-Functional Requirements\n\nDefinitions\n\nTerm\n\nDefinition\n\nScalability\n\nAbility to handle increasing traffic (e.g., 10M DAU).\n\nAvailability\n\nSystem remains usable even if some servers fail.\n\nLow Latency\n\nFeed must load quickly (few hundred ms).\n\nConsistency\n\nUsers see expected posts without corruption.\n\nFault Tolerance\n\nSystem continues working despite failures."
+          },
+          {
+            "title": "High-Level Design",
+            "theory": "4️⃣ High-Level Design\n\nSystem divided into two flows:\n\nFeed Publishing\n\nNews Feed Building"
+          },
+          {
+            "title": "News Feed APIs",
+            "theory": "5️⃣ News Feed APIs\n\n1. Feed Publishing API\n\nPOST /v1/me/feed\n\nParams:\n\n- content\n\n- auth_token\n\n2. News Feed Retrieval API\n\nGET /v1/me/feed\n\nParams:\n\n- auth_token"
+          },
+          {
+            "title": "Feed Publishing Flow",
+            "theory": "6️⃣ Feed Publishing Flow\n\n🔄 Flow Steps\n\nUser sends POST request\n\nLoad balancer distributes traffic\n\nWeb server authenticates request\n\nPost service stores data in DB + cache\n\nFanout service distributes post\n\nNotification service sends alerts\n\n\n\n🧠 Important Components\n\n1️⃣ Load Balancer\n\nDefinition: Distributes incoming requests across servers.\nAdvantage: Prevents overload\nDisadvantage: Extra infrastructure layer\n\n\n\n2️⃣ Web Server\n\nDefinition: Handles client requests, authentication, rate limiting.\nImportant Points:\n\nEnforces auth_token validation\n\nApplies rate limiting\n\n\n\n3️⃣ Post Service\n\nDefinition: Persists post data in database and cache.\n\n\n\n4️⃣ Fanout Service\n\nDefinition: Delivers a post to all friends’ feeds.\n\n\n\n5️⃣ Notification Service\n\nDefinition: Sends push notifications to friends."
+          },
+          {
+            "title": "News Feed Building Flow",
+            "theory": "7️⃣ News Feed Building Flow\n\n🔄 Flow Steps\n\nUser requests feed\n\nLoad balancer routes request\n\nWeb server forwards request\n\nNewsfeed service fetches feed IDs from cache\n\nPosts returned to client\n\n\n\nImportant Component\n\nNewsfeed Cache\n\nDefinition: Stores feed IDs or precomputed feeds for fast retrieval.\nPurpose: Reduce DB load"
+          },
+          {
+            "title": "Fanout Models",
+            "theory": "8️⃣ Deep Dive: Fanout Models (Most Important Topic)\n\n\n\n🅰️ Fanout on Write (Push Model)\n\nDefinition\n\nFeed is generated when post is created.\n\nFlow\n\nUser posts\n\nSystem pushes post to all friends’ feed cache\n\nAdvantages\n\nVery fast read\n\nReal-time experience\n\nDisadvantages\n\nVery expensive for users with many friends\n\nHigh write amplification\n\n\n\n🅱️ Fanout on Read (Pull Model)\n\nDefinition\n\nFeed is generated when user requests it.\n\nFlow\n\nUser requests feed\n\nSystem gathers posts from friends\n\nSorts and returns\n\nAdvantages\n\nCheap writes\n\nGood for celebrities\n\nDisadvantages\n\nSlower reads\n\nHeavy computation during read\n\n\n\n🅾️ Hybrid Model (Practical Solution)\n\nPush model for normal users\n\nPull model for celebrities (many followers)\n\nThis balances read and write cost."
+          },
+          {
+            "title": "Important Technical Concepts",
+            "theory": "9️⃣ Important Technical Concepts\n\n\n\n1️⃣ Reverse Chronological Order\n\nDefinition: Most recent posts appear first.\n\n\n\n2️⃣ Rate Limiting\n\nDefinition: Restrict number of actions per user per time window.\nPurpose: Prevent spam.\n\n\n\n3️⃣ Authentication Token\n\nDefinition: Token verifying user identity.\n\n\n\n4️⃣ Cache\n\nDefinition: Fast in-memory storage.\nPurpose: Reduce database reads.\n\n\n\n5️⃣ Stateless Server\n\nDefinition: Server does not store session state locally.\nAdvantage: Easy horizontal scaling.\n\n\n\n6️⃣ Horizontal Scaling\n\nDefinition: Adding more servers instead of increasing server size.\n\n\n\n7️⃣ Write Amplification\n\nDefinition: One write causing multiple internal writes.\nExample: One post → 5000 friend feed updates."
+          },
+          {
+            "title": "Scalability Considerations",
+            "theory": "🔟 Scalability Considerations\n\n10M DAU\n\n5000 friends per user\n\nHeavy read traffic\n\nUse caching heavily\n\nSeparate write path from read path"
+          },
+          {
+            "title": "Advantages",
+            "theory": "11️⃣ Advantages of This Design\n\n✔ Scalable\n✔ Fast reads\n✔ Supports real-time experience\n✔ Works with caching\n✔ Flexible with hybrid fanout"
+          },
+          {
+            "title": "Disadvantages",
+            "theory": "12️⃣ Disadvantages / Challenges\n\n✘ Celebrity problem (millions of followers)\n✘ Cache invalidation complexity\n✘ High storage cost\n✘ Consistency delays\n✘ Heavy fanout cost"
+          },
+          {
+            "title": "Common Interview Follow-ups",
+            "theory": "13️⃣ Common Interview Follow-ups\n\nHow do you support ranking by relevance instead of time?\n\nHow do you handle celebrity users?\n\nHow do you reduce fanout cost?\n\nHow do you support comments and likes?\n\nHow to scale to 100M DAU?"
+          },
+          {
+            "title": "Quick Revision Sheet",
+            "theory": "🧠 Quick Revision Sheet\n\nTwo flows: Publishing & Building\n\nTwo APIs: POST and GET\n\nMost important concept: Fanout\n\nTwo models: Push vs Pull\n\nReal system uses hybrid\n\nCache is critical\n\nRate limiting + authentication required"
+          }
+        ]
+      }
+    ]
+  }

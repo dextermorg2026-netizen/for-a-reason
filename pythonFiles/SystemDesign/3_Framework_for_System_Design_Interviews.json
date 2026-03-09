@@ -1,0 +1,58 @@
+{
+    "topics": [
+      {
+        "title": "A Framework for System Design Interviews",
+        "description": "A structured approach to solving open-ended system design interview questions effectively.",
+        "subtopics": [
+          {
+            "title": "Why We Need a Framework",
+            "theory": "1️⃣ Why We Need a Framework\n\n✅ Interview Definition\n\nA system design framework is a structured approach used to solve open-ended design problems in a clear, scalable, and interview-friendly way.\n\n🔎 Why Important\n\nSystem design questions:\n\nHave no single correct answer\n\nAre vague intentionally\n\nTest thinking, not memorization\n\nWithout a framework:\n\nYou jump randomly into components\n\nYou miss requirements\n\nYou over-engineer early\n\n🎯 What Interviewer Evaluates\n\nStructured thinking\n\nTrade-off reasoning\n\nScalability awareness\n\nCommunication clarity"
+          },
+          {
+            "title": "The 4-Step System Design Framework",
+            "theory": "2️⃣ The 4-Step System Design Framework (Core of Chapter)\n\nThis is the heart of Chapter 3."
+          },
+          {
+            "title": "Step 1: Clarify Requirements",
+            "theory": "🟢 STEP 1: Clarify Requirements\n\n✅ Interview Definition\n\nClarifying requirements means identifying what the system must do (functional) and how well it must perform (non-functional).\n\n📌 Functional Requirements\n\nDefinition\n\nFeatures the system must support.\n\nExamples:\n\nUpload photo\n\nSend message\n\nSearch video\n\n📌 Non-Functional Requirements\n\nDefinition\n\nQuality attributes that define system performance.\n\nExamples:\n\nScalability\n\nAvailability\n\nLatency\n\nConsistency\n\nDurability\n\n📖 New Terms\n\nScalability\n\nAbility to handle increasing traffic without performance degradation.\n\nAvailability\n\nPercentage of time system remains operational.\n\nLatency\n\nTime taken to respond to a request.\n\nConsistency\n\nAll users see same data at the same time.\n\nDurability\n\nData is not lost after it is written.\n\n🎯 Important Points\n\nAlways ask about:\n\nExpected users\n\nRead vs Write ratio\n\nData size\n\nReal-time requirement\n\nNever assume silently\n\nState assumptions clearly\n\n⚠️ Mistake\n\nStarting design without clarifying scope."
+          },
+          {
+            "title": "Step 2: Back-of-the-Envelope Estimation",
+            "theory": "🟢 STEP 2: Back-of-the-Envelope Estimation\n\n(Uses Chapter 2 concepts)\n\n✅ Interview Definition\n\nBack-of-the-envelope estimation is rough mathematical calculation to estimate scale and feasibility of a system.\n\n📌 What to Estimate\n\nDAU (Daily Active Users)\n\nQPS (Queries Per Second)\n\nStorage\n\nBandwidth\n\n📖 New Terms\n\nDAU\n\nNumber of users active per day.\n\nQPS\n\nNumber of requests per second.\n\nBandwidth\n\nAmount of data transferred per second.\n\n🎯 Why Important\n\nHelps choose DB type\n\nHelps decide caching\n\nHelps detect bottlenecks\n\nShows interviewer you think at scale\n\n⚠️ Disadvantage\n\nNumbers are approximate\n\nNot exact science\n\n👉 But interviewers care about reasoning, not perfect numbers."
+          },
+          {
+            "title": "Step 3: High-Level Design",
+            "theory": "🟢 STEP 3: High-Level Design\n\n✅ Interview Definition\n\nHigh-level design is a block-level architectural view of major system components and how they interact.\n\n📌 Components Usually Included\n\nClient (Web / Mobile)\n\nLoad Balancer\n\nWeb Servers\n\nDatabase\n\nCache\n\nCDN\n\nMessage Queue\n\n📖 New Terms\n\nComponent\n\nIndependent functional block in system.\n\nArchitecture\n\nOverall structure of system.\n\nAPI\n\nInterface through which services communicate.\n\n🎯 Important Rules\n\nDo NOT start with schema\n\nDo NOT go too deep early\n\nDraw big boxes first\n\nExplain request flow\n\n✅ Advantages\n\nShows structured thinking\n\nEasy to modify\n\nGives big picture\n\n❌ Disadvantages\n\nDoesn’t show deep expertise yet\n\nMay hide bottlenecks"
+          },
+          {
+            "title": "Step 4: Deep Dive",
+            "theory": "🟢 STEP 4: Deep Dive\n\n✅ Interview Definition\n\nDeep dive means analyzing one or two critical components in detail.\n\n📌 What to Deep Dive\n\nDatabase schema\n\nCaching strategy\n\nSharding logic\n\nReplication model\n\nConsistency model\n\nRate limiting\n\nMessage queue processing\n\n📖 New Terms\n\nBottleneck\n\nComponent limiting system performance.\n\nReplication\n\nCopying data across servers.\n\nSharding\n\nSplitting data across multiple DBs.\n\n🎯 Important Strategy\n\nPick component with highest risk\n\nJustify your choice\n\nDiscuss trade-offs"
+          },
+          {
+            "title": "Trade-Off Analysis",
+            "theory": "3️⃣ Trade-Off Analysis (Very Important)\n\n✅ Interview Definition\n\nTrade-off analysis is evaluating advantages and disadvantages between different architectural choices.\n\n📌 Common Trade-Offs\n\nSQL vs NoSQL\n\nSQL:\n\nStrong consistency\n\nACID guarantees\n\nHarder to scale writes\n\nNoSQL:\n\nEasy horizontal scaling\n\nFlexible schema\n\nWeaker consistency sometimes\n\nStrong vs Eventual Consistency\n\nStrong:\n\nAlways up-to-date data\n\nHigher latency\n\nEventual:\n\nBetter availability\n\nFaster\n\nTemporary stale data\n\nCache vs Direct DB\n\nCache:\n\nFast\n\nReduces DB load\n\nStale data risk\n\nDirect DB:\n\nFresh data\n\nSlower\n\n🎯 Interview Tip\n\nThere is no perfect choice.\nAlways say:\n\n\"Given X requirement, I prefer Y because...\""
+          },
+          {
+            "title": "Handling Bottlenecks",
+            "theory": "4️⃣ Handling Bottlenecks\n\n✅ Definition\n\nA bottleneck is the slowest or most overloaded component that limits overall system performance.\n\nCommon Bottlenecks\n\nDatabase\n\nNetwork\n\nSingle machine CPU\n\nDisk I/O\n\nSolutions\n\nCaching\n\nReplication\n\nSharding\n\nLoad balancing\n\nAsynchronous processing"
+          },
+          {
+            "title": "Communication Strategy",
+            "theory": "5️⃣ Communication Strategy\n\n✅ Interview Definition\n\nSystem design communication is the ability to explain reasoning clearly while designing.\n\nImportant Points\n\nThink aloud\n\nDraw simple diagrams\n\nState assumptions\n\nAdapt when interviewer challenges\n\nRed Flags\n\nSilent designing\n\nDefensive behavior\n\nRandom component naming\n\nOverengineering early"
+          },
+          {
+            "title": "Time Management Strategy",
+            "theory": "6️⃣ Time Management Strategy (Interview Hack)\n\nTypical 45–60 min interview:\n\n5–10 min → Clarify requirements\n\n5–10 min → Estimation\n\n15–20 min → High-level design\n\n10–15 min → Deep dive\n\n5 min → Scale discussion"
+          },
+          {
+            "title": "Common Mistakes in Interviews",
+            "theory": "7️⃣ Common Mistakes in Interviews\n\n❌ Skipping requirements\n❌ Skipping estimation\n❌ Designing everything in detail\n❌ Ignoring failure cases\n❌ Not discussing trade-offs"
+          },
+          {
+            "title": "What Interviewers Actually Evaluate",
+            "theory": "8️⃣ What Interviewers Actually Evaluate\n\nThey check:\n\nCan you handle ambiguity?\n\nDo you think in scale?\n\nDo you know distributed systems basics?\n\nCan you reason trade-offs?\n\nCan you communicate clearly?\n\nThey DO NOT check:\n\nPerfect numbers\n\nFancy buzzwords\n\nMemorized architecture diagrams\n\n📌 Ultra-Clear Revision Sheet\n\nClarify requirements first\n\nEstimate scale second\n\nHigh-level architecture third\n\nDeep dive critical parts\n\nAlways explain trade-offs"
+          }
+        ]
+      }
+    ]
+  }

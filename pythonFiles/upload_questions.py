@@ -2,6 +2,7 @@
 """
 QUIZZZZ Questions Upload Script
 Uploads questions from CSV file to Firebase Firestore
+Now links questions using subjectTitle instead of topicId
 """
 
 import csv
@@ -9,12 +10,12 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+
 # ----------------------------
 # Firebase Initialization
 # ----------------------------
 
 def initialize_firebase():
-    """Initialize Firebase Admin SDK"""
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     key_path = os.path.join(BASE_DIR, "court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json")
 
@@ -27,153 +28,193 @@ def initialize_firebase():
         if not firebase_admin._apps:
             firebase_admin.initialize_app(cred)
         return firestore.client()
+
     except Exception as e:
         print(f"❌ Error initializing Firebase: {str(e)}")
         return None
+
+
+# ----------------------------
+# Helper Function
+# ----------------------------
+
+def get_subject_id_by_title(db, title):
+    """Find subjectId using subject title"""
+
+    query = db.collection("subjects").where("title", "==", title).limit(1).stream()
+    docs = list(query)
+
+    if not docs:
+        return None
+
+    return docs[0].id
+
 
 # ----------------------------
 # Validation Functions
 # ----------------------------
 
 def validate_question_row(row):
-    """Validate a question row from CSV"""
     errors = []
 
-    # Required fields
     if not row.get("question", "").strip():
-        errors.append("Missing question text")
+        errors.append("Missing question")
 
     if not row.get("optionA", "").strip():
         errors.append("Missing optionA")
+
     if not row.get("optionB", "").strip():
         errors.append("Missing optionB")
+
     if not row.get("optionC", "").strip():
         errors.append("Missing optionC")
+
     if not row.get("optionD", "").strip():
         errors.append("Missing optionD")
 
     correct_answer = row.get("correctAnswer", "").strip().upper()
+
     if correct_answer not in ["A", "B", "C", "D"]:
-        errors.append("correctAnswer must be A, B, C, or D")
+        errors.append("correctAnswer must be A/B/C/D")
 
-    if not row.get("topicId", "").strip():
-        errors.append("Missing topicId")
+    if not row.get("subjectTitle", "").strip():
+        errors.append("Missing subjectTitle")
 
-    difficulty = row.get("difficulty", "medium").strip().lower()
+    difficulty = row.get("difficulty", "").strip().lower()
+
     if difficulty not in ["easy", "medium", "hard"]:
-        errors.append("difficulty must be easy, medium, or hard")
+        errors.append("difficulty must be easy/medium/hard")
 
     return errors
 
+
 # ----------------------------
-# Upload Functions
+# Upload Questions
 # ----------------------------
 
 def upload_questions(db):
-    """Upload questions from CSV file"""
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     csv_path = os.path.join(BASE_DIR, "questions.csv")
 
     if not os.path.exists(csv_path):
-        print(f"❌ Error: {csv_path} not found!")
+        print(f"❌ Error: {csv_path} not found")
         return False
 
     try:
+
         with open(csv_path, newline="", encoding="utf-8") as csvfile:
+
             reader = csv.DictReader(csvfile)
 
-            # Validate CSV headers
-            required_headers = ["question", "optionA", "optionB", "optionC", "optionD", "correctAnswer", "topicId"]
-            missing_headers = [h for h in required_headers if h not in reader.fieldnames]
+            required_headers = [
+                "question",
+                "optionA",
+                "optionB",
+                "optionC",
+                "optionD",
+                "correctAnswer",
+                "subjectTitle",
+                "difficulty"
+            ]
 
-            if missing_headers:
-                print(f"❌ Error: Missing required CSV headers: {', '.join(missing_headers)}")
-                print(f"   Required headers: {', '.join(required_headers)}")
+            missing = [h for h in required_headers if h not in reader.fieldnames]
+
+            if missing:
+                print(f"❌ Missing CSV headers: {', '.join(missing)}")
                 return False
 
             questions = list(reader)
-            if not questions:
-                print("⚠️  Warning: No questions found in CSV file")
-                return False
 
-            print(f"📝 Starting question upload: {len(questions)} questions\n")
+            print(f"📝 Uploading {len(questions)} questions...\n")
 
-            uploaded_count = 0
-            skipped_count = 0
-            error_count = 0
+            uploaded = 0
+            errors = 0
 
             for i, row in enumerate(questions, 1):
-                # Validate row
-                errors = validate_question_row(row)
-                if errors:
-                    print(f"❌ Row {i}: {', '.join(errors)}")
-                    error_count += 1
+
+                validation = validate_question_row(row)
+
+                if validation:
+                    print(f"❌ Row {i}: {', '.join(validation)}")
+                    errors += 1
                     continue
 
-                # Prepare question data
+                subject_title = row.get("subjectTitle").strip()
+                subject_id = get_subject_id_by_title(db, subject_title)
+
+                if not subject_id:
+                    print(f"❌ Row {i}: Subject not found → {subject_title}")
+                    errors += 1
+                    continue
+
                 question_data = {
-                    "question": row.get("question", "").strip(),
+                    "question": row.get("question").strip(),
                     "options": [
-                        row.get("optionA", "").strip(),
-                        row.get("optionB", "").strip(),
-                        row.get("optionC", "").strip(),
-                        row.get("optionD", "").strip()
+                        row.get("optionA").strip(),
+                        row.get("optionB").strip(),
+                        row.get("optionC").strip(),
+                        row.get("optionD").strip()
                     ],
-                    "correctAnswer": row.get("correctAnswer", "").strip().upper(),
-                    "topicId": row.get("topicId", "").strip(),
-                    "difficulty": row.get("difficulty", "medium").strip().lower()
+                    "correctAnswer": row.get("correctAnswer").strip().upper(),
+                    "subjectId": subject_id,
+                    "difficulty": row.get("difficulty").strip().lower()
                 }
 
-                # Optional explanation
                 explanation = row.get("explanation", "").strip()
+
                 if explanation:
                     question_data["explanation"] = explanation
 
                 try:
-                    # Add to Firestore
-                    db.collection("questions").add(question_data)
-                    uploaded_count += 1
 
-                    if uploaded_count <= 5:  # Show first 5 uploads
-                        print(f"✅ Uploaded question {uploaded_count}: {question_data['question'][:50]}...")
-                    elif uploaded_count % 10 == 0:  # Show progress every 10 questions
-                        print(f"✅ Uploaded {uploaded_count} questions...")
+                    db.collection("questions").add(question_data)
+
+                    uploaded += 1
+
+                    if uploaded <= 5:
+                        print(f"✅ {question_data['question'][:50]}...")
+
+                    elif uploaded % 10 == 0:
+                        print(f"✅ Uploaded {uploaded} questions")
 
                 except Exception as e:
-                    print(f"❌ Error uploading question {i}: {str(e)}")
-                    error_count += 1
+                    print(f"❌ Upload error row {i}: {str(e)}")
+                    errors += 1
 
-            print(f"\n🎉 Questions upload completed!")
-            print(f"   📊 Summary: {uploaded_count} uploaded, {skipped_count} skipped, {error_count} errors")
+            print("\n🎉 Upload Finished")
+            print(f"Uploaded: {uploaded}")
+            print(f"Errors: {errors}")
 
-            if error_count > 0:
-                print(f"   ⚠️  {error_count} questions had errors and were not uploaded")
-
-            return uploaded_count > 0
+            return uploaded > 0
 
     except Exception as e:
-        print(f"❌ Error reading CSV file: {str(e)}")
+        print(f"❌ CSV read error: {str(e)}")
         return False
 
+
 # ----------------------------
-# Main Execution
+# Main
 # ----------------------------
 
 def main():
+
     print("🚀 QUIZZZZ Questions Upload Script")
     print("=" * 40)
 
     db = initialize_firebase()
+
     if not db:
         return
 
     success = upload_questions(db)
 
     if success:
-        print("\n✅ Questions upload completed successfully!")
+        print("\n✅ Questions uploaded successfully")
+
     else:
-        print("\n❌ Questions upload failed!")
+        print("\n❌ Upload failed")
+
 
 if __name__ == "__main__":
     main()

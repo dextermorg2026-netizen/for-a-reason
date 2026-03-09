@@ -1,0 +1,54 @@
+{
+    "topics": [
+      {
+        "title": "Design a Unique ID Generator",
+        "description": "Understanding distributed ID generation approaches including UUID, ticket servers, and Snowflake-style algorithms.",
+        "subtopics": [
+          {
+            "title": "Problem Definition",
+            "theory": "1️⃣ Problem Definition\n\n✅ Definition\n\nUnique ID Generator in Distributed Systems is a mechanism that generates globally unique, time-sortable IDs across multiple machines without collisions.\n\n\n\n✅ Important Requirements\n\nUniqueness\n\nTime-ordering (sortable)\n\n64-bit constraint\n\nNumeric only\n\nHigh throughput\n\nLow latency\n\nDistributed scalability"
+          },
+          {
+            "title": "Key Approaches",
+            "theory": "2️⃣ Key Approaches"
+          },
+          {
+            "title": "Auto-Increment ID",
+            "theory": "🔹 A) Auto-Increment ID\n\nDefinition\n\nDatabase feature where ID increases automatically by 1 for each new record.\n\nFlow\n\nInsert row\n\nDB increments counter\n\nReturns next ID\n\nAdvantages\n\nVery simple\n\nNaturally ordered\n\nDisadvantages\n\nNot distributed\n\nSingle point of failure\n\nScaling issues"
+          },
+          {
+            "title": "Multi-Master Auto-Increment",
+            "theory": "🔹 B) Multi-Master Auto-Increment\n\nDefinition\n\nMultiple DB servers generate IDs using offset + step logic.\n\nFlow\n\nEach server assigned offset\n\nIncrement by number of servers\n\nGenerate ID independently\n\nAdvantages\n\nNo central coordinator\n\nRough ordering\n\nDisadvantages\n\nHard to add/remove servers\n\nRebalancing is complex\n\nWastes ID space"
+          },
+          {
+            "title": "UUID",
+            "theory": "🔹 C) UUID (Universally Unique Identifier)\n\nDefinition\n\n128-bit random-based globally unique identifier.\n\nFlow\n\nGenerate random/hash-based 128-bit number\n\nAssign as ID\n\nAdvantages\n\nNo coordination\n\nExtremely low collision probability\n\nSimple to implement\n\nDisadvantages\n\nNot time sortable\n\nLarge size (128-bit)\n\nPoor DB index performance"
+          },
+          {
+            "title": "Ticket Server",
+            "theory": "🔹 D) Ticket Server\n\nDefinition\n\nCentralized service that generates incremental IDs.\n\nFlow\n\nClient requests ID\n\nTicket server increments counter\n\nReturns ID\n\nAdvantages\n\nStrict ordering\n\nSimple logic\n\nDisadvantages\n\nSingle point of failure\n\nScalability bottleneck\n\nNetwork latency added"
+          },
+          {
+            "title": "Snowflake ID",
+            "theory": "🔹 E) Snowflake ID (Recommended Solution)\n\n\n\n✅ Definition\n\nSnowflake is a distributed 64-bit ID generation algorithm that combines timestamp, machine ID, and sequence number.\n\n\n\n✅ 64-bit Structure\n\nBits\n\nPurpose\n\n1 bit\n\nSign bit (unused)\n\n41 bits\n\nTimestamp (milliseconds)\n\n10 bits\n\nMachine ID\n\n12 bits\n\nSequence number\n\n\n\n✅ Generation Flow\n\nGet current timestamp\n\nIf same millisecond → increment sequence\n\nIf sequence limit exceeded → wait next millisecond\n\nCombine:\n\ntimestamp\n\nmachine ID\n\nsequence\n\nReturn 64-bit ID\n\n\n\n✅ Important Points\n\nNo central coordination\n\nTime sortable\n\nScales horizontally\n\nO(1) generation\n\nMillions IDs/sec per node\n\n\n\n✅ Advantages\n\nGlobally unique\n\nTime ordered\n\nHighly scalable\n\nNo bottleneck\n\nHigh availability\n\n\n\n❌ Disadvantages\n\nClock synchronization issues\n\nMachine ID management needed\n\nSlight implementation complexity"
+          },
+          {
+            "title": "Clock Synchronization Issue",
+            "theory": "3️⃣ Clock Synchronization Issue\n\nDefinition\n\nOccurs when system clock moves backward, risking duplicate or out-of-order IDs.\n\nSolutions\n\nBlock until clock catches up\n\nUse logical timestamp\n\nReject requests temporarily"
+          },
+          {
+            "title": "Final Comparison Summary",
+            "theory": "4️⃣ Final Comparison Summary\n\nApproach\n\nUnique\n\nSortable\n\nScalable\n\nBottleneck\n\nAuto-inc\n\n❌\n\n✅\n\n❌\n\nDB\n\nMulti-master\n\n✅\n\n⚠️\n\n❌\n\nRebalancing\n\nUUID\n\n✅\n\n❌\n\n✅\n\nNone\n\nTicket server\n\n✅\n\n✅\n\n❌\n\nCentral server\n\nSnowflake\n\n✅\n\n✅\n\n✅\n\nNone"
+          },
+          {
+            "title": "Important Terms",
+            "theory": "5️⃣ Important Terms (Definitions for Interview)\n\nDistributed System\n\nSystem where components run on multiple networked machines.\n\nUniqueness\n\nGuarantee that no two IDs are identical.\n\nSortable\n\nIDs increase over time.\n\nScalability\n\nAbility to handle increased load by adding machines.\n\nHorizontal Scaling\n\nAdding more servers instead of upgrading one.\n\nBottleneck\n\nComponent that limits system performance.\n\nSingle Point of Failure (SPOF)\n\nOne component whose failure stops the system.\n\nEpoch\n\nCustom starting time used for timestamp calculation.\n\nMachine ID\n\nUnique identifier assigned to each server.\n\nSequence Number\n\nCounter to generate multiple IDs in same millisecond.\n\nMonotonicity\n\nProperty where values always increase."
+          },
+          {
+            "title": "Final Interview One-Liner",
+            "theory": "🎯 Final Interview One-Liner\n\nSnowflake-style ID generation is the optimal solution because it generates 64-bit, globally unique, time-ordered IDs without centralized coordination."
+          }
+        ]
+      }
+    ]
+  }

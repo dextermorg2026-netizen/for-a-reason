@@ -1,118 +1,58 @@
 {
-"title": "User Datagram Protocol (UDP)",
-"description": "UDP is a lightweight, connectionless transport layer protocol used for fast data transmission where reliability is not critical.",
-"topics": [
-{
-"title": "Introduction to UDP",
-"description": "Understanding the purpose and basic characteristics of the User Datagram Protocol.",
-"subtopics": [
-
-{
-"title": "What is UDP",
-"theory": "User Datagram Protocol (UDP) is a connectionless transport layer protocol that allows applications to send data without establishing a connection with the receiver. Unlike TCP, UDP does not guarantee reliable delivery, packet ordering, or retransmission of lost packets. Because it avoids the overhead of connection setup and reliability mechanisms, UDP provides faster data transmission and lower latency."
-},
-
-{
-"title": "Key Characteristics of UDP",
-"theory": "UDP is a connectionless protocol which means it does not establish a connection before sending data. It does not perform error recovery or retransmission of lost packets. It provides minimal protocol overhead, making it faster than TCP. Because of its simplicity and speed, UDP is commonly used in real-time applications where occasional packet loss is acceptable."
-}
-
-]
-},
-
-{
-"title": "UDP Communication Model",
-"description": "How UDP transmits data between applications.",
-"subtopics": [
-
-{
-"title": "Connectionless Communication",
-"theory": "UDP follows a connectionless communication model where data packets called datagrams are sent directly to the destination without first establishing a session. Each datagram is treated independently and may travel through different paths in the network. The receiver simply receives packets without confirming successful delivery."
-},
-
-{
-"title": "UDP Datagram",
-"theory": "A UDP datagram consists of a header and a payload. The header contains minimal information including source port, destination port, length, and checksum. The payload contains the actual data being transmitted by the application."
-}
-
-]
-},
-
-{
-"title": "UDP Header Structure",
-"description": "Understanding the fields present in the UDP header.",
-"subtopics": [
-
-{
-"title": "Source Port and Destination Port",
-"theory": "The source port identifies the sending application while the destination port identifies the receiving application. These port numbers allow the transport layer to deliver the received data to the correct application process."
-},
-
-{
-"title": "Length Field",
-"theory": "The length field specifies the total size of the UDP datagram including both the header and the data. This helps the receiving system determine how much data is contained in the packet."
-},
-
-{
-"title": "Checksum Field",
-"theory": "The checksum field is used for error detection. It verifies the integrity of the UDP datagram during transmission. If the checksum does not match, the packet may be discarded."
-}
-
-]
-},
-
-{
-"title": "Advantages and Limitations of UDP",
-"description": "Understanding when UDP is suitable and when it is not.",
-"subtopics": [
-
-{
-"title": "Advantages of UDP",
-"theory": "UDP is faster than TCP because it does not require connection establishment, acknowledgments, or retransmissions. It has lower overhead and reduced latency, making it suitable for real-time applications such as video streaming, online gaming, and voice communication."
-},
-
-{
-"title": "Limitations of UDP",
-"theory": "UDP does not guarantee delivery, packet order, or duplicate protection. Packets may be lost, duplicated, or arrive out of sequence. Because of this, UDP is not suitable for applications where reliable data transmission is required."
-}
-
-]
-},
-
-{
-"title": "Applications of UDP",
-"description": "Common networking applications that use UDP.",
-"subtopics": [
-
-{
-"title": "Real-Time Applications",
-"theory": "UDP is widely used in real-time communication systems where low latency is more important than reliability. Examples include Voice over IP (VoIP), video conferencing, and live streaming services."
-},
-
-{
-"title": "Network Services Using UDP",
-"theory": "Several network protocols rely on UDP because they require fast communication with minimal overhead. Examples include DNS (Domain Name System), DHCP (Dynamic Host Configuration Protocol), SNMP (Simple Network Management Protocol), and online multiplayer gaming protocols."
-}
-
-]
-},
-
-{
-"title": "TCP vs UDP",
-"description": "Comparing the two major transport layer protocols.",
-"subtopics": [
-
-{
-"title": "Major Differences Between TCP and UDP",
-"theory": "TCP is a connection-oriented protocol that provides reliable data transmission using acknowledgments and retransmissions. UDP is connectionless and does not guarantee delivery. TCP ensures ordered packet delivery while UDP sends packets independently without sequence guarantees. TCP has higher overhead and latency, while UDP is faster and more efficient for real-time applications."
-}
-
-]
-}
-],
-"diagram_suggestions": [
-
-"UDP Header Fields Diagram",
-"TCP vs UDP Comparison Diagram"
-]
-}
+    "topics": [
+      {
+        "title": "User Datagram Protocol (UDP)",
+        "description": "UDP is a lightweight, connectionless transport layer protocol used for fast data transmission where reliability is not critical.",
+        "subtopics": [
+          {
+            "title": "What is UDP",
+            "theory": "User Datagram Protocol (UDP) is a connectionless transport layer protocol that allows applications to send data without establishing a connection with the receiver. Unlike TCP, UDP does not guarantee reliable delivery, packet ordering, or retransmission of lost packets. Because it avoids the overhead of connection setup and reliability mechanisms, UDP provides faster data transmission and lower latency."
+          },
+          {
+            "title": "Key Characteristics of UDP",
+            "theory": "UDP is a connectionless protocol which means it does not establish a connection before sending data. It does not perform error recovery or retransmission of lost packets. It provides minimal protocol overhead, making it faster than TCP. Because of its simplicity and speed, UDP is commonly used in real-time applications where occasional packet loss is acceptable."
+          },
+          {
+            "title": "Connectionless Communication",
+            "theory": "UDP follows a connectionless communication model where data packets called datagrams are sent directly to the destination without first establishing a session. Each datagram is treated independently and may travel through different paths in the network. The receiver simply receives packets without confirming successful delivery."
+          },
+          {
+            "title": "UDP Datagram",
+            "theory": "A UDP datagram consists of a header and a payload. The header contains minimal information including source port, destination port, length, and checksum. The payload contains the actual data being transmitted by the application."
+          },
+          {
+            "title": "Source Port and Destination Port",
+            "theory": "The source port identifies the sending application while the destination port identifies the receiving application. These port numbers allow the transport layer to deliver the received data to the correct application process."
+          },
+          {
+            "title": "Length Field",
+            "theory": "The length field specifies the total size of the UDP datagram including both the header and the data. This helps the receiving system determine how much data is contained in the packet."
+          },
+          {
+            "title": "Checksum Field",
+            "theory": "The checksum field is used for error detection. It verifies the integrity of the UDP datagram during transmission. If the checksum does not match, the packet may be discarded."
+          },
+          {
+            "title": "Advantages of UDP",
+            "theory": "UDP is faster than TCP because it does not require connection establishment, acknowledgments, or retransmissions. It has lower overhead and reduced latency, making it suitable for real-time applications such as video streaming, online gaming, and voice communication."
+          },
+          {
+            "title": "Limitations of UDP",
+            "theory": "UDP does not guarantee delivery, packet order, or duplicate protection. Packets may be lost, duplicated, or arrive out of sequence. Because of this, UDP is not suitable for applications where reliable data transmission is required."
+          },
+          {
+            "title": "Real-Time Applications",
+            "theory": "UDP is widely used in real-time communication systems where low latency is more important than reliability. Examples include Voice over IP (VoIP), video conferencing, and live streaming services."
+          },
+          {
+            "title": "Network Services Using UDP",
+            "theory": "Several network protocols rely on UDP because they require fast communication with minimal overhead. Examples include DNS (Domain Name System), DHCP (Dynamic Host Configuration Protocol), SNMP (Simple Network Management Protocol), and online multiplayer gaming protocols."
+          },
+          {
+            "title": "Major Differences Between TCP and UDP",
+            "theory": "TCP is a connection-oriented protocol that provides reliable data transmission using acknowledgments and retransmissions. UDP is connectionless and does not guarantee delivery. TCP ensures ordered packet delivery while UDP sends packets independently without sequence guarantees. TCP has higher overhead and latency, while UDP is faster and more efficient for real-time applications."
+          }
+        ]
+      }
+    ]
+  }

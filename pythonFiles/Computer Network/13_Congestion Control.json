@@ -1,117 +1,62 @@
 {
-"title": "Congestion Control",
-"description": "Congestion control refers to techniques used to regulate the amount of data entering a network to prevent network overload and maintain efficient data transmission.",
-"topics": [
-{
-"title": "Introduction to Network Congestion",
-"description": "Understanding what network congestion is and why it occurs in data networks.",
-"subtopics": [
-
-{
-"title": "What is Network Congestion",
-"theory": "Network congestion occurs when the amount of data being transmitted through a network exceeds the network's capacity to handle it. When too many packets are injected into the network simultaneously, routers and switches become overloaded. This leads to packet delays, packet loss, and reduced network performance."
-},
-
-{
-"title": "Causes of Network Congestion",
-"theory": "Network congestion can occur due to several factors including high traffic load, limited bandwidth, slow routers or network devices, inefficient routing algorithms, and bursty data transmissions. When the incoming traffic rate is higher than the network processing capacity, queues start building up in routers causing congestion."
-}
-
-]
-},
-
-{
-"title": "Effects of Network Congestion",
-"description": "Understanding how congestion affects network performance.",
-"subtopics": [
-
-{
-"title": "Packet Loss",
-"theory": "When routers become overloaded during congestion, their buffers may overflow causing packets to be dropped. Packet loss requires retransmission which increases network traffic and worsens congestion."
-},
-
-{
-"title": "Increased Delay",
-"theory": "Congestion increases the time packets spend waiting in router queues before being transmitted. This results in higher latency and poor performance for real-time applications such as video calls or online gaming."
-},
-
-{
-"title": "Reduced Throughput",
-"theory": "When congestion becomes severe the network may spend more time retransmitting lost packets instead of transmitting new data. This reduces the overall data throughput of the network."
-}
-
-]
-},
-
-{
-"title": "Congestion Control Techniques",
-"description": "Methods used to manage and reduce congestion in networks.",
-"subtopics": [
-
-{
-"title": "Open Loop Congestion Control",
-"theory": "Open loop congestion control attempts to prevent congestion before it occurs. It relies on predefined policies and design strategies to regulate network traffic. Since it does not rely on feedback from the network, it focuses on preventing congestion through careful system design."
-},
-
-{
-"title": "Closed Loop Congestion Control",
-"theory": "Closed loop congestion control monitors network conditions and takes corrective actions when congestion is detected. It uses feedback mechanisms to inform senders about congestion so that they can adjust their transmission rate accordingly."
-}
-
-]
-},
-
-{
-"title": "Open Loop Congestion Control Policies",
-"description": "Preventive techniques used to reduce congestion.",
-"subtopics": [
-
-{
-"title": "Retransmission Policy",
-"theory": "Retransmission policy controls how retransmissions are handled to avoid unnecessary network traffic. Efficient retransmission strategies reduce the chances of congestion caused by excessive retransmitted packets."
-},
-
-{
-"title": "Window Policy",
-"theory": "Window policy regulates the number of packets that can be sent before receiving acknowledgments. Proper window management helps prevent excessive traffic injection into the network."
-},
-
-{
-"title": "Admission Control",
-"theory": "Admission control determines whether a new connection should be allowed to enter the network. If the network is already heavily loaded, new connections may be delayed or rejected to avoid congestion."
-}
-
-]
-},
-
-{
-"title": "Closed Loop Congestion Control Mechanisms",
-"description": "Feedback-based methods used to detect and resolve congestion.",
-"subtopics": [
-
-{
-"title": "Backpressure",
-"theory": "Backpressure is a technique where a congested router signals its upstream neighbors to slow down packet transmission. This feedback propagates backward toward the sender, reducing the incoming traffic rate."
-},
-
-{
-"title": "Choke Packets",
-"theory": "Choke packets are special control messages sent by routers to inform the sender that congestion is occurring. Upon receiving a choke packet, the sender reduces its transmission rate to relieve network congestion."
-},
-
-{
-"title": "Explicit Signaling",
-"theory": "In explicit signaling the network directly informs the sender about congestion conditions. This can be done either by sending congestion notifications or by marking packets to indicate congestion levels."
-}
-
-]
-}
-],
-"diagram_suggestions": [
-"Network Congestion Example Diagram",
-
-"Open Loop vs Closed Loop Congestion Control Diagram",
-
-"Choke Packet Congestion Control Diagram"
-]
-}
+    "topics": [
+      {
+        "title": "Congestion Control",
+        "description": "Congestion control refers to techniques used to regulate the amount of data entering a network to prevent network overload and maintain efficient data transmission.",
+        "subtopics": [
+          {
+            "title": "What is Network Congestion",
+            "theory": "Network congestion occurs when the amount of data being transmitted through a network exceeds the network's capacity to handle it. When too many packets are injected into the network simultaneously, routers and switches become overloaded. This leads to packet delays, packet loss, and reduced network performance."
+          },
+          {
+            "title": "Causes of Network Congestion",
+            "theory": "Network congestion can occur due to several factors including high traffic load, limited bandwidth, slow routers or network devices, inefficient routing algorithms, and bursty data transmissions. When the incoming traffic rate is higher than the network processing capacity, queues start building up in routers causing congestion."
+          },
+          {
+            "title": "Packet Loss",
+            "theory": "When routers become overloaded during congestion, their buffers may overflow causing packets to be dropped. Packet loss requires retransmission which increases network traffic and worsens congestion."
+          },
+          {
+            "title": "Increased Delay",
+            "theory": "Congestion increases the time packets spend waiting in router queues before being transmitted. This results in higher latency and poor performance for real-time applications such as video calls or online gaming."
+          },
+          {
+            "title": "Reduced Throughput",
+            "theory": "When congestion becomes severe the network may spend more time retransmitting lost packets instead of transmitting new data. This reduces the overall data throughput of the network."
+          },
+          {
+            "title": "Open Loop Congestion Control",
+            "theory": "Open loop congestion control attempts to prevent congestion before it occurs. It relies on predefined policies and design strategies to regulate network traffic. Since it does not rely on feedback from the network, it focuses on preventing congestion through careful system design."
+          },
+          {
+            "title": "Closed Loop Congestion Control",
+            "theory": "Closed loop congestion control monitors network conditions and takes corrective actions when congestion is detected. It uses feedback mechanisms to inform senders about congestion so that they can adjust their transmission rate accordingly."
+          },
+          {
+            "title": "Retransmission Policy",
+            "theory": "Retransmission policy controls how retransmissions are handled to avoid unnecessary network traffic. Efficient retransmission strategies reduce the chances of congestion caused by excessive retransmitted packets."
+          },
+          {
+            "title": "Window Policy",
+            "theory": "Window policy regulates the number of packets that can be sent before receiving acknowledgments. Proper window management helps prevent excessive traffic injection into the network."
+          },
+          {
+            "title": "Admission Control",
+            "theory": "Admission control determines whether a new connection should be allowed to enter the network. If the network is already heavily loaded, new connections may be delayed or rejected to avoid congestion."
+          },
+          {
+            "title": "Backpressure",
+            "theory": "Backpressure is a technique where a congested router signals its upstream neighbors to slow down packet transmission. This feedback propagates backward toward the sender, reducing the incoming traffic rate."
+          },
+          {
+            "title": "Choke Packets",
+            "theory": "Choke packets are special control messages sent by routers to inform the sender that congestion is occurring. Upon receiving a choke packet, the sender reduces its transmission rate to relieve network congestion."
+          },
+          {
+            "title": "Explicit Signaling",
+            "theory": "In explicit signaling the network directly informs the sender about congestion conditions. This can be done either by sending congestion notifications or by marking packets to indicate congestion levels."
+          }
+        ]
+      }
+    ]
+  }

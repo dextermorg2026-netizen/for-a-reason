@@ -1,111 +1,54 @@
 {
-"title": "Sliding Window Protocols (ARQ)",
-"description": "Sliding Window protocols are used in networking to ensure reliable data transmission by controlling the number of packets sent before receiving acknowledgments and retransmitting lost packets when necessary.",
-"topics": [
-{
-"title": "Introduction to ARQ Protocols",
-"description": "Understanding the concept of Automatic Repeat reQuest and its role in reliable data transmission.",
-"subtopics": [
-
-{
-"title": "What is ARQ (Automatic Repeat reQuest)",
-"theory": "Automatic Repeat reQuest (ARQ) is an error control method used in data communication to ensure reliable data transmission. It combines error detection and retransmission mechanisms. When the receiver detects that a frame is missing or corrupted, it requests the sender to retransmit the frame. ARQ protocols use acknowledgments and sequence numbers to track successful delivery of frames."
-},
-
-{
-"title": "Need for ARQ Protocols",
-"theory": "During data transmission packets may be lost due to network congestion, interference, or hardware failures. ARQ protocols ensure that lost or corrupted packets are retransmitted so that the receiver eventually receives the complete and correct data."
-}
-
-]
-},
-
-{
-"title": "Stop-and-Wait ARQ",
-"description": "The simplest ARQ protocol used for reliable transmission.",
-"subtopics": [
-
-{
-"title": "Working of Stop-and-Wait ARQ",
-"theory": "In Stop-and-Wait ARQ the sender transmits one frame and waits for an acknowledgment from the receiver before sending the next frame. If the sender receives an acknowledgment, it sends the next frame. If the acknowledgment is not received within a certain timeout period, the sender assumes the frame was lost and retransmits it."
-},
-
-{
-"title": "Advantages and Limitations of Stop-and-Wait ARQ",
-"theory": "Stop-and-Wait ARQ is simple to implement and ensures reliable communication. However, it is inefficient for high-speed networks because the sender remains idle while waiting for acknowledgments. This results in poor bandwidth utilization."
-}
-
-]
-},
-
-{
-"title": "Sliding Window Concept",
-"description": "Technique used to improve efficiency in reliable data transmission.",
-"subtopics": [
-
-{
-"title": "What is Sliding Window",
-"theory": "Sliding window is a technique that allows the sender to transmit multiple frames before receiving acknowledgments. Instead of sending one frame at a time, the sender maintains a window of frames that can be transmitted without waiting for acknowledgments. As acknowledgments arrive the window moves forward allowing new frames to be transmitted."
-},
-
-{
-"title": "Benefits of Sliding Window Protocols",
-"theory": "Sliding window protocols improve network efficiency by allowing continuous transmission of multiple frames. This reduces idle time and increases bandwidth utilization compared to stop-and-wait methods."
-}
-
-]
-},
-
-{
-"title": "Go-Back-N ARQ",
-"description": "Sliding window protocol that retransmits multiple frames when an error occurs.",
-"subtopics": [
-
-{
-"title": "Working of Go-Back-N ARQ",
-"theory": "In Go-Back-N ARQ the sender can transmit multiple frames within a specified window size before receiving acknowledgments. If a frame is lost or corrupted, the receiver discards that frame and all subsequent frames. The sender must then retransmit the lost frame and all frames that were sent after it."
-},
-
-{
-"title": "Characteristics of Go-Back-N",
-"theory": "In Go-Back-N ARQ the receiver only accepts frames in order. If a frame arrives out of order it is discarded. The sender maintains a sliding window that controls the number of frames that can be transmitted before acknowledgment."
-}
-
-]
-},
-
-{
-"title": "Selective Repeat ARQ",
-"description": "More efficient sliding window protocol that retransmits only the lost frames.",
-"subtopics": [
-
-{
-"title": "Working of Selective Repeat ARQ",
-"theory": "In Selective Repeat ARQ the receiver individually acknowledges correctly received frames even if some frames are missing. The sender retransmits only the frames that were lost or corrupted rather than retransmitting the entire window."
-},
-
-{
-"title": "Advantages of Selective Repeat",
-"theory": "Selective Repeat improves efficiency because only missing frames are retransmitted. This reduces unnecessary retransmissions and improves network performance in environments with higher error rates."
-}
-
-]
-},
-
-{
-"title": "Comparison of ARQ Protocols",
-"description": "Understanding differences between ARQ mechanisms.",
-"subtopics": [
-
-{
-"title": "Stop-and-Wait vs Go-Back-N vs Selective Repeat",
-"theory": "Stop-and-Wait ARQ sends one frame at a time and waits for acknowledgment which makes it simple but inefficient. Go-Back-N allows multiple frames to be sent but retransmits all frames after a lost packet. Selective Repeat retransmits only the lost frames which makes it the most efficient but also more complex to implement."
-}
-
-]
-}
-],
-"diagram_suggestions": [
-
-]
-}
+    "topics": [
+      {
+        "title": "Sliding Window Protocols (ARQ)",
+        "description": "Sliding Window protocols are used in networking to ensure reliable data transmission by controlling the number of packets sent before receiving acknowledgments and retransmitting lost packets when necessary.",
+        "subtopics": [
+          {
+            "title": "What is ARQ (Automatic Repeat reQuest)",
+            "theory": "Automatic Repeat reQuest (ARQ) is an error control method used in data communication to ensure reliable data transmission. It combines error detection and retransmission mechanisms. When the receiver detects that a frame is missing or corrupted, it requests the sender to retransmit the frame. ARQ protocols use acknowledgments and sequence numbers to track successful delivery of frames."
+          },
+          {
+            "title": "Need for ARQ Protocols",
+            "theory": "During data transmission packets may be lost due to network congestion, interference, or hardware failures. ARQ protocols ensure that lost or corrupted packets are retransmitted so that the receiver eventually receives the complete and correct data."
+          },
+          {
+            "title": "Working of Stop-and-Wait ARQ",
+            "theory": "In Stop-and-Wait ARQ the sender transmits one frame and waits for an acknowledgment from the receiver before sending the next frame. If the sender receives an acknowledgment, it sends the next frame. If the acknowledgment is not received within a certain timeout period, the sender assumes the frame was lost and retransmits it."
+          },
+          {
+            "title": "Advantages and Limitations of Stop-and-Wait ARQ",
+            "theory": "Stop-and-Wait ARQ is simple to implement and ensures reliable communication. However, it is inefficient for high-speed networks because the sender remains idle while waiting for acknowledgments. This results in poor bandwidth utilization."
+          },
+          {
+            "title": "What is Sliding Window",
+            "theory": "Sliding window is a technique that allows the sender to transmit multiple frames before receiving acknowledgments. Instead of sending one frame at a time, the sender maintains a window of frames that can be transmitted without waiting for acknowledgments. As acknowledgments arrive the window moves forward allowing new frames to be transmitted."
+          },
+          {
+            "title": "Benefits of Sliding Window Protocols",
+            "theory": "Sliding window protocols improve network efficiency by allowing continuous transmission of multiple frames. This reduces idle time and increases bandwidth utilization compared to stop-and-wait methods."
+          },
+          {
+            "title": "Working of Go-Back-N ARQ",
+            "theory": "In Go-Back-N ARQ the sender can transmit multiple frames within a specified window size before receiving acknowledgments. If a frame is lost or corrupted, the receiver discards that frame and all subsequent frames. The sender must then retransmit the lost frame and all frames that were sent after it."
+          },
+          {
+            "title": "Characteristics of Go-Back-N",
+            "theory": "In Go-Back-N ARQ the receiver only accepts frames in order. If a frame arrives out of order it is discarded. The sender maintains a sliding window that controls the number of frames that can be transmitted before acknowledgment."
+          },
+          {
+            "title": "Working of Selective Repeat ARQ",
+            "theory": "In Selective Repeat ARQ the receiver individually acknowledges correctly received frames even if some frames are missing. The sender retransmits only the frames that were lost or corrupted rather than retransmitting the entire window."
+          },
+          {
+            "title": "Advantages of Selective Repeat",
+            "theory": "Selective Repeat improves efficiency because only missing frames are retransmitted. This reduces unnecessary retransmissions and improves network performance in environments with higher error rates."
+          },
+          {
+            "title": "Stop-and-Wait vs Go-Back-N vs Selective Repeat",
+            "theory": "Stop-and-Wait ARQ sends one frame at a time and waits for acknowledgment which makes it simple but inefficient. Go-Back-N allows multiple frames to be sent but retransmits all frames after a lost packet. Selective Repeat retransmits only the lost frames which makes it the most efficient but also more complex to implement."
+          }
+        ]
+      }
+    ]
+  }

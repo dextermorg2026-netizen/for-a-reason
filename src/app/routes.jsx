@@ -4,7 +4,7 @@ import Signup from '../pages/auth/Signup.jsx'
 
 import Subjects from '../pages/subjects/Subjects.jsx'
 import SubjectTheoryPage from '../pages/subjects/SubjectTheoryPage.jsx'
-import Topics from '../pages/subjects/Topics.jsx' // ✅ ADDED
+import Topics from '../pages/subjects/Topics.jsx'
 
 import Quiz from '../pages/quiz/Quiz.jsx'
 import Result from '../pages/quiz/Result.jsx'
@@ -26,8 +26,7 @@ const routes = [
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <Signup /> },
 
-  // ================= PROTECTED ROUTES =================
-
+  // ================= DASHBOARD =================
   {
     path: '/',
     element: (
@@ -37,7 +36,7 @@ const routes = [
     ),
   },
 
-  // -------- SUBJECTS --------
+  // ================= SUBJECTS =================
 
   {
     path: '/subjects',
@@ -48,8 +47,9 @@ const routes = [
     ),
   },
 
+  // ⚠️ THEORY ROUTE MUST COME BEFORE :subjectId
   {
-    path: '/subjects/:subjectId',
+    path: '/subjects/theory/:subtopicId',
     element: (
       <ProtectedRoute>
         <SubjectTheoryPage />
@@ -57,9 +57,9 @@ const routes = [
     ),
   },
 
-  // ✅ FIXED ROUTE (THIS WAS MISSING)
+  // SUBJECT → TOPICS
   {
-    path: '/subjects/:subjectId/topics',
+    path: '/subjects/:subjectId',
     element: (
       <ProtectedRoute>
         <Topics />
@@ -67,7 +67,7 @@ const routes = [
     ),
   },
 
-  // -------- QUIZZES HUB --------
+  // ================= QUIZZES =================
 
   {
     path: '/quizzes',
@@ -87,7 +87,7 @@ const routes = [
     ),
   },
 
-  // -------- ACTUAL QUIZ ATTEMPT --------
+  // ================= QUIZ ATTEMPT =================
 
   {
     path: '/quiz/:topicId',
@@ -107,7 +107,7 @@ const routes = [
     ),
   },
 
-  // -------- LIVE QUIZ --------
+  // ================= LIVE QUIZ =================
 
   {
     path: '/live',
@@ -127,7 +127,7 @@ const routes = [
     ),
   },
 
-  // -------- RESOURCES --------
+  // ================= RESOURCES =================
 
   {
     path: '/resources',
@@ -138,7 +138,7 @@ const routes = [
     ),
   },
 
-  // -------- LEADERBOARD --------
+  // ================= LEADERBOARD =================
 
   {
     path: '/leaderboard',
@@ -148,6 +148,7 @@ const routes = [
       </ProtectedRoute>
     ),
   },
+
 ]
 
 export default routes

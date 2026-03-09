@@ -127,9 +127,7 @@ const Subjects = () => {
             <button
               className="btn-primary hero-btn"
               onClick={() =>
-                navigate(
-                  `/subjects/${continueSubject.id}/topics`
-                )
+                navigate(`/subjects/${continueSubject.id}`)
               }
             >
               Resume Learning
@@ -197,9 +195,7 @@ const Subjects = () => {
           <ContinueLearningCard
             subject={continueSubject}
             onResume={() =>
-              navigate(
-                `/subjects/${continueSubject.id}/topics`
-              )
+              navigate(`/subjects/${continueSubject.id}`)
             }
           />
         </div>
@@ -241,7 +237,7 @@ const Subjects = () => {
             <SubjectGrid
               subjects={filteredSubjects}
               onSelect={(id) =>
-                navigate(`/subjects/${id}/topics`)
+                navigate(`/subjects/${id}`)
               }
             />
           )}

@@ -1,0 +1,62 @@
+{
+    "topics": [
+      {
+        "title": "Design a Web Crawler",
+        "description": "Understanding large-scale web crawling systems including URL frontier management, politeness, duplicate detection, and performance optimization.",
+        "subtopics": [
+          {
+            "title": "Web Crawler",
+            "theory": "1️⃣ Web Crawler\n\nInterview Definition\n\nA web crawler (also called a spider or bot) is a distributed system that automatically discovers, downloads, and processes web content by traversing hyperlinks starting from seed URLs.\n\n\n\nImportant Points\n\nWeb = Directed graph (pages = nodes, links = edges)\n\nUses BFS-based traversal\n\nMust support scalability\n\nMust enforce politeness\n\nMust handle duplicates & failures\n\n\n\nAdvantages\n\nEnables search engines\n\nSupports web archiving\n\nEnables data mining\n\nSupports monitoring & analytics\n\n\n\nDisadvantages\n\nHeavy bandwidth usage\n\nCan overload websites\n\nComplex at scale\n\nDifficult freshness management\n\n\n\nBasic Flow\n\nStart with seed URLs\n\nAdd to URL Frontier\n\nDownload page\n\nParse content\n\nExtract new URLs\n\nStore content\n\nRepeat\n\n\n\nImportant Word Definitions\n\nDirected Graph – A graph where edges have direction (web links).\nSeed URL – Initial starting URL for crawling.\nCrawl Budget – Maximum resources allocated for crawling."
+          },
+          {
+            "title": "DFS vs BFS",
+            "theory": "2️⃣ DFS vs BFS\n\nInterview Definition\n\nDFS explores depth-first, while BFS explores level-by-level. Web crawlers use BFS.\n\n\n\nImportant Points\n\nDFS → Deep traversal\n\nBFS → Level traversal using FIFO queue\n\nBFS gives better coverage\n\nBFS avoids deep trap risks\n\n\n\nAdvantages of BFS\n\nBetter page discovery\n\nControlled traversal\n\nEasier prioritization\n\n\n\nDisadvantages of DFS\n\nRisk of infinite depth\n\nPoor coverage early\n\n\n\nFlow (BFS)\n\nEnqueue seed\n\nDequeue URL\n\nExtract links\n\nEnqueue new URLs\n\n\n\nImportant Terms\n\nFIFO – First In First Out queue.\nTraversal – Visiting nodes in a graph."
+          },
+          {
+            "title": "URL Frontier",
+            "theory": "3️⃣ URL Frontier ⭐ (Most Important)\n\nInterview Definition\n\nURL Frontier is a scheduling system that stores and manages URLs to be crawled while enforcing politeness, priority, and freshness.\n\n\n\nImportant Points\n\nSplits crawl state:\n\nTo-be-downloaded\n\nAlready downloaded\n\nUses:\n\nFront queues (priority)\n\nBack queues (politeness)\n\n\n\nAdvantages\n\nPrevents host overload\n\nEnables priority crawling\n\nSupports recrawling strategy\n\n\n\nDisadvantages\n\nComplex to implement\n\nRequires disk + memory hybrid storage\n\n\n\nFlow\n\nURL arrives\n\nAssign priority\n\nRoute to host queue\n\nWorker downloads\n\n\n\nImportant Terms\n\nFront Queue – Priority-based queue.\nBack Queue – Host-based queue.\nPoliteness – Controlled request rate per host.\nFreshness – Keeping content up-to-date."
+          },
+          {
+            "title": "Politeness",
+            "theory": "4️⃣ Politeness\n\nInterview Definition\n\nPoliteness ensures the crawler does not send too many requests to the same host within a short period.\n\n\n\nImportant Points\n\nOne host → one active worker\n\nDelay between requests\n\nRespect robots.txt\n\n\n\nAdvantages\n\nAvoid IP bans\n\nEthical crawling\n\nSustainable system\n\n\n\nDisadvantages\n\nSlower per-host crawl speed\n\n\n\nFlow\n\nIdentify host\n\nEnforce delay\n\nDownload page\n\n\n\nImportant Terms\n\nHost – Domain server (example.com).\nDOS Attack – Overloading a server with requests."
+          },
+          {
+            "title": "Robots.txt",
+            "theory": "5️⃣ Robots.txt\n\nInterview Definition\n\nRobots.txt is a file that specifies which URLs crawlers are allowed or disallowed to access.\n\n\n\nImportant Points\n\nLocated at: /robots.txt\n\nParsed before crawling\n\nCached per host\n\n\n\nAdvantages\n\nLegal compliance\n\nRespect website rules\n\n\n\nDisadvantages\n\nNot strictly enforceable\n\nMay be outdated\n\n\n\nFlow\n\nFetch robots.txt\n\nParse rules\n\nCache rules\n\nAllow or block crawling\n\n\n\nImportant Terms\n\nUser-agent – Identifier of crawler.\nDisallow – Blocked path rule."
+          },
+          {
+            "title": "HTML Downloader",
+            "theory": "6️⃣ HTML Downloader\n\nInterview Definition\n\nHTML Downloader fetches web pages via HTTP/HTTPS using distributed workers.\n\n\n\nImportant Points\n\nMulti-threaded\n\nDistributed\n\nHandles timeouts & retries\n\nUses DNS resolver\n\n\n\nAdvantages\n\nHigh throughput\n\nParallel downloads\n\n\n\nDisadvantages\n\nNetwork bottleneck\n\nDNS latency\n\n\n\nFlow\n\nResolve DNS\n\nSend HTTP request\n\nReceive response\n\nPass to parser\n\n\n\nImportant Terms\n\nDNS Resolver – Converts domain to IP.\nTimeout – Maximum wait time."
+          },
+          {
+            "title": "Duplicate Content Detection",
+            "theory": "7️⃣ Duplicate Content Detection\n\nInterview Definition\n\nDuplicate detection identifies and removes identical web pages using content hashing.\n\n\n\nImportant Points\n\n~30% web is duplicate\n\nUse hash (MD5/SHA)\n\nStore hash in “Content Seen?”\n\n\n\nAdvantages\n\nSaves storage\n\nImproves crawl efficiency\n\nBetter indexing quality\n\n\n\nDisadvantages\n\nHash collisions possible (rare)\n\nNear-duplicate detection complex\n\n\n\nFlow\n\nNormalize content\n\nGenerate hash\n\nCheck hash store\n\nStore if new\n\n\n\nImportant Terms\n\nHash – Fixed-length fingerprint of data.\nCollision – Two inputs producing same hash."
+          },
+          {
+            "title": "Spider Traps",
+            "theory": "8️⃣ Spider Traps\n\nInterview Definition\n\nSpider traps are infinite URL patterns that cause crawlers to enter endless loops.\n\n\n\nImportant Points\n\nInfinite directory paths\n\nCalendar traps\n\nParameter explosion\n\n\n\nAdvantages of Detection\n\nSaves crawl budget\n\nPrevents infinite loops\n\n\n\nDisadvantages\n\nHard to detect automatically\n\n\n\nPrevention Flow\n\nDetect abnormal growth\n\nApply URL length limits\n\nEnforce crawl budget per site\n\n\n\nImportant Terms\n\nHeuristic – Rule-based detection approach.\nCrawl Budget – Max pages per domain."
+          },
+          {
+            "title": "Data Noise Filtering",
+            "theory": "9️⃣ Data Noise Filtering\n\nInterview Definition\n\nData noise filtering removes low-value or spam content during crawling.\n\n\n\nImportant Points\n\nURL filtering\n\nContent-based filtering\n\nSpam detection\n\n\n\nAdvantages\n\nBetter data quality\n\nEfficient storage use\n\n\n\nDisadvantages\n\nRisk of filtering useful pages\n\n\n\nFlow\n\nPre-filter URL\n\nDownload\n\nContent quality check\n\nStore or discard\n\n\n\nImportant Terms\n\nSpam – Low-quality or manipulative content.\nBoilerplate – Repeated template content."
+          },
+          {
+            "title": "Performance Optimization",
+            "theory": "🔟 Performance Optimization\n\nInterview Definition\n\nPerformance optimization improves crawl throughput while respecting system constraints.\n\n\n\nImportant Points\n\nDistributed crawling\n\nDNS caching\n\nGeographic locality\n\nShort timeouts\n\n\n\nAdvantages\n\nHigh scalability\n\nEfficient bandwidth use\n\n\n\nDisadvantages\n\nIncreased system complexity\n\n\n\nImportant Terms\n\nGeographic Locality – Deploying servers near target regions.\nPersistent Connection – Reusing TCP connection."
+          },
+          {
+            "title": "Robustness",
+            "theory": "1️⃣1️⃣ Robustness\n\nInterview Definition\n\nRobustness ensures crawler reliability despite failures.\n\n\n\nImportant Points\n\nSave crawl state\n\nRetry policies\n\nException handling\n\nConsistent hashing\n\n\n\nAdvantages\n\nFault tolerance\n\nResume after crash\n\n\n\nDisadvantages\n\nExtra storage overhead\n\n\n\nImportant Terms\n\nConsistent Hashing – Distributes data across nodes with minimal reshuffling.\nFault Tolerance – Ability to survive failures."
+          },
+          {
+            "title": "Extensibility",
+            "theory": "1️⃣2️⃣ Extensibility\n\nInterview Definition\n\nExtensibility allows new modules and content types to be added without redesigning the system.\n\n\n\nImportant Points\n\nModular architecture\n\nPlug-in design\n\nLoose coupling\n\n\n\nAdvantages\n\nFuture-proof design\n\nEasy upgrades\n\n\n\nDisadvantages\n\nOver-engineering risk\n\n\n\nImportant Terms\n\nLoose Coupling – Components operate independently.\nPlug-in Module – Add-on component."
+          },
+          {
+            "title": "Final Interview Summary",
+            "theory": "✅ Final Interview Summary\n\nA web crawler is a distributed BFS-based system that uses a URL frontier to enforce politeness, prioritization, and freshness while handling duplicates, spider traps, noise, and failures at web scale."
+          }
+        ]
+      }
+    ]
+  }

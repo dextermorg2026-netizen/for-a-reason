@@ -1,0 +1,58 @@
+{
+    "topics": [
+      {
+        "title": "High-Level Design of Notification System",
+        "description": "Understanding the architecture of scalable notification systems using message queues, workers, and external providers.",
+        "subtopics": [
+          {
+            "title": "Definition",
+            "theory": "1️⃣ Definition\n\n🔹 Notification System (Definition)\n\nA distributed, event-driven system that delivers messages to users via push, SMS, or email in a scalable and reliable manner."
+          },
+          {
+            "title": "Notification Service (API Layer)",
+            "theory": "2️⃣ Core Components\n\n\n\n1. Notification Service (API Layer)\n\n🔹 Definition\n\nA stateless backend service that receives notification requests and routes them to appropriate channels.\n\n🔹 Important Points\n\nEntry point of the system\n\nValidates requests\n\nChecks user preferences\n\nDecides delivery channel\n\nScales horizontally\n\n🔹 New Terms\n\nStateless Service\nA service that does not store session data locally.\nAny request can be handled by any server.\n\nHorizontal Scaling\nAdding more servers to handle more traffic."
+          },
+          {
+            "title": "Message Queue",
+            "theory": "2. Message Queue\n\n🔹 Definition\n\nA middleware system that stores messages temporarily and allows asynchronous processing.\n\n🔹 Important Points\n\nBuffers traffic spikes\n\nDecouples producers and consumers\n\nPrevents system overload\n\nImproves reliability\n\n🔹 New Terms\n\nProducer\nComponent that sends messages to queue.\n\nConsumer (Worker)\nComponent that reads messages from queue.\n\nAsynchronous Processing\nTask is executed later, not immediately.\n\nDecoupling\nSeparating components so they don’t depend tightly on each other."
+          },
+          {
+            "title": "Workers (Consumers)",
+            "theory": "3. Workers (Consumers)\n\n🔹 Definition\n\nBackground processes that fetch messages from queue and send notifications.\n\n🔹 Important Points\n\nHandle retry logic\n\nFormat messages\n\nCommunicate with third-party services\n\nCan be auto-scaled"
+          },
+          {
+            "title": "Third-Party Notification Providers",
+            "theory": "4. Third-Party Notification Providers\n\n🔹 Definition\n\nExternal services responsible for final delivery.\n\nExamples:\n\nAPNs (iOS)\n\nFCM (Android)\n\nSMS gateways\n\nEmail providers\n\n🔹 Important Points\n\nWe do NOT directly send to devices\n\nProviders may fail\n\nNeed retry mechanism"
+          },
+          {
+            "title": "Database",
+            "theory": "5. Database\n\n🔹 Definition\n\nPersistent storage used to store user preferences and notification logs.\n\n🔹 Important Points\n\nStores opt-in/opt-out settings\n\nStores delivery status\n\nUsed for analytics and debugging"
+          },
+          {
+            "title": "High-Level Flow",
+            "theory": "3️⃣ High-Level Flow (Step-by-Step)\n\n\n\n🔁 Notification Delivery Flow\n\nEvent occurs (e.g., order placed)\n\nRequest sent to Notification Service\n\nService checks:\n\nUser preference\n\nNotification type\n\nMessage added to appropriate queue\n\nWorker consumes message\n\nWorker sends message to provider\n\nProvider delivers to user"
+          },
+          {
+            "title": "Important Design Principles",
+            "theory": "4️⃣ Important Design Principles\n\n\n\n🔹 Scalability\n\nSystem should handle millions of notifications/day.\n\nHow?\n\nStateless APIs\n\nMultiple workers\n\nPartitioned queues\n\n\n\n🔹 Reliability\n\nNo notification should be lost.\n\nHow?\n\nDurable queues\n\nRetry mechanism\n\nDead-letter queues\n\n\n\n🔹 Availability\n\nSystem should remain operational even if some components fail.\n\n\n\n🔹 Fault Tolerance\n\nSystem continues functioning even when part of it crashes."
+          },
+          {
+            "title": "Advantages of This Architecture",
+            "theory": "5️⃣ Advantages of This Architecture\n\nAdvantage\n\nExplanation\n\nHigh Scalability\n\nEasy to add servers\n\nReliable\n\nQueue prevents data loss\n\nFlexible\n\nSupports multiple channels\n\nDecoupled\n\nFailures isolated\n\nHandles Traffic Spikes\n\nQueue absorbs load"
+          },
+          {
+            "title": "Disadvantages",
+            "theory": "6️⃣ Disadvantages\n\nDisadvantage\n\nExplanation\n\nIncreased Complexity\n\nMore components to manage\n\nMessage Ordering Issues\n\nAsync processing may reorder\n\nDependency on Third-Party Services\n\nExternal failures affect system\n\nMonitoring Overhead\n\nNeeds tracking & logging"
+          },
+          {
+            "title": "Common Interview Discussion Points",
+            "theory": "7️⃣ Common Interview Discussion Points\n\nWhat if provider fails?\n\nHow to prevent duplicate notifications?\n\nHow to ensure ordering?\n\nHow to handle millions of messages?\n\nWhat if queue fills up?"
+          },
+          {
+            "title": "Final Insight",
+            "theory": "8️⃣ One-Line Chapter Insight\n\nA scalable notification system uses a stateless API layer, message queues, asynchronous workers, and external providers to ensure reliable and high-volume message delivery."
+          }
+        ]
+      }
+    ]
+  }

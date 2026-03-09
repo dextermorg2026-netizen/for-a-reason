@@ -1,93 +1,42 @@
 {
-"title": "Network Devices",
-"description": "Network devices are hardware components used to connect computers and other devices in a network. They help transmit, route, amplify, and manage data communication between devices.",
-"topics": [
-{
-"title": "Introduction to Network Devices",
-"description": "Understanding the role of hardware devices used in computer networking.",
-"subtopics": [
-{
-"title": "What are Network Devices",
-"theory": "Network devices are hardware components that enable communication between computers and other devices in a network. These devices control the transmission of data, manage traffic, and ensure efficient communication between connected systems."
-}
-]
-},
-{
-"title": "Hub",
-"description": "Basic networking device used to connect multiple computers in a LAN.",
-"subtopics": [
-{
-"title": "Working of Hub",
-"theory": "A hub is a simple networking device that connects multiple computers in a network and broadcasts incoming data to all connected devices. It operates at the Physical Layer of the OSI model and does not perform any intelligent forwarding decisions."
-}
-]
-},
-{
-"title": "Switch",
-"description": "Intelligent networking device used in modern LANs.",
-"subtopics": [
-{
-"title": "Working of Switch",
-"theory": "A switch connects devices within a local network and forwards data only to the intended destination device. It operates at the Data Link Layer and uses MAC addresses to determine where to send data. This makes switches more efficient than hubs."
-}
-]
-},
-{
-"title": "Router",
-"description": "Device responsible for connecting multiple networks together.",
-"subtopics": [
-{
-"title": "Working of Router",
-"theory": "A router is a networking device that forwards data packets between different networks. It operates at the Network Layer of the OSI model and uses IP addresses to determine the best path for packets to travel across networks."
-}
-]
-},
-{
-"title": "Bridge",
-"description": "Device used to divide a large network into smaller segments.",
-"subtopics": [
-{
-"title": "Working of Bridge",
-"theory": "A bridge operates at the Data Link Layer and connects two LAN segments together. It filters traffic based on MAC addresses and helps reduce network congestion by dividing large networks into smaller segments."
-}
-]
-},
-{
-"title": "Repeater",
-"description": "Device used to regenerate signals in long-distance networks.",
-"subtopics": [
-{
-"title": "Working of Repeater",
-"theory": "A repeater operates at the Physical Layer and is used to amplify or regenerate signals that have become weak during transmission. It helps extend the distance over which data can travel in a network."
-}
-]
-},
-{
-"title": "Gateway",
-"description": "Device used to connect networks that use different communication protocols.",
-"subtopics": [
-{
-"title": "Working of Gateway",
-"theory": "A gateway acts as a translator between different network architectures or protocols. It allows communication between networks that use different data formats or communication rules."
-}
-]
-},
-{
-"title": "Modem",
-"description": "Device used to connect a computer network to the Internet.",
-"subtopics": [
-{
-"title": "Working of Modem",
-"theory": "A modem converts digital signals from a computer into analog signals suitable for transmission over telephone lines and converts incoming analog signals back into digital form. The term modem stands for Modulator-Demodulator."
-}
-]
-}
-],
-"diagram_suggestions": [
-"Hub Broadcast Communication Diagram",
-"Switch MAC Address Forwarding Diagram",
-"Router Inter-Network Routing Diagram",
-"Bridge Network Segmentation Diagram",
-"Repeater Signal Regeneration Diagram"
-]
-}
+    "topics": [
+      {
+        "title": "Network Devices",
+        "description": "Network devices are hardware components used to connect computers and other devices in a network. They help transmit, route, amplify, and manage data communication between devices.",
+        "subtopics": [
+          {
+            "title": "What are Network Devices",
+            "theory": "Network devices are hardware components that enable communication between computers and other devices in a network. These devices control the transmission of data, manage traffic, and ensure efficient communication between connected systems."
+          },
+          {
+            "title": "Working of Hub",
+            "theory": "A hub is a simple networking device that connects multiple computers in a network and broadcasts incoming data to all connected devices. It operates at the Physical Layer of the OSI model and does not perform any intelligent forwarding decisions."
+          },
+          {
+            "title": "Working of Switch",
+            "theory": "A switch connects devices within a local network and forwards data only to the intended destination device. It operates at the Data Link Layer and uses MAC addresses to determine where to send data. This makes switches more efficient than hubs."
+          },
+          {
+            "title": "Working of Router",
+            "theory": "A router is a networking device that forwards data packets between different networks. It operates at the Network Layer of the OSI model and uses IP addresses to determine the best path for packets to travel across networks."
+          },
+          {
+            "title": "Working of Bridge",
+            "theory": "A bridge operates at the Data Link Layer and connects two LAN segments together. It filters traffic based on MAC addresses and helps reduce network congestion by dividing large networks into smaller segments."
+          },
+          {
+            "title": "Working of Repeater",
+            "theory": "A repeater operates at the Physical Layer and is used to amplify or regenerate signals that have become weak during transmission. It helps extend the distance over which data can travel in a network."
+          },
+          {
+            "title": "Working of Gateway",
+            "theory": "A gateway acts as a translator between different network architectures or protocols. It allows communication between networks that use different data formats or communication rules."
+          },
+          {
+            "title": "Working of Modem",
+            "theory": "A modem converts digital signals from a computer into analog signals suitable for transmission over telephone lines and converts incoming analog signals back into digital form. The term modem stands for Modulator-Demodulator."
+          }
+        ]
+      }
+    ]
+  }

@@ -16,10 +16,15 @@ import { db } from "./firebase";
 export const getAllSubjects = async () => {
   const snapshot = await getDocs(collection(db, "subjects"));
 
-  return snapshot.docs.map((docSnap) => ({
+  const subjects = snapshot.docs.map((docSnap) => ({
     id: docSnap.id,
     ...docSnap.data(),
   }));
+
+  // Sort by order field if present
+  subjects.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+
+  return subjects;
 };
 
 /* ==================================================
@@ -34,15 +39,19 @@ export const getTopicsBySubject = async (subjectId) => {
 
   const snapshot = await getDocs(q);
 
-  return snapshot.docs.map((docSnap) => ({
+  const topics = snapshot.docs.map((docSnap) => ({
     id: docSnap.id,
     ...docSnap.data(),
   }));
+
+  // Sort topics by order field
+  topics.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+
+  return topics;
 };
 
 /* ==================================================
    GET SINGLE TOPIC
-   (Used in quiz pages)
 ================================================== */
 
 export const getTopicById = async (topicId) => {
@@ -69,17 +78,19 @@ export const getSubtopicsByTopic = async (topicId) => {
 
   const snapshot = await getDocs(q);
 
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
+  const subtopics = snapshot.docs.map((docSnap) => ({
+    id: docSnap.id,
+    ...docSnap.data(),
   }));
+
+  // Sort by order field
+  subtopics.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+
+  return subtopics;
 };
-
-
 
 /* ==================================================
    GET SINGLE SUBTOPIC
-   (Used in SubjectTheoryPage)
 ================================================== */
 
 export const getSubtopicById = async (subtopicId) => {
@@ -106,8 +117,10 @@ export const getQuestionsByTopic = async (topicId) => {
 
   const snapshot = await getDocs(q);
 
-  return snapshot.docs.map((docSnap) => ({
+  const questions = snapshot.docs.map((docSnap) => ({
     id: docSnap.id,
     ...docSnap.data(),
   }));
+
+  return questions;
 };

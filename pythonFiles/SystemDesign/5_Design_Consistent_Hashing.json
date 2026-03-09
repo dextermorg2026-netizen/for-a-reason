@@ -1,0 +1,46 @@
+{
+    "topics": [
+      {
+        "title": "Design Consistent Hashing",
+        "description": "Understanding consistent hashing, hash rings, virtual nodes, and how distributed systems minimize data reshuffling.",
+        "subtopics": [
+          {
+            "title": "Consistent Hashing",
+            "theory": "1️⃣ Consistent Hashing\n\n🔹 Interview Definition\n\nConsistent hashing is a data distribution technique that maps both keys and servers onto a circular hash space (ring) to minimize data movement when servers are added or removed.\n\n🔹 Why Needed\n\nNormal hashing:\n\nhash(key) % N\n\nIf N changes → almost all keys move.\n\nLarge distributed systems:\n\nServers join\n\nServers fail\n\nScaling happens\n\nWe need minimal reshuffling.\n\n🔹 Important Points\n\nHash space is circular (ring)\n\nBoth keys and servers are hashed\n\nKey → next clockwise server\n\nSupports wrap-around\n\nMinimizes rebalancing\n\nUses virtual nodes for load balance\n\n🔹 Flow\n\nHash server IDs → place on ring\n\nHash keys → place on ring\n\nFor each key:\n\nMove clockwise\n\nFirst server found → assign\n\nIf server added:\n\nOnly nearby keys move\n\nIf server removed:\n\nKeys move to next clockwise server\n\n🔹 Advantages\n\nMinimal key movement\n\nHigh scalability\n\nHigh availability\n\nSmooth horizontal scaling\n\nNo global rehashing\n\nIdeal for distributed systems\n\n🔹 Disadvantages\n\nSlightly complex implementation\n\nUneven load without virtual nodes\n\nExtra memory for metadata\n\nRequires sorted structure"
+          },
+          {
+            "title": "Hash Ring",
+            "theory": "2️⃣ Hash Ring\n\n🔹 Definition\n\nA hash ring is a circular representation of the hash space where both servers and keys are mapped.\n\n🔹 Important Points\n\nRange typically: 0 → 2³²−1\n\nTreated as circular\n\nWrap-around supported\n\nLookup uses clockwise search\n\n🔹 Why Ring?\n\nAvoids dependence on number of servers."
+          },
+          {
+            "title": "Virtual Nodes (vNodes)",
+            "theory": "3️⃣ Virtual Nodes (vNodes)\n\n🔹 Interview Definition\n\nVirtual nodes are multiple logical representations of a physical server on the hash ring to improve load balancing.\n\n🔹 Why Needed\n\nWithout virtual nodes:\n\nUneven key distribution\n\nSome servers overloaded\n\nHotspot problem\n\n🔹 Important Points\n\nOne physical server → many virtual nodes\n\nKeys map to virtual nodes\n\nVirtual nodes map to physical server\n\nImproves uniform distribution\n\nEnables weighted load balancing\n\n🔹 Flow\n\nFor each server:\n\nCreate multiple virtual nodes\n\nHash each virtual node\n\nInsert into ring\n\nKey assigned to virtual node\n\n🔹 Advantages\n\nBalanced load\n\nSmooth scaling\n\nBetter fault tolerance\n\nSupports heterogeneous servers\n\n🔹 Disadvantages\n\nMore memory usage\n\nMore metadata\n\nSlightly more complex"
+          },
+          {
+            "title": "Add Server",
+            "theory": "4️⃣ Add Server\n\n🔹 Flow\n\nCreate virtual nodes\n\nHash and insert into ring\n\nIdentify previous node\n\nMove keys in range:\n\n(previous → new node]\n\nOther keys unchanged\n\n🔹 Important Point\n\nOnly local range of keys move."
+          },
+          {
+            "title": "Remove Server",
+            "theory": "5️⃣ Remove Server\n\n🔹 Flow\n\nIdentify all virtual nodes\n\nRemove from ring\n\nKeys move to next clockwise node\n\n🔹 Important Point\n\nNo global reshuffling."
+          },
+          {
+            "title": "Data Structure Used",
+            "theory": "6️⃣ Data Structure Used\n\n🔹 Sorted Map / TreeMap\n\nWhy?\n\nMaintains order\n\nAllows clockwise lookup\n\nSupports:\n\ninsert\n\ndelete\n\nsearch\n\n🔹 Complexity\n\nLookup: O(log N)\n\nAdd/remove: O(V log N)\n\nV = virtual nodes count"
+          },
+          {
+            "title": "Real-World Usage",
+            "theory": "7️⃣ Real-World Usage\n\nUsed in:\n\nDistributed cache (Redis, Memcached)\n\nLoad balancers\n\nSharded databases\n\nDistributed storage systems\n\nWeb crawlers"
+          },
+          {
+            "title": "Important Definitions",
+            "theory": "8️⃣ Important Definitions (Must Know Words)\n\n🔹 Hash Function\n\nFunction that converts input into fixed-size numeric value.\n\n🔹 Hash Space\n\nRange of possible hash outputs.\n\n🔹 Hash Ring\n\nCircular representation of hash space.\n\n🔹 Clockwise Lookup\n\nFinding first server moving clockwise from key.\n\n🔹 Rebalancing\n\nMoving keys between servers when cluster changes.\n\n🔹 Virtual Node\n\nLogical node representing physical server on ring.\n\n🔹 Horizontal Scaling\n\nAdding more machines instead of increasing machine power.\n\n🔹 Hotspot\n\nServer receiving disproportionate traffic.\n\n🔹 Resharding\n\nRedistributing data when shards change."
+          },
+          {
+            "title": "Chapter Summary",
+            "theory": "🎯 Short Chapter Summary\n\nConsistent hashing distributes keys across a circular hash ring so that only a small number of keys move when servers are added or removed, using virtual nodes to maintain balanced load distribution."
+          }
+        ]
+      }
+    ]
+  }

@@ -1,98 +1,50 @@
 {
-"title": "Flow Control and Error Control",
-"description": "Flow control and error control are mechanisms used in networking to ensure reliable communication between sender and receiver by regulating data transmission and detecting or correcting transmission errors.",
-"topics": [
-{
-"title": "Introduction to Flow Control",
-"description": "Understanding how networks prevent senders from overwhelming receivers.",
-"subtopics": [
-
-{
-"title": "What is Flow Control",
-"theory": "Flow control is a mechanism used to regulate the rate at which data is transmitted from a sender to a receiver. It ensures that the sender does not transmit data faster than the receiver can process. If the sender transmits too quickly, the receiver's buffer may overflow, resulting in packet loss and reduced network performance."
-},
-
-{
-"title": "Need for Flow Control",
-"theory": "In data communication systems, the processing speeds of the sender and receiver may differ significantly. Without flow control, a fast sender could overwhelm a slower receiver. Flow control ensures smooth data transmission by allowing the receiver to control how much data it can accept at a time."
-}
-
-]
-},
-
-{
-"title": "Flow Control Techniques",
-"description": "Methods used to manage data transmission between sender and receiver.",
-"subtopics": [
-
-{
-"title": "Stop-and-Wait Flow Control",
-"theory": "In stop-and-wait flow control, the sender transmits one frame at a time and waits for an acknowledgment from the receiver before sending the next frame. This ensures that the receiver has enough time to process the data before receiving additional frames. Although simple and reliable, this method is inefficient for high-speed networks because the sender remains idle while waiting for acknowledgments."
-},
-
-{
-"title": "Sliding Window Flow Control",
-"theory": "Sliding window flow control allows the sender to transmit multiple frames before receiving acknowledgments. The receiver advertises a window size that determines how many frames the sender can transmit without waiting. As acknowledgments are received, the window slides forward allowing new frames to be transmitted. This technique improves network efficiency compared to stop-and-wait."
-}
-
-]
-},
-
-{
-"title": "Introduction to Error Control",
-"description": "Ensuring data integrity during transmission.",
-"subtopics": [
-
-{
-"title": "What is Error Control",
-"theory": "Error control refers to mechanisms used to detect and recover from transmission errors that occur during data communication. Errors may occur due to noise, interference, or network congestion. Error control ensures that corrupted or lost packets are identified and retransmitted if necessary."
-},
-
-{
-"title": "Types of Transmission Errors",
-"theory": "Transmission errors can occur in several forms including single-bit errors where only one bit changes, burst errors where multiple consecutive bits are corrupted, and packet loss where entire packets fail to reach the destination."
-}
-
-]
-},
-
-{
-"title": "Error Detection Techniques",
-"description": "Methods used to identify corrupted data during transmission.",
-"subtopics": [
-
-{
-"title": "Checksum",
-"theory": "A checksum is an error detection technique where the sender calculates a numerical value based on the data being transmitted. The receiver performs the same calculation and compares the result with the received checksum value. If the values differ, the receiver detects that an error has occurred."
-},
-
-{
-"title": "Cyclic Redundancy Check (CRC)",
-"theory": "Cyclic Redundancy Check is a widely used error detection technique that treats data as a binary polynomial and performs division using a generator polynomial. The remainder generated during this process is appended to the data as a CRC value. The receiver performs the same operation to verify data integrity."
-}
-
-]
-},
-
-{
-"title": "Error Recovery Mechanisms",
-"description": "Methods used to recover lost or corrupted packets.",
-"subtopics": [
-
-{
-"title": "Automatic Repeat Request (ARQ)",
-"theory": "Automatic Repeat Request is an error recovery technique where the receiver detects errors and requests retransmission of corrupted or lost packets. ARQ protocols combine error detection with retransmission mechanisms to ensure reliable data delivery."
-},
-
-{
-"title": "Importance of Reliable Transmission",
-"theory": "Reliable transmission ensures that applications receive accurate data without corruption or loss. Mechanisms such as acknowledgments, sequence numbers, and retransmissions are essential for maintaining data integrity in network communication."
-}
-
-]
-}
-],
-"diagram_suggestions": [
-"Stop-and-Wait Flow Control Diagram"
-]
-}
+    "topics": [
+      {
+        "title": "Flow Control and Error Control",
+        "description": "Flow control and error control are mechanisms used in networking to ensure reliable communication between sender and receiver by regulating data transmission and detecting or correcting transmission errors.",
+        "subtopics": [
+          {
+            "title": "What is Flow Control",
+            "theory": "Flow control is a mechanism used to regulate the rate at which data is transmitted from a sender to a receiver. It ensures that the sender does not transmit data faster than the receiver can process. If the sender transmits too quickly, the receiver's buffer may overflow, resulting in packet loss and reduced network performance."
+          },
+          {
+            "title": "Need for Flow Control",
+            "theory": "In data communication systems, the processing speeds of the sender and receiver may differ significantly. Without flow control, a fast sender could overwhelm a slower receiver. Flow control ensures smooth data transmission by allowing the receiver to control how much data it can accept at a time."
+          },
+          {
+            "title": "Stop-and-Wait Flow Control",
+            "theory": "In stop-and-wait flow control, the sender transmits one frame at a time and waits for an acknowledgment from the receiver before sending the next frame. This ensures that the receiver has enough time to process the data before receiving additional frames. Although simple and reliable, this method is inefficient for high-speed networks because the sender remains idle while waiting for acknowledgments."
+          },
+          {
+            "title": "Sliding Window Flow Control",
+            "theory": "Sliding window flow control allows the sender to transmit multiple frames before receiving acknowledgments. The receiver advertises a window size that determines how many frames the sender can transmit without waiting. As acknowledgments are received, the window slides forward allowing new frames to be transmitted. This technique improves network efficiency compared to stop-and-wait."
+          },
+          {
+            "title": "What is Error Control",
+            "theory": "Error control refers to mechanisms used to detect and recover from transmission errors that occur during data communication. Errors may occur due to noise, interference, or network congestion. Error control ensures that corrupted or lost packets are identified and retransmitted if necessary."
+          },
+          {
+            "title": "Types of Transmission Errors",
+            "theory": "Transmission errors can occur in several forms including single-bit errors where only one bit changes, burst errors where multiple consecutive bits are corrupted, and packet loss where entire packets fail to reach the destination."
+          },
+          {
+            "title": "Checksum",
+            "theory": "A checksum is an error detection technique where the sender calculates a numerical value based on the data being transmitted. The receiver performs the same calculation and compares the result with the received checksum value. If the values differ, the receiver detects that an error has occurred."
+          },
+          {
+            "title": "Cyclic Redundancy Check (CRC)",
+            "theory": "Cyclic Redundancy Check is a widely used error detection technique that treats data as a binary polynomial and performs division using a generator polynomial. The remainder generated during this process is appended to the data as a CRC value. The receiver performs the same operation to verify data integrity."
+          },
+          {
+            "title": "Automatic Repeat Request (ARQ)",
+            "theory": "Automatic Repeat Request is an error recovery technique where the receiver detects errors and requests retransmission of corrupted or lost packets. ARQ protocols combine error detection with retransmission mechanisms to ensure reliable data delivery."
+          },
+          {
+            "title": "Importance of Reliable Transmission",
+            "theory": "Reliable transmission ensures that applications receive accurate data without corruption or loss. Mechanisms such as acknowledgments, sequence numbers, and retransmissions are essential for maintaining data integrity in network communication."
+          }
+        ]
+      }
+    ]
+  }

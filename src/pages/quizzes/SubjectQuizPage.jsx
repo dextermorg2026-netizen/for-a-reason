@@ -1,83 +1,30 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTopicsBySubject } from "../../services/subjectService";
 
 const SubjectQuizPage = () => {
   const { subjectId } = useParams();
   const navigate = useNavigate();
 
-  const [topics, setTopics] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    let mounted = true;
-
-    const load = async () => {
-      try {
-        setLoading(true);
-        setError("");
-
-        const rawTopics = await getTopicsBySubject(subjectId);
-
-        const normalized = rawTopics.map((t) => ({
-          id: t.id,
-          title: t.title ?? t.name ?? "Untitled Topic",
-          description:
-            t.quizDescription ??
-            t.description ??
-            "Attempt topic-based questions for this subject.",
-        }));
-
-        if (mounted) setTopics(normalized);
-      } catch (e) {
-        if (mounted) setError(e?.message || "Failed to load quizzes.");
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
-
-    if (subjectId) load();
-    else {
-      setTopics([]);
-      setLoading(false);
-      setError("Missing subject id.");
+  const levels = [
+    {
+      id: "easy",
+      title: "Easy",
+      description: "Basic questions to test your fundamentals."
+    },
+    {
+      id: "medium",
+      title: "Medium",
+      description: "Moderate difficulty questions."
+    },
+    {
+      id: "hard",
+      title: "Hard",
+      description: "Advanced challenge questions."
     }
-
-    return () => {
-      mounted = false;
-    };
-  }, [subjectId]);
-
-  if (loading) {
-    return (
-      <div className="glass-card" style={{ marginTop: "30px" }}>
-        Loading quizzes...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="glass-card" style={{ marginTop: "30px", color: "#ef4444" }}>
-        {error}
-      </div>
-    );
-  }
-
-  if (!topics.length) {
-    return (
-      <div className="glass-card" style={{ marginTop: "30px" }}>
-        No quizzes found for this subject yet.
-      </div>
-    );
-  }
+  ];
 
   return (
     <div>
-      <h1 className="page-title">
-        Quizzes for {subjectId.toUpperCase()}
-      </h1>
+      <h1 className="page-title">Choose Difficulty</h1>
 
       <div
         style={{
@@ -86,19 +33,20 @@ const SubjectQuizPage = () => {
           gap: "20px",
         }}
       >
-        {topics.map((topic) => (
-          <div
-            key={topic.id}
-            className="glass-card"
-          >
-            <h3>{topic.title}</h3>
+        {levels.map((level) => (
+          <div key={level.id} className="glass-card">
+            <h3>{level.title}</h3>
+
             <p className="muted">
-              {topic.description}
+              {level.description}
             </p>
+
             <button
               className="btn-primary"
               style={{ marginTop: "15px" }}
-              onClick={() => navigate(`/quiz/${topic.id}`)}
+              onClick={() =>
+                navigate(`/quiz/${subjectId}/${level.id}`)
+              }
             >
               Start Quiz
             </button>

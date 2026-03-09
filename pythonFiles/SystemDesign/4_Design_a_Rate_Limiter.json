@@ -1,0 +1,62 @@
+{
+    "topics": [
+      {
+        "title": "Design a Rate Limiter",
+        "description": "Understanding rate limiting mechanisms, algorithms, distributed implementation, and scaling considerations.",
+        "subtopics": [
+          {
+            "title": "Rate Limiter",
+            "theory": "1️⃣ RATE LIMITER\n\n📌 Definition\n\nA Rate Limiter is a mechanism that restricts the number of requests a client can send to a system within a specified time period to protect system resources and maintain stability.\n\n🎯 Why Rate Limiting is Needed\n\nPrevent Denial of Service (DoS) attacks\n\nProtect backend (CPU, DB, memory)\n\nEnsure fair usage among users\n\nReduce operational cost\n\nMaintain predictable latency\n\n🔑 Important Points\n\nApplied per:\n\nUser ID\n\nIP address\n\nAPI key\n\nImplemented at:\n\nAPI Gateway (preferred)\n\nReverse proxy\n\nApplication middleware\n\nWorks using algorithms\n\nIn distributed systems → needs shared state\n\n✅ Advantages\n\nImproves availability\n\nPrevents abuse\n\nControls traffic spikes\n\nImproves system reliability\n\nProtects database\n\n❌ Disadvantages\n\nCan block legitimate users\n\nAdds extra latency\n\nComplex in distributed systems\n\nNeeds careful tuning\n\n🔄 Basic Flow\n\nClient sends request\n\nExtract identifier (user/IP)\n\nCheck request count or token\n\nIf under limit → forward request\n\nIf exceeded → return 429 error\n\n📖 Important Terms\n\nDoS Attack – Overwhelming system with excessive traffic to make it unavailable.\n\nAPI Gateway – Entry point for all API traffic that can enforce rules.\n\nHTTP 429 – Response code meaning “Too Many Requests.”"
+          },
+          {
+            "title": "Rate Limiting Algorithms",
+            "theory": "2️⃣ RATE LIMITING ALGORITHMS"
+          },
+          {
+            "title": "Token Bucket",
+            "theory": "A) Token Bucket\n\n📌 Definition\n\nIn the Token Bucket algorithm, tokens are added to a bucket at a fixed rate, and each request consumes one token. If no token is available, the request is rejected.\n\n🔑 Important Points\n\nBucket has max capacity\n\nTokens refill over time\n\nAllows burst traffic\n\nControls average rate\n\n🔄 Flow\n\nBucket starts filling with tokens at rate R\n\nRequest arrives\n\nIf token available → remove token → allow\n\nIf empty → reject\n\n✅ Advantages\n\nSupports burst traffic\n\nEfficient\n\nSimple implementation\n\nMost widely used\n\n❌ Disadvantages\n\nSlight inaccuracies in distributed systems\n\nRequires shared state\n\n📖 Important Terms\n\nBurst Traffic – Sudden spike in requests within short time.\n\nRefill Rate – Speed at which tokens are added."
+          },
+          {
+            "title": "Leaky Bucket",
+            "theory": "B) Leaky Bucket\n\n📌 Definition\n\nLeaky Bucket processes requests at a fixed constant rate, like water leaking from a bucket.\n\n🔑 Important Points\n\nOutput rate is constant\n\nNo burst allowed\n\nQueue-based model\n\n🔄 Flow\n\nRequests enter queue\n\nProcessed at fixed rate\n\nIf queue full → drop request\n\n✅ Advantages\n\nSmooth traffic\n\nPredictable\n\n❌ Disadvantages\n\nDrops legitimate bursts\n\nNot flexible"
+          },
+          {
+            "title": "Fixed Window Counter",
+            "theory": "C) Fixed Window Counter\n\n📌 Definition\n\nCounts requests in a fixed time window (e.g., 1 minute). Counter resets at window boundary.\n\n🔑 Important Points\n\nVery simple\n\nHas boundary burst problem\n\n❌ Disadvantage\n\nBoundary Burst Problem\nUser can send full limit at end of window and again at start of next window."
+          },
+          {
+            "title": "Sliding Window Log",
+            "theory": "D) Sliding Window Log\n\n📌 Definition\n\nStores timestamp of each request and counts only those within current time window.\n\n🔑 Important Points\n\nVery accurate\n\nMemory heavy\n\n❌ Disadvantages\n\nHigh storage\n\nHigh CPU"
+          },
+          {
+            "title": "Sliding Window Counter",
+            "theory": "E) Sliding Window Counter\n\n📌 Definition\n\nCombines current window count and previous window proportionally to smooth boundary issue.\n\n🔑 Important Points\n\nBalanced solution\n\nMore accurate than fixed window\n\nMore efficient than log"
+          },
+          {
+            "title": "Distributed Rate Limiter",
+            "theory": "3️⃣ DISTRIBUTED RATE LIMITER\n\n📌 Definition\n\nA distributed rate limiter shares request state across multiple servers using a centralized store like Redis to enforce limits consistently.\n\n❗ Why Needed\n\nMultiple servers behind load balancer\n\nLocal counters cause incorrect limits\n\n🔄 Flow\n\nClient → Load Balancer → App Server → Redis → Decision\n\nApp server reads counter from Redis\n\nIncrement atomically\n\nDecide allow or reject\n\n🔑 Important Concepts\n\nAtomic Operation\n\nOperation that completes fully or not at all. Prevents race conditions.\n\nRace Condition\n\nMultiple servers updating same counter incorrectly.\n\nEventual Consistency\n\nSystem becomes consistent over time, not instantly.\n\n✅ Advantages\n\nWorks with horizontal scaling\n\nPrevents bypassing limits\n\n❌ Disadvantages\n\nRedis bottleneck possible\n\nHot key problem\n\nSlight inconsistencies"
+          },
+          {
+            "title": "Hot Key Problem",
+            "theory": "4️⃣ HOT KEY PROBLEM\n\n📌 Definition\n\nHot key problem occurs when too many requests hit the same Redis key, overloading one CPU core.\n\n🔑 Why Happens\n\nPopular users\n\nShared IP addresses\n\n✅ Solutions\n\nKey sharding\n\nComposite keys\n\nLocal counters\n\nEdge rate limiting"
+          },
+          {
+            "title": "Hard vs Soft Limits",
+            "theory": "5️⃣ HARD vs SOFT LIMITS\n\nHard Limit\n\nStrictly blocks excess requests.\n\nUsed For\n\nAuthentication\n\nPayments\n\nSoft Limit\n\nAllows small temporary bursts.\n\nUsed For\n\nFeeds\n\nPublic APIs"
+          },
+          {
+            "title": "Performance and Scaling",
+            "theory": "6️⃣ PERFORMANCE & SCALING\n\nImportant Techniques\n\nMulti-data center deployment\n\nCDN edge limiting\n\nRedis sharding\n\nToken bucket for bursts\n\nMonitoring"
+          },
+          {
+            "title": "Monitoring",
+            "theory": "7️⃣ MONITORING\n\nMetrics to Track\n\nAllowed requests\n\nBlocked requests (429)\n\nLatency\n\nRedis errors\n\nWhy Monitoring Needed\n\nDetect too strict rules\n\nDetect too loose rules\n\nDetect Redis overload"
+          },
+          {
+            "title": "Final Interview Summary",
+            "theory": "🎯 FINAL INTERVIEW LINE\n\nA rate limiter protects system stability using algorithms like token bucket, requires shared atomic state in distributed systems, tolerates eventual consistency, and must be monitored and scaled properly."
+          }
+        ]
+      }
+    ]
+  }

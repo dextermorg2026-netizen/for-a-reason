@@ -1,0 +1,386 @@
+{
+    "subject": "SystemDesign",
+    "easy": [
+      {
+        "question": "What is the biggest risk of running web server, database, and cache on one machine?",
+        "options": ["High latency", "Single point of failure", "Too much caching", "Slow DNS"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which component usually exposes the public IP in scalable systems?",
+        "options": ["Database", "Cache", "Load balancer", "Worker"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Horizontal scaling means:",
+        "options": ["Adding more servers", "Increasing RAM of one server", "Reducing latency", "Improving security"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What does CDN primarily improve?",
+        "options": ["Database writes", "Global read latency", "Replication", "Caching algorithms"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which component distributes incoming traffic?",
+        "options": ["Cache", "Database", "Load balancer", "Worker"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Caching mainly helps:",
+        "options": ["Reduce latency", "Increase memory", "Replace database", "Encrypt data"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Message queues are used for:",
+        "options": ["Authentication", "Asynchronous tasks", "DNS lookup", "Database joins"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Stateless servers help with:",
+        "options": ["Better encryption", "Horizontal scaling", "Lower bandwidth", "Database joins"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Database replication improves:",
+        "options": ["Read scalability", "Cache invalidation", "Write compression", "Security"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which protocol typically returns HTTP 429?",
+        "options": ["Authentication", "Rate limiter", "Cache server", "DNS"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "What does LRU mean in caching?",
+        "options": ["Last Request URL", "Least Recently Used", "Latest Resource Unit", "Load Resource Usage"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which architecture helps global users reduce latency?",
+        "options": ["Single server", "Multi-data center", "Local cache", "SQL joins"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Sharding mainly helps:",
+        "options": ["Improve storage and write scaling", "Reduce latency only", "Remove cache", "Replace database"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures time taken for request?",
+        "options": ["Latency", "Bandwidth", "Throughput", "Cache hit"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What causes stale data in cache?",
+        "options": ["Replication", "Eviction", "Cache delay from DB update", "Sharding"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which algorithm supports burst traffic?",
+        "options": ["Token bucket", "Fixed window", "Sliding log", "Leaky bucket"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system property keeps system running during failures?",
+        "options": ["Availability", "Latency", "Consistency", "Compression"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which component schedules URLs in a crawler?",
+        "options": ["DNS", "Frontier", "Cache", "Worker"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Why are queues used in notification systems?",
+        "options": ["Encrypt messages", "Handle traffic spikes", "Improve UI", "Reduce logs"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which system design concept prioritizes uptime over strict accuracy?",
+        "options": ["Availability", "Consistency", "Latency", "Sharding"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which HTTP method creates resources?",
+        "options": ["GET", "POST", "DELETE", "PUT"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which data is best stored in CDN?",
+        "options": ["Static images", "Passwords", "SQL queries", "Logs"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What does DNS mainly do?",
+        "options": ["Translate domain to IP", "Store sessions", "Cache images", "Balance load"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What does monitoring detect?",
+        "options": ["System failures early", "SQL joins", "Cache eviction", "Compression"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which architecture supports global scale best?",
+        "options": ["Single node", "Distributed systems", "Local database", "Monolith"],
+        "correctAnswer": 1
+      }
+    ],
+  
+    "medium": [
+      {
+        "question": "What is the purpose of consistent hashing?",
+        "options": ["Encrypt keys", "Minimize key remapping when servers change", "Improve latency", "Remove replication"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "In consistent hashing, keys are mapped to:",
+        "options": ["Tree", "Circular hash ring", "Array", "Queue"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which system property ensures requests are processed even during failures?",
+        "options": ["Availability", "Latency", "Throughput", "Serialization"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What is a hot key problem?",
+        "options": ["High CPU", "Too many requests hitting same key", "Cache eviction", "Disk failure"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which system component stores rate limiter counters?",
+        "options": ["Redis", "Browser", "DNS", "CDN"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "CAP theorem says a distributed system can guarantee:",
+        "options": ["Only one property", "At most two properties", "All three always", "None"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Vector clocks help detect:",
+        "options": ["Concurrent writes", "Cache eviction", "DNS conflicts", "Sharding"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system benefits most from caching?",
+        "options": ["Read-heavy systems", "Write-only systems", "Encryption services", "Authentication"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which consistency model allows temporary stale reads?",
+        "options": ["Strong", "Eventual", "Linearizable", "Strict"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which storage engine optimizes heavy writes?",
+        "options": ["LSM Tree", "Heap", "Linked list", "Binary tree"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Bloom filters help with:",
+        "options": ["Fast existence checks", "Encryption", "Compression", "Sharding"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system design helps traffic spikes?",
+        "options": ["Message queues", "SQL joins", "DNS", "Indexing"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Fanout on write mainly optimizes:",
+        "options": ["Read latency", "Write speed", "Compression", "Encryption"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which database design improves read scalability?",
+        "options": ["Read replicas", "Sharding", "Indexes", "CDN"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which algorithm suffers boundary burst?",
+        "options": ["Fixed window", "Token bucket", "Leaky bucket", "Sliding log"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which design pattern reduces DB load?",
+        "options": ["Cache aside", "Cache delete", "Cache block", "Cache loop"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Sharding key should avoid:",
+        "options": ["Hotspots", "Replication", "Latency", "Caching"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Back-of-envelope estimation helps:",
+        "options": ["Estimate system scale", "Encrypt traffic", "Replace monitoring", "Store logs"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system ensures ordering in Snowflake ID?",
+        "options": ["Timestamp bits", "Machine ID", "Sequence", "Hash"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which component handles URL scheduling in crawler?",
+        "options": ["URL frontier", "Downloader", "Cache", "Parser"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Retry logic without idempotency causes:",
+        "options": ["Duplicate notifications", "Cache failure", "Hot keys", "Slow queries"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which component builds feeds for social networks?",
+        "options": ["Fanout service", "Cache", "DNS", "Load balancer"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Strict priority queues risk:",
+        "options": ["Starvation", "Latency", "Replication", "Caching"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Hybrid fanout design balances:",
+        "options": ["Read vs write cost", "Latency vs caching", "Replication vs sharding", "Security vs storage"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system design element detects bottlenecks?",
+        "options": ["Monitoring", "DNS", "Caching", "Sharding"],
+        "correctAnswer": 0
+      }
+    ],
+  
+    "hard": [
+      {
+        "question": "Why does hash(key)%N fail in distributed scaling?",
+        "options": ["Too slow", "Keys remap when N changes", "Memory heavy", "No hashing"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "What is the time complexity of key lookup in consistent hashing ring?",
+        "options": ["O(1)", "O(log N)", "O(N)", "O(N²)"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which rate limiting algorithm has highest accuracy but high memory cost?",
+        "options": ["Sliding window log", "Token bucket", "Leaky bucket", "Fixed window"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What happens if clock moves backward in Snowflake?",
+        "options": ["ID duplication risk", "Cache eviction", "Sharding failure", "DNS error"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Why are UUIDs inefficient for DB indexing?",
+        "options": ["Too random and large", "Too small", "Sequential", "Encrypted"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which design pattern reduces cascading failures in distributed systems?",
+        "options": ["Circuit breaker", "LRU", "Bloom filter", "TTL"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Cross-shard joins are difficult because:",
+        "options": ["Distributed queries", "Disk latency", "Cache eviction", "Replication"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which architecture reduces fanout cost for celebrities?",
+        "options": ["Fanout on read", "Fanout on write", "Replication", "Caching"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which problem occurs when single Redis key gets huge traffic?",
+        "options": ["Hot key", "Cold cache", "Disk overflow", "DNS error"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system property ensures stored data survives crashes?",
+        "options": ["Durability", "Latency", "Consistency", "Bandwidth"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which approach minimizes rebalancing when servers added?",
+        "options": ["Consistent hashing", "Modulo hashing", "SQL sharding", "Vertical scaling"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which queue ensures failed messages stored after retries?",
+        "options": ["Dead Letter Queue", "Priority queue", "FIFO queue", "Event queue"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Why must rate limiter be placed before business logic?",
+        "options": ["Prevent unnecessary backend processing", "Reduce latency", "Improve encryption", "Reduce memory"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which failure scenario causes infinite URL generation in crawlers?",
+        "options": ["Spider trap", "DNS error", "Cache eviction", "Replication"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which distributed store prioritizes availability during partition?",
+        "options": ["AP system", "CP system", "Single node", "Monolith"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which design ensures fairness across servers for rate limits?",
+        "options": ["Shared atomic store", "Local counters", "Sticky sessions", "CDN"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which data structure usually stores consistent hash ring?",
+        "options": ["Sorted map", "Stack", "Queue", "Heap"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Why are queues critical for large scale notifications?",
+        "options": ["Decouple services", "Encrypt data", "Compress messages", "Replace database"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which system design tradeoff appears in CAP theorem?",
+        "options": ["Consistency vs availability", "Latency vs cache", "Throughput vs storage", "CPU vs memory"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What happens when cache fails but DB works?",
+        "options": ["System slower but functional", "System crash", "Data loss", "Restart required"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which approach helps distributed crawlers scale horizontally?",
+        "options": ["Consistent hashing", "LRU", "Replication", "TTL"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which technique prevents duplicate notifications?",
+        "options": ["Idempotency keys", "Cache TTL", "DNS replication", "Sharding"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which distributed storage model trades strong consistency for availability?",
+        "options": ["Eventual consistency", "Strict consistency", "Linearizable", "Serializable"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which queue design improves failure handling?",
+        "options": ["Retry + DLQ", "FIFO", "Priority", "Stack"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which design principle avoids overengineering?",
+        "options": ["Scale iteratively", "Shard immediately", "Add microservices first", "Ignore bottlenecks"],
+        "correctAnswer": 0
+      }
+    ]
+  }

@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllSubjects } from "../../services/subjectService";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../services/firebase";
+import { useAuth } from "../../context/AuthContext";
 
 const QuizzesPage = () => {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   const [subjects, setSubjects] = useState([]);
+  const [progress, setProgress] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  /* ================= LOAD SUBJECTS ================= */
 
   useEffect(() => {
     let mounted = true;
@@ -40,6 +47,45 @@ const QuizzesPage = () => {
     };
   }, []);
 
+  /* ================= LOAD USER PROGRESS ================= */
+
+  useEffect(() => {
+    const loadProgress = async () => {
+      if (!currentUser) return;
+
+      const q = query(
+        collection(db, "quizAttempts"),
+        where("userId", "==", currentUser.uid)
+      );
+
+      const snapshot = await getDocs(q);
+
+      const subjectProgress = {};
+
+      snapshot.docs.forEach((doc) => {
+        const data = doc.data();
+        const subjectId = data.subjectId;
+        const difficulty = data.difficulty;
+
+        if (!subjectProgress[subjectId]) {
+          subjectProgress[subjectId] = new Set();
+        }
+
+        subjectProgress[subjectId].add(difficulty);
+      });
+
+      const formatted = {};
+
+      Object.keys(subjectProgress).forEach((subjectId) => {
+        formatted[subjectId] = subjectProgress[subjectId].size;
+      });
+
+      setProgress(formatted);
+    };
+
+    loadProgress();
+  }, [currentUser]);
+
   return (
     <div>
       <h1 className="page-title">Quizzes</h1>
@@ -51,7 +97,10 @@ const QuizzesPage = () => {
       )}
 
       {!loading && error && (
-        <div className="glass-card" style={{ marginTop: "30px", color: "#ef4444" }}>
+        <div
+          className="glass-card"
+          style={{ marginTop: "30px", color: "#ef4444" }}
+        >
           {error}
         </div>
       )}
@@ -63,21 +112,34 @@ const QuizzesPage = () => {
           gap: "20px",
         }}
       >
-        {!loading && !error && subjects.map((subject) => (
-          <div
-            key={subject.id}
-            className="glass-card"
-            style={{ cursor: "pointer" }}
-            onClick={() =>
-              navigate(`/quizzes/${subject.id}`)
-            }
-          >
-            <h3>{subject.name}</h3>
-            <p className="muted">
-              {subject.description}
-            </p>
-          </div>
-        ))}
+        {!loading &&
+          !error &&
+          subjects.map((subject) => {
+            const completed = progress[subject.id] || 0;
+
+            return (
+              <div
+                key={subject.id}
+                className="glass-card"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/quizzes/${subject.id}`)}
+              >
+                <h3>{subject.name}</h3>
+
+                <p className="muted">{subject.description}</p>
+
+                <div
+                  style={{
+                    marginTop: "10px",
+                    fontWeight: "600",
+                    color: "#6366f1",
+                  }}
+                >
+                  Progress: {completed} / 3 completed
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

@@ -1,87 +1,95 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useCoins } from "../../context/CoinContext"; // ✅ ADDED
-import { COINS_PER_CORRECT } from "../../utils/constants";
-import { getQuestionsByTopic, getTopicById } from "../../services/subjectService";
-import {
-  getUserAttemptsByTopic,
-  saveQuizAttempt,
-} from "../../services/quizAttemptService";
+import { useCoins } from "../../context/CoinContext";
 import {
   CircularProgressbar,
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-const QUESTION_TIME = 15;
+import {
+  getQuestionsBySubjectAndDifficulty,
+} from "../../services/quizService";
+
+import {
+  saveQuizAttempt,
+  getUserQuizAttempt,
+} from "../../services/quizAttemptService";
+
+const QUESTION_TIME = 30;
 
 const Quiz = () => {
-  const { topicId } = useParams();
+  const { subjectId, level } = useParams();
   const navigate = useNavigate();
+
   const { currentUser } = useAuth();
-  const { addCoins } = useCoins(); // ✅ ADDED
+  const { addCoins } = useCoins();
 
   const [questions, setQuestions] = useState([]);
-  const [subjectId, setSubjectId] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answers, setAnswers] = useState({});
   const [loading, setLoading] = useState(true);
-  const [completedAll, setCompletedAll] = useState(false);
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
-  const [showReviewScreen, setShowReviewScreen] = useState(false);
+
+  /* ================= FETCH QUESTIONS ================= */
 
   useEffect(() => {
-    const fetchQuestions = async () => {
+    const loadQuestions = async () => {
       try {
-        const topic = await getTopicById(topicId);
-        setSubjectId(topic?.subjectId ?? null);
+        if (!currentUser) return;
 
-        const allQuestions = await getQuestionsByTopic(topicId);
-
-        const previousAttempts = await getUserAttemptsByTopic(
+        // ✅ check if quiz already attempted
+        const previousAttempt = await getUserQuizAttempt(
           currentUser.uid,
-          topicId
+          subjectId,
+          level
         );
 
-        const correctIds = previousAttempts.flatMap(
-          (attempt) => attempt.correctQuestionIds || []
-        );
+        if (previousAttempt) {
+          navigate("/quiz/result", {
+            state: {
+              score: previousAttempt.score,
+              total: previousAttempt.questions.length,
+              coinsEarned: previousAttempt.coinsEarned,
+              questions: previousAttempt.questions,
+              answers: previousAttempt.answers,
+            },
+            replace: true,
+          });
+          return;
+        }
 
-        const available = allQuestions.filter(
-          (q) => !correctIds.includes(q.id)
-        );
+        const allQuestions =
+          await getQuestionsBySubjectAndDifficulty(subjectId, level);
 
-        if (available.length === 0) {
-          setCompletedAll(true);
+        if (!allQuestions || allQuestions.length === 0) {
+          setQuestions([]);
           setLoading(false);
           return;
         }
 
-        const shuffled = available.sort(() => 0.5 - Math.random());
-        const limited =
-          shuffled.length >= 5
-            ? shuffled.slice(0, 5)
-            : shuffled;
+        const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
 
-        setQuestions(limited);
+        setQuestions(shuffled);
       } catch (err) {
-        console.error(err);
+        console.error("[Quiz ERROR]", err);
       } finally {
         setLoading(false);
       }
     };
 
-    if (currentUser) fetchQuestions();
-  }, [topicId, currentUser]);
+    loadQuestions();
+  }, [subjectId, level, currentUser, navigate]);
 
-  // ================= TIMER =================
+  /* ================= TIMER ================= */
+
   useEffect(() => {
     if (!questions.length) return;
 
     if (timeLeft === 0) {
-      handleNext();
+      saveAnswerAndNext();
       return;
     }
 
@@ -98,161 +106,97 @@ const Quiz = () => {
 
   if (loading) return <p className="muted">Loading quiz...</p>;
 
-  if (completedAll) {
+  if (!questions.length) {
     return (
-      <div>
-        <h1 className="page-title">Topic Mastered 🎉</h1>
-        <div className="page-card" style={{ marginTop: "2rem" }}>
-          <p>You have answered all questions correctly.</p>
-          <button
-            className="btn-primary"
-            onClick={() => navigate("/subjects")}
-          >
-            Back to Subjects
-          </button>
-        </div>
+      <div className="page-card">
+        <h2>No questions found for this quiz.</h2>
+        <button
+          className="btn-primary"
+          onClick={() => navigate("/quizzes")}
+          style={{ marginTop: "20px" }}
+        >
+          Back to Quizzes
+        </button>
       </div>
     );
   }
 
   const currentQuestion = questions[currentIndex];
 
-  const handleSubmit = () => {
-    if (!selectedAnswer) return;
+  /* ================= ANSWER HANDLING ================= */
 
-    setAnswers((prev) => ({
-      ...prev,
+  const saveAnswerAndNext = () => {
+    const updatedAnswers = {
+      ...answers,
       [currentQuestion.id]: selectedAnswer,
-    }));
-  };
+    };
 
-  const handleNext = () => {
+    setAnswers(updatedAnswers);
     setSelectedAnswer(null);
 
     if (currentIndex === questions.length - 1) {
-      setShowReviewScreen(true);
+      handleFinalSubmit(updatedAnswers);
       return;
     }
 
     setCurrentIndex((prev) => prev + 1);
   };
 
-  // ================= FINAL SUBMIT =================
-// ================= FINAL SUBMIT =================
-const handleFinalSubmit = async () => {
-  const correctIds = [];
-  const wrongIds = [];
+  /* ================= FINAL SUBMIT ================= */
 
-  questions.forEach((q) => {
-    if (answers[q.id] === q.correctAnswer) {
-      correctIds.push(q.id);
-    } else {
-      wrongIds.push(q.id);
-    }
-  });
+  const handleFinalSubmit = async (finalAnswers) => {
+    const correctIds = [];
+    const wrongIds = [];
 
-  const correctCount = correctIds.length;
+    questions.forEach((q) => {
+      if (finalAnswers[q.id] === Number(q.correctAnswer)) {
+        correctIds.push(q.id);
+      } else {
+        wrongIds.push(q.id);
+      }
+    });
 
-  // 🔥 10 coins per correct answer
-  const coinsEarned = correctCount * COINS_PER_CORRECT;
+    const correctCount = correctIds.length;
 
-  // ✅ PASS subjectId HERE (CRITICAL Fix)
-  await addCoins(coinsEarned, subjectId);
+    let coinsPerQuestion = 5;
+    if (level === "medium") coinsPerQuestion = 10;
+    if (level === "hard") coinsPerQuestion = 15;
 
-  await saveQuizAttempt({
-    userId: currentUser.uid,
-    subjectId,
-    topicId,
-    correctQuestionIds: correctIds,
-    wrongQuestionIds: wrongIds,
-    score: correctCount,        // raw correct count (legacy property)
-    coinsEarned,                // new field for analytics
-    createdAt: new Date(),
-  });
+    const coinsEarned = correctCount * coinsPerQuestion;
 
-  navigate("/quiz/result", {
-    state: {
+    // ✅ give coins only first time
+    await addCoins(coinsEarned, subjectId);
+
+    await saveQuizAttempt({
+      userId: currentUser.uid,
+      subjectId,
+      difficulty: level,
       score: correctCount,
-      total: questions.length,
       coinsEarned,
-    },
-    replace: true,
-  });
-};
+      questions,
+      answers: finalAnswers,
+      correctQuestionIds: correctIds,
+      wrongQuestionIds: wrongIds,
+      createdAt: new Date(),
+    });
 
-  // ================= REVIEW SCREEN =================
-  if (showReviewScreen) {
-    const answeredCount = Object.keys(answers).length;
-    const unansweredCount = questions.length - answeredCount;
+    navigate("/quiz/result", {
+      state: {
+        score: correctCount,
+        total: questions.length,
+        coinsEarned,
+        questions,
+        answers: finalAnswers,
+      },
+      replace: true,
+    });
+  };
 
-    return (
-      <div>
-        <h1 className="page-title">Review Your Answers</h1>
-
-        <div className="page-card" style={{ marginTop: "2rem" }}>
-          <p>Total Questions: {questions.length}</p>
-          <p>Answered: {answeredCount}</p>
-          <p>Unanswered: {unansweredCount}</p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(5, 1fr)",
-              gap: "10px",
-              marginTop: "20px",
-            }}
-          >
-            {questions.map((q, index) => (
-              <div
-                key={q.id}
-                onClick={() => {
-                  setCurrentIndex(index);
-                  setShowReviewScreen(false);
-                }}
-                style={{
-                  padding: "10px",
-                  textAlign: "center",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  background: answers[q.id]
-                    ? "#6366f1"
-                    : "#e5e7eb",
-                  color: answers[q.id] ? "white" : "black",
-                }}
-              >
-                {index + 1}
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: "30px" }}>
-            <button
-              className="btn-secondary"
-              style={{ marginRight: "10px" }}
-              onClick={() => setShowReviewScreen(false)}
-            >
-              Back to Quiz
-            </button>
-
-            <button
-              className="btn-primary"
-              onClick={handleFinalSubmit}
-            >
-              Submit Final
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const progressPercent = Math.round(
-    ((currentIndex + 1) / questions.length) * 100
-  );
+  /* ================= QUIZ UI ================= */
 
   return (
     <div>
-      <h1 className="page-title">Topic Quiz</h1>
+      <h1 className="page-title">Quiz</h1>
 
       <div className="page-card" style={{ marginTop: "2rem" }}>
         <div style={{ width: "80px", marginBottom: "20px" }}>
@@ -260,8 +204,7 @@ const handleFinalSubmit = async () => {
             value={(timeLeft / QUESTION_TIME) * 100}
             text={`${timeLeft}s`}
             styles={buildStyles({
-              pathColor:
-                timeLeft <= 5 ? "#ef4444" : "#6366f1",
+              pathColor: timeLeft <= 5 ? "#ef4444" : "#6366f1",
               textColor: "#fff",
               trailColor: "rgba(255,255,255,0.1)",
             })}
@@ -272,31 +215,27 @@ const handleFinalSubmit = async () => {
           Question {currentIndex + 1} of {questions.length}
         </span>
 
-        <h3 style={{ marginTop: "20px" }}>
-          {currentQuestion.questionText}
-        </h3>
+        <h3 style={{ marginTop: "20px" }}>{currentQuestion.question}</h3>
 
         <div style={{ marginTop: "1rem" }}>
-          {currentQuestion.options.map((option) => (
+          {currentQuestion.options.map((option, index) => (
             <div
-              key={option.id}
-              onClick={() => setSelectedAnswer(option.id)}
+              key={index}
+              onClick={() => setSelectedAnswer(index)}
               style={{
                 padding: "10px",
                 border:
-                  selectedAnswer === option.id
+                  selectedAnswer === index
                     ? "2px solid #6366f1"
                     : "1px solid #ddd",
                 borderRadius: "6px",
                 marginBottom: "8px",
                 cursor: "pointer",
                 background:
-                  selectedAnswer === option.id
-                    ? "#eef2ff"
-                    : "white",
+                  selectedAnswer === index ? "#eef2ff" : "white",
               }}
             >
-              {option.id}. {option.text}
+              {option}
             </div>
           ))}
         </div>
@@ -304,14 +243,11 @@ const handleFinalSubmit = async () => {
         <div style={{ marginTop: "1.5rem" }}>
           <button
             className="btn-primary"
-            onClick={() => {
-              handleSubmit();
-              handleNext();
-            }}
-            disabled={!selectedAnswer}
+            onClick={saveAnswerAndNext}
+            disabled={selectedAnswer === null}
           >
             {currentIndex === questions.length - 1
-              ? "Review Answers"
+              ? "Finish Quiz"
               : "Next"}
           </button>
         </div>

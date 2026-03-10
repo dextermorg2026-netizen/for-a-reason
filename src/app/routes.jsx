@@ -90,7 +90,7 @@ const routes = [
   // ================= QUIZ ATTEMPT =================
 
   {
-    path: '/quiz/:topicId',
+    path: '/quiz/:subjectId/:level',
     element: (
       <ProtectedRoute>
         <Quiz />

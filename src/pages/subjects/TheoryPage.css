@@ -1,0 +1,207 @@
+/* ========== THEORY PAGE LAYOUT ========== */
+
+.theory-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.theory-header {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+
+.theory-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.theory-back-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateX(-2px);
+}
+
+.theory-page-title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+/* ========== CONTENT WRAPPER ========== */
+
+.theory-content-wrapper {
+  max-width: 900px;
+  margin: 0 auto 60px;
+}
+
+.theory-text-section {
+  margin-bottom: 60px;
+}
+
+.theory-text {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ========== IMAGES SECTION ========== */
+
+.theory-images-section {
+  margin-bottom: 60px;
+}
+
+.images-heading {
+  margin: 0 0 30px 0;
+  font-size: 24px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+  padding-bottom: 12px;
+}
+
+.images-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.image-card {
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.image-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+}
+
+.img-display {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ========== FOOTER ========== */
+
+.theory-footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.btn-large {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+  border-radius: 8px;
+}
+
+/* ========== LOADING & ERROR ========== */
+
+.theory-loader,
+.theory-error {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.theory-loader p {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.theory-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.theory-error p {
+  margin: 0;
+  font-size: 18px;
+  color: #ef4444;
+}
+
+.theory-error .btn-primary {
+  margin-top: 16px;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .theory-page {
+    padding: 16px;
+  }
+
+  .theory-page-title {
+    font-size: 28px;
+  }
+
+  .theory-text {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .images-heading {
+    font-size: 20px;
+  }
+
+  .images-grid {
+    gap: 24px;
+  }
+
+  .btn-large {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .theory-back-btn {
+    margin-bottom: 16px;
+  }
+
+  .theory-page-title {
+    font-size: 24px;
+  }
+
+  .theory-text {
+    font-size: 15px;
+  }
+
+  .theory-content-wrapper {
+    margin-bottom: 40px;
+  }
+
+  .img-display {
+    border-radius: 8px;
+  }
+}

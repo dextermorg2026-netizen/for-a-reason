@@ -40,21 +40,21 @@ const Quiz = () => {
       try {
         if (!currentUser) return;
 
-        // ✅ check if quiz already attempted
+        // check if quiz already attempted
         const previousAttempt = await getUserQuizAttempt(
           currentUser.uid,
           subjectId,
           level
         );
 
-        if (previousAttempt) {
+        if (previousAttempt && previousAttempt.questions) {
           navigate("/quiz/result", {
             state: {
-              score: previousAttempt.score,
-              total: previousAttempt.questions.length,
-              coinsEarned: previousAttempt.coinsEarned,
-              questions: previousAttempt.questions,
-              answers: previousAttempt.answers,
+              score: previousAttempt.score ?? 0,
+              total: previousAttempt.questions?.length ?? 0,
+              coinsEarned: previousAttempt.coinsEarned ?? 0,
+              questions: previousAttempt.questions ?? [],
+              answers: previousAttempt.answers ?? {},
             },
             replace: true,
           });
@@ -70,7 +70,13 @@ const Quiz = () => {
           return;
         }
 
-        const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+        // shuffle questions
+        const shuffled = [...allQuestions]
+          .sort(() => 0.5 - Math.random())
+          .map((q, index) => ({
+            ...q,
+            id: q.id ?? index, // ensure every question has id
+          }));
 
         setQuestions(shuffled);
       } catch (err) {
@@ -98,7 +104,7 @@ const Quiz = () => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [timeLeft, questions]);
+  }, [timeLeft, questions, currentIndex]);
 
   useEffect(() => {
     setTimeLeft(QUESTION_TIME);
@@ -110,6 +116,7 @@ const Quiz = () => {
     return (
       <div className="page-card">
         <h2>No questions found for this quiz.</h2>
+
         <button
           className="btn-primary"
           onClick={() => navigate("/quizzes")}
@@ -164,7 +171,7 @@ const Quiz = () => {
 
     const coinsEarned = correctCount * coinsPerQuestion;
 
-    // ✅ give coins only first time
+    // give coins
     await addCoins(coinsEarned, subjectId);
 
     await saveQuizAttempt({
@@ -215,10 +222,12 @@ const Quiz = () => {
           Question {currentIndex + 1} of {questions.length}
         </span>
 
-        <h3 style={{ marginTop: "20px" }}>{currentQuestion.question}</h3>
+        <h3 style={{ marginTop: "20px" }}>
+          {currentQuestion.question}
+        </h3>
 
         <div style={{ marginTop: "1rem" }}>
-          {currentQuestion.options.map((option, index) => (
+          {(currentQuestion.options || []).map((option, index) => (
             <div
               key={index}
               onClick={() => setSelectedAnswer(index)}

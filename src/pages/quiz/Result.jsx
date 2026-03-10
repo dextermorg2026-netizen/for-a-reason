@@ -19,7 +19,39 @@ const Result = () => {
     }
   }, [location.state, navigate]);
 
-  if (!questions.length) return null;
+  if (!location.state) {
+    // let the redirect above run
+    return null;
+  }
+
+  if (!questions.length) {
+    return (
+      <div>
+        <h1 className="page-title">Quiz Completed 🎉</h1>
+
+        <div className="page-card" style={{ marginTop: "2rem" }}>
+          <h2>Score: {score} / {total}</h2>
+
+          <h3 style={{ marginTop: "10px" }}>
+            🪙 Coins earned: {coinsEarned}
+          </h3>
+
+          <p style={{ marginTop: "16px" }}>
+            We don’t have detailed question data saved for this attempt,
+            so a question-by-question review isn’t available.
+          </p>
+        </div>
+
+        <button
+          className="btn-primary"
+          style={{ marginTop: "30px" }}
+          onClick={() => navigate("/quizzes")}
+        >
+          Back to Quizzes
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>

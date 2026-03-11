@@ -1,0 +1,387 @@
+{
+    "subject": "Computer Network",
+  
+    "easy": [
+      {
+        "question": "What are network performance metrics used for?",
+        "options": ["Measuring network efficiency", "Encrypting data", "Routing packets", "Compressing files"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures the maximum data transfer capacity of a network?",
+        "options": ["Bandwidth", "Latency", "Jitter", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Bandwidth is typically measured in ______.",
+        "options": ["Bits per second", "Bytes per second", "Packets per minute", "Frames per second"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures the actual data transfer rate achieved in a network?",
+        "options": ["Throughput", "Bandwidth", "Latency", "Jitter"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures the delay experienced by a packet traveling across a network?",
+        "options": ["Latency", "Bandwidth", "Throughput", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Latency is usually measured in ______.",
+        "options": ["Milliseconds", "Seconds", "Megabytes", "Packets"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric represents lost data packets during transmission?",
+        "options": ["Packet loss", "Latency", "Throughput", "Bandwidth"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What does jitter represent in networking?",
+        "options": ["Variation in packet delay", "Maximum data speed", "Total packets transmitted", "Network encryption"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric is important for real-time applications like VoIP?",
+        "options": ["Low latency", "High packet loss", "Low bandwidth", "High jitter"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What does QoS stand for?",
+        "options": ["Quality of Service", "Quantity of Signal", "Queue of System", "Quality of Security"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay occurs due to signal travel time through the medium?",
+        "options": ["Propagation delay", "Processing delay", "Queueing delay", "Transmission delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay occurs when routers examine packet headers?",
+        "options": ["Processing delay", "Propagation delay", "Transmission delay", "Queueing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay occurs when packets wait in router buffers?",
+        "options": ["Queueing delay", "Propagation delay", "Transmission delay", "Processing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay represents time required to push bits onto a link?",
+        "options": ["Transmission delay", "Propagation delay", "Processing delay", "Queueing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which technology provides very high bandwidth?",
+        "options": ["Fiber optics", "Copper cables", "Dial-up", "Bluetooth"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which application is most affected by high packet loss?",
+        "options": ["Video streaming", "File storage", "Printing", "Local backup"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric represents variation in packet arrival time?",
+        "options": ["Jitter", "Latency", "Bandwidth", "Throughput"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which mechanism helps reduce jitter?",
+        "options": ["Buffering", "Encryption", "Compression", "Fragmentation"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "QoS ensures ______ traffic receives priority.",
+        "options": ["Critical", "Random", "Unused", "Encrypted"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network metric measures communication delay?",
+        "options": ["Latency", "Throughput", "Bandwidth", "Packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures successful data transfer rate?",
+        "options": ["Throughput", "Latency", "Jitter", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which factor can reduce throughput?",
+        "options": ["Network congestion", "Large bandwidth", "Fiber cable", "Fast routers"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric indicates fluctuations in delay?",
+        "options": ["Jitter", "Bandwidth", "Throughput", "Frame size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network metric helps monitor overall network health?",
+        "options": ["Performance metrics", "IP addresses", "MAC addresses", "Port numbers"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network device broadcasts data to all connected devices?",
+        "options": ["Hub", "Router", "Switch", "Gateway"],
+        "correctAnswer": 0
+      }
+    ],
+  
+    "medium": [
+      {
+        "question": "Why is throughput usually lower than bandwidth?",
+        "options": ["Network overhead and congestion", "Packet encryption", "IP addressing", "MAC addressing"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric reflects real-world data transfer speed?",
+        "options": ["Throughput", "Bandwidth", "Latency", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which factor most strongly affects propagation delay?",
+        "options": ["Distance between nodes", "Packet size", "Router CPU speed", "Port number"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which technology provides higher bandwidth than copper cables?",
+        "options": ["Fiber optics", "Bluetooth", "Dial-up", "Coaxial cable"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures variation in packet delay affecting VoIP?",
+        "options": ["Jitter", "Bandwidth", "Throughput", "Packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network metric is critical for live streaming platforms?",
+        "options": ["Low latency", "High packet loss", "Low throughput", "Small frame size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures reliability of packet delivery?",
+        "options": ["Packet loss", "Latency", "Bandwidth", "Throughput"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which mechanism prioritizes important network traffic?",
+        "options": ["Quality of Service", "Fragmentation", "Routing", "Encapsulation"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which factor primarily influences bandwidth capacity?",
+        "options": ["Transmission medium", "IP address", "MAC address", "Port number"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay increases during network congestion?",
+        "options": ["Queueing delay", "Propagation delay", "Processing delay", "Transmission delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay depends on packet size and link bandwidth?",
+        "options": ["Transmission delay", "Propagation delay", "Processing delay", "Queueing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric indicates inconsistent packet arrival intervals?",
+        "options": ["Jitter", "Throughput", "Bandwidth", "Latency"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric determines how fast packets reach their destination?",
+        "options": ["Latency", "Throughput", "Bandwidth", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which QoS technique reduces jitter?",
+        "options": ["Buffering", "Encryption", "Compression", "Fragmentation"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network condition causes both latency and packet loss to increase?",
+        "options": ["Network congestion", "High bandwidth", "Fiber connections", "Short cables"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric helps detect network congestion?",
+        "options": ["High latency", "Low bandwidth", "High MAC count", "Low packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric indicates successful delivery of packets?",
+        "options": ["Packet loss rate", "Bandwidth", "Latency", "Throughput"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network metric reflects efficiency of data delivery?",
+        "options": ["Throughput", "Latency", "Jitter", "Packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which network device forwards frames using MAC addresses?",
+        "options": ["Switch", "Hub", "Router", "Repeater"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which device connects multiple networks together?",
+        "options": ["Router", "Switch", "Hub", "Repeater"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which device regenerates weakened signals?",
+        "options": ["Repeater", "Router", "Switch", "Gateway"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which device translates between different network protocols?",
+        "options": ["Gateway", "Switch", "Hub", "Repeater"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which device converts digital signals to analog signals?",
+        "options": ["Modem", "Router", "Switch", "Bridge"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which OSI layer does a switch operate at?",
+        "options": ["Data Link Layer", "Physical Layer", "Network Layer", "Session Layer"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which OSI layer does a router operate at?",
+        "options": ["Network Layer", "Data Link Layer", "Transport Layer", "Application Layer"],
+        "correctAnswer": 0
+      }
+    ],
+  
+    "hard": [
+      {
+        "question": "Which formula represents throughput efficiency?",
+        "options": ["Successful data delivered / Total data sent", "Total packets / Latency", "Bandwidth × Latency", "Propagation delay / Packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay component depends on physical distance and signal speed?",
+        "options": ["Propagation delay", "Queueing delay", "Transmission delay", "Processing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "If bandwidth is 100 Mbps but actual speed is 60 Mbps, what metric describes 60 Mbps?",
+        "options": ["Throughput", "Latency", "Jitter", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay increases when router buffers fill up?",
+        "options": ["Queueing delay", "Propagation delay", "Transmission delay", "Processing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric is most sensitive to bursty traffic?",
+        "options": ["Jitter", "Bandwidth", "Throughput", "Packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric directly impacts interactive applications like SSH?",
+        "options": ["Latency", "Bandwidth", "Packet size", "Frame rate"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric increases when packets arrive irregularly?",
+        "options": ["Jitter", "Bandwidth", "Throughput", "MTU"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric best reflects network reliability?",
+        "options": ["Packet loss rate", "Bandwidth", "Latency", "Jitter"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which QoS mechanism prioritizes delay-sensitive traffic?",
+        "options": ["Traffic prioritization", "Fragmentation", "Checksum", "ARP"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay depends on packet size and link capacity?",
+        "options": ["Transmission delay", "Propagation delay", "Processing delay", "Queueing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric is minimized for online gaming performance?",
+        "options": ["Latency", "Bandwidth", "Packet size", "Frame header"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric affects multimedia streaming stability?",
+        "options": ["Jitter", "Throughput", "Bandwidth", "Checksum"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric represents network capacity rather than performance?",
+        "options": ["Bandwidth", "Throughput", "Latency", "Jitter"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric increases when routers drop packets?",
+        "options": ["Packet loss", "Bandwidth", "Latency", "Jitter"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric indicates retransmission inefficiency?",
+        "options": ["Reduced throughput", "Higher bandwidth", "Lower jitter", "Lower latency"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which QoS mechanism ensures guaranteed bandwidth?",
+        "options": ["Traffic shaping", "Checksum verification", "Fragmentation", "ARP mapping"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which factor most strongly affects propagation delay?",
+        "options": ["Distance between nodes", "Packet size", "Router CPU speed", "Port number"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric is critical for smooth VoIP communication?",
+        "options": ["Low jitter", "High packet loss", "Low throughput", "Large packet size"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which problem occurs when packets must be retransmitted frequently?",
+        "options": ["Increased latency", "Increased bandwidth", "Reduced jitter", "Lower propagation delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures consistency of packet delivery timing?",
+        "options": ["Jitter", "Throughput", "Bandwidth", "Packet loss"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric determines efficient bandwidth usage?",
+        "options": ["Throughput", "Latency", "Jitter", "Propagation delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which condition increases both latency and packet loss?",
+        "options": ["Network congestion", "High bandwidth", "Fiber connection", "Short cables"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which delay occurs before packet transmission begins?",
+        "options": ["Queueing delay", "Propagation delay", "Transmission delay", "Processing delay"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric reflects fluctuations in network latency?",
+        "options": ["Jitter", "Bandwidth", "Throughput", "Packet header"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which metric measures total packet travel time across a path?",
+        "options": ["End-to-end latency", "Bandwidth", "Packet size", "Throughput"],
+        "correctAnswer": 0
+      }
+    ]
+  }

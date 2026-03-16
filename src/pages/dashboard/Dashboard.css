@@ -1,383 +1,131 @@
-/* ======================================================
-DASHBOARD — PREMIUM UX VERSION (RESPONSIVE FINAL)
-====================================================== */
-
-/* ==============================
-Base Layout
-================================ */
+.dashboard-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  padding: 16px;
+  box-sizing: border-box;
+}
 
 .dashboard-container {
-  padding: 40px 32px 80px;
-  position: relative;
-  max-width: 1200px;
+  max-width: 1300px;
+  min-width: 320px;
   margin: 0 auto;
+  width: 100%;
 }
 
-/* subtle background glow */
-.dashboard-container::before {
-  content: "";
-  position: absolute;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 500px;
-  background: radial-gradient(
-    circle,
-    rgba(99,102,241,0.15),
-    transparent 70%
-  );
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.dashboard-header {
-  margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
-}
-
-.dashboard-section {
-  margin-top: 60px;
-  position: relative;
-  z-index: 1;
-  animation: sectionFadeUp 0.6s ease both;
-}
-
-.dashboard-fade-in {
-  animation: dashboardFade 0.8s ease forwards;
-  opacity: 0;
-}
-
-@keyframes dashboardFade {
-  to { opacity: 1; }
-}
-
-@keyframes sectionFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ==============================
-Reusable Responsive Grid
-================================ */
-
-.responsive-grid {
+/* =========================================
+   BENTO GRID - DESKTOP LAYOUT (Default)
+   ========================================= */
+.dashboard-bento {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  /* This tells the browser exactly where to put each named area! */
+  grid-template-areas:
+    "hero hero hero hero performance performance performance performance performance performance performance performance"
+    "stats stats stats stats stats stats stats stats stats stats stats stats"
+    "heatmap heatmap heatmap heatmap achievements achievements achievements achievements achievements achievements achievements achievements";
 }
 
-/* ==============================
-Error Styling
-================================ */
-
-.dashboard-error {
-  margin-top: 30px;
-  color: #ef4444;
-  border-left: 4px solid #ef4444;
-  padding: 18px;
-  border-radius: 12px;
-  background: rgba(239,68,68,0.05);
+/* ASSIGNING AREAS TO COMPONENTS */
+.hero-section {
+  grid-area: hero;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* ======================================================
-STATS SECTION
-====================================================== */
-
-.stats-grid {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+.performance-section {
+  grid-area: performance;
 }
 
-.stat-card {
-  padding: 30px;
-  border-radius: 18px;
-  transition: transform 0.3s ease,
-              box-shadow 0.3s ease;
+.stats-section {
+  grid-area: stats;
+}
+
+.heatmap-section {
+  grid-area: heatmap;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.achievements-section {
+  grid-area: achievements;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+/* Make sure inner cards stretch to fill the bento box height */
+.heatmap-section .glass-card,
+.achievements-section .achievements-card {
+  height: 100%;
+  min-height: 240px;
   display: flex;
   flex-direction: column;
 }
 
-.stat-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.15);
-}
-
-.stat-label {
-  font-size: 13px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.stat-value {
-  font-size: clamp(22px, 3vw, 36px);
-  font-weight: 700;
-  margin-top: 14px;
-}
-
-.stat-meta {
-  margin-top: 8px;
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-/* Special streak emphasis */
-
-.stat-streak {
-  background: linear-gradient(
-    135deg,
-    rgba(251,146,60,0.08),
-    rgba(239,68,68,0.08)
-  );
-  border: 1px solid rgba(239,68,68,0.2);
-}
-
-.stat-streak:hover {
-  box-shadow: 0 18px 40px rgba(239,68,68,0.25);
-}
-
-/* ======================================================
-LEVEL CARD
-====================================================== */
-
-.level-card {
-  padding: 34px;
-  border-radius: 22px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease,
-              box-shadow 0.3s ease;
-}
-
-.level-card::after {
-  content: "";
-  position: absolute;
-  top: -40%;
-  right: -20%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(139,92,246,0.2),
-    transparent 70%
-  );
-  filter: blur(60px);
-}
-
-.level-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 50px rgba(99,102,241,0.2);
-}
-
-.level-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.level-badge {
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: linear-gradient(90deg,#8b5cf6,#6366f1);
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.level-xp {
-  margin-top: 18px;
-  font-size: 17px;
-  font-weight: 600;
-}
-
-.level-progress-bar {
-  height: 12px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 999px;
-  margin-top: 22px;
-  overflow: hidden;
-}
-
-.level-progress-fill {
-  height: 12px;
-  background: linear-gradient(90deg,#6366f1,#4f46e5);
-  border-radius: 999px;
-  transition: width 1s cubic-bezier(.4,0,.2,1);
-}
-
-.level-meta {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-/* ======================================================
-ACHIEVEMENTS
-====================================================== */
-
-.achievements-card {
-  padding: 34px;
-  border-radius: 22px;
-}
-
-.achievements-title {
-  margin-bottom: 28px;
-}
-
-.achievements-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 24px;
-}
-
-.achievement-item {
+/* =========================================
+   THEME AWARE GLASS CARDS
+   ========================================= */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
   padding: 24px;
-  border-radius: 18px;
-  text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  color: inherit;
 }
 
-.achievement-item:hover {
-  transform: translateY(-6px);
+[data-theme='dark'] .glass-card {
+  background: rgba(30, 30, 45, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.achievement-unlocked {
-  background: linear-gradient(135deg,#8b5cf6,#6366f1);
-  color: white;
-  box-shadow: 0 15px 40px rgba(99,102,241,0.3);
+.glass-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.85);
 }
 
-.achievement-locked {
-  background: rgba(255,255,255,0.05);
-  color: var(--text-muted);
+[data-theme='dark'] .glass-card:hover {
+  background: rgba(45, 45, 65, 0.8);
 }
 
-.achievement-icon {
-  font-size: 30px;
+[data-theme='dark'] .muted {
+  color: #cbd5e1 !important;
 }
 
-.achievement-label {
-  margin-top: 12px;
-  font-weight: 600;
-}
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
 
-/* ======================================================
-HEATMAP
-====================================================== */
-
-.heatmap-card {
-  padding: 32px;
-  border-radius: 22px;
-}
-
-.heatmap-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 18px);
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.heatmap-tile {
-  width: 18px;
-  height: 18px;
-  border-radius: 6px;
-}
-
-/* ======================================================
-WEEKLY PERFORMANCE
-====================================================== */
-
-.weekly-card {
-  padding: 34px;
-  border-radius: 22px;
-}
-
-.weekly-title {
-  margin-bottom: 20px;
-}
-
-/* ======================================================
-RESPONSIVE BREAKPOINTS
-====================================================== */
-
-/* Tablet */
-@media (max-width: 900px) {
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dashboard-container {
-    padding: 32px 24px 60px;
-  }
-
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-
-  .stats-grid {
+/* Tablets / Smaller Laptops */
+@media (max-width: 1100px) {
+  .dashboard-bento {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "hero"
+      "stats"
+      "performance"
+      "heatmap"
+      "achievements";
   }
+}
 
-  .dashboard-container {
-    padding: 24px 16px 50px;
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .dashboard-wrapper {
+    padding: 8px;
   }
-
-  .dashboard-section {
-    margin-top: 40px;
-  }
-
-  .stat-card {
-    padding: 22px;
-  }
-
-  .stat-label {
-    font-size: 12px;
-  }
-
-  .stat-meta {
-    font-size: 13px;
-  }
-
-  .level-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .dashboard-bento {
     gap: 12px;
   }
-
-}
-
-/* Small phones */
-@media (max-width: 480px) {
-
-  .dashboard-container {
-    padding: 20px 14px 40px;
+  .glass-card {
+    padding: 16px;
+    border-radius: 16px;
   }
-
-  .heatmap-grid {
-    grid-template-columns: repeat(7, 14px);
-    gap: 6px;
+  .hero-title {
+    font-size: 20px;
   }
-
-  .heatmap-tile {
-    width: 14px;
-    height: 14px;
-  }
-
-  .achievement-icon {
-    font-size: 24px;
-  }
-
 }

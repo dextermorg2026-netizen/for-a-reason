@@ -88,7 +88,7 @@ const QuizzesPage = () => {
 
   return (
     <div>
-      <h1 className="page-title">Quizzes</h1>
+      <h1 className="page-title">LEARN LOOP</h1>
 
       {loading && (
         <div className="glass-card" style={{ marginTop: "30px" }}>

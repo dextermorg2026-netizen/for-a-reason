@@ -161,8 +161,6 @@ const Dashboard = () => {
   const firstName =
     currentUser?.displayName?.split(" ")[0] || "Learner";
 
-  const xpToNext = 100 - progress;
-
   const streakMessage =
     stats.streak >= 3
       ? `You're on a ${stats.streak} day streak 🔥`
@@ -175,77 +173,52 @@ const Dashboard = () => {
   // =========================
 
   return (
-    <div className="dashboard-container dashboard-fade-in">
+    <div className="dashboard-wrapper">
+      <div className="dashboard-container">
+        
+        {/* MAIN BENTO GRID */}
+        <div className="dashboard-bento">
+          
+          {/* HERO & LEVEL SECTION */}
+          <div className="bento-item hero-section">
+            <div className="glass-card hero-card">
+               <h1 className="hero-title">Hi {firstName}! 🚀</h1>
+               <p className="hero-subtitle">{streakMessage}</p>
+               <button className="btn-primary hero-cta" onClick={() => navigate("/subjects")}>
+                 Continue Learning
+               </button>
+            </div>
+            <LevelCard level={level} progress={progress} totalXP={totalXP} />
+          </div>
 
-      {/* HERO SECTION */}
-      <div className="dashboard-hero glass-card">
-        <div>
-          <h1 className="hero-title">
-            Welcome back, {firstName} 👋
-          </h1>
-          <p className="hero-subtitle">
-            {streakMessage}
-          </p>
-          <p className="hero-xp">
-            {xpToNext > 0
-              ? `Only ${xpToNext}% to reach Level ${level + 1}`
-              : "Level up unlocked! 🎉"}
-          </p>
+          {/* PERFORMANCE CHART */}
+          <div className="bento-item performance-section">
+            <WeeklyPerformance performanceData={performanceData} />
+          </div>
+
+          {/* STATS STRIP */}
+          <div className="bento-item stats-section">
+            <StatsSection loading={loading} stats={stats} animatedCoins={animatedCoins} />
+          </div>
+
+          {/* ACTIVITY HEATMAP */}
+          <div className="bento-item heatmap-section">
+            <ActivityHeatmap 
+              last28={last28} 
+              loading={loading} 
+              hoverInfo={hoverInfo} 
+              setHoverInfo={setHoverInfo} 
+            />
+          </div>
+
+          {/* ACHIEVEMENTS */}
+          <div className="bento-item achievements-section">
+            <Achievements stats={stats} totalXP={totalXP} />
+          </div>
+
         </div>
 
-        <button
-          className="btn-primary hero-cta"
-          onClick={() => navigate("/subjects")}
-        >
-          Continue Learning
-        </button>
-      </div>
-
-      {error && (
-        <div className="glass-card dashboard-error">
-          {error}
-        </div>
-      )}
-
-      {/* LEVEL FIRST (Motivation before stats) */}
-      <div className="dashboard-section">
-        <LevelCard
-          level={level}
-          progress={progress}
-          totalXP={totalXP}
-        />
-      </div>
-
-      {/* STATS */}
-      <div className="dashboard-section">
-        <StatsSection
-          loading={loading}
-          stats={stats}
-          animatedCoins={animatedCoins}
-        />
-      </div>
-
-      {/* WEEKLY PROOF */}
-      <div className="dashboard-section">
-        <WeeklyPerformance performanceData={performanceData} />
-      </div>
-
-      {/* ACTIVITY HISTORY */}
-      <div className="dashboard-section">
-        <ActivityHeatmap
-          last28={last28}
-          loading={loading}
-          hoverInfo={hoverInfo}
-          setHoverInfo={setHoverInfo}
-        />
-      </div>
-
-      {/* REWARDS */}
-      <div className="dashboard-section">
-        <Achievements
-          stats={stats}
-          totalXP={totalXP}
-        />
+        {error && <div className="glass-card dashboard-error">{error}</div>}
       </div>
     </div>
   );

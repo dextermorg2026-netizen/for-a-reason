@@ -13,9 +13,17 @@ import { QuizProvider } from "../context/QuizContext.jsx";
 import { CoinProvider } from "../context/CoinContext";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import "../styles/AppLayout.css";
 
 function AppLayout() {
+    // Fix logout handler
+    const handleLogout = () => {
+      logoutUser();
+      navigate("/");
+      setShowProfileMenu(false);
+    };
   const [collapsed, setCollapsed] = useState(false);
+  const [sidebarVisible, setSidebarVisible] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [theme, setTheme] = useState(
@@ -46,152 +54,120 @@ function AppLayout() {
   };
 
   /* ================= LOGOUT ================= */
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-    } finally {
-      setShowProfileMenu(false);
-      navigate("/login", { replace: true });
-    }
-  };
-
-  /* ================= CLOSE DROPDOWNS ================= */
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (notifRef.current && !notifRef.current.contains(event.target)) {
-        setShowNotifications(false);
-      }
-
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setShowProfileMenu(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
     <div className="app-shell">
       {/* ================= SIDEBAR ================= */}
-      <aside
-        className={`sidebar ${collapsed ? "collapsed" : ""}`}
-        style={{ position: "sticky", top: 0, height: "100vh" }}
-      >
+      {sidebarVisible && (
+        <aside className={`sidebar${collapsed ? " collapsed" : ""}`} style={{ zIndex: 3000 }}>
+          <div className="sidebar-title" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span>QUIZZZZ</span>
+            {/* Hamburger for closing sidebar on mobile */}
+            {typeof window !== 'undefined' && window.innerWidth <= 768 && (
+              <button
+                className="floating-hamburger"
+                aria-label="Close sidebar"
+                style={{
+                  background: "var(--bg-surface)",
+                  border: "none",
+                  borderRadius: "8px",
+                  boxShadow: "var(--shadow-soft)",
+                  width: 44,
+                  height: 44,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  marginLeft: 8
+                }}
+                onClick={() => setSidebarVisible(false)}
+              >
+                <span style={{ fontSize: "1.7rem", lineHeight: 1 }}>☰</span>
+              </button>
+            )}
+          </div>
+          <NavLink to="/" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+            Dashboard
+          </NavLink>
+          <NavLink to="/subjects" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+            Subjects
+          </NavLink>
+          <NavLink to="/quizzes" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+            Quizzes
+          </NavLink>
+          <NavLink to="/leaderboard" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+            Leaderboard
+          </NavLink>
+        </aside>
+      )}
+      {/* Floating hamburger when sidebar is hidden */}
+      {/* Hamburger always visible on mobile when sidebar is hidden */}
+      {/* Overlay to close sidebar on mobile */}
+      {sidebarVisible && window.innerWidth <= 768 && (
         <div
-          className="sidebar-title"
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => setSidebarVisible(false)}
           style={{
-            cursor: "pointer",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.12)",
+            zIndex: 2999
           }}
-        >
-          {!collapsed && "QUIZZZZ"}
-          <span>{collapsed ? "➤" : "◀"}</span>
-        </div>
-
-        <NavLink to="/" className="sidebar-link">
-          Dashboard
-        </NavLink>
-
-        <NavLink to="/subjects" className="sidebar-link">
-          Subjects
-        </NavLink>
-
-        <NavLink to="/quizzes" className="sidebar-link">
-          Quizzes
-        </NavLink>
-
-        <NavLink to="/leaderboard" className="sidebar-link">
-          Leaderboard
-        </NavLink>
-      </aside>
-
+        />
+      )}
       {/* ================= MAIN CONTENT ================= */}
       <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         {/* ================= HEADER ================= */}
-        <div
-          style={{
-            height: "70px",
-            backdropFilter: "blur(18px)",
-            background: "var(--bg-glass)",
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0 40px",
-            position: "sticky",
-            top: 0,
-            zIndex: 100,
-          }}
-        >
-          {/* LEFT TITLE */}
-          <div style={{ fontWeight: 600 }}>
-            Home / {getPageTitle()}
-          </div>
-
-
-          {/* RIGHT CONTROLS */}
-          <div
+        <div className="header" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          {/* Hamburger only when sidebar is hidden (mobile/desktop) */}
+          <button
+            className="floating-hamburger"
+            aria-label={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
             style={{
+              background: "var(--bg-surface)",
+              border: "none",
+              borderRadius: "8px",
+              boxShadow: "var(--shadow-soft)",
+              width: 44,
+              height: 44,
               display: "flex",
-              gap: "18px",
               alignItems: "center",
-              position: "relative",
+              justifyContent: "center",
+              cursor: "pointer",
+              marginRight: 8
             }}
+            onClick={() => setSidebarVisible(!sidebarVisible)}
           >
+            <span style={{ fontSize: "1.7rem", lineHeight: 1 }}>☰</span>
+          </button>
+          {/* Remove Home / Dashboard text for now as requested */}
+          {/* <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>{getPageTitle()}</span> */}
+          <div className="header-controls" style={{ marginLeft: 'auto', display: 'flex', gap: 18 }}>
             {/* THEME TOGGLE */}
             <button
-              onClick={() =>
-                setTheme(theme === "light" ? "dark" : "light")
-              }
-              style={{
-                padding: "6px 14px",
-                borderRadius: "20px",
-                border: "none",
-                cursor: "pointer",
-                background: "var(--bg-glass)",
-                color: "var(--text-primary)",
-                fontSize: "14px",
-              }}
+              className="theme-toggle-btn"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             >
               {theme === "light" ? "🌙 Dark" : "☀ Light"}
             </button>
-
             {/* NOTIFICATIONS */}
             <div ref={notifRef} style={{ position: "relative" }}>
               <div
                 style={{ cursor: "pointer", fontSize: "18px" }}
-                onClick={() =>
-                  setShowNotifications(!showNotifications)
-                }
+                onClick={() => setShowNotifications(!showNotifications)}
               >
                 🔔
               </div>
-
               {showNotifications && (
                 <div
                   className="glass-card"
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: "45px",
-                    width: "280px",
-                  }}
+                  style={{ position: "absolute", right: 0, top: "45px", width: "280px" }}
                 >
                   <p style={{ fontWeight: 600, marginBottom: "12px" }}>
                     Notifications
                   </p>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      color: "var(--text-muted)",
-                      lineHeight: "1.6",
-                    }}
-                  >
+                  <div style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
                     ✔ Quiz completed successfully
                     <br />
                     🔥 5-day streak achieved
@@ -201,47 +177,31 @@ function AppLayout() {
                 </div>
               )}
             </div>
-
             {/* PROFILE MENU */}
             <div ref={profileRef} style={{ position: "relative" }}>
               <div
-                onClick={() =>
-                  setShowProfileMenu(!showProfileMenu)
-                }
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
                 style={{
                   width: "38px",
                   height: "38px",
                   borderRadius: "50%",
-                  background:
-                    "linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))",
+                  background: "linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))",
                   cursor: "pointer",
                 }}
               />
-
               {showProfileMenu && (
                 <div
                   className="glass-card"
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: "50px",
-                    width: "200px",
-                  }}
+                  style={{ position: "absolute", right: 0, top: "50px", width: "200px" }}
                 >
                   <div style={{ padding: "8px 12px", cursor: "pointer" }}>
                     Profile
                   </div>
-
                   <div style={{ padding: "8px 12px", cursor: "pointer" }}>
                     Settings
                   </div>
-
                   <div
-                    style={{
-                      padding: "8px 12px",
-                      cursor: "pointer",
-                      color: "var(--danger)",
-                    }}
+                    style={{ padding: "8px 12px", cursor: "pointer", color: "var(--danger)" }}
                     onClick={handleLogout}
                   >
                     Logout
@@ -251,9 +211,8 @@ function AppLayout() {
             </div>
           </div>
         </div>
-
         {/* ================= PAGE TRANSITION ================= */}
-        <div style={{ padding: "50px" }}>
+        <div style={{ padding: "24px" }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}

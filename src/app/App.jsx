@@ -85,16 +85,80 @@ function AppLayout() {
               </button>
             )}
           </div>
-          <NavLink to="/" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+          <NavLink
+            to="/"
+            className="sidebar-link"
+            style={({ isActive }) => ({
+              display: 'block',
+              padding: '14px 18px',
+              color: isActive ? '#fff' : 'var(--text-primary)',
+              background: isActive ? 'var(--accent-primary)' : 'none',
+              textDecoration: 'none',
+              fontWeight: 500,
+              borderRadius: 'var(--radius-md)',
+              margin: '0 8px 6px 8px',
+              transition: 'background 0.2s',
+              textAlign: 'left',
+            })}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Dashboard
           </NavLink>
-          <NavLink to="/subjects" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+          <NavLink
+            to="/subjects"
+            className="sidebar-link"
+            style={({ isActive }) => ({
+              display: 'block',
+              padding: '14px 18px',
+              color: isActive ? '#fff' : 'var(--text-primary)',
+              background: isActive ? 'var(--accent-primary)' : 'none',
+              textDecoration: 'none',
+              fontWeight: 500,
+              borderRadius: 'var(--radius-md)',
+              margin: '0 8px 6px 8px',
+              transition: 'background 0.2s',
+              textAlign: 'left',
+            })}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Subjects
           </NavLink>
-          <NavLink to="/quizzes" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+          <NavLink
+            to="/quizzes"
+            className="sidebar-link"
+            style={({ isActive }) => ({
+              display: 'block',
+              padding: '14px 18px',
+              color: isActive ? '#fff' : 'var(--text-primary)',
+              background: isActive ? 'var(--accent-primary)' : 'none',
+              textDecoration: 'none',
+              fontWeight: 500,
+              borderRadius: 'var(--radius-md)',
+              margin: '0 8px 6px 8px',
+              transition: 'background 0.2s',
+              textAlign: 'left',
+            })}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Quizzes
           </NavLink>
-          <NavLink to="/leaderboard" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+          <NavLink
+            to="/leaderboard"
+            className="sidebar-link"
+            style={({ isActive }) => ({
+              display: 'block',
+              padding: '14px 18px',
+              color: isActive ? '#fff' : 'var(--text-primary)',
+              background: isActive ? 'var(--accent-primary)' : 'none',
+              textDecoration: 'none',
+              fontWeight: 500,
+              borderRadius: 'var(--radius-md)',
+              margin: '0 8px 6px 8px',
+              transition: 'background 0.2s',
+              textAlign: 'left',
+            })}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Leaderboard
           </NavLink>
         </aside>

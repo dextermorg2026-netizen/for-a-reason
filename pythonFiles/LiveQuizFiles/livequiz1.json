@@ -1,0 +1,129 @@
+{
+    "questions": [
+      {
+        "question": "What is the time complexity of binary search?",
+        "options": ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which data structure uses FIFO?",
+        "options": ["Stack", "Queue", "Tree", "Graph"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which language is used for web apps?",
+        "options": ["Python", "JavaScript", "C++", "Java"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "What is 2^5?",
+        "options": ["10", "16", "32", "64"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which is a non-linear data structure?",
+        "options": ["Array", "Linked List", "Tree", "Queue"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which sorting algorithm is fastest on average?",
+        "options": ["Bubble Sort", "Selection Sort", "Quick Sort", "Insertion Sort"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "What does HTML stand for?",
+        "options": ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "Hyper Text Marketing Language", "Hyper Tool Markup Language"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which is used to style web pages?",
+        "options": ["HTML", "CSS", "Python", "C++"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which company developed React?",
+        "options": ["Google", "Facebook", "Microsoft", "Amazon"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "What is the capital of India?",
+        "options": ["Mumbai", "Delhi", "Chennai", "Kolkata"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which protocol is used for web browsing?",
+        "options": ["FTP", "HTTP", "SMTP", "TCP"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which is a backend language?",
+        "options": ["HTML", "CSS", "Node.js", "Bootstrap"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which data structure uses LIFO?",
+        "options": ["Queue", "Stack", "Tree", "Graph"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which symbol is used for comments in JS?",
+        "options": ["//", "##", "<!-- -->", "**"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "What is the result of 10 % 3?",
+        "options": ["1", "2", "3", "0"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which is a database?",
+        "options": ["React", "MongoDB", "Node.js", "Express"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which company created Node.js?",
+        "options": ["Google", "Ryan Dahl", "Microsoft", "Facebook"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which is not a programming language?",
+        "options": ["Python", "Java", "HTML", "C++"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which is used for version control?",
+        "options": ["Git", "Docker", "Kubernetes", "Jenkins"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which keyword declares variable in JS?",
+        "options": ["int", "var", "define", "dim"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which company owns Android?",
+        "options": ["Apple", "Google", "Microsoft", "Samsung"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which layer is TCP in OSI?",
+        "options": ["Application", "Transport", "Network", "Data Link"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which is used for API calls?",
+        "options": ["fetch", "map", "filter", "reduce"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which is fastest storage?",
+        "options": ["HDD", "SSD", "RAM", "Cache"],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Which is used to connect DB in Node?",
+        "options": ["Mongoose", "Redux", "Axios", "Webpack"],
+        "correctAnswer": 0
+      }
+    ]
+  }

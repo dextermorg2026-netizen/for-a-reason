@@ -13,15 +13,15 @@ import { QuizProvider } from "../context/QuizContext.jsx";
 import { CoinProvider } from "../context/CoinContext";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { onSnapshot, collection } from "firebase/firestore";
+import { db } from "../services/firebase";
 import "../styles/AppLayout.css";
 
 function AppLayout() {
-    // Fix logout handler
-    const handleLogout = () => {
-      logoutUser();
-      navigate("/");
-      setShowProfileMenu(false);
-    };
+  const { logoutUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [collapsed, setCollapsed] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -30,12 +30,10 @@ function AppLayout() {
     localStorage.getItem("theme") || "light"
   );
 
+  const [isLive, setIsLive] = useState(false); // 🔥 LIVE STATE
+
   const notifRef = useRef(null);
   const profileRef = useRef(null);
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { logoutUser } = useAuth();
 
   /* ================= THEME ================= */
   useEffect(() => {
@@ -43,175 +41,130 @@ function AppLayout() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  /* ================= PAGE TITLE ================= */
-  const getPageTitle = () => {
-    if (location.pathname === "/") return "Dashboard";
-    if (location.pathname.includes("/subjects")) return "Subjects";
-    if (location.pathname.includes("/quizzes")) return "Quizzes";
-    if (location.pathname.includes("/leaderboard")) return "Leaderboard";
-    if (location.pathname.includes("/quiz/")) return "Quiz";
-    return "";
-  };
+  /* ================= LIVE DETECTION ================= */
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
+      let live = false;
+
+      snap.forEach((doc) => {
+        if (doc.data().status === "playing") {
+          live = true;
+        }
+      });
+
+      setIsLive(live);
+    });
+
+    return () => unsub();
+  }, []);
 
   /* ================= LOGOUT ================= */
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/");
+    setShowProfileMenu(false);
+  };
+
+  /* ================= NAV LINK STYLE ================= */
+  const navClass = ({ isActive }) =>
+    "sidebar-link" + (isActive ? " active" : "");
+
   return (
     <div className="app-shell">
       {/* ================= SIDEBAR ================= */}
       {sidebarVisible && (
-        <aside className={`sidebar${collapsed ? " collapsed" : ""}`} style={{ zIndex: 3000 }}>
-          <div className="sidebar-title" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span>QUIZZZZ</span>
-            {/* Hamburger for closing sidebar on mobile */}
-            {typeof window !== 'undefined' && window.innerWidth <= 768 && (
-              <button
-                className="floating-hamburger"
-                aria-label="Close sidebar"
-                style={{
-                  background: "var(--bg-surface)",
-                  border: "none",
-                  borderRadius: "8px",
-                  boxShadow: "var(--shadow-soft)",
-                  width: 44,
-                  height: 44,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  marginLeft: 8
-                }}
-                onClick={() => setSidebarVisible(false)}
-              >
-                <span style={{ fontSize: "1.7rem", lineHeight: 1 }}>☰</span>
-              </button>
-            )}
+        <aside className={`sidebar${collapsed ? " collapsed" : ""}`}>
+          <div className="sidebar-title">
+            QUIZZZZ
           </div>
-          <NavLink to="/" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+
+          <NavLink to="/" className={navClass}>
             Dashboard
           </NavLink>
-          <NavLink to="/subjects" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+
+          <NavLink to="/subjects" className={navClass}>
             Subjects
           </NavLink>
-          <NavLink to="/quizzes" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+
+          <NavLink to="/quizzes" className={navClass}>
             Quizzes
           </NavLink>
-          <NavLink to="/leaderboard" className="sidebar-link" onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}>
+
+          <NavLink to="/leaderboard" className={navClass}>
             Leaderboard
+          </NavLink>
+
+          {/* 🔥 LIVE QUIZ BUTTON */}
+          <NavLink
+            to="/live"
+            className={({ isActive }) =>
+              "sidebar-link" +
+              (isActive ? " active" : "") +
+              (isLive ? " live-glow" : "")
+            }
+          >
+            🔴 Live Quiz
           </NavLink>
         </aside>
       )}
-      {/* Floating hamburger when sidebar is hidden */}
-      {/* Hamburger always visible on mobile when sidebar is hidden */}
-      {/* Overlay to close sidebar on mobile */}
-      {sidebarVisible && window.innerWidth <= 768 && (
-        <div
-          onClick={() => setSidebarVisible(false)}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0,0,0,0.12)",
-            zIndex: 2999
-          }}
-        />
-      )}
-      {/* ================= MAIN CONTENT ================= */}
+
+      {/* ================= MAIN ================= */}
       <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        
         {/* ================= HEADER ================= */}
-        <div className="header" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          {/* Hamburger only when sidebar is hidden (mobile/desktop) */}
+        <div className="header">
           <button
             className="floating-hamburger"
-            aria-label={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
-            style={{
-              background: "var(--bg-surface)",
-              border: "none",
-              borderRadius: "8px",
-              boxShadow: "var(--shadow-soft)",
-              width: 44,
-              height: 44,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              marginRight: 8
-            }}
             onClick={() => setSidebarVisible(!sidebarVisible)}
           >
-            <span style={{ fontSize: "1.7rem", lineHeight: 1 }}>☰</span>
+            ☰
           </button>
-          {/* Remove Home / Dashboard text for now as requested */}
-          {/* <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>{getPageTitle()}</span> */}
-          <div className="header-controls" style={{ marginLeft: 'auto', display: 'flex', gap: 18 }}>
-            {/* THEME TOGGLE */}
+
+          <div className="header-controls" style={{ marginLeft: "auto" }}>
+            
+            {/* THEME */}
             <button
               className="theme-toggle-btn"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              onClick={() =>
+                setTheme(theme === "light" ? "dark" : "light")
+              }
             >
               {theme === "light" ? "🌙 Dark" : "☀ Light"}
             </button>
+
             {/* NOTIFICATIONS */}
-            <div ref={notifRef} style={{ position: "relative" }}>
-              <div
-                style={{ cursor: "pointer", fontSize: "18px" }}
-                onClick={() => setShowNotifications(!showNotifications)}
-              >
+            <div ref={notifRef}>
+              <span onClick={() => setShowNotifications(!showNotifications)}>
                 🔔
-              </div>
-              {showNotifications && (
-                <div
-                  className="glass-card"
-                  style={{ position: "absolute", right: 0, top: "45px", width: "280px" }}
-                >
-                  <p style={{ fontWeight: 600, marginBottom: "12px" }}>
-                    Notifications
-                  </p>
-                  <div style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
-                    ✔ Quiz completed successfully
-                    <br />
-                    🔥 5-day streak achieved
-                    <br />
-                    🏆 Rank improved to #12
-                  </div>
-                </div>
-              )}
+              </span>
             </div>
-            {/* PROFILE MENU */}
-            <div ref={profileRef} style={{ position: "relative" }}>
+
+            {/* PROFILE */}
+            <div ref={profileRef}>
               <div
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 style={{
-                  width: "38px",
-                  height: "38px",
+                  width: 36,
+                  height: 36,
                   borderRadius: "50%",
-                  background: "linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))",
+                  background:
+                    "linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))",
                   cursor: "pointer",
                 }}
               />
+
               {showProfileMenu && (
-                <div
-                  className="glass-card"
-                  style={{ position: "absolute", right: 0, top: "50px", width: "200px" }}
-                >
-                  <div style={{ padding: "8px 12px", cursor: "pointer" }}>
-                    Profile
-                  </div>
-                  <div style={{ padding: "8px 12px", cursor: "pointer" }}>
-                    Settings
-                  </div>
-                  <div
-                    style={{ padding: "8px 12px", cursor: "pointer", color: "var(--danger)" }}
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </div>
+                <div className="glass-card">
+                  <div>Profile</div>
+                  <div>Settings</div>
+                  <div onClick={handleLogout}>Logout</div>
                 </div>
               )}
             </div>
           </div>
         </div>
-        {/* ================= PAGE TRANSITION ================= */}
+
+        {/* ================= ROUTES ================= */}
         <div style={{ padding: "24px" }}>
           <AnimatePresence mode="wait">
             <motion.div

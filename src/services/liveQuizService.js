@@ -43,7 +43,7 @@ export const joinParticipant = async ({
 // ==============================
 // 🔹 GET SESSION DATA
 // ==============================
-export const getLiveQuizSession = async (sessionId) => {
+export const getLiveQuizSession = async (sessionId) => { if (!sessionId) return null;
   const snap = await getDoc(doc(db, "liveQuizzes", sessionId));
   return snap.exists() ? snap.data() : null;
 };
@@ -51,7 +51,7 @@ export const getLiveQuizSession = async (sessionId) => {
 // ==============================
 // 🔹 SUBSCRIBE SESSION
 // ==============================
-export const subscribeToLiveQuiz = (sessionId, callback) => {
+export const subscribeToLiveQuiz = (sessionId, callback) => { if (!sessionId) return () => {};
   const sessionRef = doc(db, "liveQuizzes", sessionId);
 
   return onSnapshot(sessionRef, (snap) => {
@@ -64,7 +64,7 @@ export const subscribeToLiveQuiz = (sessionId, callback) => {
 // ==============================
 // 🔹 GET QUESTIONS
 // ==============================
-export const getLiveQuizQuestions = async (sessionId) => {
+export const getLiveQuizQuestions = async (sessionId) => { if (!sessionId) return [];
   const snap = await getDocs(
     collection(db, "liveQuizzes", sessionId, "questions")
   );
@@ -82,7 +82,7 @@ export const getLiveQuizQuestions = async (sessionId) => {
 // ==============================
 // 🔹 AUTO SAVE ANSWER
 // ==============================
-export const submitLiveAnswer = async ({
+export const submitLiveAnswer = async ({ sessionId, userId,
   sessionId,
   userId,
   questionIndex,
@@ -287,8 +287,33 @@ export const createLiveQuiz = async (roomCode, questions, subject = "General", d
 // ==============================
 // ?? GET PARTICIPANT
 // ==============================
-export const getParticipant = async (sessionId, userId) => {
+export const getParticipant = async (sessionId, userId) => { if (!sessionId || !userId) return null;
   const ref = doc(db, 'liveQuizzes', sessionId, 'participants', userId);
   const snap = await getDoc(ref);
   return snap.exists() ? snap.data() : null;
+};
+
+
+
+// ==============================
+// ?? GET ALL PAST SESSIONS
+// ==============================
+export const getAllPastSessions = async () => {
+  const q = query(
+    collection(db, "liveQuizHistory"),
+    orderBy("date", "desc")
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+// ==============================
+// ?? GET PAST LEADERBOARD 
+// ==============================
+export const getPastLeaderboard = async (sessionId) => {
+  if (!sessionId) return [];
+  const ref = collection(db, "liveQuizHistory", sessionId, "participants");
+  const q = query(ref, orderBy("score", "desc"));
+  const snap = await getDocs(q);
+  return snap.docs.map(doc => ({ userId: doc.id, ...doc.data() }));
 };

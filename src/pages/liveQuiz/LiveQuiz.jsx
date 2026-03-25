@@ -29,6 +29,7 @@ const LiveQuiz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answersMap, setAnswersMap] = useState({});
   const [timeLeft, setTimeLeft] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
   const hasAutoSubmittedRef = useRef(false);
 
   const isHost = currentUser?.uid === HOST_UID;
@@ -63,10 +64,19 @@ const LiveQuiz = () => {
       }
       setJoined(true);
 
-      getLiveQuizQuestions(sessionId).then(setQuestions);
-      subscribeToLiveQuiz(sessionId, setSession);
+      if (sessionId) {
+        getLiveQuizQuestions(sessionId).then(setQuestions);
+        subscribeToLiveQuiz(sessionId, setSession);
+
+        // ✅ CHECK IF ALREADY FINISHED
+        if (currentUser?.uid) {
+          getParticipant(sessionId, currentUser.uid).then((p) => {
+            if (p?.finished) setIsFinished(true);
+          });
+        }
+      }
     }
-  }, []);
+  }, [currentUser]);
 
   // ================= TIMER =================
   useEffect(() => {
@@ -108,11 +118,14 @@ const LiveQuiz = () => {
       console.error("Score calculation failed:", err);
     }
   
+    setIsFinished(true);
     localStorage.removeItem("liveQuizSession");
   
-    navigate("/live/result", {
-      state: { sessionId },
-    });
+    if (session?.status === "finished") {
+      navigate("/live/result", {
+        state: { sessionId },
+      });
+    }
   };
   // If host ends quiz for everyone, all joined users should move to result.
   useEffect(() => {
@@ -141,7 +154,10 @@ const LiveQuiz = () => {
       // ✅ CHECK IF ALREADY FINISHED
       const participant = await getParticipant(sessionId, currentUser?.uid);
       if (participant?.finished) {
-        return alert("You have already completed this quiz!");
+        setIsFinished(true);
+        setJoined(true);
+        subscribeToLiveQuiz(sessionId, setSession);
+        return;
       }
 
       const qs = await getLiveQuizQuestions(sessionId);
@@ -272,6 +288,30 @@ const LiveQuiz = () => {
               Start Quiz 🚀
             </button>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  // ================= WAITING FOR RESULTS =================
+  if (joined && isFinished && session?.status !== "finished") {
+    return (
+      <div style={styles.center}>
+        <div style={styles.card}>
+          <h1 style={{ fontSize: "60px", marginBottom: "20px" }}>✅</h1>
+          <h2>Quiz Submitted!</h2>
+          <p style={{ color: "#64748b", margin: "15px 0 25px" }}>
+            Great job! Your answers have been recorded.
+          </p>
+          <div style={{ 
+            padding: "15px", 
+            background: "#f1f5f9", 
+            borderRadius: "12px",
+            color: "#475569",
+            fontWeight: "500"
+          }}>
+             ⏳ Waiting for the host to submit...
+          </div>
         </div>
       </div>
     );

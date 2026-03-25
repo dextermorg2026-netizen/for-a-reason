@@ -16,12 +16,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import "../styles/AppLayout.css";
 
 function AppLayout() {
-    // Fix logout handler
-    const handleLogout = () => {
-      logoutUser();
-      navigate("/");
-      setShowProfileMenu(false);
-    };
+  // Fix logout handler
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/");
+    setShowProfileMenu(false);
+  };
   const [collapsed, setCollapsed] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);

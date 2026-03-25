@@ -87,7 +87,7 @@ const LiveResult = () => {
       <div style={styles.center}>
         <div style={styles.loaderCard}>
           <h2>⏳ Calculating Results...</h2>
-          <p>Please wait for the host to finish the quiz</p>
+          <p>Waiting for results to be published...</p>
         </div>
       </div>
     );

@@ -6,6 +6,7 @@ import {
   subscribeToAuthChanges,
   signInWithGoogle
 } from "../services/authService";
+import { getUserProfile } from "../services/userService";
 
 const AuthContext = createContext();
 
@@ -17,12 +18,19 @@ export const useAuth = () => {
 // 🔹 Provider
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Listen to Firebase Auth changes
   useEffect(() => {
-    const unsubscribe = subscribeToAuthChanges((user) => {
+    const unsubscribe = subscribeToAuthChanges(async (user) => {
       setCurrentUser(user);
+      if (user) {
+        const profile = await getUserProfile(user.uid);
+        setUserProfile(profile);
+      } else {
+        setUserProfile(null);
+      }
       setLoading(false);
     });
 
@@ -31,6 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    userProfile,
     signupUser,
     loginUser,
     logoutUser,

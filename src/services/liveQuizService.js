@@ -41,6 +41,14 @@ export const joinParticipant = async ({
 };
 
 // ==============================
+// 🔹 GET SESSION DATA
+// ==============================
+export const getLiveQuizSession = async (sessionId) => {
+  const snap = await getDoc(doc(db, "liveQuizzes", sessionId));
+  return snap.exists() ? snap.data() : null;
+};
+
+// ==============================
 // 🔹 SUBSCRIBE SESSION
 // ==============================
 export const subscribeToLiveQuiz = (sessionId, callback) => {
@@ -252,4 +260,26 @@ export const subscribeToLeaderboard = (sessionId, callback) => {
 
     callback(users);
   });
+};
+
+// ==============================
+// 🔹 CREATE LIVE QUIZ (ADMIN)
+// ==============================
+export const createLiveQuiz = async (roomCode, questions, subject = "General", durationInSeconds = 1200) => {
+  const ref = doc(db, "liveQuizzes", roomCode);
+
+  // Set the main session document
+  await setDoc(ref, {
+    status: "waiting", // waiting for host to start
+    subject,
+    totalQuestions: questions.length,
+    duration: durationInSeconds,
+    createdAt: Date.now()
+  });
+
+  // Write each question
+  for (let i = 0; i < questions.length; i++) {
+    const qRef = doc(db, "liveQuizzes", roomCode, "questions", i.toString());
+    await setDoc(qRef, questions[i]);
+  }
 };

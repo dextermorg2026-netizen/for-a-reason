@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   subscribeToLiveQuiz,
   getLiveQuizQuestions,
+  getLiveQuizSession,
   submitLiveAnswer,
   startLiveQuiz,
   finishLiveQuiz,
@@ -44,10 +45,13 @@ const LiveQuiz = () => {
     const saved = localStorage.getItem("liveQuizSession");
 
     if (saved) {
-      const { sessionId, username } = JSON.parse(saved);
+      const { sessionId, username, answersMap: savedAnswers } = JSON.parse(saved);
 
       setSessionId(sessionId);
       setUsername(username);
+      if (savedAnswers) {
+        setAnswersMap(savedAnswers);
+      }
       setJoined(true);
 
       getLiveQuizQuestions(sessionId).then(setQuestions);
@@ -115,22 +119,36 @@ const LiveQuiz = () => {
   const handleJoin = async () => {
     if (!sessionId || !username) return alert("Enter details");
 
-    const qs = await getLiveQuizQuestions(sessionId);
-    setQuestions(qs);
+    try {
+      const sessionData = await getLiveQuizSession(sessionId);
+      if (!sessionData) {
+        return alert("Invalid Quiz Code!");
+      }
 
-    await joinParticipant({
-      sessionId,
-      userId: currentUser?.uid,
-      username,
-    });
+      if (sessionData.status === "finished") {
+        return alert("This quiz has already ended!");
+      }
 
-    localStorage.setItem(
-      "liveQuizSession",
-      JSON.stringify({ sessionId, username })
-    );
+      const qs = await getLiveQuizQuestions(sessionId);
+      setQuestions(qs);
 
-    subscribeToLiveQuiz(sessionId, setSession);
-    setJoined(true);
+      await joinParticipant({
+        sessionId,
+        userId: currentUser?.uid,
+        username,
+      });
+
+      localStorage.setItem(
+        "liveQuizSession",
+        JSON.stringify({ sessionId, username, answersMap: {} })
+      );
+
+      subscribeToLiveQuiz(sessionId, setSession);
+      setJoined(true);
+    } catch (err) {
+      console.error("Failed to join:", err);
+      alert("Error joining quiz.");
+    }
   };
 
   // ================= ANSWER =================
@@ -142,10 +160,14 @@ const LiveQuiz = () => {
       selectedOptionIndex: index,
     });
 
-    setAnswersMap((prev) => ({
-      ...prev,
-      [currentIndex]: index,
-    }));
+    setAnswersMap((prev) => {
+      const newMap = { ...prev, [currentIndex]: index };
+      localStorage.setItem(
+        "liveQuizSession",
+        JSON.stringify({ sessionId, username, answersMap: newMap })
+      );
+      return newMap;
+    });
   };
 
   // ================= SUBMIT =================

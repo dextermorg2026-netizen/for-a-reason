@@ -15,6 +15,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { onSnapshot, collection } from "firebase/firestore";
 import { db } from "../services/firebase";
+import NotificationToast from "../components/common/NotificationToast";
 import "../styles/AppLayout.css";
 
 function AppLayout() {
@@ -71,6 +72,7 @@ function AppLayout() {
 
   return (
     <div className="app-shell">
+      <NotificationToast />
       {/* ================= SIDEBAR ================= */}
       {sidebarVisible && (
         <aside className={`sidebar${collapsed ? " collapsed" : ""}`}>

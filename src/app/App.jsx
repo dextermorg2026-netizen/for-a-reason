@@ -79,20 +79,35 @@ function AppLayout() {
           <div className="sidebar-title">
             QUIZZZZ
           </div>
-
-          <NavLink to="/" className={navClass}>
+          <NavLink 
+            to="/" 
+            className={navClass}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Dashboard
           </NavLink>
 
-          <NavLink to="/subjects" className={navClass}>
+          <NavLink 
+            to="/subjects" 
+            className={navClass}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Subjects
           </NavLink>
 
-          <NavLink to="/quizzes" className={navClass}>
+          <NavLink 
+            to="/quizzes" 
+            className={navClass}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Quizzes
           </NavLink>
 
-          <NavLink to="/leaderboard" className={navClass}>
+          <NavLink 
+            to="/leaderboard" 
+            className={navClass}
+            onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
+          >
             Leaderboard
           </NavLink>
 

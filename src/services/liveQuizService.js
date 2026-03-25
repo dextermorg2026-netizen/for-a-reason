@@ -7,6 +7,8 @@ import {
   onSnapshot,
   updateDoc,
   increment,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -82,7 +84,7 @@ export const getLiveQuizQuestions = async (sessionId) => { if (!sessionId) retur
 // ==============================
 // 🔹 AUTO SAVE ANSWER
 // ==============================
-export const submitLiveAnswer = async ({ sessionId, userId,
+export const submitLiveAnswer = async ({
   sessionId,
   userId,
   questionIndex,

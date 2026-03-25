@@ -79,32 +79,32 @@ function AppLayout() {
           <div className="sidebar-title">
             QUIZZZZ
           </div>
-          <NavLink 
-            to="/" 
+          <NavLink
+            to="/"
             className={navClass}
             onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
           >
             Dashboard
           </NavLink>
 
-          <NavLink 
-            to="/subjects" 
+          <NavLink
+            to="/subjects"
             className={navClass}
             onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
           >
             Subjects
           </NavLink>
 
-          <NavLink 
-            to="/quizzes" 
+          <NavLink
+            to="/quizzes"
             className={navClass}
             onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
           >
             Quizzes
           </NavLink>
 
-          <NavLink 
-            to="/leaderboard" 
+          <NavLink
+            to="/leaderboard"
             className={navClass}
             onClick={() => typeof window !== 'undefined' && window.innerWidth <= 768 && setSidebarVisible(false)}
           >
@@ -134,7 +134,7 @@ function AppLayout() {
 
       {/* ================= MAIN ================= */}
       <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        
+
         {/* ================= HEADER ================= */}
         <div className="header">
           <button
@@ -145,7 +145,7 @@ function AppLayout() {
           </button>
 
           <div className="header-controls" style={{ marginLeft: "auto" }}>
-            
+
             {/* THEME */}
             <button
               className="theme-toggle-btn"

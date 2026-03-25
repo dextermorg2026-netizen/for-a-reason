@@ -19,7 +19,7 @@ import NotificationToast from "../components/common/NotificationToast";
 import "../styles/AppLayout.css";
 
 function AppLayout() {
-  const { logoutUser } = useAuth();
+  const { logoutUser, userProfile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -107,6 +107,13 @@ function AppLayout() {
           >
             🔴 Live Quiz
           </NavLink>
+
+          {/* 🛡️ ADMIN BUTTON */}
+          {userProfile?.role === "admin" && (
+            <NavLink to="/admin" className={navClass}>
+              🛡️ Admin
+            </NavLink>
+          )}
         </aside>
       )}
 

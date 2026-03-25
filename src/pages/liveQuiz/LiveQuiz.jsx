@@ -8,6 +8,7 @@ import {
   finishLiveQuiz,
   joinParticipant,
   calculateScore,
+  getParticipant,
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -45,12 +46,20 @@ const LiveQuiz = () => {
     const saved = localStorage.getItem("liveQuizSession");
 
     if (saved) {
-      const { sessionId, username, answersMap: savedAnswers } = JSON.parse(saved);
+      const { 
+        sessionId, 
+        username, 
+        answersMap: savedAnswers,
+        currentIndex: savedIndex 
+      } = JSON.parse(saved);
 
       setSessionId(sessionId);
       setUsername(username);
       if (savedAnswers) {
         setAnswersMap(savedAnswers);
+      }
+      if (savedIndex !== undefined) {
+        setCurrentIndex(savedIndex);
       }
       setJoined(true);
 
@@ -129,6 +138,12 @@ const LiveQuiz = () => {
         return alert("This quiz has already ended!");
       }
 
+      // ✅ CHECK IF ALREADY FINISHED
+      const participant = await getParticipant(sessionId, currentUser?.uid);
+      if (participant?.finished) {
+        return alert("You have already completed this quiz!");
+      }
+
       const qs = await getLiveQuizQuestions(sessionId);
       setQuestions(qs);
 
@@ -138,9 +153,18 @@ const LiveQuiz = () => {
         username,
       });
 
+      // ✅ RESTORE PREVIOUS ANSWERS IF RE-JOINING
+      const initialAnswers = participant?.answers || {};
+      setAnswersMap(initialAnswers);
+
       localStorage.setItem(
         "liveQuizSession",
-        JSON.stringify({ sessionId, username, answersMap: {} })
+        JSON.stringify({ 
+          sessionId, 
+          username, 
+          answersMap: initialAnswers,
+          currentIndex: 0 
+        })
       );
 
       subscribeToLiveQuiz(sessionId, setSession);
@@ -162,13 +186,26 @@ const LiveQuiz = () => {
 
     setAnswersMap((prev) => {
       const newMap = { ...prev, [currentIndex]: index };
+      
+      const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
       localStorage.setItem(
         "liveQuizSession",
-        JSON.stringify({ sessionId, username, answersMap: newMap })
+        JSON.stringify({ ...saved, answersMap: newMap })
       );
+      
       return newMap;
     });
   };
+
+  // ✅ PERSIST CURRENT INDEX
+  useEffect(() => {
+    if (!joined) return;
+    const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+    localStorage.setItem(
+      "liveQuizSession",
+      JSON.stringify({ ...saved, currentIndex })
+    );
+  }, [currentIndex, joined]);
 
   // ================= SUBMIT =================
   const handleFinish = async () => {

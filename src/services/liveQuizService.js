@@ -283,3 +283,12 @@ export const createLiveQuiz = async (roomCode, questions, subject = "General", d
     await setDoc(qRef, questions[i]);
   }
 };
+
+// ==============================
+// ?? GET PARTICIPANT
+// ==============================
+export const getParticipant = async (sessionId, userId) => {
+  const ref = doc(db, 'liveQuizzes', sessionId, 'participants', userId);
+  const snap = await getDoc(ref);
+  return snap.exists() ? snap.data() : null;
+};

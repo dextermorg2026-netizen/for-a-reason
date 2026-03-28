@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import {
   subscribeToLiveQuiz,
   getLiveQuizQuestions,
+  getLiveQuizSession,
   submitLiveAnswer,
   startLiveQuiz,
   finishLiveQuiz,
   joinParticipant,
   calculateScore,
+  getParticipant,
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +29,7 @@ const LiveQuiz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answersMap, setAnswersMap] = useState({});
   const [timeLeft, setTimeLeft] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
   const hasAutoSubmittedRef = useRef(false);
 
   const isHost = currentUser?.uid === HOST_UID;
@@ -44,16 +47,36 @@ const LiveQuiz = () => {
     const saved = localStorage.getItem("liveQuizSession");
 
     if (saved) {
-      const { sessionId, username } = JSON.parse(saved);
+      const { 
+        sessionId, 
+        username, 
+        answersMap: savedAnswers,
+        currentIndex: savedIndex 
+      } = JSON.parse(saved);
 
       setSessionId(sessionId);
       setUsername(username);
+      if (savedAnswers) {
+        setAnswersMap(savedAnswers);
+      }
+      if (savedIndex !== undefined) {
+        setCurrentIndex(savedIndex);
+      }
       setJoined(true);
 
-      getLiveQuizQuestions(sessionId).then(setQuestions);
-      subscribeToLiveQuiz(sessionId, setSession);
+      if (sessionId) {
+        getLiveQuizQuestions(sessionId).then(setQuestions);
+        subscribeToLiveQuiz(sessionId, setSession);
+
+        // ✅ CHECK IF ALREADY FINISHED
+        if (currentUser?.uid) {
+          getParticipant(sessionId, currentUser.uid).then((p) => {
+            if (p?.finished) setIsFinished(true);
+          });
+        }
+      }
     }
-  }, []);
+  }, [currentUser]);
 
   // ================= TIMER =================
   useEffect(() => {
@@ -95,11 +118,14 @@ const LiveQuiz = () => {
       console.error("Score calculation failed:", err);
     }
   
+    setIsFinished(true);
     localStorage.removeItem("liveQuizSession");
   
-    navigate("/live/result", {
-      state: { sessionId },
-    });
+    if (session?.status === "finished") {
+      navigate("/live/result", {
+        state: { sessionId },
+      });
+    }
   };
   // If host ends quiz for everyone, all joined users should move to result.
   useEffect(() => {
@@ -115,22 +141,54 @@ const LiveQuiz = () => {
   const handleJoin = async () => {
     if (!sessionId || !username) return alert("Enter details");
 
-    const qs = await getLiveQuizQuestions(sessionId);
-    setQuestions(qs);
+    try {
+      const sessionData = await getLiveQuizSession(sessionId);
+      if (!sessionData) {
+        return alert("Invalid Quiz Code!");
+      }
 
-    await joinParticipant({
-      sessionId,
-      userId: currentUser?.uid,
-      username,
-    });
+      if (sessionData.status === "finished") {
+        return alert("This quiz has already ended!");
+      }
 
-    localStorage.setItem(
-      "liveQuizSession",
-      JSON.stringify({ sessionId, username })
-    );
+      // ✅ CHECK IF ALREADY FINISHED
+      const participant = await getParticipant(sessionId, currentUser?.uid);
+      if (participant?.finished) {
+        setIsFinished(true);
+        setJoined(true);
+        subscribeToLiveQuiz(sessionId, setSession);
+        return;
+      }
 
-    subscribeToLiveQuiz(sessionId, setSession);
-    setJoined(true);
+      const qs = await getLiveQuizQuestions(sessionId);
+      setQuestions(qs);
+
+      await joinParticipant({
+        sessionId,
+        userId: currentUser?.uid,
+        username,
+      });
+
+      // ✅ RESTORE PREVIOUS ANSWERS IF RE-JOINING
+      const initialAnswers = participant?.answers || {};
+      setAnswersMap(initialAnswers);
+
+      localStorage.setItem(
+        "liveQuizSession",
+        JSON.stringify({ 
+          sessionId, 
+          username, 
+          answersMap: initialAnswers,
+          currentIndex: 0 
+        })
+      );
+
+      subscribeToLiveQuiz(sessionId, setSession);
+      setJoined(true);
+    } catch (err) {
+      console.error("Failed to join:", err);
+      alert("Error joining quiz.");
+    }
   };
 
   // ================= ANSWER =================
@@ -142,11 +200,28 @@ const LiveQuiz = () => {
       selectedOptionIndex: index,
     });
 
-    setAnswersMap((prev) => ({
-      ...prev,
-      [currentIndex]: index,
-    }));
+    setAnswersMap((prev) => {
+      const newMap = { ...prev, [currentIndex]: index };
+      
+      const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+      localStorage.setItem(
+        "liveQuizSession",
+        JSON.stringify({ ...saved, answersMap: newMap })
+      );
+      
+      return newMap;
+    });
   };
+
+  // ✅ PERSIST CURRENT INDEX
+  useEffect(() => {
+    if (!joined) return;
+    const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+    localStorage.setItem(
+      "liveQuizSession",
+      JSON.stringify({ ...saved, currentIndex })
+    );
+  }, [currentIndex, joined]);
 
   // ================= SUBMIT =================
   const handleFinish = async () => {
@@ -213,6 +288,30 @@ const LiveQuiz = () => {
               Start Quiz 🚀
             </button>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  // ================= WAITING FOR RESULTS =================
+  if (joined && isFinished && session?.status !== "finished") {
+    return (
+      <div style={styles.center}>
+        <div style={styles.card}>
+          <h1 style={{ fontSize: "60px", marginBottom: "20px" }}>✅</h1>
+          <h2>Quiz Submitted!</h2>
+          <p style={{ color: "#64748b", margin: "15px 0 25px" }}>
+            Great job! Your answers have been recorded.
+          </p>
+          <div style={{ 
+            padding: "15px", 
+            background: "#f1f5f9", 
+            borderRadius: "12px",
+            color: "#475569",
+            fontWeight: "500"
+          }}>
+             ⏳ Waiting for the host to submit...
+          </div>
         </div>
       </div>
     );

@@ -7,6 +7,8 @@ import {
   onSnapshot,
   updateDoc,
   increment,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -41,9 +43,17 @@ export const joinParticipant = async ({
 };
 
 // ==============================
+// 🔹 GET SESSION DATA
+// ==============================
+export const getLiveQuizSession = async (sessionId) => { if (!sessionId) return null;
+  const snap = await getDoc(doc(db, "liveQuizzes", sessionId));
+  return snap.exists() ? snap.data() : null;
+};
+
+// ==============================
 // 🔹 SUBSCRIBE SESSION
 // ==============================
-export const subscribeToLiveQuiz = (sessionId, callback) => {
+export const subscribeToLiveQuiz = (sessionId, callback) => { if (!sessionId) return () => {};
   const sessionRef = doc(db, "liveQuizzes", sessionId);
 
   return onSnapshot(sessionRef, (snap) => {
@@ -56,7 +66,7 @@ export const subscribeToLiveQuiz = (sessionId, callback) => {
 // ==============================
 // 🔹 GET QUESTIONS
 // ==============================
-export const getLiveQuizQuestions = async (sessionId) => {
+export const getLiveQuizQuestions = async (sessionId) => { if (!sessionId) return [];
   const snap = await getDocs(
     collection(db, "liveQuizzes", sessionId, "questions")
   );
@@ -252,4 +262,60 @@ export const subscribeToLeaderboard = (sessionId, callback) => {
 
     callback(users);
   });
+};
+
+// ==============================
+// 🔹 CREATE LIVE QUIZ (ADMIN)
+// ==============================
+export const createLiveQuiz = async (roomCode, questions, subject = "General", durationInSeconds = 1200) => {
+  const ref = doc(db, "liveQuizzes", roomCode);
+
+  // Set the main session document
+  await setDoc(ref, {
+    status: "waiting", // waiting for host to start
+    subject,
+    totalQuestions: questions.length,
+    duration: durationInSeconds,
+    createdAt: Date.now()
+  });
+
+  // Write each question
+  for (let i = 0; i < questions.length; i++) {
+    const qRef = doc(db, "liveQuizzes", roomCode, "questions", i.toString());
+    await setDoc(qRef, questions[i]);
+  }
+};
+
+// ==============================
+// ?? GET PARTICIPANT
+// ==============================
+export const getParticipant = async (sessionId, userId) => { if (!sessionId || !userId) return null;
+  const ref = doc(db, 'liveQuizzes', sessionId, 'participants', userId);
+  const snap = await getDoc(ref);
+  return snap.exists() ? snap.data() : null;
+};
+
+
+
+// ==============================
+// ?? GET ALL PAST SESSIONS
+// ==============================
+export const getAllPastSessions = async () => {
+  const q = query(
+    collection(db, "liveQuizHistory"),
+    orderBy("date", "desc")
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+// ==============================
+// ?? GET PAST LEADERBOARD 
+// ==============================
+export const getPastLeaderboard = async (sessionId) => {
+  if (!sessionId) return [];
+  const ref = collection(db, "liveQuizHistory", sessionId, "participants");
+  const q = query(ref, orderBy("score", "desc"));
+  const snap = await getDocs(q);
+  return snap.docs.map(doc => ({ userId: doc.id, ...doc.data() }));
 };

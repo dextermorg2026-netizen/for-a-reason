@@ -1,0 +1,34 @@
+[
+    {
+        "question": "Which of the following hook is used to manage state in React?",
+        "options": [
+            "useEffect",
+            "useState",
+            "useContext",
+            "useReducer"
+        ],
+        "correctAnswer": 1,
+        "explanation": "useState is specifically designed to handle and update local component state."
+    },
+    {
+        "question": "What does CSS stand for?",
+        "options": [
+            "Computer Style Sheets",
+            "Creative Style System",
+            "Cascading Style Sheets",
+            "Colorful Style Sheets"
+        ],
+        "correctAnswer": 2,
+        "explanation": "CSS stands for Cascading Style Sheets, used for styling web documents."
+    },
+    {
+        "question": "Is JavaScript a strongly typed language?",
+        "options": [
+            "Yes",
+            "No",
+            "Only in strict mode"
+        ],
+        "correctAnswer": 1,
+        "explanation": "JavaScript is a loosely typed (or dynamically typed) language."
+    }
+]

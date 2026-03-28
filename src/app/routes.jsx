@@ -19,6 +19,8 @@ import ResourceViewer from '../pages/resources/ResourceViewer.jsx'
 import LeaderboardPage from '../pages/leaderboard/LeaderboardPage.jsx'
 
 import ProtectedRoute from '../components/common/ProtectedRoute.jsx'
+import AdminRoute from '../components/common/AdminRoute.jsx'
+import AdminDashboard from '../pages/admin/AdminDashboard.jsx'
 
 const routes = [
 
@@ -146,6 +148,17 @@ const routes = [
       <ProtectedRoute>
         <LeaderboardPage />
       </ProtectedRoute>
+    ),
+  },
+
+  // ================= ADMIN ROUTE =================
+
+  {
+    path: '/admin',
+    element: (
+      <AdminRoute>
+        <AdminDashboard />
+      </AdminRoute>
     ),
   },
 

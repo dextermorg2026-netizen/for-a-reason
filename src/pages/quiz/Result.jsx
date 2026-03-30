@@ -11,6 +11,7 @@ const Result = () => {
     coinsEarned = 0,
     questions = [],
     answers = {},
+    aiAnalysis = null, // 🔥 NEW
   } = location.state || {};
 
   useEffect(() => {
@@ -19,10 +20,7 @@ const Result = () => {
     }
   }, [location.state, navigate]);
 
-  if (!location.state) {
-    // let the redirect above run
-    return null;
-  }
+  if (!location.state) return null;
 
   if (!questions.length) {
     return (
@@ -71,6 +69,46 @@ const Result = () => {
         </p>
       </div>
 
+      {/* ================= AI COACH ================= */}
+
+      {aiAnalysis && (
+        <div className="page-card" style={{ marginTop: "20px" }}>
+          <h2>🤖 AI Coach</h2>
+
+          {/* Weak Topics */}
+          {aiAnalysis.analysis?.weak_topics?.length > 0 && (
+            <div style={{ marginTop: "15px" }}>
+              <h3>⚠️ Weak Topics</h3>
+              <ul>
+                {aiAnalysis.analysis.weak_topics.map((t, i) => (
+                  <li key={i}>{t}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Slow Topics */}
+          {aiAnalysis.analysis?.slow_topics?.length > 0 && (
+            <div style={{ marginTop: "15px" }}>
+              <h3>🐢 Slow Topics</h3>
+              <ul>
+                {aiAnalysis.analysis.slow_topics.map((t, i) => (
+                  <li key={i}>{t}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Plan */}
+          {aiAnalysis.plan && (
+            <div style={{ marginTop: "15px" }}>
+              <h3>📌 Personalized Plan</h3>
+              <p>{aiAnalysis.plan}</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* ================= ANSWER REVIEW ================= */}
 
       <div style={{ marginTop: "30px" }}>
@@ -83,24 +121,20 @@ const Result = () => {
               className="page-card"
               style={{ marginBottom: "20px" }}
             >
-              {/* Question */}
               <h3>
                 {questionIndex + 1}. {q.question}
               </h3>
 
-              {/* Options */}
               <div style={{ marginTop: "12px" }}>
                 {q.options.map((option, index) => {
                   let background = "white";
                   let textColor = "black";
 
-                  // correct answer
                   if (index === q.correctAnswer) {
                     background = "#22c55e";
                     textColor = "white";
                   }
 
-                  // wrong answer chosen
                   if (
                     index === userAnswer &&
                     userAnswer !== q.correctAnswer
@@ -127,7 +161,6 @@ const Result = () => {
                 })}
               </div>
 
-              {/* Explanation */}
               {q.explanation && (
                 <p
                   style={{

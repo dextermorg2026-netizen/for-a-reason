@@ -17,6 +17,28 @@ import {
   getUserQuizAttempt,
 } from "../../services/quizAttemptService";
 
+/* ================= AI API FUNCTION ================= */
+async function analyzePerformance(data) {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("API failed");
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error("AI ERROR:", err);
+    return null;
+  }
+}
+
 const QUESTION_TIME = 30;
 
 const Quiz = () => {
@@ -32,6 +54,7 @@ const Quiz = () => {
   const [answers, setAnswers] = useState({});
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   /* ================= FETCH QUESTIONS ================= */
 
@@ -40,7 +63,6 @@ const Quiz = () => {
       try {
         if (!currentUser) return;
 
-        // check if quiz already attempted
         const previousAttempt = await getUserQuizAttempt(
           currentUser.uid,
           subjectId,
@@ -70,12 +92,11 @@ const Quiz = () => {
           return;
         }
 
-        // shuffle questions
         const shuffled = [...allQuestions]
           .sort(() => 0.5 - Math.random())
           .map((q, index) => ({
             ...q,
-            id: q.id ?? index, // ensure every question has id
+            id: q.id ?? index,
           }));
 
         setQuestions(shuffled);
@@ -152,6 +173,10 @@ const Quiz = () => {
   /* ================= FINAL SUBMIT ================= */
 
   const handleFinalSubmit = async (finalAnswers) => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
     const correctIds = [];
     const wrongIds = [];
 
@@ -171,7 +196,49 @@ const Quiz = () => {
 
     const coinsEarned = correctCount * coinsPerQuestion;
 
-    // give coins
+    // ================= AI PAYLOAD =================
+
+    // Topic accuracy (single key for now)
+    const topic_accuracy = {
+      [`${subjectId}_${level}`]:
+        (correctCount / questions.length) * 100,
+    };
+
+    // Required by backend (even if fake for now)
+    const avg_time_per_question = {
+      [`${subjectId}_${level}`]: 30,
+    };
+
+    // Convert mistakes → STRING ARRAY (VERY IMPORTANT)
+    const mistakes = wrongIds.map((id) => {
+      const q = questions.find((q) => q.id === id);
+
+      return `Question: ${q.question} | Your answer: ${
+        q.options[finalAnswers[q.id]]
+      } | Correct: ${q.options[q.correctAnswer]}`;
+    });
+
+    // FINAL payload (must match backend schema)
+    const aiPayload = {
+      user_id: currentUser.uid,
+      topic_accuracy,
+      avg_time_per_question,
+      mistakes,
+      recent_scores: [correctCount],
+    };
+
+    /* ================= AI CALL ================= */
+
+    let aiResponse = null;
+
+    try {
+      aiResponse = await analyzePerformance(aiPayload);
+    } catch (err) {
+      console.error("AI error:", err);
+    }
+
+    /* ================= FIREBASE ================= */
+
     await addCoins(coinsEarned, subjectId);
 
     await saveQuizAttempt({
@@ -187,6 +254,10 @@ const Quiz = () => {
       createdAt: new Date(),
     });
 
+    setIsSubmitting(false);
+
+    /* ================= NAVIGATION ================= */
+
     navigate("/quiz/result", {
       state: {
         score: correctCount,
@@ -194,12 +265,13 @@ const Quiz = () => {
         coinsEarned,
         questions,
         answers: finalAnswers,
+        aiAnalysis: aiResponse,
       },
       replace: true,
     });
   };
 
-  /* ================= QUIZ UI ================= */
+  /* ================= UI ================= */
 
   return (
     <div>
@@ -253,9 +325,11 @@ const Quiz = () => {
           <button
             className="btn-primary"
             onClick={saveAnswerAndNext}
-            disabled={selectedAnswer === null}
+            disabled={selectedAnswer === null || isSubmitting}
           >
-            {currentIndex === questions.length - 1
+            {isSubmitting
+              ? "Submitting..."
+              : currentIndex === questions.length - 1
               ? "Finish Quiz"
               : "Next"}
           </button>

@@ -17,28 +17,6 @@ import {
   getUserQuizAttempt,
 } from "../../services/quizAttemptService";
 
-/* ================= AI API FUNCTION ================= */
-async function analyzePerformance(data) {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/analyze", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error("API failed");
-    }
-
-    return await response.json();
-  } catch (err) {
-    console.error("AI ERROR:", err);
-    return null;
-  }
-}
-
 const QUESTION_TIME = 30;
 
 const Quiz = () => {
@@ -69,6 +47,7 @@ const Quiz = () => {
           level
         );
 
+        // ✅ If already attempted → go directly to result
         if (previousAttempt && previousAttempt.questions) {
           navigate("/quiz/result", {
             state: {
@@ -137,7 +116,6 @@ const Quiz = () => {
     return (
       <div className="page-card">
         <h2>No questions found for this quiz.</h2>
-
         <button
           className="btn-primary"
           onClick={() => navigate("/quizzes")}
@@ -173,8 +151,12 @@ const Quiz = () => {
   /* ================= FINAL SUBMIT ================= */
 
   const handleFinalSubmit = async (finalAnswers) => {
-    if (isSubmitting) return;
+    if (!currentUser) {
+      console.error("USER NOT READY");
+      return;
+    }
 
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     const correctIds = [];
@@ -196,67 +178,7 @@ const Quiz = () => {
 
     const coinsEarned = correctCount * coinsPerQuestion;
 
-    // ================= AI PAYLOAD =================
-
-    // Topic accuracy (single key for now)
-    const topic_accuracy = {
-      [`${subjectId}_${level}`]:
-        (correctCount / questions.length) * 100,
-    };
-
-    // Required by backend (even if fake for now)
-    const avg_time_per_question = {
-      [`${subjectId}_${level}`]: 30,
-    };
-
-    // Convert mistakes → STRING ARRAY (VERY IMPORTANT)
-    const mistakes = wrongIds.map((id) => {
-      const q = questions.find((q) => q.id === id);
-
-      return `Question: ${q.question} | Your answer: ${
-        q.options[finalAnswers[q.id]]
-      } | Correct: ${q.options[q.correctAnswer]}`;
-    });
-
-    // FINAL payload (must match backend schema)
-    const aiPayload = {
-      user_id: currentUser.uid,
-      topic_accuracy,
-      avg_time_per_question,
-      mistakes,
-      recent_scores: [correctCount],
-    };
-
-    /* ================= AI CALL ================= */
-
-    let aiResponse = null;
-
-    try {
-      aiResponse = await analyzePerformance(aiPayload);
-    } catch (err) {
-      console.error("AI error:", err);
-    }
-
-    /* ================= FIREBASE ================= */
-
-    await addCoins(coinsEarned, subjectId);
-
-    await saveQuizAttempt({
-      userId: currentUser.uid,
-      subjectId,
-      difficulty: level,
-      score: correctCount,
-      coinsEarned,
-      questions,
-      answers: finalAnswers,
-      correctQuestionIds: correctIds,
-      wrongQuestionIds: wrongIds,
-      createdAt: new Date(),
-    });
-
-    setIsSubmitting(false);
-
-    /* ================= NAVIGATION ================= */
+    /* ================= NAVIGATE FIRST ================= */
 
     navigate("/quiz/result", {
       state: {
@@ -265,10 +187,32 @@ const Quiz = () => {
         coinsEarned,
         questions,
         answers: finalAnswers,
-        aiAnalysis: aiResponse,
       },
       replace: true,
     });
+
+    /* ================= FIREBASE SAVE (background) ================= */
+
+    try {
+      await addCoins(coinsEarned, subjectId);
+
+      await saveQuizAttempt({
+        userId: currentUser.uid,
+        subjectId,
+        difficulty: level,
+        score: correctCount,
+        coinsEarned,
+        questions,
+        answers: finalAnswers,
+        correctQuestionIds: correctIds,
+        wrongQuestionIds: wrongIds,
+        createdAt: new Date(),
+      });
+    } catch (err) {
+      console.error("SAVE ERROR:", err);
+    }
+
+    setIsSubmitting(false);
   };
 
   /* ================= UI ================= */

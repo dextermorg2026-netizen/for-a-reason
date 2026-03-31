@@ -95,30 +95,29 @@ def upload_questions(db):
 
             for index, q in enumerate(questions, start=1):
 
+                # 🔥 ADD THIS DEBUG
+                print("Uploading:", q.get("topicName"))
+
                 question_data = {
                     "question": q["question"],
                     "options": q["options"],
                     "correctAnswer": q["correctAnswer"],
                     "difficulty": difficulty,
                     "subjectId": subject_id,
-                    "order": index
+                    "order": index,
+
+                    # ✅ THIS IS THE FIX
+                    "topicId": q.get("topicId", "general"),
+                    "topicName": q.get("topicName", "General")
                 }
 
                 if "explanation" in q:
                     question_data["explanation"] = q["explanation"]
 
-                # Unique ID per question
-                doc_id = f"{subject_id}_{difficulty}_{index}"
+                # 🔥 FORCE NEW UPLOAD (TEMP FIX)
+                doc_id = f"{subject_id}_{difficulty}_{index}_v2"
 
                 doc_ref = db.collection("questions").document(doc_id)
-
-                doc = doc_ref.get()
-
-                # Skip if already exists
-                if doc.exists:
-                    skipped += 1
-                    total_skipped += 1
-                    continue
 
                 doc_ref.set(question_data)
 

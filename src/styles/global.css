@@ -1,7 +1,9 @@
 /* =========================================
    MODERN LIGHT + DARK DESIGN SYSTEM
 ========================================= */
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* ================= LIGHT THEME ================= */
 :root {
   --bg-base: #f6f8fc;

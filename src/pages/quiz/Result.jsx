@@ -1,118 +1,189 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useState } from "react";
 
 const Result = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const {
-    score = 0,
-    total = 0,
-    coinsEarned = 0,
-    questions = [],
-    answers = {},
-    aiAnalysis = null, // 🔥 NEW
-  } = location.state || {};
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiData, setAiData] = useState(null);
+  const planText =
+  typeof aiData?.plan === "string"
+    ? aiData.plan
+    : aiData?.plan?.plan || "";
+  const state = location.state || {};
 
-  useEffect(() => {
-    if (!location.state) {
-      navigate("/subjects", { replace: true });
+  const score = state.score || 0;
+  const total = state.total || 0;
+  const coinsEarned = state.coinsEarned || 0;
+  const questions = state.questions || [];
+  const answers = state.answers || {};
+
+  /* ================= AI HANDLER ================= */
+
+  const handleAIAnalysis = async () => {
+    console.log("✅ AI BUTTON CLICKED");
+  
+    if (!questions.length) {
+      alert("No quiz data found");
+      return;
     }
-  }, [location.state, navigate]);
+  
+    // 🔥 BUILD CORRECT PAYLOAD
+    const topicStats = {};
+  
+    questions.forEach((q) => {
+      const topic = q.topicName || q.topicId || "General";
+  
+      if (!topicStats[topic]) {
+        topicStats[topic] = { correct: 0, total: 0 };
+      }
+  
+      topicStats[topic].total++;
+  
+      if (answers[q.id] === Number(q.correctAnswer)) {
+        topicStats[topic].correct++;
+      }
+    });
+  
+    const topic_accuracy = {};
+    const avg_time_per_question = {};
+  
+    Object.keys(topicStats).forEach((topic) => {
+      const { correct, total } = topicStats[topic];
+      topic_accuracy[topic] = (correct / total) * 100;
+      avg_time_per_question[topic] = 30;
+    });
+  
+    const aiPayload = {
+      user_id: "demo_user", // or your auth user
+      topic_accuracy,
+      avg_time_per_question,
+      mistakes: [],
+      recent_scores: [score],
+    };
+  
+    console.log("🔥 CORRECT PAYLOAD:", aiPayload);
+  
+    setAiLoading(true);
+  
+    try {
+      const res = await fetch("http://127.0.0.1:8000/analyze", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(aiPayload),
+      });
+  
+      const data = await res.json();
+      console.log("🤖 AI RESPONSE:", data);
+  
+      setAiData(data);
+    } catch (err) {
+      console.error("❌ API ERROR:", err);
+    }
+  
+    setAiLoading(false);
+  };
 
-  if (!location.state) return null;
-
-  if (!questions.length) {
-    return (
-      <div>
-        <h1 className="page-title">Quiz Completed 🎉</h1>
-
-        <div className="page-card" style={{ marginTop: "2rem" }}>
-          <h2>Score: {score} / {total}</h2>
-
-          <h3 style={{ marginTop: "10px" }}>
-            🪙 Coins earned: {coinsEarned}
-          </h3>
-
-          <p style={{ marginTop: "16px" }}>
-            We don’t have detailed question data saved for this attempt,
-            so a question-by-question review isn’t available.
-          </p>
-        </div>
-
-        <button
-          className="btn-primary"
-          style={{ marginTop: "30px" }}
-          onClick={() => navigate("/quizzes")}
-        >
-          Back to Quizzes
-        </button>
-      </div>
-    );
-  }
+  /* ================= UI ================= */
 
   return (
     <div>
       <h1 className="page-title">Quiz Completed 🎉</h1>
 
-      {/* ================= RESULT SUMMARY ================= */}
-
+      {/* RESULT */}
       <div className="page-card" style={{ marginTop: "2rem" }}>
         <h2>Score: {score} / {total}</h2>
-
         <h3 style={{ marginTop: "10px" }}>
           🪙 Coins earned: {coinsEarned}
         </h3>
-
-        <p style={{ marginTop: "10px", fontSize: "14px" }}>
-          🟢 Correct Answer &nbsp;&nbsp; 🔴 Your Wrong Answer
-        </p>
       </div>
 
-      {/* ================= AI COACH ================= */}
+      {/* AI BUTTON */}
+      <button
+        className="btn-primary"
+        style={{ marginTop: "20px" }}
+        onClick={handleAIAnalysis}
+        disabled={aiLoading}
+      >
+        {aiLoading ? "Analyzing..." : "🤖 AI Agent Analysis"}
+      </button>
 
-      {aiAnalysis && (
+      {/* AI OUTPUT */}
+      {aiData && (
         <div className="page-card" style={{ marginTop: "20px" }}>
           <h2>🤖 AI Coach</h2>
 
-          {/* Weak Topics */}
-          {aiAnalysis.analysis?.weak_topics?.length > 0 && (
-            <div style={{ marginTop: "15px" }}>
-              <h3>⚠️ Weak Topics</h3>
-              <ul>
-                {aiAnalysis.analysis.weak_topics.map((t, i) => (
-                  <li key={i}>{t}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <h3>🎯 Summary</h3>
+          <p>
+            You have weaknesses in{" "}
+            {aiData.analysis?.weak_topics?.length || 0} topics
+          </p>
 
-          {/* Slow Topics */}
-          {aiAnalysis.analysis?.slow_topics?.length > 0 && (
-            <div style={{ marginTop: "15px" }}>
-              <h3>🐢 Slow Topics</h3>
-              <ul>
-                {aiAnalysis.analysis.slow_topics.map((t, i) => (
-                  <li key={i}>{t}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <h3>⚠️ Weak Topics</h3>
+          <div>
+  {aiData.analysis?.weak_topics?.map((t, i) => (
+    <span
+      key={i}
+      style={{
+        background: "#fee2e2",
+        padding: "6px 10px",
+        borderRadius: "999px",
+        margin: "4px",
+        display: "inline-block",
+      }}
+    >
+      {t}
+    </span>
+  ))}
+</div>
 
-          {/* Plan */}
-          {aiAnalysis.plan && (
-            <div style={{ marginTop: "15px" }}>
-              <h3>📌 Personalized Plan</h3>
-              <p>{aiAnalysis.plan}</p>
-            </div>
-          )}
+ {/* ACTION PLAN */}
+{(() => {
+  const steps = planText
+    .split("\n")
+    .filter((line) => line.trim().startsWith("Step"));
+
+  return (
+    <div style={{ marginTop: "20px" }}>
+      <h3>📌 Action Plan</h3>
+
+      {steps.map((step, i) => (
+        <div
+          key={i}
+          style={{
+            background: "#f8fafc",
+            padding: "12px",
+            borderRadius: "10px",
+            marginBottom: "10px",
+            border: "1px solid #e2e8f0",
+          }}
+        >
+          {step}
         </div>
-      )}
+      ))}
+    </div>
+  );
+})()}
+{/* RECOMMENDATIONS */}
+{aiData?.recommendations?.length > 0 && (
+  <div style={{ marginTop: "20px" }}>
+    <h3>📚 Practice Questions</h3>
+    <ul>
+      {aiData.recommendations.map((q, i) => (
+        <li key={i}>{q}</li>
+      ))}
+    </ul>
+  </div>
+)}
+</div>
+)}
 
-      {/* ================= ANSWER REVIEW ================= */}
-
+      {/* ANSWERS */}
       <div style={{ marginTop: "30px" }}>
-        {questions.map((q, questionIndex) => {
+        {questions.map((q, index) => {
           const userAnswer = answers[q.id];
 
           return (
@@ -122,36 +193,33 @@ const Result = () => {
               style={{ marginBottom: "20px" }}
             >
               <h3>
-                {questionIndex + 1}. {q.question}
+                {index + 1}. {q.question}
               </h3>
 
               <div style={{ marginTop: "12px" }}>
-                {q.options.map((option, index) => {
+                {q.options.map((option, i) => {
                   let background = "white";
-                  let textColor = "black";
+                  let color = "black";
 
-                  if (index === q.correctAnswer) {
+                  if (i === q.correctAnswer) {
                     background = "#22c55e";
-                    textColor = "white";
+                    color = "white";
                   }
 
-                  if (
-                    index === userAnswer &&
-                    userAnswer !== q.correctAnswer
-                  ) {
+                  if (i === userAnswer && userAnswer !== q.correctAnswer) {
                     background = "#ef4444";
-                    textColor = "white";
+                    color = "white";
                   }
 
                   return (
                     <div
-                      key={index}
+                      key={i}
                       style={{
                         padding: "10px",
                         borderRadius: "6px",
                         marginBottom: "6px",
-                        background: background,
-                        color: textColor,
+                        background,
+                        color,
                         border: "1px solid #ddd",
                       }}
                     >
@@ -162,13 +230,7 @@ const Result = () => {
               </div>
 
               {q.explanation && (
-                <p
-                  style={{
-                    marginTop: "12px",
-                    fontStyle: "italic",
-                    color: "#555",
-                  }}
-                >
+                <p style={{ marginTop: "10px", color: "#555" }}>
                   Explanation: {q.explanation}
                 </p>
               )}
@@ -176,8 +238,6 @@ const Result = () => {
           );
         })}
       </div>
-
-      {/* ================= BUTTON ================= */}
 
       <button
         className="btn-primary"
@@ -187,7 +247,7 @@ const Result = () => {
         Back to Subjects
       </button>
     </div>
-  );
+  )
 };
 
-export default Result;
+export default Result

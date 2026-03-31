@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explore Subjects - Lucid Academic</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4c1d95",
+              "primary-light": "#8b5cf6",
+              "lavender": "#e0d7f7",
+              "lavender-dark": "#c4b5fd",
+              "surface": "#ffffff",
+              "background": "#e0d7f7",
+              "on-surface": "#1f2937",
+              "on-surface-variant": "#6b7280"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "1.5rem", 
+              "lg": "1.5rem", 
+              "xl": "1.5rem",
+              "2xl": "1.5rem",
+              "3xl": "2rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.025em; }
+        
+        .bg-dashboard-gradient {
+          background: linear-gradient(135deg, #e0d7f7 0%, #c4b5fd 100%);
+        }
+        .dark .bg-dashboard-gradient {
+          background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+
+        .sidebar-glass {
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .sidebar-glass {
+          background: rgba(15, 23, 42, 0.4);
+          border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-shadow {
+          background: white;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .dark .card-shadow {
+          background: #1e293b;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-dashboard-gradient text-on-surface transition-colors duration-300 min-h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<aside class="sidebar-glass w-64 flex-shrink-0 flex flex-col h-screen z-50 hidden md:flex">
+<div class="flex flex-col h-full p-6 gap-2">
+<!-- Brand Logo -->
+<div class="flex items-center gap-3 px-2 py-4 mb-6">
+<div class="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-primary dark:text-lavender leading-none">Lucid Academy</h1>
+<p class="text-[10px] font-medium text-on-surface-variant/70 tracking-widest uppercase">Excellence</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white/40 dark:hover:bg-white/5 transition-all font-medium rounded-2xl" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-white/10 text-primary dark:text-white rounded-2xl shadow-sm font-bold transition-all" href="#">
+<span class="material-symbols-outlined">book</span>
+<span>Subjects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white/40 dark:hover:bg-white/5 transition-all font-medium rounded-2xl" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span>Quizzes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white/40 dark:hover:bg-white/5 transition-all font-medium rounded-2xl" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span>Leaderboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white/40 dark:hover:bg-white/5 transition-all font-medium rounded-2xl" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span>Live Quiz</span>
+</a>
+</nav>
+<!-- CTA & Footer -->
+<div class="mt-auto space-y-4">
+<div class="p-5 rounded-3xl bg-primary text-white shadow-xl shadow-primary/20">
+<p class="text-xs font-bold mb-1">Upgrade to Pro</p>
+<p class="text-[10px] opacity-80 mb-4 leading-relaxed">Access unlimited subjects &amp; mentor support.</p>
+<button class="w-full py-2 bg-white text-primary text-[11px] font-bold rounded-xl shadow-sm active:scale-95 transition-transform">Go Premium</button>
+</div>
+<div class="pt-4 border-t border-white/20 dark:border-white/5">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white/40 dark:hover:bg-white/5 transition-all font-medium rounded-2xl" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-red-500 font-medium hover:bg-red-50 dark:hover:bg-red-500/10 transition-all rounded-2xl" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0 overflow-y-auto no-scrollbar">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between px-10 py-6">
+<div class="flex items-center gap-8 flex-1 max-w-md">
+<span class="md:hidden text-xl font-bold tracking-tighter text-primary dark:text-white">Lucid Academy</span>
+<div class="relative w-full hidden md:block">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full bg-white/50 dark:bg-slate-800/50 border-none rounded-full py-2 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary transition-all placeholder:text-gray-400 dark:text-white" placeholder="Search subjects..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<!-- Theme Toggle -->
+<button class="bg-gray-900 dark:bg-white rounded-full px-4 py-1.5 flex items-center space-x-2 text-white dark:text-gray-900 text-sm font-bold transition-all" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-sm dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined text-sm hidden dark:block">light_mode</span>
+<span class="dark:hidden">Dark</span>
+<span class="hidden dark:block">Light</span>
+</button>
+<button class="relative p-2 text-gray-800 dark:text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-800"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold leading-none dark:text-white">Alex Rivera</p>
+<p class="text-[10px] text-gray-500 dark:text-gray-400 font-medium">Pro Scholar</p>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-white/50 shadow-sm">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-Vaps4lR8VCdDR-jXioCwimn5n9vK4YpJKVZYny9psyM_JBskP5WTcjYr3tKNxQCJ_kWP8bhl8PQfa75HI4iQ0--KvbV2ztCOXf57euSwgj31i63UGzRScwecaBKfi87Hz7AEs3cSTefUjPHXhVc9sxpIk4b9nyfRWSuD6YjKIzOWoZNZB9SdN_UPrF8fJkAkI9ixjJSUfCNyHrNL9buXezJrq4CCETVODM2mbPufs2m_OYu2hAJGWfa5qKBCa2XHop-OvUBl0g"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-1 px-10 pb-10 space-y-10 max-w-7xl mx-auto w-full">
+<!-- Hero Section -->
+<section class="relative overflow-hidden rounded-3xl bg-primary dark:bg-slate-900 p-10 lg:p-14 text-white">
+<!-- Abstract Background Elements -->
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKpLkiLrWuCB6CtYcCdEsqNICocG6xiAbWmrdk7oaHrNv6HO8j0TZyI0wkHEXTonzijRGbJgOqiUWQNDm0H1aYbCo9MFQ59N3TJ_zl2ro-nZcEyWUvMVczCm25i6bLiWfdUEwtkz24YyYYxiRmkw_IN68-FXqu4y-UvnrGLrAyENBALVkJ7Wp1q3XHUCgOTA3YrkmTLMUHkCXo07VFQ_UQq4HfWiZRZdGrylapFC2SrEJJuYS7GLRasjwR5PcqKMSgo-xjHMUzfA')"></div>
+<div class="absolute -bottom-20 -right-20 w-80 h-80 bg-white/10 blur-[100px] rounded-full"></div>
+<div class="relative z-10 max-w-2xl">
+<span class="inline-block px-4 py-1 bg-white/20 backdrop-blur-md rounded-full text-[10px] font-bold tracking-wider uppercase mb-6">Learning Streak: 14 Days</span>
+<h2 class="text-4xl lg:text-5xl font-headline font-extrabold tracking-tight mb-4">Welcome back, Alex. 👋</h2>
+<p class="text-lg opacity-90 font-medium leading-relaxed mb-8">You're making great progress in <span class="font-bold underline decoration-lavender">System Design</span>. Continue where you left off to maintain your top 5% rank.</p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-3 bg-white text-primary rounded-2xl font-bold text-sm shadow-xl hover:scale-105 active:scale-95 transition-all">Resume Learning</button>
+<button class="px-8 py-3 bg-white/10 border border-white/20 backdrop-blur-sm text-white rounded-2xl font-bold text-sm hover:bg-white/20 transition-all">View Statistics</button>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Continue Learning Card -->
+<div class="lg:col-span-4 space-y-6">
+<h3 class="font-headline text-xl font-bold text-gray-800 dark:text-white px-1">Continue Learning</h3>
+<div class="card-shadow rounded-3xl p-8 hover:shadow-lg transition-all group cursor-pointer border border-transparent dark:border-slate-800">
+<div class="flex items-center justify-between mb-8">
+<div class="w-14 h-14 rounded-2xl bg-lavender/40 dark:bg-primary/20 flex items-center justify-center text-primary dark:text-lavender-dark">
+<span class="material-symbols-outlined text-3xl">architecture</span>
+</div>
+<span class="text-[10px] font-bold text-primary dark:text-lavender-dark uppercase tracking-widest bg-lavender/30 dark:bg-white/5 rounded-full px-3 py-1">Recent</span>
+</div>
+<h4 class="text-xl font-extrabold text-gray-800 dark:text-white mb-2">System Design</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">Architecting scalable microservices and database sharding techniques.</p>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-gray-400">
+<span>Progress</span>
+<span class="text-primary dark:text-lavender-dark">65%</span>
+</div>
+<div class="h-2 w-full bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary dark:bg-lavender-dark rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-gray-100 dark:border-slate-800 flex items-center gap-2 text-primary dark:text-lavender-dark font-bold text-sm group-hover:gap-4 transition-all">
+<span>Resume Quiz</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Explore Subjects (Main Grid) -->
+<div class="lg:col-span-8 space-y-6">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-headline text-xl font-bold text-gray-800 dark:text-white">Explore Subjects</h3>
+<a class="text-xs font-bold text-primary dark:text-lavender-dark uppercase tracking-widest hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Subject Card 1 -->
+<div class="card-shadow rounded-3xl p-6 hover:shadow-lg transition-all cursor-pointer group border border-transparent dark:border-slate-800">
+<div class="relative h-44 w-full mb-6 rounded-2xl overflow-hidden shadow-inner">
+<img alt="Networking" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA12ZG5TZb6krLwJVCPx3XMlOUmVeNY-72cto_wPZ7P6rl_JwlkJJ2M_MYWeGMeN9YfKxQ-FCd9KnMdY_yTlY-NmYCg04cgOqmh6gqN4-ANNlTCV7jv11iYTyT_fPJxjEbuLHGv5tsZOYIpUcEeZKdLfqMVGL7dvUtf4d7YyAOreGI-j32URLrFebI91vXWx9MAYsbspbwN3on2pGa_fiApxypYUpEfqKjl-RPL4RGhGucUiyA-CThEXmbLaEhmg__R7Pt_sQ9ZFA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[9px] font-bold rounded-lg uppercase tracking-widest border border-white/20">Network</span>
+</div>
+</div>
+<h4 class="text-lg font-extrabold text-gray-800 dark:text-white mb-2">Computer Network</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-6">Master TCP/IP protocols, subnetting, and network security fundamentals.</p>
+<div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800">
+<div class="flex items-center -space-x-2">
+<img class="w-7 h-7 rounded-full border-2 border-white dark:border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAC-ORpyIA2hnZqjT9f-kFIhg_EnVs9Ylw1TONGiWDRXfyEK0yn0KLqzvkyHN81otuxURmHK3n9i7SjfhNZStW6-TxKkyTztX_TNLWPaAKu9ndy7kBMWoF598hkVoWcvZN6TH0XMDcBw-Ha5bQPibzOGQRgEuFT60haX0eimmoWwwOEkq9ZLj7AI051AtkKeBq1umCPS7nnxyMaRi-HXcdxifAyffQL8R1b8MY3cB2V00V-oOWYlHPcyEiJv471QJwmSY4rllU5A"/>
+<img class="w-7 h-7 rounded-full border-2 border-white dark:border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIWqsnrAP3bVxLn55-X-WOv76vCuEO_AhnK3hEBu1uKCV8IseZZjP8ZhZx71C7iio1cL4beBQ4gSf4MMzSreBeJJ5HwMsKje7Abs4QE7VELSJpwlC_BVhjS4l4JsK2XwFJlybgWtsLll9Wv0_rlP9HPsQ2ucd_-Dt5T-mZJzT4ZvFekmesi-miYK2Pq5zASnS563d6DfPyA1TAAnhGA_9p14Un9ExOoHT8b-A2COB78dHFza77ZolckbU_vLbOuGkWP1oBWkhVKg"/>
+<div class="w-7 h-7 rounded-full bg-gray-100 dark:bg-slate-700 border-2 border-white dark:border-slate-800 flex items-center justify-center text-[8px] font-bold text-gray-500 dark:text-gray-400">+12k</div>
+</div>
+<div class="flex items-center gap-1 text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-base">quiz</span>
+<span>24 Quizzes</span>
+</div>
+</div>
+</div>
+<!-- Subject Card 2 -->
+<div class="card-shadow rounded-3xl p-6 hover:shadow-lg transition-all cursor-pointer group border border-transparent dark:border-slate-800">
+<div class="relative h-44 w-full mb-6 rounded-2xl overflow-hidden shadow-inner">
+<img alt="System Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQO1okvYAYK2RBwmfUGCKvosh0TDwLf8cSXFfPvg5IncFoIbgkIJVmPbvtgV4mgDaTwJRvLg2NpalFHPh7WIu-sxuT3lbceDqGV778aXrVYxaw7Cce4mdMTXva2kIc5wofUq8kcfBUK6sfH8IKA5j5DBsxLNMA8mOvOnlfTSg_vbb8w8G0WNtXqnDc-jAhki-HOODmqnwb29HOR6wZxe5ZZSty74hwGT67VcjqZ8pckthwpdUa2Qzyn4kVlRtOv-EacQKuo-cilA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[9px] font-bold rounded-lg uppercase tracking-widest border border-white/20">Design</span>
+</div>
+</div>
+<h4 class="text-lg font-extrabold text-gray-800 dark:text-white mb-2">System Design</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-6">Learn to design high-availability systems with caching and load balancing.</p>
+<div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800">
+<div class="flex items-center -space-x-2">
+<img class="w-7 h-7 rounded-full border-2 border-white dark:border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq1TyZjkhM5107xBguMRjTJNeUQFgrwdwQ8vunrExtGMrhMTQYk0aw7wfLSw6JcwPk4KFH8-ICLetkFE3Z-XrZMlTn5o-18qvsrfJCD1_p21_QluNoxpYplnj41Pg9tu0JaqemfehP0yu9ECSMj1ud_kVEEcNAWMCYoq9bGAh9liZtmcwq71LhcJkeLQ_ikaBsVERdU0YK3jXT_1v_YiWDT4Sy0eL4IFDiJovgYWS3DhalGoWgHIlxBDSZIsLNwjVO697UjAc8aA"/>
+<img class="w-7 h-7 rounded-full border-2 border-white dark:border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPvSDFkcTqSHNO0uFJ7hteVCaOa-cgN1wNu8c04JLNbV6vdsQwBHb9phD4RfAwMsV_IVPNpy6IY_avVXt58lMlZYj3pvRwajfeA6W5df8H8hi_dhAGjqrblBWJf8NCcd75EZDpO3LZbN7UeT8QlJbLrZRkAH46O36I2MTA3_4Ix0qZgVYGOi5zzDG_5GJws9J9GeyfzpNaiv9w3bCkxFSFS8zfX7IrH5zsmOmdZJCqQIglpPgjWEQlFSfPas6K1kcYnnMqBZiUGg"/>
+<div class="w-7 h-7 rounded-full bg-gray-100 dark:bg-slate-700 border-2 border-white dark:border-slate-800 flex items-center justify-center text-[8px] font-bold text-gray-500 dark:text-gray-400">+8k</div>
+</div>
+<div class="flex items-center gap-1 text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-base">quiz</span>
+<span>18 Quizzes</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trending Tracks -->
+<section class="space-y-6">
+<h3 class="font-headline text-xl font-bold text-gray-800 dark:text-white px-1">Trending Tracks</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Database -->
+<div class="card-shadow p-8 rounded-3xl flex flex-col items-center text-center group hover:-translate-y-1 transition-all cursor-pointer border border-transparent dark:border-slate-800">
+<div class="w-14 h-14 rounded-full bg-lavender dark:bg-primary/20 text-primary dark:text-lavender-dark flex items-center justify-center mb-5 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-2xl">database</span>
+</div>
+<h5 class="font-extrabold text-gray-800 dark:text-white mb-1">Database</h5>
+<p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">12 Courses</p>
+</div>
+<!-- Security -->
+<div class="card-shadow p-8 rounded-3xl flex flex-col items-center text-center group hover:-translate-y-1 transition-all cursor-pointer border border-transparent dark:border-slate-800">
+<div class="w-14 h-14 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-500 flex items-center justify-center mb-5 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-2xl">security</span>
+</div>
+<h5 class="font-extrabold text-gray-800 dark:text-white mb-1">Security</h5>
+<p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">8 Courses</p>
+</div>
+<!-- Algorithms -->
+<div class="card-shadow p-8 rounded-3xl flex flex-col items-center text-center group hover:-translate-y-1 transition-all cursor-pointer border border-transparent dark:border-slate-800">
+<div class="w-14 h-14 rounded-full bg-red-50 dark:bg-red-500/10 text-red-500 flex items-center justify-center mb-5 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<h5 class="font-extrabold text-gray-800 dark:text-white mb-1">Algorithms</h5>
+<p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">32 Courses</p>
+</div>
+<!-- Cloud -->
+<div class="card-shadow p-8 rounded-3xl flex flex-col items-center text-center group hover:-translate-y-1 transition-all cursor-pointer border border-transparent dark:border-slate-800">
+<div class="w-14 h-14 rounded-full bg-gray-50 dark:bg-slate-700 text-gray-500 dark:text-gray-400 flex items-center justify-center mb-5 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-2xl">cloud</span>
+</div>
+<h5 class="font-extrabold text-gray-800 dark:text-white mb-1">Cloud Arch</h5>
+<p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">15 Courses</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl z-50 flex items-center justify-around py-3 px-4 border-t border-white/20">
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary dark:text-lavender-dark" href="#">
+<span class="material-symbols-outlined text-2xl">book</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Subjects</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">quiz</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Quiz</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+<!-- Contextual FAB -->
+<button class="fixed bottom-24 md:bottom-8 right-8 w-16 h-16 rounded-3xl bg-primary text-white shadow-2xl shadow-primary/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+</button>
+</body></html>

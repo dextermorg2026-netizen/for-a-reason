@@ -221,7 +221,7 @@ python upload_all.py
 ```
 
 ### Firebase Setup Requirements:
-- Firebase Admin SDK key file: `court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json`
+- Firebase Admin SDK key file: `firebase-key.json`
 - Proper Firestore security rules configured
 - Collections will be created automatically if they don't exist
 

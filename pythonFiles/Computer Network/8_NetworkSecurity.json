@@ -1,0 +1,58 @@
+{
+  "slides": [
+    {
+      "title": "Network Security Basics",
+      "content": [
+        "Network security is the practice of protecting network systems, data, and devices from unauthorized access, attacks, and misuse",
+        "It ensures confidentiality, integrity, and availability (CIA triad) of data during transmission and storage",
+        "It prevents threats like malware, phishing, denial-of-service attacks, and unauthorized access",
+        "It uses technologies like firewalls, encryption, VPNs, and intrusion detection systems to secure networks"
+      ]
+    },
+    {
+      "title": "Core Security Principles",
+      "content": [
+        "Confidentiality ensures that sensitive data is accessible only to authorized users using encryption techniques",
+        "Integrity ensures that data is not altered during transmission using hashing and checksums",
+        "Availability ensures that network resources are accessible to authorized users when needed",
+        "Authentication and authorization verify user identity and control access to resources, while accountability tracks user actions"
+      ]
+    },
+    {
+      "title": "Firewalls",
+      "content": [
+        "A firewall is a security system that monitors and controls incoming and outgoing network traffic based on predefined rules",
+        "It acts as a barrier between trusted internal networks and untrusted external networks like the internet",
+        "It protects against unauthorized access, cyberattacks, and malicious traffic",
+        "Firewalls can be implemented as hardware, software, or a combination of both"
+      ]
+    },
+    {
+      "title": "Types of Firewalls",
+      "content": [
+        "Packet filtering firewalls operate at the network layer and inspect packet headers like IP addresses, ports, and protocols using static rules",
+        "Stateful inspection firewalls operate at the transport layer and track active connections using a state table for dynamic filtering",
+        "Packet filtering is simple and fast but less secure, while stateful inspection provides better security but requires more resources",
+        "Advanced firewalls like application layer firewalls perform deep packet inspection to detect complex threats"
+      ]
+    },
+    {
+      "title": "TLS and SSL",
+      "content": [
+        "TLS (Transport Layer Security) and SSL (Secure Sockets Layer) are cryptographic protocols used to secure communication over networks",
+        "They provide confidentiality through encryption, integrity through hashing, and authentication using digital certificates",
+        "TLS is the modern and secure successor of SSL, widely used in HTTPS, email security, and VPNs",
+        "They use public key infrastructure (PKI) to verify identities and establish secure communication channels"
+      ]
+    },
+    {
+      "title": "TLS/SSL Working",
+      "content": [
+        "The TLS/SSL process begins with a handshake where client and server agree on encryption methods and exchange keys",
+        "The server provides a digital certificate to verify its identity using a trusted certificate authority",
+        "A session key is generated using asymmetric encryption and used for encrypting data using symmetric encryption",
+        "All transmitted data is encrypted and decrypted securely, ensuring protection from eavesdropping and tampering"
+      ]
+    }
+  ]
+}

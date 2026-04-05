@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 cred = credentials.Certificate(
     os.path.join(
         BASE_DIR,
-        "court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json"
+        "firebase-key.json"
     )
 )
 

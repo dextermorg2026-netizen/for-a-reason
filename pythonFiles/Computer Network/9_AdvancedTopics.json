@@ -1,0 +1,58 @@
+{
+  "slides": [
+    {
+      "title": "Network Architectures",
+      "content": [
+        "Network architecture defines how devices communicate, share resources, and perform tasks within a network",
+        "Client-server architecture uses a centralized server to provide resources and services to multiple clients with better control and security",
+        "Peer-to-peer architecture is decentralized where each device acts as both client and server, enabling direct resource sharing",
+        "Hybrid architecture combines centralized control and decentralized sharing for better scalability and reliability"
+      ]
+    },
+    {
+      "title": "Network Design Principles",
+      "content": [
+        "Network design is the process of planning a network to ensure scalability, reliability, performance, and security",
+        "Scalability allows networks to grow by adding devices, subnets, and services without major redesign",
+        "Reliability ensures continuous operation using redundancy and failover mechanisms",
+        "Security protects networks using firewalls, encryption, and access control while manageability simplifies monitoring and maintenance"
+      ]
+    },
+    {
+      "title": "Load Balancing & CDN",
+      "content": [
+        "Load balancing distributes incoming traffic across multiple servers to prevent overload and improve performance",
+        "Techniques include round robin, least connections, IP hashing, and dynamic load balancing based on server conditions",
+        "Content Delivery Networks (CDNs) use geographically distributed servers to deliver content faster by reducing latency",
+        "CDNs cache content on edge servers and improve scalability, reliability, and user experience"
+      ]
+    },
+    {
+      "title": "Network Virtualization",
+      "content": [
+        "Network virtualization abstracts physical network resources into virtual networks for better flexibility and efficiency",
+        "It enables multiple virtual networks to run on the same physical infrastructure using VLANs, VPNs, and overlay networks",
+        "It improves resource utilization, scalability, and security through logical segmentation",
+        "It is widely used in cloud computing, data centers, and multi-tenant environments"
+      ]
+    },
+    {
+      "title": "Software Defined Networking (SDN)",
+      "content": [
+        "SDN is a networking approach that separates the control plane from the data plane for centralized and programmable management",
+        "The SDN controller acts as the brain of the network, managing traffic flow and policies dynamically",
+        "It enables automation, flexibility, and efficient resource allocation using software-based configuration",
+        "It is used in data centers, cloud environments, and large-scale enterprise networks"
+      ]
+    },
+    {
+      "title": "Network Reliability & Fault Tolerance",
+      "content": [
+        "Network reliability ensures consistent network operation with minimal downtime and high availability",
+        "Fault tolerance allows networks to continue functioning even when components fail using redundancy and failover",
+        "Techniques include backup devices, multiple paths, load balancing, clustering, and error detection mechanisms",
+        "Metrics like availability, MTBF (Mean Time Between Failures), and MTTR (Mean Time to Repair) measure reliability"
+      ]
+    }
+  ]
+}

@@ -94,7 +94,7 @@ const QuizzesPage = () => {
 
   return (
     <main className="bg-background">
-      <div className="w-full p-8">
+      <div className="w-full">
         {/* Breadcrumbs / Secondary Navigation */}
         <div className="mb-10 flex items-center justify-between">
           <div>

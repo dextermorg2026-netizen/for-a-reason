@@ -5,7 +5,7 @@ import os
 BASE_DIR = os.path.dirname(__file__)
 
 cred = credentials.Certificate(
-os.path.join(BASE_DIR,"court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json")
+os.path.join(BASE_DIR,"firebase-key.json")
 )
 
 firebase_admin.initialize_app(cred)

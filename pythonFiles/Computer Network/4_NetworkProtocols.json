@@ -1,0 +1,58 @@
+{
+  "slides": [
+    {
+      "title": "Network Protocols",
+      "content": [
+        "Network protocols are standardized rules that define how data is transmitted, received, structured, and processed between devices in a network",
+        "They ensure reliable communication, proper sequencing, and error handling during data exchange",
+        "Protocols enable interoperability between different devices, systems, and vendors across global networks",
+        "They support scalability, security, and efficient troubleshooting in modern networking systems"
+      ]
+    },
+    {
+      "title": "Types of Network Protocols",
+      "content": [
+        "Communication protocols like HTTP, HTTPS, FTP, SMTP, IMAP, and POP3 are used for data exchange between applications",
+        "Transport protocols like TCP and UDP manage end-to-end data transmission between devices",
+        "Routing protocols like OSPF and BGP determine optimal paths for data across networks",
+        "Security protocols like SSL/TLS and IPSec provide encryption and authentication for secure communication"
+      ]
+    },
+    {
+      "title": "TCP Protocol",
+      "content": [
+        "TCP (Transmission Control Protocol) is a connection-oriented protocol that ensures reliable and ordered delivery of data",
+        "It establishes a connection using a three-way handshake before data transmission begins",
+        "It performs error detection, retransmission of lost packets, and flow and congestion control",
+        "It is used in applications like web browsing (HTTP/HTTPS), email (SMTP), and file transfer (FTP)"
+      ]
+    },
+    {
+      "title": "UDP Protocol",
+      "content": [
+        "UDP (User Datagram Protocol) is a connectionless protocol that focuses on fast and low-latency data transmission",
+        "It does not guarantee delivery, order, or error correction of packets",
+        "It has low overhead and sends data as independent datagrams without establishing a connection",
+        "It is used in real-time applications like video streaming, online gaming, and VoIP communication"
+      ]
+    },
+    {
+      "title": "Application Layer Protocols",
+      "content": [
+        "Application layer protocols enable communication between user applications and the network by providing services like web browsing, email, and file transfer",
+        "HTTP and HTTPS are used for web communication where HTTPS provides secure encrypted transmission using SSL/TLS",
+        "FTP is used for file transfer between client and server, while SMTP is used for sending emails",
+        "SNMP is used for monitoring and managing network devices like routers and switches"
+      ]
+    },
+    {
+      "title": "Network Layer Functions & Protocols",
+      "content": [
+        "The network layer provides logical addressing using IP addresses and enables communication between different networks",
+        "Routing determines the best path for data transmission using algorithms and routing protocols",
+        "Packet forwarding transfers data packets across networks using routing tables",
+        "Protocols like IP (IPv4, IPv6), ICMP, ARP, and BGP handle addressing, error reporting, and routing operations"
+      ]
+    }
+  ]
+}

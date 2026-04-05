@@ -19,7 +19,7 @@ This folder contains clean, organized scripts to upload **Subjects**, **Topics**
 | **upload_topics.py** | Uploads only topics (requires subjects to exist) |
 | **upload_subtopics.py** | Uploads only subtopics (requires topics to exist) |
 | **upload_questions.py** | Uploads only questions from CSV |
-| **court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json** | Firebase service account key (keep secure!) |
+| **firebase-key.json** | Firebase service account key (keep secure!) |
 
 ---
 
@@ -120,7 +120,7 @@ All scripts include comprehensive validation:
 ## 🛠 Troubleshooting
 
 ### Common Issues:
-1. **"Firebase key file not found"** → Ensure `court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json` exists
+1. **"Firebase key file not found"** → Ensure `firebase-key.json` exists
 2. **"subjects_topics.json not found"** → Create the file following `format.md`
 3. **"questions.csv not found"** → Create the CSV file following `format.md`
 4. **Permission errors** → Check Firebase security rules
@@ -294,7 +294,7 @@ python upload_questions.py
 
 ## ⚠️ Important Notes
 
-1. **Firebase Credentials:** The script uses `court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json` (already in folder)
+1. **Firebase Credentials:** The script uses `firebase-key.json` (already in folder)
 2. **TopicId in Questions:** Must match an existing topic ID from your upload
 3. **Difficulty Levels:** Use only `easy`, `medium`, or `hard` (case-insensitive)
 4. **CSV Format:** Keep the header row and use commas as separators

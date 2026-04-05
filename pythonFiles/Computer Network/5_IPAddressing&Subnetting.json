@@ -1,0 +1,58 @@
+{
+  "slides": [
+    {
+      "title": "Routing Algorithms",
+      "content": [
+        "Routing algorithms are mathematical methods used by routers to determine the best path for data packets based on distance, cost, and network conditions",
+        "Static routing uses manually configured routes that remain fixed and is suitable for small and stable networks",
+        "Dynamic routing automatically updates routing tables using protocols to adapt to network changes and failures",
+        "Common algorithms include Distance Vector (uses hop count), Link State (uses full network topology), and Hybrid routing methods"
+      ]
+    },
+    {
+      "title": "Routing Protocols",
+      "content": [
+        "Routing protocols are rules used by routers to exchange routing information and determine optimal paths for data transmission",
+        "Distance Vector protocols like RIP and EIGRP use metrics such as hop count and share routing tables with neighbors",
+        "Link State protocols like OSPF and IS-IS build a complete network map and calculate shortest paths using algorithms like Dijkstra",
+        "Protocols are categorized as Interior Gateway Protocols (IGP) for internal networks and Exterior Gateway Protocols (EGP) like BGP for internet routing"
+      ]
+    },
+    {
+      "title": "BGP (Border Gateway Protocol)",
+      "content": [
+        "BGP is a path vector routing protocol used for routing between autonomous systems on the internet",
+        "It uses attributes like AS_PATH to determine the best route and prevent routing loops",
+        "It operates over TCP and supports policy-based routing for flexible control of data flow",
+        "It is highly scalable and widely used in internet backbone routing and large enterprise networks"
+      ]
+    },
+    {
+      "title": "Switching Techniques",
+      "content": [
+        "Switching techniques define how data is transmitted across a network and how communication paths are established",
+        "Circuit switching establishes a dedicated path for continuous communication, used in telephone networks",
+        "Packet switching divides data into packets that travel independently and is used in modern internet communication",
+        "Message switching uses store-and-forward method where entire messages are sent and stored before forwarding"
+      ]
+    },
+    {
+      "title": "Circuit vs Packet Switching",
+      "content": [
+        "Circuit switching uses a dedicated path with guaranteed bandwidth and low delay but inefficient resource usage",
+        "Packet switching uses dynamic paths, efficient resource utilization, and supports large-scale networks like the internet",
+        "Packet switching may cause delays and out-of-order delivery, requiring reassembly at the destination",
+        "Circuit switching is suitable for real-time communication while packet switching is suitable for data communication"
+      ]
+    },
+    {
+      "title": "Switching Importance",
+      "content": [
+        "Switching enables efficient data transfer by managing communication paths and network traffic",
+        "It optimizes resource utilization by dynamically allocating bandwidth and avoiding congestion",
+        "It supports different communication types including real-time and non-real-time data transfer",
+        "Switching techniques are essential for scalable and reliable network architecture design"
+      ]
+    }
+  ]
+}

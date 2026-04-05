@@ -17,6 +17,7 @@ import LiveResult from '../pages/liveQuiz/LiveResult.jsx'
 
 import ResourceViewer from '../pages/resources/ResourceViewer.jsx'
 import LeaderboardPage from '../pages/leaderboard/LeaderboardPage.jsx'
+import FlashcardViewer from '../pages/flashcards/FlashcardViewer.jsx'
 
 import ProtectedRoute from '../components/common/ProtectedRoute.jsx'
 import AdminRoute from '../components/common/AdminRoute.jsx'
@@ -147,6 +148,15 @@ const routes = [
     element: (
       <ProtectedRoute>
         <LeaderboardPage />
+      </ProtectedRoute>
+    ),
+  },
+
+  {
+    path: '/flashcards/view/:topicId',
+    element: (
+      <ProtectedRoute>
+        <FlashcardViewer />
       </ProtectedRoute>
     ),
   },

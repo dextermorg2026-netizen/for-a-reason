@@ -121,7 +121,7 @@ const LeaderboardPage = () => {
   };
 
   return (
-    <main className="px-10 pb-12 ">
+    <main className="pb-12 ">
 
       {/* Header Section */}
       <section className="mb-10">

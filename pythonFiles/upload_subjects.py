@@ -16,7 +16,7 @@ import os
 def initialize_firebase():
     """Initialize Firebase Admin SDK"""
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    key_path = os.path.join(BASE_DIR, "court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json")
+    key_path = os.path.join(BASE_DIR, "firebase-key.json")
 
     if not os.path.exists(key_path):
         print(f"❌ Error: Firebase key file not found at {key_path}")

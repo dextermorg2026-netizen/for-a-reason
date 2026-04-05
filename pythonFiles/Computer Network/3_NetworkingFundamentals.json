@@ -1,0 +1,58 @@
+{
+  "slides": [
+    {
+      "title": "Network Cabling & Connectors",
+      "content": [
+        "Network cabling is the physical medium used to transfer data between devices, while connectors link cables to devices for proper signal transmission",
+        "Twisted Pair cables use copper wires twisted together to reduce interference and are commonly used in Ethernet networks with RJ45 connectors",
+        "Fiber Optic cables transmit data as light signals, providing high speed and long-distance communication using connectors like LC and SC",
+        "Coaxial cables use a central conductor with shielding to reduce interference and are used in cable TV and broadband with BNC and F-type connectors"
+      ]
+    },
+    {
+      "title": "Network Devices",
+      "content": [
+        "Network devices are hardware components that enable communication, data transfer, and connectivity between devices in a network",
+        "They help in routing, switching, signal amplification, and maintaining efficient and reliable communication",
+        "Each device operates at different layers of the OSI model and performs specific networking functions",
+        "Examples include routers, switches, hubs, bridges, and repeaters"
+      ]
+    },
+    {
+      "title": "Router, Switch, Hub",
+      "content": [
+        "A router connects multiple networks and routes data packets using IP addresses while providing internet access and security features like NAT",
+        "A switch connects devices within the same network and forwards data using MAC addresses to ensure efficient communication",
+        "A hub is a basic device that broadcasts data to all connected devices without filtering, operating at the physical layer",
+        "Switches are more efficient than hubs as they reduce unnecessary network traffic"
+      ]
+    },
+    {
+      "title": "Bridge & Repeater",
+      "content": [
+        "A bridge connects multiple networks and divides large networks into smaller segments while filtering traffic using MAC addresses",
+        "A repeater amplifies and regenerates signals to extend the transmission distance in a network",
+        "Both devices operate at lower layers of the OSI model to improve network performance and reliability",
+        "They are commonly used to expand networks and maintain signal integrity over long distances"
+      ]
+    },
+    {
+      "title": "Ethernet Frame Structure",
+      "content": [
+        "An Ethernet frame is the basic unit of data transmission in Ethernet networks that encapsulates data for communication",
+        "It includes fields like Preamble and Start Frame Delimiter to synchronize and mark the beginning of the frame",
+        "Source and Destination MAC addresses identify sender and receiver devices within a network",
+        "Payload carries actual data while Frame Check Sequence (FCS) ensures error detection and data integrity"
+      ]
+    },
+    {
+      "title": "Functions of Ethernet Frame",
+      "content": [
+        "Ethernet frames perform data encapsulation by packaging data for transmission across the network",
+        "They ensure accurate delivery using MAC addressing and error detection through CRC in the FCS field",
+        "They help in managing network communication and flow control to prevent congestion",
+        "They support reliable communication across LANs and interconnected networks"
+      ]
+    }
+  ]
+}

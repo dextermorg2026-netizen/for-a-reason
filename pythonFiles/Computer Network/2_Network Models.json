@@ -1,78 +1,61 @@
 {
-    "topics": [
-      {
-        "title": "Network Models",
-        "description": "Network models define how communication happens between devices by dividing networking tasks into layers. The OSI and TCP/IP models are the most important architectural models used to understand computer networks.",
-        "subtopics": [
-          {
-            "title": "Why Layered Network Architecture is Needed",
-            "theory": "Networking systems are extremely complex because they involve many tasks such as data transmission, routing, error control, and application communication. To manage this complexity, networking is divided into multiple layers where each layer performs a specific function. Each layer communicates with the layer above and below it using well-defined interfaces. This layered approach simplifies network design, allows interoperability between different vendors, and enables easier troubleshooting and upgrades."
-          },
-          {
-            "title": "Encapsulation in Networking",
-            "theory": "Encapsulation is the process of wrapping data with protocol information at each layer of the network model before transmission. When an application sends data, the application layer passes it to the transport layer where headers such as port numbers are added. The network layer then adds IP addressing information. The data link layer adds MAC addresses and frame information. Finally the physical layer transmits the bits over the medium. At the receiver side this process is reversed and called decapsulation."
-          },
-          {
-            "title": "Overview of OSI Model",
-            "theory": "The OSI (Open Systems Interconnection) model was developed by the International Organization for Standardization to standardize communication between different computer systems. It divides networking functions into seven layers where each layer performs a specific role in data communication. These layers help engineers understand how data flows across networks and how protocols interact."
-          },
-          {
-            "title": "Physical Layer (Layer 1)",
-            "theory": "The physical layer is responsible for transmitting raw bits over a physical communication medium such as copper cables, fiber optics, or wireless signals. It defines electrical signals, voltage levels, transmission speed, connectors, and cable types. Devices operating at this layer include hubs, repeaters, and network cables."
-          },
-          {
-            "title": "Data Link Layer (Layer 2)",
-            "theory": "The data link layer ensures reliable communication between directly connected devices. It converts raw bits from the physical layer into frames and handles error detection using mechanisms such as CRC. It also manages MAC addressing and controls access to the transmission medium. Devices such as switches and network interface cards operate at this layer."
-          },
-          {
-            "title": "Network Layer (Layer 3)",
-            "theory": "The network layer is responsible for routing packets from the source device to the destination device across multiple networks. It determines the best path for data transmission using routing algorithms. Logical addressing such as IP addresses is used at this layer. Routers operate primarily at this layer."
-          },
-          {
-            "title": "Transport Layer (Layer 4)",
-            "theory": "The transport layer provides end-to-end communication between applications running on different devices. It ensures reliable data transfer using mechanisms like acknowledgments, sequencing, retransmission, and flow control. Two important protocols operating at this layer are TCP and UDP."
-          },
-          {
-            "title": "Session Layer (Layer 5)",
-            "theory": "The session layer manages communication sessions between applications. It establishes, maintains, and terminates connections between two communicating systems. It also provides synchronization and checkpoint mechanisms during long data transfers."
-          },
-          {
-            "title": "Presentation Layer (Layer 6)",
-            "theory": "The presentation layer is responsible for data translation, encryption, and compression. It ensures that data sent by the application layer of one system can be correctly interpreted by the application layer of another system. Examples include SSL/TLS encryption and data format conversions."
-          },
-          {
-            "title": "Application Layer (Layer 7)",
-            "theory": "The application layer is the top layer of the OSI model and provides network services directly to end-user applications. Protocols such as HTTP, FTP, SMTP, DNS, and Telnet operate at this layer. It allows applications like browsers, email clients, and file transfer systems to communicate over the network."
-          },
-          {
-            "title": "Overview of TCP/IP Model",
-            "theory": "The TCP/IP model is the architecture used by the Internet and was developed by DARPA. Unlike the OSI model which has seven layers, the TCP/IP model consists of four layers. These layers are Application, Transport, Internet, and Network Access. It is more practical and directly implemented in real networking systems."
-          },
-          {
-            "title": "Application Layer (TCP/IP)",
-            "theory": "The application layer in TCP/IP combines the functions of the OSI application, presentation, and session layers. It provides services such as web communication, email transmission, and file transfer. Common protocols include HTTP, HTTPS, FTP, SMTP, DNS, and SSH."
-          },
-          {
-            "title": "Transport Layer (TCP/IP)",
-            "theory": "The transport layer ensures end-to-end communication between hosts. It uses protocols like TCP and UDP. TCP provides reliable communication using acknowledgments and retransmissions while UDP provides faster but unreliable communication."
-          },
-          {
-            "title": "Internet Layer",
-            "theory": "The internet layer is responsible for logical addressing and packet routing. It determines how packets travel across multiple networks to reach the destination. The most important protocol at this layer is IP (Internet Protocol). Other supporting protocols include ICMP and ARP."
-          },
-          {
-            "title": "Network Access Layer",
-            "theory": "The network access layer handles communication between the host and the physical network. It includes protocols and hardware used for transmitting data over the physical medium. Technologies such as Ethernet and Wi-Fi operate at this layer."
-          },
-          {
-            "title": "Key Differences Between OSI and TCP/IP",
-            "theory": "The OSI model has seven layers while the TCP/IP model has four layers. OSI is mainly a conceptual reference model used for understanding networking while TCP/IP is a practical implementation used in real networks. In the OSI model, session and presentation layers are separate while TCP/IP merges them into the application layer. OSI strictly separates services, interfaces, and protocols whereas TCP/IP focuses more on protocol implementation."
-          },
-          {
-            "title": "Why TCP/IP Became the Standard",
-            "theory": "TCP/IP became the standard networking architecture because it was implemented earlier and used by the ARPANET and later the Internet. It was simpler, more flexible, and widely adopted by operating systems and networking equipment. As the internet expanded globally, TCP/IP became the universal protocol suite for networking."
-          }
-        ]
-      }
-    ]
-  }
+  "slides": [
+    {
+      "title": "OSI Model",
+      "content": [
+        "The OSI (Open Systems Interconnection) Model is a conceptual framework that standardizes network communication into seven layers",
+        "It ensures interoperability between different systems and simplifies network design and troubleshooting",
+        "Each layer performs a specific function from user interaction to physical data transmission",
+        "It is mainly used as a reference model for understanding network architecture"
+      ]
+    },
+    {
+      "title": "OSI Layers Overview",
+      "content": [
+        "Application Layer provides user services like HTTP, FTP, and email",
+        "Presentation Layer handles data formatting, encryption, and compression",
+        "Session Layer manages communication sessions and synchronization",
+        "Transport Layer ensures reliable delivery using TCP or UDP",
+        "Network Layer handles routing and logical addressing using IP",
+        "Data Link Layer manages error detection and MAC addressing",
+        "Physical Layer transmits raw bits using cables or wireless signals"
+      ]
+    },
+    {
+      "title": "TCP/IP Model",
+      "content": [
+        "The TCP/IP Model is a practical networking model used for real-world internet communication",
+        "It consists of four layers designed for efficient and flexible data transmission",
+        "It ensures communication between devices using standardized protocols like TCP and IP",
+        "It is widely used in modern networking systems including the internet"
+      ]
+    },
+    {
+      "title": "TCP/IP Layers",
+      "content": [
+        "Application Layer provides services like web browsing using HTTP, email using SMTP, and file transfer using FTP",
+        "Transport Layer ensures reliable or fast delivery using TCP (reliable) and UDP (connectionless)",
+        "Internet Layer handles routing and addressing using IP addresses",
+        "Network Interface Layer manages physical transmission using Ethernet and Wi-Fi"
+      ]
+    },
+    {
+      "title": "TCP/IP Communication Process",
+      "content": [
+        "Application Layer prepares data such as email or web request",
+        "Transport Layer divides data into packets and ensures reliability using TCP or UDP",
+        "Internet Layer assigns IP addresses and routes packets across networks",
+        "Network Interface Layer converts data into signals and transmits it through physical media"
+      ]
+    },
+    {
+      "title": "OSI vs TCP/IP Model",
+      "content": [
+        "OSI Model has seven layers while TCP/IP Model has four layers",
+        "Presentation and Session layers in OSI are combined into the Application layer in TCP/IP",
+        "OSI is a conceptual and theoretical model while TCP/IP is practical and widely implemented",
+        "Both models use a layered approach to standardize communication and simplify networking"
+      ]
+    }
+  ]
+}

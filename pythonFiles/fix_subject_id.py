@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 # 🔑 Your firebase key file
-cred = credentials.Certificate("court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json")
+cred = credentials.Certificate("firebase-key.json")
 
 firebase_admin.initialize_app(cred)
 

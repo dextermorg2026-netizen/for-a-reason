@@ -1,0 +1,58 @@
+{
+  "slides": [
+    {
+      "title": "Ethernet & Wi-Fi Standards",
+      "content": [
+        "Ethernet (IEEE 802.3) is a wired networking technology used in LANs that provides high-speed and reliable communication using MAC addresses",
+        "It operates at the data link and physical layers and uses Ethernet frames and CSMA/CD for data transmission",
+        "Wi-Fi (IEEE 802.11) is a wireless networking technology that uses radio waves to connect devices without physical cables",
+        "Wi-Fi operates on frequencies like 2.4 GHz and 5 GHz and provides mobility and flexibility for modern networks"
+      ]
+    },
+    {
+      "title": "Ethernet Standards Evolution",
+      "content": [
+        "Ethernet standards define speeds and transmission media such as 10BASE-T (10 Mbps), 100BASE-TX (100 Mbps), and 1000BASE-T (1 Gbps)",
+        "Modern Ethernet supports high speeds like 10 Gbps, 40 Gbps, and 100 Gbps for data centers and enterprise networks",
+        "Wireless standards like 802.11n, 802.11ac, and 802.11ax (Wi-Fi 6) provide increasing speed and efficiency",
+        "These standards ensure compatibility and scalability across different networking devices and environments"
+      ]
+    },
+    {
+      "title": "Ethernet Switching",
+      "content": [
+        "Ethernet switching is a technology that connects devices in a LAN and forwards data frames using MAC addresses",
+        "Switches maintain MAC address tables to send data only to the intended device, reducing unnecessary traffic",
+        "They support unicast, broadcast, and multicast communication for efficient data transfer",
+        "Switching improves network performance, security, and scalability compared to hubs"
+      ]
+    },
+    {
+      "title": "VLAN (Virtual LAN)",
+      "content": [
+        "A VLAN is a logical grouping of devices in a network that creates separate broadcast domains within the same physical network",
+        "It uses IEEE 802.1Q tagging to identify VLAN-specific traffic in Ethernet frames",
+        "VLANs improve security by isolating network traffic and enhance performance by reducing broadcast traffic",
+        "Inter-VLAN communication requires routing using a router or Layer 3 switch"
+      ]
+    },
+    {
+      "title": "Data Link Protocols",
+      "content": [
+        "Data link protocols operate at Layer 2 of the OSI model and ensure reliable communication between directly connected devices",
+        "PPP (Point-to-Point Protocol) provides encapsulation, authentication, and error detection for direct communication links",
+        "HDLC (High-Level Data Link Control) is a bit-oriented protocol that ensures reliable data transfer with framing and flow control",
+        "These protocols handle error detection using CRC and manage data transmission over physical links"
+      ]
+    },
+    {
+      "title": "Spanning Tree Protocol (STP)",
+      "content": [
+        "STP (Spanning Tree Protocol) is a network protocol that prevents loops in Ethernet networks by creating a loop-free topology",
+        "It elects a root bridge and assigns port roles like root port, designated port, and blocked port",
+        "It uses Bridge Protocol Data Units (BPDUs) to exchange topology information and detect network changes",
+        "STP ensures network stability, prevents broadcast storms, and provides redundancy for failover"
+      ]
+    }
+  ]
+}

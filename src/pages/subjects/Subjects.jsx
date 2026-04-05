@@ -90,7 +90,7 @@ const Subjects = () => {
   const firstName = currentUser?.displayName?.split(" ")[0] || "OPERATOR";
 
   return (
-    <main className="px-10 pb-12 ">
+    <main className="pb-12">
       {/* Hero Greeting Section */}
       <section className="mb-12">
         <div className="flex items-end justify-between">
@@ -190,12 +190,20 @@ const Subjects = () => {
                         <div className="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-headline">TCP</div>
                         <div className="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-headline">DNS</div>
                       </div>
-                      <button 
-                        onClick={() => navigate(`/subjects/${continueSubject.id}`)}
-                        className="flex items-center gap-2 px-4 py-2 bg-secondary text-on-secondary font-headline font-semibold text-xs tracking-wider rounded-lg hover:brightness-110 transition-all active:scale-95"
-                      >
-                        DEPLOY <span className="material-symbols-outlined text-sm">rocket_launch</span>
-                      </button>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); navigate(`/subjects/${continueSubject.id}`); }}
+                          className="flex items-center gap-2 px-4 py-2 bg-secondary text-on-secondary font-headline font-semibold text-xs tracking-wider rounded-lg hover:brightness-110 transition-all active:scale-95"
+                        >
+                          DEPLOY <span className="material-symbols-outlined text-sm">rocket_launch</span>
+                        </button>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); navigate(`/subjects/${continueSubject.id}`, { state: { view: 'flashcards' } }); }}
+                          className="flex items-center gap-2 px-4 py-2 bg-surface-container-high text-primary border border-primary/20 font-headline font-semibold text-xs tracking-wider rounded-lg hover:bg-primary/10 transition-all active:scale-95"
+                        >
+                          CARDS <span className="material-symbols-outlined text-sm">style</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -248,12 +256,20 @@ const Subjects = () => {
                           <div className="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-headline">SQL</div>
                           <div className="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-headline">CAP</div>
                         </div>
+                      <div className="flex gap-2">
                         <button 
-                          onClick={() => navigate(`/subjects/${otherSubject.id}`)}
+                          onClick={(e) => { e.stopPropagation(); navigate(`/subjects/${otherSubject.id}`); }}
                           className="flex items-center gap-2 px-4 py-2 border border-primary text-primary hover:bg-primary/10 font-headline font-semibold text-xs tracking-wider rounded-lg transition-all active:scale-95"
                         >
-                          LAUNCH MISSION <span className="material-symbols-outlined text-sm">bolt</span>
+                          LAUNCH <span className="material-symbols-outlined text-sm">bolt</span>
                         </button>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); navigate(`/subjects/${otherSubject.id}`, { state: { view: 'flashcards' } }); }}
+                          className="flex items-center gap-2 px-4 py-2 bg-surface-container-high text-secondary border border-secondary/20 font-headline font-semibold text-xs tracking-wider rounded-lg hover:bg-secondary/10 transition-all active:scale-95"
+                        >
+                          CARDS <span className="material-symbols-outlined text-sm">style</span>
+                        </button>
+                      </div>
                       </div>
                     </div>
                   </div>

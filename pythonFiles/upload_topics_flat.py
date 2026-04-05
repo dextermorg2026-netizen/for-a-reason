@@ -5,7 +5,7 @@ import os
 
 # Paths
 BASE_DIR = os.path.dirname(__file__)
-cred_path = os.path.join(BASE_DIR, "court-side-6c75a-firebase-adminsdk-fbsvc-a3e3c08ca9.json")
+cred_path = os.path.join(BASE_DIR, "firebase-key.json")
 json_path = os.path.join(BASE_DIR, "cn_topics.json")
 
 # Initialize Firebase

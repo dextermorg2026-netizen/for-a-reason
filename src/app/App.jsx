@@ -176,7 +176,7 @@ function AppLayout() {
       </aside>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="md:ml-64 pt-20 pb-20 md:pb-6 px-6 lg:px-10 min-h-screen bg-background">
+      <main className="md:ml-64 pt-20 pb-20 md:pb-6 px-1 lg:px-4 min-h-screen bg-background">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

@@ -217,70 +217,115 @@ const Quiz = () => {
 
   /* ================= UI ================= */
 
+  /* ================= UI ================= */
+
   return (
-    <div>
-      <h1 className="page-title">Quiz</h1>
+    <main className="max-w-4xl mx-auto pb-20">
+      {/* Header Info */}
+      <section className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-primary pulse-emerald"></span>
+            <span className="font-headline text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Operational_Assessment :: Active</span>
+          </div>
+          <h1 className="text-3xl font-headline font-bold text-on-surface tracking-tighter uppercase">
+            {subjectId} <span className="text-primary opacity-50">//</span> {level}
+          </h1>
+        </div>
 
-      <div className="page-card" style={{ marginTop: "2rem" }}>
-        <div style={{ width: "80px", marginBottom: "20px" }}>
-          <CircularProgressbar
-            value={(timeLeft / QUESTION_TIME) * 100}
-            text={`${timeLeft}s`}
-            styles={buildStyles({
-              pathColor: timeLeft <= 5 ? "#ef4444" : "#6366f1",
-              textColor: "#fff",
-              trailColor: "rgba(255,255,255,0.1)",
+        <div className="flex items-center gap-6 bg-surface-container-low asymmetric-card hud-border px-6 py-3">
+           <div className="flex flex-col items-end">
+              <span className="font-headline text-[8px] font-semibold text-slate-600 uppercase tracking-widest">Chronometer</span>
+              <span className={`font-headline text-2xl font-bold tracking-tighter ${timeLeft <= 5 ? 'text-error animate-pulse' : 'text-on-surface'}`}>
+                00:{String(timeLeft).padStart(2, "0")}
+              </span>
+           </div>
+           <div className="w-[1px] h-8 bg-white/10"></div>
+           <div className="flex flex-col items-end">
+              <span className="font-headline text-[8px] font-semibold text-slate-600 uppercase tracking-widest">Progress</span>
+              <span className="font-headline text-2xl font-bold text-on-surface tracking-tighter">
+                {String(currentIndex + 1).padStart(2, "0")}<span className="text-xs text-slate-600">/{questions.length}</span>
+              </span>
+           </div>
+        </div>
+      </section>
+
+      {/* Main Question Card */}
+      <section className="bg-[#131313] asymmetric-card hud-border p-8 md:p-14 mb-10 relative overflow-hidden group">
+         <div className="absolute top-0 left-0 w-full h-1 bg-white/5 overflow-hidden">
+            <div 
+              className={`h-full transition-all duration-1000 ${timeLeft <= 5 ? 'bg-error' : 'bg-primary'}`}
+              style={{ width: `${(timeLeft / QUESTION_TIME) * 100}%` }}
+            ></div>
+         </div>
+
+         <div className="mb-12">
+            <span className="font-headline text-[10px] font-bold text-primary uppercase tracking-widest mb-4 block">Question_Payload_0{currentIndex + 1}</span>
+            <h2 className="text-2xl md:text-3xl font-headline font-semibold text-on-surface uppercase tracking-tight leading-tight">
+              {currentQuestion.question}
+            </h2>
+         </div>
+
+         <div className="grid grid-cols-1 gap-4">
+            {(currentQuestion.options || []).map((option, index) => {
+              const isSelected = selectedAnswer === index;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setSelectedAnswer(index)}
+                  className={`group relative p-6 text-left border transition-all duration-300 asymmetric-card-small ${
+                    isSelected 
+                      ? "bg-primary/20 border-primary shadow-[0_0_20px_rgba(183,109,255,0.2)]" 
+                      : "bg-surface-container-lowest border-white/5 hover:border-white/20"
+                  }`}
+                >
+                  <div className="flex items-center gap-6">
+                    <div className={`w-10 h-10 rounded border flex items-center justify-center font-headline text-xs font-bold transition-all ${
+                      isSelected 
+                        ? "bg-primary text-on-primary border-primary" 
+                        : "bg-surface-container-low border-white/10 text-slate-500 group-hover:border-primary/50 group-hover:text-primary"
+                    }`}>
+                      {String.fromCharCode(65 + index)}
+                    </div>
+                    <span className={`font-body text-sm md:text-base uppercase tracking-wider ${isSelected ? 'text-on-surface font-semibold' : 'text-slate-400 group-hover:text-on-surface'}`}>
+                      {option}
+                    </span>
+                  </div>
+                </button>
+              );
             })}
-          />
-        </div>
+         </div>
 
-        <span className="badge">
-          Question {currentIndex + 1} of {questions.length}
-        </span>
-
-        <h3 style={{ marginTop: "20px" }}>
-          {currentQuestion.question}
-        </h3>
-
-        <div style={{ marginTop: "1rem" }}>
-          {(currentQuestion.options || []).map((option, index) => (
-            <div
-              key={index}
-              onClick={() => setSelectedAnswer(index)}
-              style={{
-                padding: "10px",
-                border:
-                  selectedAnswer === index
-                    ? "2px solid #6366f1"
-                    : "1px solid #ddd",
-                borderRadius: "6px",
-                marginBottom: "8px",
-                cursor: "pointer",
-                background:
-                  selectedAnswer === index ? "#eef2ff" : "white",
-              }}
+         <div className="mt-12 flex justify-end">
+            <button
+              onClick={saveAnswerAndNext}
+              disabled={selectedAnswer === null || isSubmitting}
+              className="px-12 py-5 bg-primary text-on-primary font-headline font-bold text-xs uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_20px_rgba(183,109,255,0.3)] hover:scale-[1.05] transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              {option}
-            </div>
-          ))}
-        </div>
+              {isSubmitting
+                ? "Synchronizing..."
+                : currentIndex === questions.length - 1
+                ? "Finalize Mission"
+                : "Next Protocol"}
+            </button>
+         </div>
+      </section>
 
-        <div style={{ marginTop: "1.5rem" }}>
-          <button
-            className="btn-primary"
-            onClick={saveAnswerAndNext}
-            disabled={selectedAnswer === null || isSubmitting}
-          >
-            {isSubmitting
-              ? "Submitting..."
-              : currentIndex === questions.length - 1
-              ? "Finish Quiz"
-              : "Next"}
-          </button>
-        </div>
+      {/* Footer Status */}
+      <div className="flex items-center justify-between px-4">
+         <div className="flex items-center gap-4">
+            <div className="flex flex-col">
+               <span className="font-headline text-[8px] font-semibold text-slate-700 uppercase tracking-widest">Auth_Token</span>
+               <span className="font-headline text-[10px] text-slate-500 font-semibold uppercase tracking-tighter truncate w-32">{currentUser?.uid}</span>
+            </div>
+         </div>
+         <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-sm text-slate-700">encryption</span>
+            <span className="font-headline text-[8px] font-semibold text-slate-700 uppercase tracking-widest">End-to-End Encrypted</span>
+         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
-export default Quiz;
+export default Quiz;

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>NEON_PROTOCOL // SUBJECTS_HUD</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary": "#003640",
+                        "on-error": "#690005",
+                        "primary": "#ddb7ff",
+                        "on-primary-fixed": "#2c0051",
+                        "surface-variant": "#353534",
+                        "on-tertiary-container": "#00311f",
+                        "surface-bright": "#393939",
+                        "secondary": "#4cd7f6",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "secondary-fixed": "#acedff",
+                        "surface-tint": "#ddb7ff",
+                        "on-tertiary": "#003824",
+                        "on-primary-container": "#400071",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-secondary-container": "#00424e",
+                        "surface": "#131313",
+                        "surface-container-lowest": "#0e0e0e",
+                        "error": "#ffb4ab",
+                        "primary-container": "#b76dff",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed": "#001f26",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-container": "#00a572",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1c1b1b",
+                        "background": "#131313",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-background": "#e5e2e1",
+                        "outline": "#988d9f",
+                        "tertiary-fixed": "#6ffbbe",
+                        "surface-container": "#201f1f",
+                        "on-primary": "#490080",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-highest": "#353534",
+                        "on-surface-variant": "#cfc2d6",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary": "#4edea3",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-primary": "#842bd2",
+                        "secondary-container": "#03b5d3",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "on-error-container": "#ffdad6",
+                        "outline-variant": "#4d4354"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-panel {
+            background: rgba(53, 53, 52, 0.6);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(77, 67, 84, 0.2);
+        }
+
+        .asymmetric-card {
+            border-top-left-radius: 0.75rem;
+            /* xl */
+            border-bottom-right-radius: 0.125rem;
+            /* sm */
+        }
+
+        .glow-active {
+            box-shadow: 0px 0px 15px rgba(168, 85, 247, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+
+        .font-tech {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+    <!-- SideNavBar -->
+    <aside class="fixed left-0 top-0 h-full flex flex-col h-screen w-64 border-r border-white/5 bg-[#131313] z-50">
+        <div class="p-6">
+            <div
+                class="text-xl font-bold text-purple-500 tracking-tighter font-['Space_Grotesk'] uppercase tracking-widest text-sm mb-1">
+                NEON_PROTOCOL</div>
+            <div class="text-[10px] text-slate-500 font-tech tracking-[0.2em] uppercase">OPERATOR: ACTIVE</div>
+        </div>
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <!-- Active: Subjects -->
+            <a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-sm text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-lg">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-sm text-cyan-400 bg-purple-500/10 border-l-2 border-cyan-400 transition-all duration-100"
+                href="#">
+                <span class="material-symbols-outlined text-lg">auto_stories</span>
+                <span>Subjects</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-sm text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-lg">quiz</span>
+                <span>Quizzes</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-sm text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-lg">leaderboard</span>
+                <span>Leaderboard</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-sm text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-lg">sensors</span>
+                <span>Live Quiz</span>
+            </a>
+        </nav>
+        <div class="p-6 mt-auto">
+            <button
+                class="w-full py-3 bg-primary text-on-primary font-tech font-bold text-xs tracking-widest rounded-lg transition-transform active:scale-95">
+                INITIALIZE SESSION
+            </button>
+        </div>
+    </aside>
+    <!-- TopNavBar -->
+    <header
+        class="fixed top-0 right-0 left-64 flex items-center justify-between px-8 z-40 bg-[#131313]/80 backdrop-blur-xl w-full h-16 border-b border-white/5"
+        style="box-shadow: 0px 0px 15px rgba(168, 85, 247, 0.1);">
+        <div class="flex items-center flex-1">
+            <div class="relative w-full max-w-md">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+                <input
+                    class="bg-surface-container-lowest border-none text-xs font-tech text-on-surface w-full pl-10 pr-4 py-2 rounded focus:ring-1 focus:ring-secondary/50 placeholder:text-slate-600"
+                    placeholder="QUERY_SUBJECT_DATABASE..." type="text" />
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4 text-slate-400">
+                <button class="material-symbols-outlined hover:text-purple-400 transition-colors">notifications</button>
+                <button class="material-symbols-outlined hover:text-purple-400 transition-colors">settings</button>
+                <button class="material-symbols-outlined hover:text-purple-400 transition-colors">terminal</button>
+            </div>
+            <div class="flex items-center gap-3 pl-6 border-l border-white/10">
+                <div class="text-right">
+                    <div class="text-xs font-bold font-tech text-on-surface">Vybhavi</div>
+                    <div class="text-[10px] text-tertiary font-tech">LEVEL_04</div>
+                </div>
+                <img alt="Operator Avatar" class="w-8 h-8 rounded-full border border-secondary/30"
+                    data-alt="Cyberpunk female operator avatar with neon purple highlights and tactical interface elements in background, cinematic lighting"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtNbtKXgV7QYuvJGKtK0G4W1NeVruBBR2cu64sWMdm0CGbzzkzy15KBO1uDr42esN--Uqa5clUq7vH3OlcZNk7G4tvTfJFhYv0vdCCP8XVBPfl6mWA7ZQ6kd5vY7E09gAtbWUyj_fSI0qVOPv2sKSQ4C7WS8ft4-saZ5jcIgO0eWnxiLj21hsMFGPHn668FiHW5I6Q26f86GEZchDLB7uq8Ulq0I1I-VR4UwOgFjVVF63rLODrkAyZ0_sjXwKY86Up7vODayCHESM" />
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+        <!-- Hero Greeting Section -->
+        <section class="mb-12">
+            <div class="flex items-end justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold font-tech text-on-surface tracking-tighter mb-2">Welcome back, Vybhavi
+                    </h1>
+                    <p class="text-slate-400 font-body max-w-2xl">Your cognitive synchronization is at 98%. Continuing
+                        your journey through the architectural foundations of the digital frontier.</p>
+                </div>
+                <div class="hidden lg:flex items-center gap-4">
+                    <div class="px-4 py-2 bg-surface-container-low border-r-2 border-secondary asymmetric-card">
+                        <div class="text-[10px] font-tech text-secondary uppercase tracking-widest">Active Threads</div>
+                        <div class="text-lg font-bold font-tech">02_UNITS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Primary Objectives: Active Subjects -->
+        <section class="mb-16">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                <h2 class="text-xs font-tech font-bold uppercase tracking-[0.3em] text-slate-400">Current_Objectives
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Subject Card: Computer Network -->
+                <div
+                    class="bg-surface-container-low asymmetric-card overflow-hidden group hover:bg-surface-container-high transition-all duration-300 border border-white/5">
+                    <div class="relative h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
+                            data-alt="Abstract visualization of high-speed fiber optic data cables glowing blue and purple in a dark server room setting"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX6IITDzcN2NHKCRbJGIE8npik9KQMQU8N5p8_eeDLvtj56G0DaQvsed1O2Ry7wcaJxUzIDARqGVKJU4kCl_F1qR4Z8L2qnOaH4eaeVOoLfEK5SLTTL88o3xluqT0miMEvVNGbxShtNQukj73hdwMsUnUX0FAH61pEpM9X-QnIZCFJZEp_LrnwQwxJctbAr5651PZRw3JeCzgeqJArKtvWTUvIDbo7ZuNPyjyGf9nzt44v4jSdzqeZTGahyQHELzTkY-OXWAM6DNw" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <span
+                                class="px-2 py-0.5 bg-secondary/20 text-secondary text-[10px] font-tech font-bold rounded-sm border border-secondary/30">CLASS_ALPHA</span>
+                            <h3 class="text-2xl font-bold font-tech text-white mt-1">Computer Network</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-tech text-slate-500 uppercase">Synchronization_Progress</span>
+                            <span class="text-[10px] font-tech text-secondary">0%</span>
+                        </div>
+                        <div class="w-full h-1 bg-surface-container-lowest rounded-full overflow-hidden mb-6">
+                            <div class="w-0 h-full bg-secondary"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-tech">
+                                    IP</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-tech">
+                                    TCP</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-tech">
+                                    DNS</div>
+                            </div>
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 bg-secondary text-on-secondary font-tech font-bold text-xs tracking-wider rounded-lg hover:brightness-110 transition-all active:scale-95">
+                                DEPLOY <span class="material-symbols-outlined text-sm">rocket_launch</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subject Card: System Design -->
+                <div
+                    class="bg-surface-container-low asymmetric-card overflow-hidden group hover:bg-surface-container-high transition-all duration-300 border border-white/5">
+                    <div class="relative h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
+                            data-alt="Conceptual 3D architectural blueprint of a microservices ecosystem with glowing interconnected nodes in a void"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCMiMGnnPVVuterg-bbkb66RdvtqZFlsJIEwP-M0D3Z1D0f3fA92_f8lZsaVT6lsgbAl6wl3K2NwiceANH9RKbvag9AakmfmDz4zZdQqpBr0TTJCfo_UF7c7eYPqioE-nouF1-5l-rjcLKqXdgo_MD-yRss7jovpgQbPg2NbwxkTGNO30Kvo-XwONLSPw6SxZjT1hqCistC0t0e9UbVn_qtmyYrYskg53qtwN3JdKTX4kZySfCe5fUqgDfKbEkwcLOrieTKBzBZjY" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <span
+                                class="px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-tech font-bold rounded-sm border border-primary/30">CLASS_OMEGA</span>
+                            <h3 class="text-2xl font-bold font-tech text-white mt-1">SystemDesign</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-tech text-slate-500 uppercase">Synchronization_Progress</span>
+                            <span class="text-[10px] font-tech text-primary">0%</span>
+                        </div>
+                        <div class="w-full h-1 bg-surface-container-lowest rounded-full overflow-hidden mb-6">
+                            <div class="w-0 h-full bg-primary"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-tech">
+                                    LOB</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-tech">
+                                    SQL</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border border-surface bg-surface-container-highest flex items-center justify-center text-[8px] font-tech">
+                                    CAP</div>
+                            </div>
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 border border-primary text-primary hover:bg-primary/10 font-tech font-bold text-xs tracking-wider rounded-lg transition-all active:scale-95">
+                                LAUNCH MISSION <span class="material-symbols-outlined text-sm">bolt</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Intel Repository -->
+        <section>
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-slate-500">folder_open</span>
+                    <h2 class="text-xs font-tech font-bold uppercase tracking-[0.3em] text-slate-400">Intel_Repository
+                    </h2>
+                </div>
+                <button
+                    class="text-[10px] font-tech text-slate-500 hover:text-white transition-colors underline underline-offset-4">ACCESS_ALL_DATA</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Repository Item 1 -->
+                <div
+                    class="bg-surface-container-lowest p-5 border border-white/5 rounded-md hover:border-secondary/30 transition-all cursor-pointer group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 bg-secondary/10 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined">database</span>
+                        </div>
+                        <span class="text-[8px] font-tech text-slate-600">DB_v2.0</span>
+                    </div>
+                    <h4
+                        class="font-tech font-bold text-sm text-on-surface group-hover:text-secondary transition-colors mb-1">
+                        Database Sharding</h4>
+                    <p class="text-[10px] text-slate-500 font-body mb-4">Horizontal scaling strategies for distributed
+                        datasets.</p>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Archived</span>
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Scale</span>
+                    </div>
+                </div>
+                <!-- Repository Item 2 -->
+                <div
+                    class="bg-surface-container-lowest p-5 border border-white/5 rounded-md hover:border-primary/30 transition-all cursor-pointer group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">security</span>
+                        </div>
+                        <span class="text-[8px] font-tech text-slate-600">SEC_v4.1</span>
+                    </div>
+                    <h4
+                        class="font-tech font-bold text-sm text-on-surface group-hover:text-primary transition-colors mb-1">
+                        OAuth Protocols</h4>
+                    <p class="text-[10px] text-slate-500 font-body mb-4">Deep dive into stateless authorization
+                        mechanisms.</p>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Security</span>
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Auth</span>
+                    </div>
+                </div>
+                <!-- Repository Item 3 -->
+                <div
+                    class="bg-surface-container-lowest p-5 border border-white/5 rounded-md hover:border-tertiary/30 transition-all cursor-pointer group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 bg-tertiary/10 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined">memory</span>
+                        </div>
+                        <span class="text-[8px] font-tech text-slate-600">HW_v1.0</span>
+                    </div>
+                    <h4
+                        class="font-tech font-bold text-sm text-on-surface group-hover:text-tertiary transition-colors mb-1">
+                        Caching Layers</h4>
+                    <p class="text-[10px] text-slate-500 font-body mb-4">Optimizing latency with multi-tier memory
+                        storage.</p>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Perf</span>
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Infra</span>
+                    </div>
+                </div>
+                <!-- Repository Item 4 -->
+                <div
+                    class="bg-surface-container-lowest p-5 border border-white/5 rounded-md hover:border-secondary/30 transition-all cursor-pointer group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 bg-secondary/10 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined">hub</span>
+                        </div>
+                        <span class="text-[8px] font-tech text-slate-600">NET_v3.2</span>
+                    </div>
+                    <h4
+                        class="font-tech font-bold text-sm text-on-surface group-hover:text-secondary transition-colors mb-1">
+                        CDN Topology</h4>
+                    <p class="text-[10px] text-slate-500 font-body mb-4">Global content delivery network architecture
+                        patterns.</p>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Network</span>
+                        <span
+                            class="px-2 py-0.5 bg-surface-container-high rounded text-[8px] font-tech text-slate-400 uppercase">Global</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Tactical HUD Overlay Elements -->
+    <div class="fixed bottom-6 right-6 flex flex-col gap-3 pointer-events-none">
+        <div
+            class="bg-surface-container-low/80 backdrop-blur-md px-4 py-2 border-l border-tertiary rounded-sm flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            <span class="text-[9px] font-tech text-tertiary tracking-widest uppercase">Stream: Active</span>
+        </div>
+        <div
+            class="bg-surface-container-low/80 backdrop-blur-md px-4 py-2 border-l border-primary rounded-sm flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+            <span class="text-[9px] font-tech text-primary tracking-widest uppercase">System: Stable</span>
+        </div>
+    </div>
+</body>
+
+</html>

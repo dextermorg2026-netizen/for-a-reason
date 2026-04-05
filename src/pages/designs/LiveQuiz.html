@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LIVE_SIMULATION - Tactical Quiz Interface</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#b76dff",
+                        "on-tertiary": "#003824",
+                        "surface-container-highest": "#353534",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#cfc2d6",
+                        "on-background": "#e5e2e1",
+                        "tertiary-container": "#00a572",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "secondary-fixed": "#acedff",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-surface": "#e5e2e1",
+                        "surface": "#131313",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-tint": "#ddb7ff",
+                        "surface-bright": "#393939",
+                        "outline": "#988d9f",
+                        "on-primary": "#490080",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "on-secondary-container": "#00424e",
+                        "on-secondary": "#003640",
+                        "inverse-on-surface": "#313030",
+                        "surface-dim": "#131313",
+                        "primary": "#ddb7ff",
+                        "background": "#131313",
+                        "tertiary-fixed": "#6ffbbe",
+                        "secondary-container": "#03b5d3",
+                        "outline-variant": "#4d4354",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-container": "#00311f",
+                        "tertiary": "#4edea3",
+                        "on-primary-fixed": "#2c0051",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#4cd7f6",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#002113",
+                        "on-secondary-fixed": "#001f26",
+                        "on-primary-container": "#400071",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "inverse-primary": "#842bd2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .asymmetric-card {
+            border-top-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.125rem;
+        }
+        .hud-border {
+            border: 1px solid rgba(152, 141, 159, 0.2);
+        }
+        .pulse-emerald {
+            box-shadow: 0 0 8px rgba(78, 222, 163, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- SideNavBar Shell -->
+    <aside class="fixed left-0 top-0 h-full flex flex-col z-40 h-screen w-64 border-r border-purple-500/10 rounded-tr-xl bg-[#131313]/80 backdrop-blur-xl shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+        <div class="p-6 bg-gradient-to-b from-purple-500/5 to-transparent">
+            <div class="text-2xl font-bold tracking-tighter text-purple-500 italic font-headline">NEON PROTOCOL</div>
+            <div class="flex items-center mt-4 gap-3">
+                <div class="w-10 h-10 rounded-lg overflow-hidden border border-primary/20">
+                    <img alt="User Operational Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrjcxC_VJRloxinu-ZqtJY-aY3hGPshZIg6OYAQIOFLgPddA7GscCwgHjF4kYQjdEC7RY-F4rbPD3s0vAG7uLjFTdd1USzfxmHWdCdXnnRnqm5uId1qKW4mOqfmCLk8q0golZs6FSSfqNwleiUo-R-ofazYMhqQ2kkrgzMKDW-vrzlKXHd3fKjxLzJSsMltya_0-2rXEw9tvxgOPLXH-xZkmMlqIDoupYfJyc6bgdemBxJBmP4-I_BSGBF5HzcJJKUKYtFzYjZE4w" />
+                </div>
+                <div>
+                    <div class="font-headline uppercase tracking-widest text-xs text-on-surface">OPERATOR 041</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-tighter">AUTHENTICATED</div>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group" href="#">
+                <span class="material-symbols-outlined text-lg">dashboard</span>
+                Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group" href="#">
+                <span class="material-symbols-outlined text-lg">menu_book</span>
+                Subjects
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group" href="#">
+                <span class="material-symbols-outlined text-lg">quiz</span>
+                Quizzes
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-cyan-400 font-bold border-l-2 border-cyan-400 bg-cyan-400/10 transition-all duration-100 ease-in group" href="#">
+                <span class="material-symbols-outlined text-lg">sensors</span>
+                Live Quiz
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group" href="#">
+                <span class="material-symbols-outlined text-lg">leaderboard</span>
+                Leaderboard
+            </a>
+        </nav>
+        <div class="p-4 space-y-2 mb-4">
+            <button class="w-full py-3 bg-primary text-on-primary font-headline uppercase tracking-widest text-xs font-bold rounded shadow-[0_0_10px_rgba(183,109,255,0.3)] hover:brightness-110 transition-all active:scale-95">
+                NEW SESSION
+            </button>
+        </div>
+        <div class="mt-auto px-4 pb-8 border-t border-white/5 pt-4">
+            <a class="flex items-center gap-3 px-4 py-2 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">settings</span>
+                Settings
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">help</span>
+                Support
+            </a>
+        </div>
+    </aside>
+    
+    <!-- TopNavBar Shell -->
+    <header class="fixed top-0 right-0 left-64 flex justify-between items-center px-8 z-50 w-full h-16 border-b border-white/5 bg-[#131313]/60 backdrop-blur-lg">
+        <div class="flex items-center gap-4 flex-1">
+            <div class="font-['Space_Grotesk'] font-medium text-sm tracking-tight text-cyan-400">TACTICAL HUD v1.0</div>
+        </div>
+        <div class="flex items-center gap-6 ml-8">
+            <div class="flex items-center gap-4 text-slate-400">
+                <button class="material-symbols-outlined hover:text-primary transition-colors">notifications</button>
+                <button class="material-symbols-outlined hover:text-secondary transition-colors">bolt</button>
+            </div>
+            <div class="flex items-center gap-2 border-l border-white/10 pl-6">
+                <span class="font-headline text-[10px] text-slate-500 uppercase tracking-widest text-right">SYSTEM<br /><span class="text-secondary">STABLE</span></span>
+                <span class="material-symbols-outlined text-slate-300">account_circle</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Canvas -->
+    <main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-10">
+                <h1 class="text-4xl font-headline font-bold text-on-surface tracking-tight uppercase">Live Simulation</h1>
+                <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Real-time tactical assessment protocol</p>
+            </div>
+            
+            <!-- Live Quiz Join Interface -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-surface-container-low asymmetric-card hud-border p-12 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center text-primary mx-auto mb-8 border border-primary/20 shadow-inner">
+                            <span class="material-symbols-outlined text-4xl">sensors</span>
+                        </div>
+                        
+                        <h2 class="font-headline font-black text-2xl text-on-surface uppercase tracking-tighter mb-4 text-center">Join Live Session</h2>
+                        <p class="font-label text-xs text-slate-500 uppercase tracking-[0.3em] mb-10 text-center">Enter operational credentials</p>
+                        
+                        <div class="space-y-6">
+                            <input type="text" placeholder="OPERATOR_NAME" class="w-full bg-surface-container-lowest border border-white/10 rounded px-4 py-4 font-headline text-xs font-bold text-on-surface placeholder:text-slate-700 uppercase tracking-widest focus:outline-none focus:border-primary transition-all text-center" />
+                            <input type="text" placeholder="QUIZ_CODE_000" class="w-full bg-surface-container-lowest border border-white/10 rounded px-4 py-4 font-headline text-xs font-bold text-on-surface placeholder:text-slate-700 uppercase tracking-widest focus:outline-none focus:border-secondary transition-all text-center" />
+                            
+                            <button class="w-full py-5 bg-primary text-on-primary font-headline font-black text-sm uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_30px_rgba(183,109,255,0.4)] hover:scale-[1.02] transition-transform mt-4">
+                                Establish Connection
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-surface-container-low asymmetric-card hud-border p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                            <h3 class="font-headline font-bold text-sm tracking-widest uppercase text-secondary">Active Sessions</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-surface-container-lowest border border-white/5 rounded flex justify-between items-center">
+                                <div>
+                                    <p class="font-headline text-xs font-bold text-on-surface uppercase">COMPUTER_NETWORKS</p>
+                                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">Host: OPERATOR_01</p>
+                                </div>
+                                <span class="px-3 py-1 bg-secondary/10 text-secondary text-[9px] font-headline font-bold uppercase tracking-widest border border-secondary/20">LIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-primary-container/20 to-transparent p-6 border border-primary/20 asymmetric-card">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                            <span class="bg-primary text-on-primary text-[8px] font-bold px-1.5 py-0.5 tracking-tighter">PREMIUM</span>
+                        </div>
+                        <h4 class="font-headline font-bold text-lg text-on-surface mb-2">Neural Link Pro</h4>
+                        <p class="text-xs font-label text-on-surface-variant leading-relaxed mb-6">Unlock deep-focus protocols and high-speed cognitive assessments.</p>
+                        <button class="w-full py-2 bg-surface-container-highest text-primary border border-primary/30 font-headline font-bold text-[10px] tracking-widest uppercase hover:bg-primary hover:text-on-primary transition-all">UPGRADE_PROTOCOL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

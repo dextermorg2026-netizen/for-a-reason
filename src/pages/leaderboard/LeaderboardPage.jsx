@@ -121,66 +121,98 @@ const LeaderboardPage = () => {
   };
 
   return (
-    <div className="leaderboard-container">
-      <h1 className="page-title leaderboard-title">
-        Subject Leaderboard
-      </h1>
+    <main className="px-10 pb-12 ">
 
-      <p className="leaderboard-subtitle">
-        See how learners rank per subject
-      </p>
-
-      {/* ================= SUBJECT LEADERBOARD ================= */}
-      <SubjectTabs
-        subjects={subjects}
-        selectedSubject={selectedSubject}
-        setSelectedSubject={setSelectedSubject}
-        loadingSubjects={loadingSubjects}
-      />
-
-      <PodiumSection
-        topThree={topThree}
-        getInitials={getInitials}
-      />
-
-      <LeaderboardTable users={others} loading={loading} />
-
-      {/* ================= LIVE QUIZ HISTORY ================= */}
-      <div style={{ marginTop: "50px" }}>
-        <h2>🔥 Live Quiz History</h2>
-
-        {liveHistory.length === 0 ? (
-          <p style={{ opacity: 0.6 }}>
-            No live quizzes attempted yet.
-          </p>
-        ) : (
-          liveHistory.map((quiz, i) => (
-            <div
-              key={i}
-              className="glass-card"
-              style={{
-                marginTop: "15px",
-                padding: "20px",
-              }}
+      {/* Header Section */}
+      <section className="mb-10">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-4xl font-headline font-semibold text-on-surface tracking-tight uppercase">Subject Leaderboard</h1>
+          <p className="text-slate-400 font-body text-sm uppercase tracking-widest">Global Operative Evaluation Matrix</p>
+        </div>
+        
+        {/* Tabs */}
+        <div className="flex mt-8 border-b border-white/5 overflow-x-auto no-scrollbar">
+          {subjects.map((sub) => (
+            <button
+              key={sub.id}
+              onClick={() => setSelectedSubject(sub.id)}
+              className={`px-8 py-3 font-headline text-sm font-medium tracking-widest uppercase transition-all whitespace-nowrap ${
+                selectedSubject === sub.id
+                  ? "border-b-2 border-secondary text-secondary bg-secondary/5"
+                  : "text-slate-500 hover:text-on-surface hover:bg-white/5"
+              }`}
             >
-              <h3>
-                📘 {quiz.subject || "General"}
-              </h3>
+              {sub.name}
+            </button>
+          ))}
+        </div>
+      </section>
 
-              <p>
-                📅{" "}
-                {new Date(quiz.date).toLocaleString()}
-              </p>
+      {/* Podium Section */}
+      <PodiumSection topThree={topThree} />
 
-              <p>🎯 Score: {quiz.score}</p>
+      {/* Tactical Table Section */}
+      <LeaderboardTable 
+        entries={entries} 
+        currentUserId={currentUser?.uid} 
+        loading={loading}
+      />
 
-              <p>🪙 Coins: {quiz.coins}</p>
-            </div>
-          ))
+      {/* Live Quiz History Section */}
+      <section className="w-full mt-16">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#ddb7ff]"></span>
+          <h2 className="font-headline font-semibold text-lg tracking-widest uppercase">Live Session History</h2>
+        </div>
+        
+        {liveHistory.length === 0 ? (
+          <div className="glass-panel p-8 text-center text-slate-500 font-headline uppercase tracking-widest text-sm">
+            NO_PREVIOUS_SESSION_DATA_AVAILABLE
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {liveHistory.map((quiz, i) => (
+              <div
+                key={i}
+                className="bg-surface-container-low asymmetric-card p-6 hud-border flex flex-col justify-between"
+              >
+                <div className="flex justify-between items-start mb-4">
+                   <span className="font-headline font-semibold text-secondary text-sm uppercase tracking-widest">
+                     {quiz.subject || "GENERAL_OP"}
+                   </span>
+                   <span className="text-[10px] text-slate-500 font-semibold uppercase">
+                     {new Date(quiz.date).toLocaleDateString()}
+                   </span>
+                </div>
+                <div className="flex items-center justify-between">
+                   <div className="flex items-center gap-2">
+                     <span className="material-symbols-outlined text-primary text-sm">monetization_on</span>
+                     <span className="font-headline font-semibold text-on-surface text-xl">{quiz.coins}</span>
+                   </div>
+                   <div className="text-right">
+                     <p className="text-[10px] text-slate-500 font-semibold uppercase">Accuracy Score</p>
+                     <p className="font-headline font-semibold text-tertiary">{quiz.score}%</p>
+                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
+      </section>
+
+      {/* Contextual HUD Element (Floating Telemetry) */}
+      <div className="fixed bottom-24 right-6 w-48 glass-panel asymmetric-card p-4 border-l-4 border-secondary pointer-events-none z-30 transition-transform duration-500 md:bottom-10">
+        <div className="flex justify-between items-center mb-2">
+          <span className="font-headline text-[9px] uppercase text-secondary font-semibold tracking-widest">Sector Sync</span>
+          <span className="font-headline text-lg font-semibold">READY</span>
+        </div>
+        <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+          <div className="h-full bg-secondary animate-pulse" style={{ width: '100%' }}></div>
+        </div>
+        <div className="mt-2 text-[8px] font-body text-slate-500 uppercase tracking-tighter">Operational status nominal</div>
       </div>
-    </div>
+    </main>
   );
 };
 
-export default LeaderboardPage;
+export default LeaderboardPage;

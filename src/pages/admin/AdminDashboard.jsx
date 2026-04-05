@@ -85,7 +85,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="page-card max-w-4xl mx-auto mt-8 p-6">
-      <h1 className="page-title text-3xl font-bold mb-2">Admin Dashboard</h1>
+      <h1 className="page-title text-3xl font-semibold mb-2">Admin Dashboard</h1>
       <p className="page-subtitle text-gray-500 mb-8">
         Welcome back, {userProfile?.name || 'Admin'}! Manage quizzes and questions here.
       </p>
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
 
       <div className="grid-2 gap-6">
         <div className="border border-gray-200 rounded-lg p-6 bg-white shadow-sm" style={{ gridColumn: '1 / -1' }}>
-          <h2 className="text-xl font-semibold mb-4">Active Live Quizzes</h2>
+          <h2 className="text-xl font-medium mb-4">Active Live Quizzes</h2>
           {activeQuizzes.length === 0 ? (
             <p className="text-gray-500">No active quizzes found.</p>
           ) : (
@@ -114,7 +114,7 @@ const AdminDashboard = () => {
                 <tbody>
                   {activeQuizzes.map(quiz => (
                     <tr key={quiz.id} className="border-b">
-                      <td className="py-2 font-bold">{quiz.id}</td>
+                      <td className="py-2 font-semibold">{quiz.id}</td>
                       <td>
                         <span className={`px-2 py-1 rounded text-sm ${quiz.status === 'playing' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                           {quiz.status.toUpperCase()}
@@ -135,7 +135,7 @@ const AdminDashboard = () => {
         </div>
 
         <div className="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-          <h2 className="text-xl font-semibold mb-2">Live Quiz Generator</h2>
+          <h2 className="text-xl font-medium mb-2">Live Quiz Generator</h2>
           <p className="text-gray-600 mb-4">
             Upload a JSON file containing the questions, generate a room code, and notify all users.
           </p>
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
             id="json-upload"
             accept=".json" 
             onChange={handleFileChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-4"
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-4"
           />
 
           <button 
@@ -158,7 +158,7 @@ const AdminDashboard = () => {
         </div>
 
         <div className="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-          <h2 className="text-xl font-semibold mb-2">Question Uploader</h2>
+          <h2 className="text-xl font-medium mb-2">Question Uploader</h2>
           <p className="text-gray-600 mb-4">
             (Coming soon) Add or edit individual questions manually.
           </p>

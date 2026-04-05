@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+
+        .font-headline {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .asymmetric-card {
+            border-top-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.125rem;
+        }
+
+        .glass-panel {
+            background: rgba(53, 53, 52, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(152, 141, 159, 0.15);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#b76dff",
+                        "on-tertiary": "#003824",
+                        "surface-container-highest": "#353534",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#cfc2d6",
+                        "on-background": "#e5e2e1",
+                        "tertiary-container": "#00a572",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "secondary-fixed": "#acedff",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-variant": "#353534",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-surface": "#e5e2e1",
+                        "surface": "#131313",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-tint": "#ddb7ff",
+                        "surface-bright": "#393939",
+                        "outline": "#988d9f",
+                        "on-primary": "#490080",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "on-secondary-container": "#00424e",
+                        "on-secondary": "#003640",
+                        "inverse-on-surface": "#313030",
+                        "surface-dim": "#131313",
+                        "primary": "#ddb7ff",
+                        "background": "#131313",
+                        "tertiary-fixed": "#6ffbbe",
+                        "secondary-container": "#03b5d3",
+                        "outline-variant": "#4d4354",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-container": "#00311f",
+                        "tertiary": "#4edea3",
+                        "on-primary-fixed": "#2c0051",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#4cd7f6",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#002113",
+                        "on-secondary-fixed": "#001f26",
+                        "on-primary-container": "#400071",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "inverse-primary": "#842bd2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background min-h-screen">
+    <!-- SideNavBar Shell -->
+    <aside
+        class="fixed left-0 top-0 h-full flex flex-col z-40 h-screen w-64 border-r border-purple-500/10 rounded-tr-xl bg-[#131313]/80 backdrop-blur-xl shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+        <div class="p-6 bg-gradient-to-b from-purple-500/5 to-transparent">
+            <div class="text-2xl font-bold tracking-tighter text-purple-500 italic font-headline">NEON PROTOCOL</div>
+            <div class="flex items-center mt-4 gap-3">
+                <div class="w-10 h-10 rounded-lg overflow-hidden border border-primary/20">
+                    <img alt="User Operational Profile" class="w-full h-full object-cover"
+                        data-alt="close-up portrait of a futuristic cyborg operator with glowing purple ocular implants and carbon fiber armor plating"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrjcxC_VJRloxinu-ZqtJY-aY3hGPshZIg6OYAQIOFLgPddA7GscCwgHjF4kYQjdEC7RY-F4rbPD3s0vAG7uLjFTdd1USzfxmHWdCdXnnRnqm5uId1qKW4mOqfmCLk8q0golZs6FSSfqNwleiUo-R-ofazYMhqQ2kkrgzMKDW-vrzlKXHd3fKjxLzJSsMltya_0-2rXEw9tvxgOPLXH-xZkmMlqIDoupYfJyc6bgdemBxJBmP4-I_BSGBF5HzcJJKUKYtFzYjZE4w" />
+                </div>
+                <div>
+                    <div class="font-headline uppercase tracking-widest text-xs text-on-surface">OPERATOR 041</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-tighter">AUTHENTICATED</div>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group"
+                href="#">
+                <span class="material-symbols-outlined text-lg">dashboard</span>
+                Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group"
+                href="#">
+                <span class="material-symbols-outlined text-lg">menu_book</span>
+                Subjects
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in group"
+                href="#">
+                <span class="material-symbols-outlined text-lg">quiz</span>
+                Quizzes
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 font-headline uppercase tracking-widest text-xs text-cyan-400 font-bold border-l-2 border-cyan-400 bg-cyan-400/10 transition-all duration-100 ease-in group"
+                href="#">
+                <span class="material-symbols-outlined text-lg">leaderboard</span>
+                Leaderboard
+            </a>
+        </nav>
+        <div class="p-4 space-y-2 mb-4">
+            <button
+                class="w-full py-3 bg-primary text-on-primary font-headline uppercase tracking-widest text-xs font-bold rounded shadow-[0_0_10px_rgba(183,109,255,0.3)] hover:brightness-110 transition-all active:scale-95">
+                NEW SESSION
+            </button>
+        </div>
+        <div class="mt-auto px-4 pb-8 border-t border-white/5 pt-4">
+            <a class="flex items-center gap-3 px-4 py-2 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-lg">settings</span>
+                Settings
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2 font-headline uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-lg">help</span>
+                Support
+            </a>
+        </div>
+    </aside>
+    <!-- TopNavBar Shell -->
+    <header
+        class="fixed top-0 right-0 left-64 flex justify-between items-center px-8 z-50 w-full h-16 border-b border-white/5 bg-[#131313]/60 backdrop-blur-lg">
+        <div class="flex items-center gap-4 flex-1">
+            <div class="relative w-64 group">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                <input
+                    class="w-full bg-surface-container-lowest border-none text-xs font-headline tracking-tight py-2 pl-10 focus:ring-1 focus:ring-secondary/50 text-secondary placeholder:text-slate-600 rounded"
+                    placeholder="QUERY DATABASE..." type="text" />
+            </div>
+        </div>
+        <nav class="flex items-center gap-8 h-full">
+            <a class="h-full flex items-center px-2 font-headline font-medium text-sm tracking-tight text-slate-400 hover:text-purple-400 hover:bg-white/5 transition-colors duration-100"
+                href="#">LIVE STATUS</a>
+            <a class="h-full flex items-center px-2 font-headline font-medium text-sm tracking-tight text-slate-400 hover:text-purple-400 hover:bg-white/5 transition-colors duration-100"
+                href="#">NETWORK</a>
+            <a class="h-full flex items-center px-2 font-headline font-medium text-sm tracking-tight text-slate-400 hover:text-purple-400 hover:bg-white/5 transition-colors duration-100"
+                href="#">ENCRYPTION</a>
+        </nav>
+        <div class="flex items-center gap-6 ml-8">
+            <div class="flex items-center gap-4 text-slate-400">
+                <button class="material-symbols-outlined hover:text-primary transition-colors">notifications</button>
+                <button class="material-symbols-outlined hover:text-secondary transition-colors">bolt</button>
+            </div>
+            <div class="flex items-center gap-2 border-l border-white/10 pl-6">
+                <span
+                    class="font-headline text-[10px] text-slate-500 uppercase tracking-widest text-right">SYSTEM<br /><span
+                        class="text-secondary">STABLE</span></span>
+                <span class="material-symbols-outlined text-slate-300">account_circle</span>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+        <!-- Header Section -->
+        <section class="mb-10">
+            <div class="flex flex-col gap-1">
+                <h1 class="text-4xl font-headline font-bold text-on-surface tracking-tight">Subject Leaderboard</h1>
+                <p class="text-slate-400 font-body text-sm">See how learners rank per subject in the global tactical
+                    simulation.</p>
+            </div>
+            <!-- Tabs -->
+            <div class="flex mt-8 border-b border-white/5">
+                <button
+                    class="px-8 py-3 font-headline text-sm font-medium tracking-widest uppercase border-b-2 border-secondary text-secondary bg-secondary/5 transition-all">
+                    Computer Network
+                </button>
+                <button
+                    class="px-8 py-3 font-headline text-sm font-medium tracking-widest uppercase text-slate-500 hover:text-on-surface hover:bg-white/5 transition-all">
+                    SystemDesign
+                </button>
+            </div>
+        </section>
+        <!-- Podium Section -->
+        <section class="mb-16">
+            <div class="grid grid-cols-3 gap-8 items-end max-w-4xl mx-auto">
+                <!-- 2nd Place -->
+                <div class="flex flex-col items-center">
+                    <div class="relative mb-4">
+                        <div
+                            class="w-20 h-20 rounded-full border-2 border-slate-400/50 p-1 bg-surface-container-low overflow-hidden">
+                            <img alt="Vybhavi Vinta" class="w-full h-full object-cover grayscale"
+                                data-alt="portrait of a professional female tech operator with glasses and tactical headset in a dimly lit server room environment"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuT6fxShehVCiH0fjKsUj8LI-SyA7um584MB00vgOFuGq9wp45eFJTau4zWDQx49AUaHL-dMlT_fgiSSUwQKTW67zerNpdLRVGFI9HYT8aDfetii98j8O_xxfN3EbJG54RAnwknzE_w7Q-WLr1fdcjnI9aH5y2MtxyHEFntZfIskiKW5ygdQzP4-gbkiwYIwGSHpfGOWRa9auFJ5MZo6Pc7VNQa0u4AHg6R4TJHs-jllmZJ39QwEe4sbqZts8VntOG0BixMJfR1Nw" />
+                        </div>
+                        <div
+                            class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-400 text-surface px-3 py-0.5 text-[10px] font-headline font-bold rounded-full">
+                            2ND</div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-headline font-bold text-slate-300 uppercase tracking-tight">Vybhavi Vinta</h3>
+                        <div class="flex items-center justify-center gap-1 text-secondary mt-1">
+                            <span class="material-symbols-outlined text-sm"
+                                style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                            <span class="font-headline font-medium text-lg">8,420</span>
+                        </div>
+                    </div>
+                    <div class="w-full h-32 mt-6 glass-panel asymmetric-card relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-400/10 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-400/50"></div>
+                    </div>
+                </div>
+                <!-- 1st Place -->
+                <div class="flex flex-col items-center">
+                    <div class="relative mb-6">
+                        <div
+                            class="w-32 h-32 rounded-full border-4 border-primary p-1 bg-surface-container-low overflow-hidden shadow-[0_0_30px_rgba(183,109,255,0.3)]">
+                            <img alt="dexter" class="w-full h-full object-cover"
+                                data-alt="man in hoodie looking at multiple monitors in a dark room with neon violet light reflecting on his face"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsODmd8dlQoGPBQvJm93NI1EsX8mwaF8DBcbjY6Pu-xC9lVLEjHsKhbfdHIRdOWNwIl9Nk5mjZ7HUDTAcq6d6hWM1O9tdv2uCyEw9BxZ0I_QxH5rHQp7anRMk3vOuJtkNy2fGxCFA0kq1_HVrc73dXDJtyQhsm5U-HDx9Q22p81p49w9m4SD3R4ZDjjSNyVPkw1uWn15GTEQ0eswgqfKnO7AIlebDqySo9r7-qAglBFQOoFGvH_EyZbGbkBFjB0hcO-5g7iFT1320" />
+                        </div>
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 animate-bounce">
+                            <span class="material-symbols-outlined text-primary text-3xl"
+                                style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                        </div>
+                        <div
+                            class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-4 py-1 text-xs font-headline font-extrabold rounded-full">
+                            CHAMPION</div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-headline font-bold text-on-surface text-xl uppercase tracking-widest">dexter
+                        </h3>
+                        <div class="flex items-center justify-center gap-2 text-primary mt-1">
+                            <span class="material-symbols-outlined text-base"
+                                style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                            <span class="font-headline font-bold text-2xl">12,850</span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full h-48 mt-8 glass-panel asymmetric-card relative overflow-hidden shadow-[0_0_40px_rgba(183,109,255,0.1)]">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full h-2 bg-primary shadow-[0_0_15px_rgba(183,109,255,0.5)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- 3rd Place -->
+                <div class="flex flex-col items-center">
+                    <div class="relative mb-4">
+                        <div
+                            class="w-20 h-20 rounded-full border-2 border-tertiary/50 p-1 bg-surface-container-low overflow-hidden">
+                            <img alt="Rohit Kuttumu" class="w-full h-full object-cover grayscale"
+                                data-alt="professional portrait of an indian male software engineer in a modern tech office environment with blue and green lighting"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd6_PNWvFAk4TCTIAINIs8ZBNNgLpT1L7Zf7wF0TbAAEwo9GrL8NZuxtBjitYjyJQNIlDc08f5p_hwJPnybWNYqVgsV28GK43dVD7CYFvTmlS03TEQ8nlAImFZb4615apZwyOZ95RZHEfOaEHBIzv8G2_GQyHn6VzhNe1AOTMzhf-s7UmivDKIlNtuUOvnd3eZ6jmT4oWwJ2njuFU3edRNtobmgz8ysMf1_1gxVWiljZGTvK8Vplue9_fpvblE2UfLQ_TV4IK6-W0" />
+                        </div>
+                        <div
+                            class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-tertiary text-on-tertiary px-3 py-0.5 text-[10px] font-headline font-bold rounded-full">
+                            3RD</div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-headline font-bold text-slate-300 uppercase tracking-tight">Rohit Kuttumu</h3>
+                        <div class="flex items-center justify-center gap-1 text-tertiary mt-1">
+                            <span class="material-symbols-outlined text-sm"
+                                style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                            <span class="font-headline font-medium text-lg">7,190</span>
+                        </div>
+                    </div>
+                    <div class="w-full h-24 mt-6 glass-panel asymmetric-card relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-tertiary/10 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-tertiary/50"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Tactical Table Section -->
+        <section class="max-w-5xl mx-auto">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3]"></span>
+                    <h2 class="font-headline font-bold text-lg tracking-widest uppercase">Operational Ranking</h2>
+                </div>
+                <div class="text-[10px] font-headline text-slate-500 tracking-[0.2em] uppercase">Live Update: Sector 7G
+                </div>
+            </div>
+            <div class="glass-panel overflow-hidden border border-white/5 rounded-lg">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container-lowest border-b border-white/5">
+                            <th
+                                class="px-6 py-4 text-left font-headline text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+                                Rank</th>
+                            <th
+                                class="px-6 py-4 text-left font-headline text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+                                Operator</th>
+                            <th
+                                class="px-6 py-4 text-center font-headline text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+                                Status</th>
+                            <th
+                                class="px-6 py-4 text-center font-headline text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+                                Accuracy</th>
+                            <th
+                                class="px-6 py-4 text-right font-headline text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+                                Protocol Coins</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        <!-- User Row 4 -->
+                        <tr class="hover:bg-white/5 transition-colors group">
+                            <td class="px-6 py-4 font-headline font-bold text-slate-400">#04</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded border border-white/10 overflow-hidden bg-surface">
+                                        <img alt="Sarah Connor" class="w-full h-full object-cover"
+                                            data-alt="Close up of a female operative with intense eyes and a glowing green earpiece"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXTlaUyKnFj4GJSJsiy2bsls7APpzsFAwf74ZY6Xqgpu8v0MnvppmM1SfLAObUY-bn3eXfHEGDYtSiMtzrSDzC1TGA1tB35-D8jRSVtf7db3YOBq2MbYkgkPVg6dAdDwBwgjTl9ScNCuG6mvIRxAloUVL7-v89SIp3BU2vAEiih1akQ0Nzjd0rKfiWiFSFJ4LEjrT0N18B96xm59WgwAglnzSjXJQ8BpWaiJaEEjsUOZbiZiDKYiLosAs-wXDVnS4dFb7NH-HcvG0" />
+                                    </div>
+                                    <span class="font-body text-sm font-medium text-on-surface">Sarah Connor</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span
+                                    class="px-2 py-0.5 text-[9px] font-headline font-bold border border-secondary/30 text-secondary uppercase tracking-tighter rounded">Active</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="w-24 h-1 bg-white/5 mx-auto rounded-full overflow-hidden">
+                                    <div class="h-full bg-secondary" style="width: 88%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <span class="font-headline font-bold text-secondary">6,840</span>
+                            </td>
+                        </tr>
+                        <!-- User Row 5 -->
+                        <tr class="hover:bg-white/5 transition-colors group">
+                            <td class="px-6 py-4 font-headline font-bold text-slate-400">#05</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded border border-white/10 overflow-hidden bg-surface">
+                                        <img alt="Marcus Wright" class="w-full h-full object-cover"
+                                            data-alt="Portrait of a male cybernetic soldier with subtle glowing blue circuits on his cheek"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbVP_ovXx78WHpK2sEyLD2pQ-fitnLmTgPcCipWswNk3zbdrV6XPtDFwePwC_5dDwbZYmnch530WHgOzgv_WORgYARUrf2GfaKDvJpBAJghurJV1r-g8h1OaOH17NCDmDPrgMeNpetVmEdl9PIO9l6vDBuG3Vvme7dxzL12t_0U9VXaWrYi_YLfqpgzSBlDjqtnAvzQUpN69WMFyvJVTSVi8v8_IBT__j8Z_4XGRBr_ORpq_1u20SlpAfyWyPLiBEBh1CdH3HH6-s" />
+                                    </div>
+                                    <span class="font-body text-sm font-medium text-on-surface">Marcus Wright</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span
+                                    class="px-2 py-0.5 text-[9px] font-headline font-bold border border-tertiary/30 text-tertiary uppercase tracking-tighter rounded">Standby</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="w-24 h-1 bg-white/5 mx-auto rounded-full overflow-hidden">
+                                    <div class="h-full bg-tertiary" style="width: 74%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <span class="font-headline font-bold text-tertiary">5,910</span>
+                            </td>
+                        </tr>
+                        <!-- User Row 6 -->
+                        <tr class="hover:bg-white/5 transition-colors group">
+                            <td class="px-6 py-4 font-headline font-bold text-slate-400">#06</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded border border-white/10 overflow-hidden bg-surface">
+                                        <img alt="Aya Brea" class="w-full h-full object-cover"
+                                            data-alt="Profile of a female tactical officer with short hair and glowing orange glasses"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw_h70y1vS1niBko7nGW5aZfK0SRlzLHonqEvRPFYW0fmatOYuhWf0e7lKp_zOXOUudkpj2If0KyLDAiqWTa6d2Yf822sVxwcUTSrNmvseu024YJqkBXqZsJxgkeBxkFGTFJdOK5srq-YNqA8sYzLrh_k8PuEY2dZDar8OEPCZ2MZj2fGA7WslRkX6UNRGkanudoxG2Y6rUTE_F_iSJusH-Ed1DIFeRvWY_dksKofucEPjetHcT3A-vrgFCrQwNZPBw0eplKj5Fco" />
+                                    </div>
+                                    <span class="font-body text-sm font-medium text-on-surface">Aya Brea</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span
+                                    class="px-2 py-0.5 text-[9px] font-headline font-bold border border-secondary/30 text-secondary uppercase tracking-tighter rounded">Active</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="w-24 h-1 bg-white/5 mx-auto rounded-full overflow-hidden">
+                                    <div class="h-full bg-secondary" style="width: 92%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <span class="font-headline font-bold text-secondary">5,430</span>
+                            </td>
+                        </tr>
+                        <!-- Highlighted Current User Row -->
+                        <tr class="bg-primary/5 border-l-2 border-primary group">
+                            <td class="px-6 py-4 font-headline font-bold text-primary">#41</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded border border-primary/40 overflow-hidden bg-surface">
+                                        <img alt="YOU" class="w-full h-full object-cover"
+                                            data-alt="close-up portrait of a futuristic cyborg operator with glowing purple ocular implants"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDnCIQAFHyA6czzo57Gw-_zn7tKQd19y7dkvyGiF6r9QCv8vUfyTlUDN_JZbL3j_eJ_ZZsZSKi2kWYcmGWedCASo_b-LqCUXin-B-_IPFtLxmbSBmZj1kFGvy3xpGEpE3cL3yu0Ul14PqaxMcSX2YPpUUgOoES1ZI8Blj4Ft0mml4dqInK6OrBYLgv4tjz6ur9SWkbu-MeIhC-R_QhjVtFmtaJI4BcG6m34IOJN8RrKN3T1ZjPdTqIVi9u4l7cQ4ZCS51fNhdn3b4" />
+                                    </div>
+                                    <span class="font-body text-sm font-bold text-primary">OPERATOR 041 (YOU)</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <div class="flex items-center justify-center">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3]"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="w-24 h-1 bg-primary/20 mx-auto rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 65%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <span class="font-headline font-bold text-primary">2,150</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div
+                    class="bg-surface-container-lowest p-4 flex justify-between items-center text-[10px] font-headline uppercase tracking-[0.3em] text-slate-600">
+                    <span>SYNCING PROTOCOL NODES...</span>
+                    <div class="flex gap-1">
+                        <span class="w-1 h-3 bg-secondary/50"></span>
+                        <span class="w-1 h-3 bg-secondary/30"></span>
+                        <span class="w-1 h-3 bg-secondary/10"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Contextual HUD Element (Floating Telemetry) -->
+    <div
+        class="fixed bottom-6 right-6 w-48 glass-panel asymmetric-card p-4 border-l-4 border-secondary pointer-events-none z-50">
+        <div class="flex justify-between items-center mb-2">
+            <span class="font-headline text-[9px] uppercase text-secondary font-bold tracking-widest">Global Rank</span>
+            <span class="font-headline text-lg font-bold">#1,284</span>
+        </div>
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+            <div class="h-full bg-secondary" style="width: 45%"></div>
+        </div>
+        <div class="mt-2 text-[8px] font-body text-slate-500 uppercase tracking-tighter">Top 12% of worldwide operators
+        </div>
+    </div>
+</body>
+
+</html>

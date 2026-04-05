@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#b76dff",
+                    "on-tertiary": "#003824",
+                    "surface-container-highest": "#353534",
+                    "on-error": "#690005",
+                    "on-surface-variant": "#cfc2d6",
+                    "on-background": "#e5e2e1",
+                    "tertiary-container": "#00a572",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "secondary-fixed": "#acedff",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-variant": "#353534",
+                    "primary-fixed-dim": "#ddb7ff",
+                    "on-surface": "#e5e2e1",
+                    "surface": "#131313",
+                    "error-container": "#93000a",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-tint": "#ddb7ff",
+                    "surface-bright": "#393939",
+                    "outline": "#988d9f",
+                    "on-primary": "#490080",
+                    "on-primary-fixed-variant": "#6900b3",
+                    "on-secondary-container": "#00424e",
+                    "on-secondary": "#003640",
+                    "inverse-on-surface": "#313030",
+                    "surface-dim": "#131313",
+                    "primary": "#ddb7ff",
+                    "background": "#131313",
+                    "tertiary-fixed": "#6ffbbe",
+                    "secondary-container": "#03b5d3",
+                    "outline-variant": "#4d4354",
+                    "on-secondary-fixed-variant": "#004e5c",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "primary-fixed": "#f0dbff",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-container": "#201f1f",
+                    "on-tertiary-container": "#00311f",
+                    "tertiary": "#4edea3",
+                    "on-primary-fixed": "#2c0051",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#4cd7f6",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#002113",
+                    "on-secondary-fixed": "#001f26",
+                    "on-primary-container": "#400071",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "inverse-primary": "#842bd2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hud-card-asymmetric {
+            border-top-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.125rem;
+        }
+        .light-leak-top {
+            background: linear-gradient(to right, transparent, rgba(221, 183, 255, 0.2), transparent);
+            height: 1px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container/30">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col z-40 bg-[#131313]/80 backdrop-blur-xl h-screen w-64 border-r border-purple-500/10 rounded-tr-xl shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+<div class="p-6">
+<div class="text-2xl font-bold tracking-tighter text-purple-500 italic font-headline">NEON PROTOCOL</div>
+<div class="mt-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high border border-outline-variant/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-contrast cinematic portrait of a cybernetic operator with neon purple lighting accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvCR5mQY6tdyHIrU_UyB1JDNxt4Gbuj2epO-1zvnJafpzjIVzGLjKHcCqlO3PWyK1qMYVmwT0xCoJkos9FztOJpP11WAcFGoTdGrT3NqLdXRbwMIaYCcW3kHPrFMh084_Nxc0j1PFR07pcG-iRgYHjr2UlxbWPlBf2MnUwQkaH2bu3BDPDYLny3flUJ4oXTqiqh8PSnmpPElFY2ABKX1cklFVrYopcFpnNIX_BlfKmcGVVptL0xQ-U_F90tdVXJLpSbCUAHUN1sHk"/>
+</div>
+<div>
+<p class="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface-variant">OPERATOR 041</p>
+<p class="text-[10px] text-tertiary flex items-center gap-1"><span class="w-1.5 h-1.5 bg-tertiary rounded-full animate-pulse"></span> ONLINE</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 mt-4 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="menu_book">menu_book</span>
+                Subjects
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-xs text-cyan-400 font-bold border-l-2 border-cyan-400 bg-cyan-400/10 transition-all duration-100 ease-in" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="quiz">quiz</span>
+                Quizzes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Space_Grotesk'] uppercase tracking-widest text-xs text-slate-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-100 ease-in" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="leaderboard">leaderboard</span>
+                Leaderboard
+            </a>
+</nav>
+<div class="mt-auto p-4 space-y-4">
+<button class="w-full py-3 bg-primary text-on-primary font-headline font-bold text-xs tracking-widest uppercase rounded shadow-[0_0_10px_rgba(221,183,255,0.3)] hover:brightness-110 active:scale-95 transition-all">
+                NEW SESSION
+            </button>
+<div class="pt-4 border-t border-outline-variant/10 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-slate-500 hover:text-purple-400 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-slate-500 hover:text-purple-400 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+                    Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 flex justify-between items-center px-8 z-50 bg-[#131313]/60 backdrop-blur-lg border-b border-white/5">
+<div class="flex items-center gap-6">
+<div class="font-['Space_Grotesk'] font-medium text-sm tracking-tight text-cyan-400">TACTICAL HUD v1.0</div>
+<div class="flex gap-4">
+<a class="font-['Space_Grotesk'] font-medium text-xs tracking-tight text-slate-400 hover:text-purple-400 transition-colors" href="#">LIVE STATUS</a>
+<a class="font-['Space_Grotesk'] font-medium text-xs tracking-tight text-slate-400 hover:text-purple-400 transition-colors" href="#">NETWORK</a>
+<a class="font-['Space_Grotesk'] font-medium text-xs tracking-tight text-slate-400 hover:text-purple-400 transition-colors" href="#">ENCRYPTION</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-white/5 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-white/5 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="bolt">bolt</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-white/5 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pl-64 pt-16 min-h-screen bg-background">
+<div class="max-w-7xl mx-auto p-8">
+<!-- Breadcrumbs / Secondary Navigation -->
+<div class="mb-10 flex items-center justify-between">
+<div>
+<h1 class="text-4xl font-headline font-bold text-on-surface tracking-tight uppercase">LEARN LOOP</h1>
+<p class="text-sm font-label text-slate-500 mt-1 tracking-[0.2em] uppercase">Tactical Knowledge Repository</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low px-4 py-2 border border-outline-variant/10 hud-card-asymmetric flex items-center gap-3">
+<span class="text-[10px] font-headline text-secondary uppercase tracking-widest">Active Quizzes</span>
+<span class="text-lg font-headline font-bold text-on-surface">02</span>
+</div>
+<div class="bg-surface-container-low px-4 py-2 border border-outline-variant/10 hud-card-asymmetric flex items-center gap-3">
+<span class="text-[10px] font-headline text-tertiary uppercase tracking-widest">Avg Completion</span>
+<span class="text-lg font-headline font-bold text-on-surface">0%</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Listing Header -->
+<div class="col-span-12">
+<div class="bg-surface-container-low p-6 hud-card-asymmetric relative overflow-hidden">
+<div class="light-leak-top absolute top-0 left-0"></div>
+<div class="flex justify-between items-end">
+<div>
+<span class="bg-error-container/20 text-error font-headline text-[10px] px-2 py-0.5 tracking-tighter uppercase mb-2 inline-block">MISSION CRITICAL</span>
+<h2 class="text-2xl font-headline font-bold text-on-surface">COURSES IN PROGRESS</h2>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label text-xs uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                                Filter Assets
+                            </div>
+</div>
+</div>
+</div>
+<!-- Course Progress Card 1: Computer Network -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4">
+<div class="bg-surface-container-low group hover:bg-surface-container-high transition-colors hud-card-asymmetric relative border border-outline-variant/5">
+<div class="aspect-video w-full relative overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500" data-alt="Futuristic server room with glowing blue fiber optic cables and digital data streams" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6_OY-oa24Yv6BH8OFTevVFe-9hd9ASPOZkpHx7eabuS7RnWc0SJtcYCoa3j_2RoDyPwItcfdvuxzVGdM3TphShSuhD5YlUdFYrmo3dgvSEBBkevFha2R3TqrxS9ZfjMMY2wHe3bWeR_ULZ5HYm8OgeMqR9WI8BvHcPIHPUqooi9NQytU2Ttoj4JEkw8TOFMjVcRwyucLBivpNoZflHZ48SmCbGSwhx-g-OH7a7K5Nnt40ou3nGzc5oevZIZbOxs_wzvAHqFes60k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary/10 text-secondary border border-secondary/20 font-headline text-[9px] px-2 py-1 tracking-widest uppercase">NETWORK_STACK</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">Computer Network</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-label text-slate-400 uppercase tracking-widest">Progress: 0 / 3 completed</span>
+<span class="text-xs font-headline font-bold text-secondary">0%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-lowest border border-outline-variant/10">
+<div class="w-0 h-full bg-secondary shadow-[0_0_8px_rgba(76,215,246,0.5)]"></div>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-background overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover grayscale" data-alt="Professional avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqkdlYt7FGlraK1ZLxhHXPcmlgQtujIjm49b2Ow3-HEBD_eIdXlgAZ44lf4GHPzB-9c0yKTdk4qDcei46LxoPjRFJsoG-HBbDlvWFKc2go8GVoIgj4DubCO33TjvR5UwS_5yetfvJ6UCyhAGHlU9CeDP5J7eZ_1REq0R4P3DGra3c9Mujlropn3ijzH8HH9WRBdB6B7nh6dcdI8srZr1Fs-7VpmdH7QmWMJ1d0C4Oi2e8MX9YLbSVW2YZdTmonFf5Dq9RQlxmgc7s"/>
+</div>
+<div class="w-6 h-6 rounded-full border border-background overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<span class="text-[8px] font-bold text-slate-400">+12</span>
+</div>
+</div>
+<button class="flex items-center gap-2 text-xs font-headline font-bold text-secondary hover:text-white transition-colors uppercase tracking-widest">
+                                    INITIALIZE
+                                    <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Progress Card 2: SystemDesign -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4">
+<div class="bg-surface-container-low group hover:bg-surface-container-high transition-colors hud-card-asymmetric relative border border-outline-variant/5">
+<div class="aspect-video w-full relative overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500" data-alt="Complex 3D digital architectural schematic with neon purple lighting nodes and connections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0W03APrwDBPtQ-mjEF5ckBP_YuvuenskHWUGeVZJCrAeshSg34u0_e7HiK-vqCa8c1WTfAg45lUOF40PQvm_BcwpxFRhldnGgkLqg50ybamegkfNNiPssQOgASx7kmYQEIO7mZAdEwXi0nEQrB5ADmHbGYnerStAToLFbd5-kKvduICZa4M5yb59EasKXbjGDdNBg0rXZqV3ktV02-kjDKEOVHZmR6EJwo0RHuloYq7j1gzIffCNDMLNpZK-ktvTs4JpGlQY-6O0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary/10 text-primary border border-primary/20 font-headline text-[9px] px-2 py-1 tracking-widest uppercase">ARCH_STRUCT</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">SystemDesign</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-label text-slate-400 uppercase tracking-widest">Progress: 0 / 3 completed</span>
+<span class="text-xs font-headline font-bold text-primary">0%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-lowest border border-outline-variant/10">
+<div class="w-0 h-full bg-primary shadow-[0_0_8px_rgba(221,183,255,0.5)]"></div>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-background overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover grayscale" data-alt="Professional avatar portrait female" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9-AzRXfpyHexQN8tDZvuptuirt2UvMPJCISEqexzBM2p3Om4AkarTu_cNFbBgvbKoUvjH7FYLFaHx6RHluGIhCDPEbTi6li7MqyvraF7wenYbTKHOxxPsql9f9O647Cq-ufERW6nVrzRwmoPPYdrgoq0Yr6IFZoZ4Y4-Orw8UIEgnKGz7_RuE3StBRK1u5UnCTkcxjy7nwUDbJVBVKcJOTU1BXVj17w6erfMhYsknobDMvjTbxIbhMpWhLWnLGakF3RkeI0SkIWc"/>
+</div>
+<div class="w-6 h-6 rounded-full border border-background overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<span class="text-[8px] font-bold text-slate-400">+8</span>
+</div>
+</div>
+<button class="flex items-center gap-2 text-xs font-headline font-bold text-primary hover:text-white transition-colors uppercase tracking-widest">
+                                    INITIALIZE
+                                    <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Telemetry / Stats Side Panel -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest p-6 border border-outline-variant/10 hud-card-asymmetric">
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<h4 class="font-headline font-bold text-sm tracking-widest uppercase">System Telemetry</h4>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-[10px] font-label text-slate-500 uppercase tracking-[0.2em]">Uptime</p>
+<p class="font-headline text-lg text-on-surface">99.987%</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label text-slate-500 uppercase tracking-[0.2em]">Latency</p>
+<p class="font-headline text-lg text-tertiary">14ms</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/5">
+<p class="text-[10px] font-label text-slate-500 uppercase tracking-[0.2em] mb-4">Encryption Status</p>
+<div class="grid grid-cols-5 gap-1">
+<div class="h-6 bg-tertiary/20 border border-tertiary/30"></div>
+<div class="h-6 bg-tertiary/20 border border-tertiary/30"></div>
+<div class="h-6 bg-tertiary/20 border border-tertiary/30"></div>
+<div class="h-6 bg-surface-container-high border border-white/5"></div>
+<div class="h-6 bg-surface-container-high border border-white/5"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tactical Quick Start -->
+<div class="bg-gradient-to-br from-primary-container/20 to-transparent p-6 border border-primary/20 hud-card-asymmetric group cursor-pointer hover:from-primary-container/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="bg-primary text-on-primary text-[8px] font-bold px-1.5 py-0.5 tracking-tighter">PREMIUM</span>
+</div>
+<h4 class="font-headline font-bold text-lg text-on-surface mb-2">Neural Link Pro</h4>
+<p class="text-xs font-label text-on-surface-variant leading-relaxed mb-6">Unlock deep-focus protocols and high-speed cognitive assessments.</p>
+<button class="w-full py-2 bg-surface-container-highest text-primary border border-primary/30 font-headline font-bold text-[10px] tracking-widest uppercase hover:bg-primary hover:text-on-primary transition-all">UPGRADE_PROTOCOL</button>
+</div>
+</div>
+<!-- Footer-style Secondary Feed -->
+<div class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<div class="bg-surface-container-low/50 p-4 border-l-2 border-secondary/40 flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="terminal">terminal</span>
+<div>
+<p class="text-[10px] font-label text-slate-500 uppercase tracking-widest">Protocol Version</p>
+<p class="text-xs font-headline font-bold text-on-surface">STABLE_V1.0.42</p>
+</div>
+</div>
+<div class="bg-surface-container-low/50 p-4 border-l-2 border-primary/40 flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<div>
+<p class="text-[10px] font-label text-slate-500 uppercase tracking-widest">Security Clearance</p>
+<p class="text-xs font-headline font-bold text-on-surface">LEVEL_04_OPERATOR</p>
+</div>
+</div>
+<div class="bg-surface-container-low/50 p-4 border-l-2 border-tertiary/40 flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="cloud_done">cloud_done</span>
+<div>
+<p class="text-[10px] font-label text-slate-500 uppercase tracking-widest">Sync Status</p>
+<p class="text-xs font-headline font-bold text-on-surface">ENCRYPTED_CLOUD_ACTIVE</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Floating Action Button) -->
+<!-- Suppressed based on "Task-Focused" exclusion in Shell Logic (Details/Quizzes context) -->
+</body></html>

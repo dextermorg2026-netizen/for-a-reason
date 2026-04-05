@@ -249,68 +249,127 @@ const LiveQuiz = () => {
     }
   };
 
-  // ================= JOIN SCREEN =================
+  // ================= RENDER =================
   if (!joined) {
     return (
-      <div style={styles.center}>
-        <div style={styles.card}>
-          <h1>Live Quiz 🚀</h1>
-
-          <input
-            style={styles.input}
-            placeholder="Your Name"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-
-          <input
-            style={styles.input}
-            placeholder="Quiz Code"
-            onChange={(e) => setSessionId(e.target.value)}
-          />
-
-          <button style={styles.primaryBtn} onClick={handleJoin}>
-            Join Quiz
-          </button>
+      <div className="min-h-[80vh] flex items-center justify-center p-6">
+        <div className="w-full max-w-md bg-[#131313] asymmetric-card hud-border p-10 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors duration-1000"></div>
+          
+          <div className="relative z-10 text-center">
+            <div className="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center text-primary mx-auto mb-8 border border-primary/20 shadow-inner animate-pulse">
+              <span className="material-symbols-outlined text-4xl">sensors</span>
+            </div>
+            
+            <h1 className="font-headline font-bold text-3xl text-on-surface uppercase tracking-tighter mb-4">Live Join</h1>
+            <p className="font-label text-xs text-slate-500 uppercase tracking-[0.3em] mb-10">Simulation Entrance Protocol</p>
+            
+            <div className="space-y-6">
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-primary/50 group-focus-within:text-primary transition-colors">
+                  <span className="material-symbols-outlined text-sm">person</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="OPERATOR_NAME"
+                  className="w-full bg-surface-container-lowest border border-white/10 rounded-sm pl-10 pr-4 py-4 font-headline text-xs font-semibold text-on-surface placeholder:text-slate-700 uppercase tracking-widest focus:outline-none focus:border-primary/50 focus:bg-primary/5 focus:shadow-[inset_4px_0_0_0_#ddb7ff] transition-all text-left"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-secondary/50 group-focus-within:text-secondary transition-colors">
+                  <span className="material-symbols-outlined text-sm">tag</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="QUIZ_CODE_000"
+                  className="w-full bg-surface-container-lowest border border-white/10 rounded-sm pl-10 pr-4 py-4 font-headline text-xs font-semibold text-on-surface placeholder:text-slate-700 uppercase tracking-widest focus:outline-none focus:border-secondary/50 focus:bg-secondary/5 focus:shadow-[inset_4px_0_0_0_#4cd7f6] transition-all text-left"
+                  onChange={(e) => setSessionId(e.target.value)}
+                />
+              </div>
+              
+              <button 
+                className="w-full py-5 bg-primary text-on-primary font-headline font-bold text-sm uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_30px_rgba(183,109,255,0.4)] hover:scale-[1.02] transition-transform mt-4"
+                onClick={handleJoin}
+              >
+                Establish Connection
+              </button>
+            </div>
+            
+            <div className="mt-8 bg-surface-container-lowest border border-white/5 p-4 rounded-sm text-left">
+              <div className="flex items-center gap-2 mb-3 pb-3 border-b border-white/5">
+                <span className="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                <span className="text-[9px] font-headline font-semibold text-slate-500 uppercase tracking-widest">System Diagnostics</span>
+              </div>
+              <ul className="space-y-2 font-mono text-[9px] text-slate-400">
+                <li className="flex justify-between"><span>PROTOCOL:</span> <span className="text-secondary font-semibold tracking-widest">VYRO_041-LIVE</span></li>
+                <li className="flex justify-between"><span>SESSION HASH:</span> <span className="text-primary font-semibold tracking-widest">#VRX-9922-K</span></li>
+                <li className="flex justify-between"><span>CORE STATUS:</span> <span className="text-tertiary shadow-[0_0_5px_rgba(78,222,163,0.5)]">ONLINE</span></li>
+                <li className="flex justify-between"><span>SYNC:</span> <span className="text-white font-semibold">100%</span></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
-  // ================= WAIT =================
   if (session?.status === "waiting") {
     return (
-      <div style={styles.center}>
-        <div style={styles.card}>
-          <h2>⏳ Waiting for host...</h2>
-
-          {isHost && (
-            <button style={styles.primaryBtn} onClick={handleStart}>
-              Start Quiz 🚀
+      <div className="min-h-[80vh] flex items-center justify-center p-6">
+        <div className="w-full max-w-lg bg-[#131313] asymmetric-card hud-border p-12 text-center relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+          
+          <div className="w-24 h-24 bg-surface-container-low rounded-full flex items-center justify-center mx-auto mb-8 border border-white/5 shadow-inner">
+            <span className="material-symbols-outlined text-5xl text-secondary animate-spin" style={{ animationDuration: '3s' }}>hourglass_empty</span>
+          </div>
+          
+          <h2 className="font-headline font-bold text-2xl text-on-surface uppercase tracking-widest mb-4">Standby Mode</h2>
+          <p className="font-body text-slate-500 text-sm uppercase tracking-[0.2em] mb-12">Waiting for mission coordinator to authorize launch...</p>
+          
+          {isHost ? (
+            <button 
+              className="w-full py-5 bg-secondary text-on-secondary font-headline font-bold text-sm uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_30px_rgba(78,222,163,0.3)] hover:scale-[1.02] transition-transform"
+              onClick={handleStart}
+            >
+              Start Mission now
             </button>
+          ) : (
+             <div className="p-6 bg-surface-container-lowest border border-white/5 rounded-lg">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="font-headline text-[9px] uppercase text-slate-500 font-semibold tracking-widest">Signal Strength</span>
+                  <span className="font-headline text-[9px] uppercase text-secondary font-semibold tracking-widest">Optimal</span>
+                </div>
+                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden flex gap-1">
+                  <div className="h-full bg-secondary flex-1"></div>
+                  <div className="h-full bg-secondary flex-1"></div>
+                  <div className="h-full bg-secondary flex-1"></div>
+                  <div className="h-full bg-secondary flex-1 opacity-50"></div>
+                </div>
+             </div>
           )}
         </div>
       </div>
     );
   }
 
-  // ================= WAITING FOR RESULTS =================
   if (joined && isFinished && session?.status !== "finished") {
     return (
-      <div style={styles.center}>
-        <div style={styles.card}>
-          <h1 style={{ fontSize: "60px", marginBottom: "20px" }}>✅</h1>
-          <h2>Quiz Submitted!</h2>
-          <p style={{ color: "#64748b", margin: "15px 0 25px" }}>
-            Great job! Your answers have been recorded.
+      <div className="min-h-[80vh] flex items-center justify-center p-6">
+        <div className="w-full max-w-lg bg-[#131313] asymmetric-card hud-border p-12 text-center">
+          <div className="w-24 h-24 bg-tertiary/20 rounded-full flex items-center justify-center mx-auto mb-8 border border-tertiary/20 shadow-[0_0_30px_rgba(78,222,163,0.2)]">
+            <span className="material-symbols-outlined text-5xl text-tertiary">check_circle</span>
+          </div>
+          <h2 className="font-headline font-bold text-2xl text-on-surface uppercase tracking-widest mb-4">Intel Transmitted</h2>
+          <p className="font-body text-slate-500 text-sm uppercase tracking-[0.2em] mb-8 leading-relaxed">
+            All operational data has been successfully uploaded to the central mainframe.
           </p>
-          <div style={{ 
-            padding: "15px", 
-            background: "#f1f5f9", 
-            borderRadius: "12px",
-            color: "#475569",
-            fontWeight: "500"
-          }}>
-             ⏳ Waiting for the host to submit...
+          <div className="p-6 bg-surface-container-lowest border-l-4 border-secondary rounded flex justify-between items-center">
+             <div className="text-left">
+               <p className="font-headline text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-1">System Status</p>
+               <p className="font-headline text-xs font-semibold text-on-surface tracking-widest">AWAITING_SQUAD_COMPLETION...</p>
+             </div>
+             <span className="material-symbols-outlined text-secondary animate-pulse">cloud_upload</span>
           </div>
         </div>
       </div>
@@ -320,257 +379,150 @@ const LiveQuiz = () => {
   const currentQ = questions[currentIndex];
 
   return (
-    <div style={styles.container}>
-      {/* LEFT */}
-      <div style={styles.main}>
-        <h3 style={styles.timer}>
-          ⏱ {Math.floor(timeLeft / 60)}:
-          {String(timeLeft % 60).padStart(2, "0")}
-        </h3>
-
-        <h2 style={styles.question}>{currentQ?.question}</h2>
-
-        <div style={styles.options}>
-          {currentQ?.options.map((opt, i) => (
-            <div
-              key={i}
-              onClick={() => handleSelect(i)}
-              style={{
-                ...styles.option,
-                ...(answersMap[currentIndex] === i
-                  ? styles.selected
-                  : {}),
-              }}
-              onMouseEnter={(e) => {
-                if (answersMap[currentIndex] !== i) {
-                  e.currentTarget.style.transform = "translateY(-3px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 10px 20px rgba(0,0,0,0.1)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              {opt}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full pb-20">
+      {/* Question Main Panel */}
+      <div className="lg:col-span-9 space-y-8">
+        <div className="bg-[#131313] asymmetric-card hud-border p-8 md:p-12 relative min-h-[400px] flex flex-col">
+          <div className="flex justify-between items-start mb-12">
+            <div className="px-4 py-1.5 bg-primary/10 border border-primary/20 rounded text-primary font-headline text-xs font-semibold uppercase tracking-widest">
+              MISSION_LOG 0{currentIndex + 1}
             </div>
-          ))}
+            <div className="flex items-center gap-3">
+               <span className="material-symbols-outlined text-secondary text-base">timer</span>
+               <span className="font-headline text-2xl font-bold text-on-surface tracking-tighter">
+                 {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
+               </span>
+            </div>
+          </div>
+
+          <h2 className="font-headline font-semibold text-2xl md:text-3xl text-on-surface leading-tight mb-12 md:pr-20 uppercase tracking-tight">
+            {currentQ?.question}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-auto">
+            {currentQ?.options.map((opt, i) => {
+              const isSelected = answersMap[currentIndex] === i;
+              return (
+                <button
+                  key={i}
+                  onClick={() => handleSelect(i)}
+                  className={`group relative p-6 text-left border transition-all duration-300 asymmetric-card-small ${
+                    isSelected 
+                      ? "bg-primary/20 border-primary shadow-[0_0_20px_rgba(183,109,255,0.2)]" 
+                      : "bg-surface-container-lowest border-white/5 hover:border-white/20"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`w-8 h-8 rounded border flex items-center justify-center font-headline text-xs font-bold transition-all ${
+                      isSelected 
+                        ? "bg-primary text-on-primary border-primary" 
+                        : "bg-surface-container-low border-white/10 text-slate-500 group-hover:border-primary/50 group-hover:text-primary"
+                    }`}>
+                      {String.fromCharCode(65 + i)}
+                    </div>
+                    <span className={`font-body text-sm md:text-base uppercase tracking-wider ${isSelected ? 'text-on-surface font-semibold' : 'text-slate-400 group-hover:text-on-surface'}`}>
+                      {opt}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <div style={styles.bottomSection}>
-          <div style={styles.navButtons}>
+        {/* Footer Actions */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex gap-4 w-full md:w-auto">
             <button
-              style={styles.navBtn}
-              onClick={() =>
-                setCurrentIndex((p) => Math.max(p - 1, 0))
-              }
+              onClick={() => setCurrentIndex((p) => Math.max(p - 1, 0))}
+              disabled={currentIndex === 0}
+              className="flex-1 md:flex-none px-8 py-4 bg-surface-container-low border border-white/10 text-slate-400 font-headline font-semibold text-xs uppercase tracking-widest asymmetric-card hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed"
             >
-              ← Previous
+              Previous Protocol
             </button>
-
             <button
-              style={styles.navBtn}
-              onClick={() =>
-                setCurrentIndex((p) =>
-                  Math.min(p + 1, questions.length - 1)
-                )
-              }
+              onClick={() => setCurrentIndex((p) => Math.min(p + 1, questions.length - 1))}
+              disabled={currentIndex === questions.length - 1}
+              className="flex-1 md:flex-none px-8 py-4 bg-surface-container-low border border-white/10 text-slate-400 font-headline font-semibold text-xs uppercase tracking-widest asymmetric-card hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed"
             >
-              Next →
+              Next Protocol
             </button>
           </div>
 
-          <div style={styles.actionButtons}>
-            <button
-              style={styles.submitBtn}
-              onMouseDown={(e) =>
-                (e.currentTarget.style.transform = "scale(0.95)")
-              }
-              onMouseUp={(e) =>
-                (e.currentTarget.style.transform = "scale(1)")
-              }
-              onClick={handleFinish}
-            >
-              Submit Quiz
-            </button>
-
+          <div className="flex gap-4 w-full md:w-auto">
             {isHost && (
               <button
-                style={styles.endBtn}
                 onClick={handleEnd}
+                className="flex-1 md:flex-none px-8 py-4 bg-error/10 border border-error/30 text-error font-headline font-semibold text-xs uppercase tracking-widest asymmetric-card hover:bg-error/20 transition-all"
               >
-                End Quiz
+                Abort Mission
               </button>
             )}
+            <button
+              onClick={handleFinish}
+              className="flex-1 md:flex-none px-12 py-4 bg-primary text-on-primary font-headline font-bold text-xs uppercase tracking-widest asymmetric-card shadow-[0_0_20px_rgba(183,109,255,0.3)] hover:scale-[1.02] transition-transform"
+            >
+              Submit Intel
+            </button>
           </div>
         </div>
       </div>
 
-      {/* RIGHT */}
-      <div style={styles.palette}>
-        {questions.map((_, i) => {
-          let color = "#e5e7eb";
-          if (answersMap[i] !== undefined) color = "#22c55e";
-          if (i === currentIndex) color = "#6366f1";
+      {/* Side HUD Palette */}
+      <div className="lg:col-span-3 space-y-6">
+        <div className="bg-[#131313] asymmetric-card hud-border p-6 sticky top-24">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="w-2 h-2 rounded-full bg-secondary"></span>
+            <h3 className="font-headline font-semibold text-[10px] text-slate-500 uppercase tracking-[0.3em]">Telemetry Palette</h3>
+          </div>
+          
+          <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-4 gap-2">
+            {questions.map((_, i) => {
+              const isAnswered = answersMap[i] !== undefined;
+              const isActive = i === currentIndex;
+              
+              return (
+                <button
+                  key={i}
+                  onClick={() => setCurrentIndex(i)}
+                  className={`aspect-square rounded flex items-center justify-center font-headline text-[10px] font-bold transition-all ${
+                    isActive 
+                      ? "bg-primary text-on-primary shadow-[0_0_10px_rgba(183,109,255,0.5)] border-primary" 
+                      : isAnswered 
+                        ? "bg-secondary/20 text-secondary border border-secondary/30" 
+                        : "bg-surface-container-lowest text-slate-700 border border-white/5 hover:border-white/20"
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              );
+            })}
+          </div>
 
-          return (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              style={{ ...styles.qBox, background: color }}
-            >
-              {i + 1}
-            </button>
-          );
-        })}
+          <div className="mt-10 pt-6 border-t border-white/5 space-y-4">
+             <div className="flex justify-between items-center text-[10px] font-headline font-semibold">
+               <span className="text-slate-600 uppercase tracking-widest">Completed</span>
+               <span className="text-secondary">{Object.keys(answersMap).length} / {questions.length}</span>
+             </div>
+             <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-secondary" 
+                  style={{ width: `${(Object.keys(answersMap).length / (questions.length || 1)) * 100}%` }}
+                ></div>
+             </div>
+          </div>
+        </div>
+
+        <div className="bg-primary/5 border border-primary/10 p-6 asymmetric-card-small">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="material-symbols-outlined text-primary text-sm">security</span>
+            <span className="font-headline text-[8px] font-semibold text-primary uppercase tracking-[0.3em]">Encryption Secure</span>
+          </div>
+          <p className="text-[10px] font-body text-slate-500 uppercase tracking-tighter">Your session data is localized and synchronized with the central node.</p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LiveQuiz;
-
-// ================= STYLES =================
-
-const styles = {
-  container: {
-    display: "flex",
-    gap: "30px",
-    padding: "30px",
-    background: "linear-gradient(to right, #eef2ff, #f8fafc)",
-    minHeight: "100vh",
-  },
-
-  main: {
-    flex: 3,
-    background: "#fff",
-    padding: "30px",
-    borderRadius: "18px",
-    boxShadow: "0 15px 40px rgba(0,0,0,0.08)",
-  },
-
-  palette: {
-    flex: 1,
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 40px)",
-    gap: "10px",
-    justifyContent: "center",
-    alignContent: "flex-start", // 🔥 IMPORTANT FIX
-  },
-
-  qBox: {
-    width: "40px",
-    height: "40px",
-    borderRadius: "8px",
-    border: "none",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-  },
-
-  options: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "14px",
-    marginTop: "20px",
-  },
-
-  option: {
-    padding: "16px",
-    borderRadius: "12px",
-    border: "1px solid #e5e7eb",
-    cursor: "pointer",
-    transition: "all 0.25s ease",
-  },
-
-  selected: {
-    background: "#4f46e5",
-    color: "#fff",
-    boxShadow: "0 10px 25px rgba(79,70,229,0.4)",
-  },
-
-  bottomSection: {
-    marginTop: "30px",
-  },
-
-  navButtons: {
-    display: "flex",
-    justifyContent: "center",
-    gap: "15px",
-  },
-
-  navBtn: {
-    padding: "10px 20px",
-    borderRadius: "10px",
-    background: "#f1f5f9",
-    border: "1px solid #e2e8f0",
-    cursor: "pointer",
-  },
-
-  actionButtons: {
-    display: "flex",
-    justifyContent: "center",
-    gap: "20px",
-    marginTop: "20px",
-  },
-
-  submitBtn: {
-    padding: "12px 24px",
-    background: "#6366f1",
-    color: "#fff",
-    border: "none",
-    borderRadius: "12px",
-  },
-
-  endBtn: {
-    padding: "12px 24px",
-    background: "#ef4444",
-    color: "#fff",
-    border: "none",
-    borderRadius: "12px",
-  },
-
-  timer: {
-    fontWeight: "600",
-    marginBottom: "10px",
-  },
-
-  question: {
-    fontSize: "22px",
-    fontWeight: "700",
-  },
-
-  center: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    background: "#f8fafc",
-  },
-
-  card: {
-    padding: "30px",
-    borderRadius: "16px",
-    background: "#fff",
-    textAlign: "center",
-    width: "350px",
-  },
-
-  input: {
-    width: "100%",
-    padding: "10px",
-    margin: "10px 0",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
-  },
-
-  primaryBtn: {
-    padding: "10px",
-    background: "#6366f1",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-  },
-  gridTemplateColumns: "repeat(5, 45px)"
-};
+export default LiveQuiz;

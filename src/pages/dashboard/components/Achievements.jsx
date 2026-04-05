@@ -1,148 +1,69 @@
-import React from 'react';
-
 const Achievements = ({ stats, totalXP }) => {
   const badges = [
     {
       title: "Getting Started",
-      icon: "🚀",
+      icon: "start",
+      colorClass: "text-tertiary",
+      bgClass: "bg-tertiary/10",
       unlocked: stats.quizzes >= 5,
-      progress: `${stats.quizzes}/5 quizzes`,
+      status: stats.quizzes >= 5 ? "Completed" : `${stats.quizzes}/5 quizzes`,
     },
     {
       title: "Rising Star",
-      icon: "⭐",
+      icon: "auto_awesome",
+      colorClass: "text-primary",
+      bgClass: "bg-primary/10",
       unlocked: totalXP >= 100,
-      progress: `${totalXP}/100 XP`,
+      status: totalXP >= 100 ? "Completed" : `${totalXP}/100 XP`,
     },
     {
       title: "Consistency Pro",
-      icon: "🔥",
+      icon: "repeat",
+      colorClass: "text-secondary",
+      bgClass: "bg-secondary/10",
       unlocked: stats.streak >= 5,
-      progress: `${stats.streak}/5 day streak`,
+      status: stats.streak >= 5 ? "Completed" : `${stats.streak}/5 day streak`,
     },
     {
       title: "Wealthy Learner",
-      icon: "🏆",
+      icon: "payments",
+      colorClass: "text-primary-container",
+      bgClass: "bg-primary-container/10",
       unlocked: stats.coins >= 300,
-      progress: `${stats.coins}/300 coins`,
+      status: stats.coins >= 300 ? "Completed" : `${stats.coins}/300 coins`,
     },
   ];
 
   return (
-    <>
-      <style>
-        {`
-          .achievements-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            font-family: inherit;
-            color: var(--text-primary);
-          }
-
-          .achievements-header h3 {
-            margin: 0;
-            font-size: 1.1rem;
-            color: var(--accent-primary);
-          }
-
-          .achievements-subtitle {
-            margin: 4px 0 15px 0;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-          }
-
-          .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-          }
-
-          .achievement-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.5);
-            transition: 0.3s ease;
-            color: var(--text-primary);
-          }
-
-          .achievement-locked {
-            filter: grayscale(1);
-            opacity: 0.6;
-            border: 1px dashed #d1d1d1;
-          }
-
-          .achievement-unlocked {
-            background: var(--bg-surface);
-            border: 1px solid var(--accent-primary);
-            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.1);
-          }
-
-          .achievement-icon {
-            font-size: 1.5rem;
-          }
-
-          .achievement-info {
-            display: flex;
-            flex-direction: column;
-          }
-
-          .achievement-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-primary);
-          }
-
-          .achievement-progress, .achievement-unlocked-text {
-            font-size: 0.65rem;
-            margin-top: 2px;
-          }
-
-          .achievement-unlocked-text {
-            color: var(--accent-primary);
-            font-weight: 600;
-          }
-
-          .achievement-progress {
-            color: var(--text-muted);
-          }
-        `}
-      </style>
-
-      <div className="achievements-card">
-        <div className="achievements-header">
-          <h3>Achievements</h3>
-          <p className="achievements-subtitle">Milestones</p>
-        </div>
-        <div className="achievements-grid">
-          {badges.map((badge, index) => (
-            <div
-              key={index}
-              className={`achievement-item ${
-                badge.unlocked ? "achievement-unlocked" : "achievement-locked"
-              }`}
-            >
-              <div className="achievement-icon">{badge.icon}</div>
-              <div className="achievement-info">
-                <div className="achievement-label">{badge.title}</div>
-                {!badge.unlocked ? (
-                  <div className="achievement-progress">{badge.progress}</div>
-                ) : (
-                  <div className="achievement-unlocked-text">Unlocked 🎉</div>
-                )}
-              </div>
+    <div className="h-full flex flex-col">
+      <h2 className="font-headline text-lg font-semibold uppercase tracking-widest text-on-surface flex items-center gap-2 mb-6">
+        <span className="material-symbols-outlined text-tertiary">military_tech</span>
+        Achievements
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {badges.map((badge, index) => (
+          <div
+            key={index}
+            className={`p-4 bg-surface-container-lowest border rounded-lg flex items-center gap-3 transition-all ${
+              badge.unlocked ? "border-outline-variant/30 opacity-100" : "border-outline-variant/10 opacity-50 grayscale"
+            }`}
+          >
+            <div className={`w-10 h-10 rounded flex items-center justify-center ${badge.bgClass} ${badge.colorClass}`}>
+              <span className="material-symbols-outlined">{badge.icon}</span>
             </div>
-          ))}
-        </div>
+            <div>
+              <p className="text-xs font-semibold text-on-surface uppercase tracking-wider">
+                {badge.title}
+              </p>
+              <p className="text-[10px] text-slate-500 uppercase font-medium">
+                {badge.status}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 
-export default Achievements;
+export default Achievements;

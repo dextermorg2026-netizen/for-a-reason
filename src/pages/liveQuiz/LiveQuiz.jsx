@@ -11,16 +11,15 @@ import {
   getParticipant,
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-
-const HOST_UID = "vy4i5HlsiRS7qyY5qiOMG3IyQPQ2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LiveQuiz = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, userProfile } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [joined, setJoined] = useState(false);
-  const [sessionId, setSessionId] = useState("");
+  const [sessionId, setSessionId] = useState(location.state?.code || "");
   const [username, setUsername] = useState("");
 
   const [session, setSession] = useState(null);
@@ -32,7 +31,7 @@ const LiveQuiz = () => {
   const [isFinished, setIsFinished] = useState(false);
   const hasAutoSubmittedRef = useRef(false);
 
-  const isHost = currentUser?.uid === HOST_UID;
+  const isHost = userProfile?.role === "admin";
 
   const getMillis = (value) => {
     if (typeof value === "number") return value;
@@ -71,7 +70,10 @@ const LiveQuiz = () => {
         // ✅ CHECK IF ALREADY FINISHED
         if (currentUser?.uid) {
           getParticipant(sessionId, currentUser.uid).then((p) => {
-            if (p?.finished) setIsFinished(true);
+            if (p?.finished) {
+              setIsFinished(true);
+              hasAutoSubmittedRef.current = true;
+            }
           });
         }
       }
@@ -119,21 +121,24 @@ const LiveQuiz = () => {
     }
   
     setIsFinished(true);
-    localStorage.removeItem("liveQuizSession");
-  
+    // Note: We intentionally avoid removing localStorage here to prevent refresh amnesia!
+  };
+
+  // If host ends quiz for everyone, all joined users should move to result.
+  useEffect(() => {
     if (session?.status === "finished") {
+      // Force auto submit just in case they haven't yet
+      if (!hasAutoSubmittedRef.current) {
+        autoSubmit();
+      }
+
+      // Clear local storage ONLY when the session is actually done globally
+      localStorage.removeItem("liveQuizSession");
+
+      // Everyone gets booted to the results screen
       navigate("/live/result", {
         state: { sessionId },
       });
-    }
-  };
-  // If host ends quiz for everyone, all joined users should move to result.
-  useEffect(() => {
-    if (
-      session?.status === "finished" &&
-      !hasAutoSubmittedRef.current
-    ) {
-      autoSubmit();
     }
   }, [session?.status]);
 
@@ -155,6 +160,7 @@ const LiveQuiz = () => {
       const participant = await getParticipant(sessionId, currentUser?.uid);
       if (participant?.finished) {
         setIsFinished(true);
+        hasAutoSubmittedRef.current = true;
         setJoined(true);
         subscribeToLiveQuiz(sessionId, setSession);
         return;
@@ -283,6 +289,7 @@ const LiveQuiz = () => {
                 <input
                   type="text"
                   placeholder="QUIZ_CODE_000"
+                  value={sessionId}
                   className="w-full bg-surface-container-lowest border border-white/10 rounded-sm pl-10 pr-4 py-4 font-headline text-xs font-semibold text-on-surface placeholder:text-slate-700 uppercase tracking-widest focus:outline-none focus:border-secondary/50 focus:bg-secondary/5 focus:shadow-[inset_4px_0_0_0_#4cd7f6] transition-all text-left"
                   onChange={(e) => setSessionId(e.target.value)}
                 />

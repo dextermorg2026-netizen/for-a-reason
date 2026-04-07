@@ -76,18 +76,23 @@ const LiveResult = () => {
 
   if (!sessionId) {
     return (
-      <div style={styles.center}>
-        <h2>⚠️ Invalid session</h2>
+      <div className="min-h-[80vh] flex items-center justify-center p-6">
+        <div className="bg-surface-container-low border border-white/5 p-8 text-center asymmetric-card">
+          <h2 className="font-headline font-bold text-xl text-error uppercase tracking-widest"><span className="material-symbols-outlined align-middle mr-2">error</span> Invalid Session</h2>
+        </div>
       </div>
     );
   }
 
   if (!session || session.status !== "finished") {
     return (
-      <div style={styles.center}>
-        <div style={styles.loaderCard}>
-          <h2>⏳ Calculating Results...</h2>
-          <p>Waiting for results to be published...</p>
+      <div className="min-h-[80vh] flex items-center justify-center p-6">
+        <div className="bg-[#131313] asymmetric-card hud-border p-10 text-center flex flex-col items-center gap-6">
+          <span className="material-symbols-outlined text-4xl text-primary animate-spin">sync</span>
+          <div>
+            <h2 className="font-headline font-bold text-lg text-on-surface uppercase tracking-[0.2em] mb-2">Calculating Results</h2>
+            <p className="font-body text-xs text-slate-500 uppercase tracking-widest">Waiting for simulation data to be published...</p>
+          </div>
         </div>
       </div>
     );

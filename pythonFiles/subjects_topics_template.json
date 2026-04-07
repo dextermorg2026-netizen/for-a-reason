@@ -1,0 +1,135 @@
+{
+  "subjects": [
+    {
+      "title": "Computer Science",
+      "description": "Fundamental concepts in computer science and programming",
+      "diagram_suggestions": ["Programming Flowchart","Data Structure Diagram"],
+      "topics": [
+        {
+          "title": "Programming Fundamentals",
+          "description": "Basic programming concepts and principles",
+          "subtopics": [
+            {
+              "title": "Variables and Data Types",
+              "theory": "Variables are containers for storing data values. In programming, we use different data types like integers, strings, booleans, and floating-point numbers to represent different kinds of information. For example, an integer variable can store whole numbers like 42, while a string variable can store text like 'Hello World'.",
+              "images": [
+                "https://res.cloudinary.com/mybucket/variable_example.png"
+              ]
+            },
+            {
+              "title": "Control Structures",
+              "theory": "Control structures determine the flow of execution in a program. Conditional statements (if-else) allow programs to make decisions, while loops (for, while) enable repetitive execution. These structures are fundamental to creating dynamic and responsive programs."
+            },
+            {
+              "title": "Functions and Methods",
+              "theory": "Functions are reusable blocks of code that perform specific tasks. They help organize code, reduce repetition, and make programs more modular. A function takes input parameters, processes them, and returns a result. Methods are functions that belong to objects in object-oriented programming."
+            }
+          ]
+        },
+        {
+          "title": "Data Structures",
+          "description": "Essential data structures for efficient programming",
+          "subtopics": [
+            {
+              "title": "Arrays and Lists",
+              "theory": "Arrays and lists are fundamental data structures that store collections of elements. Arrays have fixed size and store elements of the same type, while lists are more flexible and can grow dynamically. Both support operations like insertion, deletion, and access by index."
+            },
+            {
+              "title": "Stacks and Queues",
+              "theory": "Stacks follow Last-In-First-Out (LIFO) principle, where the last element added is the first one removed. Queues follow First-In-First-Out (FIFO) principle, where the first element added is the first one removed. These data structures are essential for managing data in specific order requirements."
+            },
+            {
+              "title": "Hash Tables",
+              "theory": "Hash tables, also known as hash maps or dictionaries, provide fast data retrieval using key-value pairs. They use hash functions to convert keys into array indices, enabling average O(1) time complexity for search, insert, and delete operations. Collision resolution techniques like chaining and open addressing handle cases where different keys produce the same hash."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mathematics",
+      "description": "Core mathematical concepts and problem-solving techniques",
+      "topics": [
+        {
+          "title": "Algebra",
+          "description": "Fundamental algebraic operations and equations",
+          "subtopics": [
+            {
+              "title": "Linear Equations",
+              "theory": "Linear equations represent straight lines when graphed. They have the general form ax + b = c, where a, b, and c are constants, and x is the variable. Solving linear equations involves isolating the variable using inverse operations like addition, subtraction, multiplication, and division.",
+              "images": ["https://example.com/linear_graph.png"]
+            },
+            {
+              "title": "Quadratic Equations",
+              "theory": "Quadratic equations have the form ax^2 + bx + c = 0, where a != 0. They can be solved using factoring, completing the square, or the quadratic formula: x = [-b +/- sqrt(b^2 - 4ac)] / 2a. The discriminant (b^2 - 4ac) determines the nature of roots: positive for two real roots, zero for one real root, negative for complex roots."
+            },
+            {
+              "title": "Systems of Equations",
+              "theory": "Systems of equations involve multiple equations with multiple variables. They can be solved using substitution, elimination, or matrix methods. Graphically, the solution represents the intersection point(s) of the equations' lines. Consistent systems have one solution, inconsistent systems have no solution, and dependent systems have infinitely many solutions."
+            }
+          ]
+        },
+        {
+          "title": "Calculus",
+          "description": "Limits, derivatives, and integrals",
+          "subtopics": [
+            {
+              "title": "Limits and Continuity",
+              "theory": "Limits describe the behavior of a function as the input approaches a particular value. A function is continuous at a point if the limit exists and equals the function value. Continuity is crucial for defining derivatives and integrals, ensuring smooth transitions in mathematical models."
+            },
+            {
+              "title": "Derivatives",
+              "theory": "Derivatives measure the rate of change of a function. The derivative of f(x) is f'(x) = lim(h→0) [f(x+h) - f(x)]/h. It represents the slope of the tangent line at any point and has applications in physics (velocity, acceleration), economics (marginal cost), and optimization problems."
+            },
+            {
+              "title": "Integrals",
+              "theory": "Integration is the reverse process of differentiation. The definite integral ∫[a,b] f(x) dx represents the area under the curve from a to b. The fundamental theorem of calculus connects differentiation and integration: d/dx ∫[a,x] f(t) dt = f(x). Integration has applications in finding areas, volumes, and solving differential equations."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Physics",
+      "description": "Fundamental principles of physics and natural laws",
+      "topics": [
+        {
+          "title": "Classical Mechanics",
+          "description": "Motion, forces, and energy",
+          "subtopics": [
+            {
+              "title": "Newton's Laws of Motion",
+              "theory": "Newton's three laws form the foundation of classical mechanics. First law (inertia): An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an unbalanced force. Second law (F = ma): Force equals mass times acceleration. Third law: For every action, there is an equal and opposite reaction."
+            },
+            {
+              "title": "Work and Energy",
+              "theory": "Work is done when a force causes displacement: W = F × d × cosθ. Energy is the capacity to do work. Kinetic energy (KE = 1/2mv^2) is energy of motion, potential energy is stored energy. The work-energy theorem states that work done equals change in kinetic energy. Conservation of energy: Energy cannot be created or destroyed, only transformed."
+            },
+            {
+              "title": "Momentum and Collisions",
+              "theory": "Momentum (p = mv) is mass times velocity. The law of conservation of momentum states that total momentum is conserved in isolated systems. In collisions, momentum is conserved but kinetic energy may not be. Elastic collisions conserve both momentum and kinetic energy, while inelastic collisions conserve momentum but not kinetic energy."
+            }
+          ]
+        },
+        {
+          "title": "Electricity and Magnetism",
+          "description": "Electric and magnetic phenomena",
+          "subtopics": [
+            {
+              "title": "Electric Circuits",
+              "theory": "Electric circuits consist of voltage sources, resistors, capacitors, and inductors. Ohm's law (V = IR) relates voltage, current, and resistance. Series circuits have the same current throughout, parallel circuits have the same voltage across branches. Power dissipated is P = VI = I^2R = V^2/R."
+            },
+            {
+              "title": "Magnetic Fields",
+              "theory": "Magnetic fields are produced by moving charges and magnets. The magnetic field strength B is measured in tesla. Right-hand rule determines field direction around current-carrying wires. Magnetic flux Φ = B × A × cosθ. Faraday's law: Changing magnetic flux induces electromotive force (EMF = -dΦ/dt)."
+            },
+            {
+              "title": "Electromagnetic Waves",
+              "theory": "Electromagnetic waves consist of oscillating electric and magnetic fields perpendicular to each other and to the direction of propagation. They travel at speed of light c = 3 × 10⁸ m/s. The electromagnetic spectrum includes radio waves, microwaves, infrared, visible light, ultraviolet, X-rays, and gamma rays, all with different wavelengths and frequencies."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

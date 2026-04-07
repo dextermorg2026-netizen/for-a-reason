@@ -32,7 +32,7 @@ const NotificationToast = () => {
 
   const handleJoin = () => {
     if (notification?.code) {
-      navigate('/live'); // The live component handles entering the room code
+      navigate('/live', { state: { code: notification.code } }); // Auto fills the room code
       setNotification(null);
     }
   };

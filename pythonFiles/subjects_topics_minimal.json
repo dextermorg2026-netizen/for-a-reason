@@ -1,0 +1,37 @@
+{
+  "subjects": [
+    {
+      "title": "Your Subject Name",
+      "description": "Brief description of the subject",
+      "diagram_suggestions": [],
+      "topics": [
+        {
+          "title": "Topic Name",
+          "description": "Brief description of the topic",
+          "subtopics": [
+            {
+              "title": "Subtopic Name",
+              "theory": "Detailed explanation of the subtopic. This can be as long as needed and should contain all the educational content for this subtopic.",
+              "images": ["https://example.com/image1.png"]
+            },
+            {
+              "title": "Another Subtopic",
+              "theory": "More detailed content here...",
+              "images": []
+            }
+          ]
+        },
+        {
+          "title": "Another Topic",
+          "description": "Topic description",
+          "subtopics": [
+            {
+              "title": "Subtopic Example",
+              "theory": "Content for this subtopic..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

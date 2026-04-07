@@ -74,9 +74,18 @@ function AppLayout() {
           </button>
           
           <div className="hidden md:flex items-center gap-2 pr-4 border-r border-white/10">
-            <button className="p-2 text-slate-400 hover:text-primary transition-all rounded-lg group relative">
+            <button 
+              className="p-2 text-slate-400 hover:text-primary transition-all rounded-lg group relative"
+              onClick={() => {
+                if (isLive) {
+                  navigate('/live');
+                } else {
+                  alert('No active broadcast signals detected.');
+                }
+              }}
+            >
               <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">notifications</span>
-              <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+              {isLive && <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>}
             </button>
             <button className="p-2 text-slate-400 hover:text-error transition-all rounded-lg group" onClick={() => window.confirm("Terminate Operator Session: Are you sure you want to log out?") && handleLogout()}>
               <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">logout</span>
@@ -149,6 +158,12 @@ function AppLayout() {
             <span className="material-symbols-outlined text-xl">leaderboard</span>
             <span className="uppercase tracking-widest text-xs">Leaderboard</span>
           </NavLink>
+          {userProfile?.role === "admin" && (
+            <NavLink to="/admin" className={navClass} onClick={() => setSidebarVisible(false)}>
+              <span className="material-symbols-outlined text-xl text-error">admin_panel_settings</span>
+              <span className="uppercase tracking-widest text-xs text-error">Root Access</span>
+            </NavLink>
+          )}
         </nav>
 
         {/* Footer Navigation & CTA */}
@@ -212,6 +227,12 @@ function AppLayout() {
           <span className="material-symbols-outlined">military_tech</span>
           <span className="text-[10px] font-semibold uppercase">Rank</span>
         </NavLink>
+        {userProfile?.role === "admin" && (
+          <NavLink to="/admin" className={({ isActive }) => `flex flex-col items-center gap-1 ${isActive ? 'text-error' : 'text-slate-500'}`}>
+            <span className="material-symbols-outlined">admin_panel_settings</span>
+            <span className="text-[10px] font-semibold uppercase">Root</span>
+          </NavLink>
+        )}
       </footer>
     </div>
   );

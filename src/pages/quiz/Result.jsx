@@ -18,6 +18,7 @@ const Result = () => {
   const coinsEarned = state.coinsEarned || 0;
   const questions = state.questions || [];
   const answers = state.answers || {};
+  const previouslyCorrectIds = state.previouslyCorrectIds || [];
 
   /* ================= AI HANDLER ================= */
 
@@ -56,7 +57,7 @@ const Result = () => {
     });
 
     const aiPayload = {
-      user_id: "demo_user", // or your auth user
+      user_id: currentUser?.uid || "demo_user",
       topic_accuracy,
       avg_time_per_question,
       mistakes: [],
@@ -87,7 +88,7 @@ const Result = () => {
     setAiLoading(false);
   };
 
-  /* ================= UI ===========  /* ================= UI ================= */
+  /* ================= UI ================= */
 
   return (
     <main className="max-w-4xl mx-auto pb-20">
@@ -194,11 +195,15 @@ const Result = () => {
         {questions.map((q, index) => {
           const userAnswer = answers[q.id];
           const isCorrect = userAnswer === Number(q.correctAnswer);
+          const wasCorrectPreviously = previouslyCorrectIds.includes(q.id);
 
           return (
             <div key={q.id} className={`bg-[#131313] asymmetric-card-small hud-border p-8 border-l-4 ${isCorrect ? 'border-tertiary/20' : 'border-error/20'}`}>
               <div className="flex justify-between items-start mb-6">
-                <span className="font-headline text-[10px] font-bold text-slate-700 uppercase tracking-widest">Question 0{index + 1}</span>
+                <div className="flex flex-col gap-2">
+                   <span className="font-headline text-[10px] font-bold text-slate-700 uppercase tracking-widest">Question 0{index + 1}</span>
+                   {wasCorrectPreviously && <span className="font-headline text-[8px] font-semibold text-primary uppercase tracking-[0.2em] bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full inline-block w-max">Previously Secured</span>}
+                </div>
                 <div className={`px-3 py-1 rounded text-[9px] font-headline font-semibold uppercase tracking-widest ${isCorrect ? 'bg-tertiary/10 text-tertiary border border-tertiary/20' : 'bg-error/10 text-error border border-error/20'}`}>
                   {isCorrect ? 'VALID_PROTOCOL' : 'PROTOCOL_ERROR'}
                 </div>

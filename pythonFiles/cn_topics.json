@@ -1,0 +1,1038 @@
+[
+    {
+        "title": "Introduction to Computer Networks",
+        "description": "Fundamental concepts of computer networking including data communication, components involved in communication systems, and types of data flow used in networks.",
+        "subtopics": [
+            {
+                "title": "What is a Computer Network",
+                "theory": "A computer network is a collection of interconnected devices such as computers, servers, routers, and switches that communicate with each other to share resources and exchange data. These devices are called nodes and they communicate through communication links such as cables or wireless signals. Networks enable applications like email, file sharing, video streaming, cloud computing, and web browsing. Modern networks rely on standardized protocols such as TCP/IP to ensure reliable communication between devices across the world."
+            },
+            {
+                "title": "Data Communication",
+                "theory": "Data communication refers to the exchange of data between two or more devices through a transmission medium. The communication can occur locally (within the same building) or remotely (across continents via the internet). For a data communication system to be effective it must ensure four main properties: delivery, accuracy, timeliness, and low jitter.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Basic_Data_Communication_Model_lrtgay"
+                ]
+            },
+            {
+                "title": "Components of Data Communication System",
+                "theory": "A data communication system consists of five main components: Message, Sender, Receiver, Transmission Medium, and Protocol. These components work together to ensure that information is transmitted efficiently and correctly between communicating devices.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Components_of_Data_Communication_System_Diagram_r4t5dk"
+                ]
+            },
+            {
+                "title": "Data Representation in Networks",
+                "theory": "In computer networks all forms of information must be converted into digital signals before transmission. Text is encoded using ASCII or Unicode, numbers are represented in binary form, images are stored as pixel matrices, audio is converted into digital samples, and video is transmitted as sequences of image frames."
+            },
+            {
+                "title": "Modes of Data Transmission",
+                "theory": "Data transmission can occur in three modes depending on communication direction. Simplex allows one-way communication. Half-duplex allows communication in both directions but not simultaneously. Full-duplex allows both devices to transmit and receive data simultaneously.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Simplex_vs_Half_Duplex_vs_Full_Duplex_Communication_Diagram_ntdqit"
+                ]
+            },
+            {
+                "title": "Key Network Performance Criteria",
+                "theory": "A good network must satisfy performance, reliability, and security. Performance measures how fast data can be transmitted, reliability measures the network's ability to recover from failures, and security protects data from unauthorized access and attacks."
+            }
+        ]
+    },
+    {
+        "title": "Network Models",
+        "description": "Network models define how communication happens between devices by dividing networking tasks into layers. The OSI and TCP/IP models are the most important architectural models used to understand computer networks.",
+        "subtopics": [
+            {
+                "title": "Why Layered Network Architecture is Needed",
+                "theory": "Networking systems are extremely complex because they involve many tasks such as data transmission, routing, error control, and application communication. To manage this complexity, networking is divided into multiple layers where each layer performs a specific function. Each layer communicates with the layer above and below it using well-defined interfaces. This layered approach simplifies network design, allows interoperability between different vendors, and enables easier troubleshooting and upgrades."
+            },
+            {
+                "title": "Encapsulation in Networking",
+                "theory": "Encapsulation is the process of wrapping data with protocol information at each layer of the network model before transmission. When an application sends data, the application layer passes it to the transport layer where headers such as port numbers are added. The network layer then adds IP addressing information. The data link layer adds MAC addresses and frame information. Finally the physical layer transmits the bits over the medium. At the receiver side this process is reversed and called decapsulation.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Encapsulation_Process_Diagram_hl4r37"
+                ]
+            },
+            {
+                "title": "Overview of OSI Model",
+                "theory": "The OSI (Open Systems Interconnection) model was developed by the International Organization for Standardization to standardize communication between different computer systems. It divides networking functions into seven layers where each layer performs a specific role in data communication. These layers help engineers understand how data flows across networks and how protocols interact.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/OSI_7_Layer_Model_Diagram_jf5gse"
+                ]
+            },
+            {
+                "title": "Physical Layer (Layer 1)",
+                "theory": "The physical layer is responsible for transmitting raw bits over a physical communication medium such as copper cables, fiber optics, or wireless signals. It defines electrical signals, voltage levels, transmission speed, connectors, and cable types. Devices operating at this layer include hubs, repeaters, and network cables."
+            },
+            {
+                "title": "Data Link Layer (Layer 2)",
+                "theory": "The data link layer ensures reliable communication between directly connected devices. It converts raw bits from the physical layer into frames and handles error detection using mechanisms such as CRC. It also manages MAC addressing and controls access to the transmission medium. Devices such as switches and network interface cards operate at this layer."
+            },
+            {
+                "title": "Network Layer (Layer 3)",
+                "theory": "The network layer is responsible for routing packets from the source device to the destination device across multiple networks. It determines the best path for data transmission using routing algorithms. Logical addressing such as IP addresses is used at this layer. Routers operate primarily at this layer.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Network_Layer_in_OSI_Model_Diagram_efwfqe"
+                ]
+            },
+            {
+                "title": "Transport Layer (Layer 4)",
+                "theory": "The transport layer provides end-to-end communication between applications running on different devices. It ensures reliable data transfer using mechanisms like acknowledgments, sequencing, retransmission, and flow control. Two important protocols operating at this layer are TCP and UDP."
+            },
+            {
+                "title": "Session Layer (Layer 5)",
+                "theory": "The session layer manages communication sessions between applications. It establishes, maintains, and terminates connections between two communicating systems. It also provides synchronization and checkpoint mechanisms during long data transfers."
+            },
+            {
+                "title": "Presentation Layer (Layer 6)",
+                "theory": "The presentation layer is responsible for data translation, encryption, and compression. It ensures that data sent by the application layer of one system can be correctly interpreted by the application layer of another system. Examples include SSL/TLS encryption and data format conversions."
+            },
+            {
+                "title": "Application Layer (Layer 7)",
+                "theory": "The application layer is the top layer of the OSI model and provides network services directly to end-user applications. Protocols such as HTTP, FTP, SMTP, DNS, and Telnet operate at this layer. It allows applications like browsers, email clients, and file transfer systems to communicate over the network."
+            },
+            {
+                "title": "Overview of TCP/IP Model",
+                "theory": "The TCP/IP model is the architecture used by the Internet and was developed by DARPA. Unlike the OSI model which has seven layers, the TCP/IP model consists of four layers: Application, Transport, Internet, and Network Access. This model is more practical and directly implemented in real networking systems.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/TCP_IP_4_Layer_Model_Diagram_gfaowa"
+                ]
+            },
+            {
+                "title": "TCP/IP Application Layer",
+                "theory": "The application layer in TCP/IP combines the functions of the OSI application, presentation, and session layers. It provides services such as web communication, email transmission, and file transfer. Common protocols include HTTP, HTTPS, FTP, SMTP, DNS, and SSH."
+            },
+            {
+                "title": "TCP/IP Transport Layer",
+                "theory": "The transport layer ensures end-to-end communication between hosts. It uses protocols like TCP and UDP. TCP provides reliable communication using acknowledgments and retransmissions while UDP provides faster but unreliable communication."
+            },
+            {
+                "title": "TCP/IP Internet Layer",
+                "theory": "The internet layer is responsible for logical addressing and packet routing. It determines how packets travel across multiple networks to reach the destination. The most important protocol at this layer is IP (Internet Protocol). Other supporting protocols include ICMP and ARP."
+            },
+            {
+                "title": "Network Access Layer",
+                "theory": "The network access layer handles communication between the host and the physical network. It includes protocols and hardware used for transmitting data over the physical medium. Technologies such as Ethernet and Wi-Fi operate at this layer."
+            },
+            {
+                "title": "OSI vs TCP/IP Layer Mapping",
+                "theory": "The OSI model has seven layers while the TCP/IP model has four layers. OSI is mainly a conceptual reference model used for understanding networking while TCP/IP is a practical implementation used in real networks. The OSI session and presentation layers are merged into the TCP/IP application layer.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/OSI_vs_TCP_IP_Layer_Mapping_Diagram_ca5j9i"
+                ]
+            },
+            {
+                "title": "Why TCP/IP Became the Standard",
+                "theory": "TCP/IP became the standard networking architecture because it was implemented earlier and used by ARPANET and later the Internet. It was simpler, more flexible, and widely adopted by operating systems and networking equipment. As the internet expanded globally, TCP/IP became the universal protocol suite for networking."
+            }
+        ]
+    },
+    {
+        "title": "Network Topologies",
+        "description": "Network topology refers to the physical or logical arrangement of devices and communication links in a network. It determines how nodes are connected, how data flows between devices, and how scalable or fault-tolerant a network is.",
+        "subtopics": [
+            {
+                "title": "What is Network Topology",
+                "theory": "Network topology describes the structure or layout of how devices (nodes) such as computers, switches, routers, and servers are interconnected in a network. It defines how data travels between devices and how devices communicate with each other. Topologies can be physical (actual cable layout) or logical (how data flows in the network). Choosing the right topology impacts network performance, scalability, cost, and fault tolerance."
+            },
+            {
+                "title": "Physical vs Logical Topology",
+                "theory": "Physical topology refers to the actual layout of cables and devices in the network. Logical topology describes how data moves within the network regardless of the physical layout. For example, Ethernet networks may use a star physical topology but logically behave like a bus because all devices share the same communication medium."
+            },
+            {
+                "title": "Structure of Mesh Topology",
+                "theory": "In a mesh topology every device is connected directly to every other device using dedicated point-to-point communication links. This means each pair of devices has its own private communication channel. This architecture provides maximum redundancy and reliability since multiple paths exist between nodes.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Mesh_Topology_Diagram_lzscev"
+                ]
+            },
+            {
+                "title": "Mesh Topology Link Formula",
+                "theory": "If a network has n devices, then the total number of links required for a full mesh topology is n(n−1)/2. This formula arises because each device must connect to every other device exactly once. For example, if there are 5 devices, the number of links required will be 5(5−1)/2 = 10 links."
+            },
+            {
+                "title": "Advantages and Disadvantages of Mesh Topology",
+                "theory": "Advantages include high reliability, fault tolerance, privacy of communication, and easy fault isolation because each connection is independent. However, mesh topology requires a large amount of cabling and hardware which increases installation cost and complexity. It is mainly used in backbone networks or mission-critical systems where reliability is extremely important."
+            },
+            {
+                "title": "Structure of Star Topology",
+                "theory": "In star topology every device is connected to a central device such as a switch or hub. All communication between devices passes through this central node. The central device manages traffic and forwards data to the correct destination device.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Star_Topology_Diagram_vptnbn"
+                ]
+            },
+            {
+                "title": "Working of Star Topology",
+                "theory": "When one device wants to communicate with another device, it sends the data to the central hub or switch. The central device then examines the destination address and forwards the data to the appropriate node. Modern Ethernet networks typically use switches as the central device."
+            },
+            {
+                "title": "Advantages and Disadvantages of Star Topology",
+                "theory": "Star topology is easy to install, easy to manage, and allows simple fault detection. If one device fails, it does not affect the rest of the network. However, if the central hub or switch fails, the entire network stops functioning because all devices depend on the central node."
+            },
+            {
+                "title": "Structure of Bus Topology",
+                "theory": "In bus topology all devices are connected to a single central cable called the backbone. Each device connects to the backbone through drop lines and taps. Data travels along the backbone cable and every device checks whether the message is intended for it.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Bus_Topology_Diagram_v5pers"
+                ]
+            },
+            {
+                "title": "Working of Bus Topology",
+                "theory": "When a device sends data, the signal travels across the backbone cable in both directions. Every device receives the signal but only the device with the matching address processes the data. Terminators are placed at both ends of the backbone to prevent signal reflection."
+            },
+            {
+                "title": "Advantages and Disadvantages of Bus Topology",
+                "theory": "Bus topology requires less cabling compared to other topologies and is relatively simple to install. However it is difficult to troubleshoot and adding new devices may disrupt the network. If the backbone cable fails, the entire network becomes unusable."
+            },
+            {
+                "title": "Structure of Ring Topology",
+                "theory": "In ring topology each device is connected to exactly two neighboring devices forming a closed loop. Data travels from one device to another around the ring until it reaches the intended destination.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Ring_Topology_Diagram_ul0vk8"
+                ]
+            },
+            {
+                "title": "Token Based Communication",
+                "theory": "Many ring networks use a token passing mechanism where a small control packet called a token circulates around the ring. A device can transmit data only when it possesses the token. This method prevents collisions in the network."
+            },
+            {
+                "title": "Advantages and Disadvantages of Ring Topology",
+                "theory": "Ring topology provides orderly communication without collisions and can handle heavy traffic better than bus topology. However, a failure in one device or link may disrupt the entire network unless fault-tolerant techniques such as dual rings are implemented."
+            },
+            {
+                "title": "What is Hybrid Topology",
+                "theory": "Hybrid topology combines two or more different network topologies to create a more flexible and scalable network architecture. For example, a large organization may use star topology within each department but connect departments using a bus or mesh backbone.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Hybrid_Network_Topology_Diagram_ogc3sq"
+                ]
+            },
+            {
+                "title": "Advantages of Hybrid Topology",
+                "theory": "Hybrid networks provide scalability, flexibility, and improved fault tolerance. Network designers can choose the most appropriate topology for each part of the network depending on performance and cost requirements."
+            }
+        ]
+    },
+    {
+        "title": "Switching Techniques",
+        "description": "Switching techniques define how data travels from a source device to a destination device across a network. They determine how communication paths are established and how data packets are forwarded through intermediate nodes.",
+        "subtopics": [
+            {
+                "title": "What is Switching in Computer Networks",
+                "theory": "Switching refers to the process of transferring data from a source device to a destination device through intermediate networking devices such as switches or routers. When a message is transmitted across a network, it may pass through multiple nodes before reaching its destination. Each intermediate device must decide where to forward the incoming data packet. This decision-making process is known as switching. Switching enables efficient sharing of network resources and allows large networks like the Internet to operate effectively."
+            },
+            {
+                "title": "Why Switching is Required",
+                "theory": "In large networks, it is not practical to connect every device directly to every other device. Instead, networks rely on switching devices to forward data between nodes. Switching allows many users to share the same communication infrastructure while still ensuring that data reaches the correct destination. It also improves network scalability and efficiency."
+            },
+            {
+                "title": "What is Circuit Switching",
+                "theory": "Circuit switching is a communication method in which a dedicated communication path is established between the sender and receiver before data transmission begins. This path remains reserved for the entire duration of the communication session. All data travels through this fixed path until the connection is terminated. Traditional telephone networks used circuit switching to maintain a continuous connection between two callers.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Circuit_Switching_Network_Diagram_r56vqk"
+                ]
+            },
+            {
+                "title": "Phases of Circuit Switching",
+                "theory": "Circuit switching involves three phases. The first phase is connection setup where the network establishes a dedicated communication path between the sender and receiver. The second phase is data transfer where data flows continuously through the reserved circuit. The final phase is circuit teardown where the connection is terminated and network resources are released."
+            },
+            {
+                "title": "Advantages and Disadvantages of Circuit Switching",
+                "theory": "Circuit switching provides guaranteed bandwidth and constant communication quality because a dedicated path is reserved. However, it is inefficient because network resources remain reserved even when no data is being transmitted. This leads to poor resource utilization compared to modern packet switching techniques."
+            },
+            {
+                "title": "What is Packet Switching",
+                "theory": "Packet switching is a communication method where large messages are divided into smaller units called packets before transmission. Each packet travels independently through the network and may take different routes to reach the destination. At the destination device, the packets are reassembled to reconstruct the original message. Packet switching is the fundamental technology used by the Internet.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Packet_Switching_Network_Diagram_g7mpci"
+                ]
+            },
+            {
+                "title": "How Packet Switching Works",
+                "theory": "When a device sends data using packet switching, the message is first divided into packets. Each packet contains the payload data along with header information such as source address, destination address, and sequence number. Routers along the network examine the header and forward each packet toward its destination using routing tables. Once all packets arrive at the destination, they are reordered and assembled to recreate the original message."
+            },
+            {
+                "title": "Advantages and Disadvantages of Packet Switching",
+                "theory": "Packet switching allows efficient use of network bandwidth because multiple users can share the same communication links. It also improves fault tolerance since packets can take alternate paths if a link fails. However, packets may arrive out of order or experience delays due to network congestion."
+            },
+            {
+                "title": "What is a Datagram Network",
+                "theory": "In a datagram network each packet is treated as an independent unit of data. The network does not establish a dedicated path before transmission. Instead, routers examine each packet individually and determine the best route based on the destination address. Because each packet is handled independently, packets may travel through different routes and arrive out of order.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Datagram_Packet_Routing_Diagram_ha0htf"
+                ]
+            },
+            {
+                "title": "Characteristics of Datagram Networks",
+                "theory": "Datagram networks are connectionless and do not require a setup phase before transmission. They are flexible and can adapt to network failures because packets can be rerouted dynamically. The Internet Protocol (IP) operates using the datagram approach."
+            },
+            {
+                "title": "What is a Virtual Circuit",
+                "theory": "A virtual circuit is a logical communication path established between the sender and receiver before data transmission begins. Unlike circuit switching, the path is not physically dedicated but is logically maintained by the network. All packets follow the same route through the network once the virtual circuit is established.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Virtual_Circuit_Path_Diagram"
+                ]
+            },
+            {
+                "title": "Phases of Virtual Circuit Communication",
+                "theory": "Virtual circuit communication consists of three phases. In the setup phase the network establishes a logical path and assigns a virtual circuit identifier. During the data transfer phase all packets follow the established path. Finally in the teardown phase the connection is terminated and network resources are released."
+            },
+            {
+                "title": "Examples of Virtual Circuit Technologies",
+                "theory": "Technologies such as Frame Relay and ATM use the virtual circuit approach to ensure predictable data transmission paths. These technologies were widely used in enterprise networks before modern IP-based networking became dominant."
+            }
+        ]
+    },
+    {
+        "title": "Network Layer Fundamentals",
+        "description": "The network layer is responsible for delivering packets from the source host to the destination host across multiple networks. It performs logical addressing, routing, forwarding and packet handling to ensure that data reaches the correct destination.",
+        "subtopics": [
+            {
+                "title": "Purpose of the Network Layer",
+                "theory": "The network layer is the third layer in the OSI model and is responsible for host-to-host communication across different networks. While the data link layer manages communication between devices on the same network, the network layer handles communication across multiple interconnected networks. Its main goal is to ensure that packets generated by a source device reach the correct destination device regardless of the number of intermediate routers involved.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Network_Layer_in_OSI_Model_Diagram_efwfqe"
+                ]
+            },
+            {
+                "title": "Key Responsibilities of the Network Layer",
+                "theory": "The network layer performs several critical tasks including logical addressing, packet routing, packet forwarding and packet fragmentation. Logical addressing allows devices to be uniquely identified using IP addresses. Routing determines the best path for packets to travel across networks. Forwarding moves packets from one router interface to another. Fragmentation divides large packets into smaller pieces so they can pass through networks with smaller maximum transmission units."
+            },
+            {
+                "title": "What is Packetizing",
+                "theory": "Packetizing is the process of encapsulating data received from the transport layer into packets before sending them to the data link layer. Each packet contains both the data payload and a header containing information such as source IP address, destination IP address, and control fields. Packetizing allows large data streams to be broken into manageable pieces for efficient transmission across networks."
+            },
+            {
+                "title": "Encapsulation at the Network Layer",
+                "theory": "During encapsulation the network layer adds its header to the data received from the transport layer. This header contains important information used for routing and delivery. The packet is then passed to the data link layer which further encapsulates it into a frame before transmission over the physical medium."
+            },
+            {
+                "title": "What is Routing",
+                "theory": "Routing is the process of selecting the best path for data packets to travel from a source network to a destination network. Routers use routing algorithms and routing tables to determine the optimal route based on factors such as distance, network congestion and link cost.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Routing_Process_Diagram_ujzpdj"
+                ]
+            },
+            {
+                "title": "Routing Tables",
+                "theory": "Routers maintain routing tables that contain information about available networks and the best paths to reach them. Each entry in a routing table typically includes the destination network, next hop address, outgoing interface and path cost. When a router receives a packet it examines the destination IP address and consults its routing table to determine where to forward the packet."
+            },
+            {
+                "title": "What is Packet Forwarding",
+                "theory": "Forwarding is the process of transferring a packet from one router interface to another based on the information in the routing table. Once a router determines the best path for a packet it forwards the packet to the next hop device along that path."
+            },
+            {
+                "title": "Forwarding Decision Process",
+                "theory": "When a router receives a packet it reads the destination IP address from the packet header. It then compares this address with entries in its routing table to determine the next hop. The router forwards the packet through the appropriate interface so it can continue traveling toward its final destination."
+            },
+            {
+                "title": "Why Fragmentation is Needed",
+                "theory": "Different networks support different maximum transmission unit (MTU) sizes which define the maximum packet size that can be transmitted. If a packet is larger than the MTU of the next network it must be divided into smaller fragments so that it can pass through the network successfully."
+            },
+            {
+                "title": "Fragmentation and Reassembly",
+                "theory": "When fragmentation occurs the original packet is split into multiple smaller fragments each containing its own header information. These fragments travel independently through the network and are reassembled at the destination device to reconstruct the original packet.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Packet_Fragmentation_Example_Diagram_bzajef"
+                ]
+            },
+            {
+                "title": "IP Addressing",
+                "theory": "Logical addressing allows each device in a network to be uniquely identified using an Internet Protocol address. Unlike MAC addresses which are hardware-based and used locally, IP addresses allow devices to communicate across multiple networks. IPv4 addresses are 32-bit identifiers typically written in dotted decimal format such as 192.168.1.1."
+            },
+            {
+                "title": "Importance of Logical Addressing",
+                "theory": "Logical addressing allows routers to determine where packets should be delivered. Without logical addresses it would be impossible to route packets across global networks such as the Internet. Logical addressing is therefore essential for large-scale communication systems."
+            }
+        ]
+    },
+    {
+        "title": "Routing Algorithms",
+        "description": "Routing algorithms determine the best path for packets to travel from a source network to a destination network. Routers use these algorithms to build routing tables and efficiently forward packets across interconnected networks.",
+        "subtopics": [
+            {
+                "title": "What is Routing",
+                "theory": "Routing is the process of selecting the most efficient path for data packets to travel from a source device to a destination device across multiple networks. In large networks such as the Internet, packets must pass through many intermediate routers before reaching their final destination. Each router determines the best next hop using routing algorithms and routing tables."
+            },
+            {
+                "title": "Static vs Dynamic Routing",
+                "theory": "Static routing involves manually configuring routing tables in routers. It is simple but not scalable for large networks. Dynamic routing automatically updates routing tables using routing protocols and algorithms. Dynamic routing adapts to network changes such as link failures and congestion, making it suitable for modern large-scale networks."
+            },
+            {
+                "title": "Concept of Distance Vector Routing",
+                "theory": "Distance vector routing is a routing method in which each router maintains a table containing the distance to all known destinations and the direction (next hop) to reach them. Routers periodically share their routing tables with neighboring routers. Based on this information routers update their own tables to determine shorter paths."
+            },
+            {
+                "title": "Bellman-Ford Algorithm",
+                "theory": "Distance vector routing is based on the Bellman-Ford algorithm which calculates the shortest path to all destinations by iteratively updating distance values. Each router calculates the distance to a destination as the minimum of the sum of the cost to a neighbor plus the neighbor's distance to that destination."
+            },
+            {
+                "title": "Advantages and Limitations of Distance Vector Routing",
+                "theory": "Distance vector routing is simple to implement and requires less computational power. However it has limitations such as slow convergence and routing loops. Problems like the count-to-infinity issue may occur when routers continuously increase path cost after a network failure."
+            },
+            {
+                "title": "Concept of Link State Routing",
+                "theory": "In link state routing each router builds a complete map of the entire network topology rather than relying only on neighbor information. Routers broadcast link state information to all other routers in the network. Each router then calculates the best path to all destinations using this topology information."
+            },
+            {
+                "title": "Dijkstra Shortest Path Algorithm",
+                "theory": "Link state routing uses Dijkstra's algorithm to compute the shortest path tree from a router to all other routers in the network. The algorithm repeatedly selects the nearest unvisited node and updates the shortest path distances to its neighbors until all nodes are processed."
+            },
+            {
+                "title": "Advantages of Link State Routing",
+                "theory": "Link state routing converges faster and avoids routing loops compared to distance vector routing. Because routers have a complete map of the network they can calculate more accurate routes. However it requires more memory and processing power."
+            },
+            {
+                "title": "RIP (Routing Information Protocol)",
+                "theory": "RIP is a distance vector routing protocol that uses hop count as the metric for determining the best path. The maximum allowed hop count is 15 which limits its use to small networks. RIP periodically broadcasts routing updates to neighboring routers."
+            },
+            {
+                "title": "OSPF (Open Shortest Path First)",
+                "theory": "OSPF is a link state routing protocol widely used in large enterprise networks. It uses Dijkstra's algorithm to calculate the shortest path and supports hierarchical routing using areas. OSPF converges faster and provides better scalability than RIP."
+            },
+            {
+                "title": "BGP (Border Gateway Protocol)",
+                "theory": "BGP is the routing protocol used on the Internet to exchange routing information between different autonomous systems. Unlike RIP and OSPF which operate inside networks, BGP is used for inter-domain routing and determines paths based on policies rather than shortest distance."
+            }
+        ]
+    },
+    {
+        "title": "IPv4 Addressing and Subnetting",
+        "description": "IPv4 addressing provides a logical addressing system used to uniquely identify devices across networks. It allows routers to determine where packets should be delivered and enables communication across the global Internet.",
+        "subtopics": [
+            {
+                "title": "What is an IP Address",
+                "theory": "An IP address is a unique logical identifier assigned to every device connected to a network that uses the Internet Protocol. It allows devices to locate and communicate with each other across interconnected networks. IPv4 addresses are 32-bit numbers typically written in dotted decimal notation such as 192.168.1.1. Each IP address consists of two main parts: the network portion which identifies the network and the host portion which identifies a specific device within that network."
+            },
+            {
+                "title": "Structure of IPv4 Address",
+                "theory": "An IPv4 address is composed of 32 bits divided into four octets, where each octet contains 8 bits. These octets are separated by periods in dotted decimal notation. Each octet can have values ranging from 0 to 255. For example, the address 192.168.1.10 consists of four octets representing the binary form of the 32-bit address.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/IPv4_Address_Structure_Diagram_ae6gtq"
+                ]
+            },
+            {
+                "title": "IPv4 Address Classes",
+                "theory": "In classful addressing IPv4 addresses were divided into five classes: Class A, Class B, Class C, Class D, and Class E. Class A addresses support very large networks, Class B addresses support medium-sized networks, and Class C addresses support small networks. Class D addresses are used for multicast communication and Class E addresses are reserved for experimental purposes.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Class_A_B_C_Address_Range_Diagram_w0ynsp"
+                ]
+            },
+            {
+                "title": "Address Ranges of Classes",
+                "theory": "Class A addresses range from 1.0.0.0 to 126.0.0.0 and support a very large number of hosts. Class B addresses range from 128.0.0.0 to 191.255.0.0 and support medium-sized networks. Class C addresses range from 192.0.0.0 to 223.255.255.0 and are used for smaller networks. Class D addresses range from 224.0.0.0 to 239.255.255.255 and are used for multicast communication."
+            },
+            {
+                "title": "Limitations of Classful Addressing",
+                "theory": "Classful addressing led to inefficient usage of IP addresses because networks were forced to choose from fixed address blocks. Many organizations received more addresses than they needed while others did not receive enough. This resulted in rapid exhaustion of IPv4 address space."
+            },
+            {
+                "title": "What is CIDR",
+                "theory": "Classless Inter-Domain Routing (CIDR) is an addressing method that removes the strict class boundaries of classful addressing. Instead of fixed classes CIDR uses prefix notation to specify how many bits represent the network portion of an address. For example the notation 192.168.1.0/24 indicates that the first 24 bits represent the network portion while the remaining 8 bits represent host addresses."
+            },
+            {
+                "title": "Advantages of CIDR",
+                "theory": "CIDR allows more efficient allocation of IP addresses because address blocks can be assigned based on actual requirements rather than fixed classes. It also reduces the size of routing tables by allowing route aggregation where multiple networks can be represented using a single routing entry."
+            },
+            {
+                "title": "What is Subnetting",
+                "theory": "Subnetting is the process of dividing a larger IP network into multiple smaller subnetworks called subnets. This is done by borrowing bits from the host portion of an IP address and using them to create subnet identifiers. Subnetting improves network organization, enhances security, and reduces broadcast traffic.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Subnetting_Example_Network_Division_Diagram_lql5vt"
+                ]
+            },
+            {
+                "title": "Subnet Mask",
+                "theory": "A subnet mask is used to determine which portion of an IP address represents the network and which portion represents the host. It is a 32-bit number where network bits are represented by ones and host bits are represented by zeros. For example the subnet mask 255.255.255.0 indicates that the first 24 bits belong to the network portion.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Subnet_Mask_Binary_Representation_Diagram_dnnfoq"
+                ]
+            },
+            {
+                "title": "Benefits of Subnetting",
+                "theory": "Subnetting improves network performance by reducing broadcast domains, increases security by isolating network segments, and allows efficient management of IP address allocation within organizations."
+            },
+            {
+                "title": "Private IP Addresses",
+                "theory": "Private IP addresses are reserved for internal networks and cannot be routed directly on the public Internet. Common private address ranges include 10.0.0.0 to 10.255.255.255, 172.16.0.0 to 172.31.255.255, and 192.168.0.0 to 192.168.255.255. These addresses are commonly used in home and corporate networks."
+            },
+            {
+                "title": "Loopback Address",
+                "theory": "The loopback address 127.0.0.1 is used by a device to communicate with itself. It is commonly used for testing network software and troubleshooting network services."
+            },
+            {
+                "title": "Broadcast Address",
+                "theory": "A broadcast address allows a device to send a message to all devices within the same network simultaneously. The broadcast address typically has all host bits set to one."
+            }
+        ]
+    },
+    {
+        "title": "Transport Layer Fundamentals",
+        "description": "The transport layer is responsible for end-to-end communication between application processes running on different hosts. It ensures reliable delivery, manages data flow, and provides communication services such as multiplexing and error control.",
+        "subtopics": [
+            {
+                "title": "Role of the Transport Layer",
+                "theory": "The transport layer is the fourth layer of the OSI model and is responsible for providing end-to-end communication between application processes on different devices. Unlike the network layer which handles routing between networks, the transport layer ensures that data is delivered reliably from the source application to the destination application. It provides services such as segmentation, error detection, flow control, and reliability.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Transport_Layer_in_OSI_Model_Diagram_da3xin"
+                ]
+            },
+            {
+                "title": "End-to-End Communication",
+                "theory": "End-to-end communication means that the transport layer ensures that the entire message sent by the source application reaches the correct destination application. This layer manages communication between processes rather than just between devices. It guarantees that data is delivered completely and in the correct order.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/End-to-End_Communication_Diagram_nfylgd"
+                ]
+            },
+            {
+                "title": "Reliable Data Delivery",
+                "theory": "The transport layer provides reliable communication by ensuring that data is delivered correctly without loss or duplication. It achieves this using mechanisms such as acknowledgments, retransmissions, and sequence numbers. If a packet is lost during transmission, the transport layer detects the loss and retransmits the missing packet."
+            },
+            {
+                "title": "Error Control",
+                "theory": "Error control ensures that corrupted or lost packets are detected and corrected. The transport layer uses sequence numbers and acknowledgments to detect missing or duplicate packets. If an error is detected the sender retransmits the affected packet to ensure correct delivery."
+            },
+            {
+                "title": "Flow Control",
+                "theory": "Flow control prevents the sender from sending data faster than the receiver can process it. If the sender transmits too much data too quickly, the receiver's buffer may overflow. Flow control mechanisms regulate the transmission rate to match the receiver's processing capacity."
+            },
+            {
+                "title": "Multiplexing",
+                "theory": "Multiplexing allows multiple application processes on a single device to send data through the network simultaneously. The transport layer collects data from different applications and combines them into a single stream before sending them to the network layer.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Multiplexing_and_Demultiplexing_Diagram_iwsqw5"
+                ]
+            },
+            {
+                "title": "Demultiplexing",
+                "theory": "Demultiplexing is the process of delivering received data to the correct application at the destination. The transport layer examines port numbers in the transport header to determine which application should receive the incoming data."
+            },
+            {
+                "title": "What are Port Numbers",
+                "theory": "Port numbers are numerical identifiers used by the transport layer to distinguish between multiple applications running on the same device. While IP addresses identify devices on a network, port numbers identify specific services or processes on that device."
+            },
+            {
+                "title": "Well-Known Ports",
+                "theory": "Some applications use predefined port numbers known as well-known ports. For example HTTP uses port 80, HTTPS uses port 443, FTP uses port 21, and SMTP uses port 25. These ports allow standard services to be easily identified by network devices."
+            },
+            {
+                "title": "Transmission Control Protocol (TCP)",
+                "theory": "TCP is a connection-oriented transport protocol that provides reliable communication. It ensures that data is delivered correctly and in order using acknowledgments, retransmissions, and congestion control mechanisms."
+            },
+            {
+                "title": "User Datagram Protocol (UDP)",
+                "theory": "UDP is a connectionless transport protocol that sends data without establishing a connection. It is faster than TCP but does not guarantee reliable delivery or packet ordering. UDP is commonly used in applications where speed is more important than reliability such as streaming and gaming."
+            }
+        ]
+    },
+    {
+        "title": "Transmission Control Protocol (TCP)",
+        "description": "TCP is a connection-oriented transport layer protocol that provides reliable, ordered, and error-checked delivery of data between applications communicating over an IP network.",
+        "subtopics": [
+            {
+                "title": "What is TCP",
+                "theory": "Transmission Control Protocol (TCP) is a connection-oriented transport layer protocol used to ensure reliable communication between devices across a network. Before transmitting data TCP establishes a connection between the sender and receiver. It guarantees that data arrives in the correct order and without loss using acknowledgments, sequence numbers, and retransmission mechanisms. TCP is widely used in applications where reliability is critical such as web browsing, email, and file transfers."
+            },
+            {
+                "title": "Key Features of TCP",
+                "theory": "TCP provides several important features including connection-oriented communication, reliable data transfer, ordered delivery of packets, error detection and recovery, flow control, and congestion control. These features make TCP suitable for applications where accurate and complete data transmission is essential."
+            },
+            {
+                "title": "Three-Way Handshake",
+                "theory": "Before data transmission begins TCP establishes a connection using a process called the three-way handshake. In the first step the client sends a SYN (synchronize) packet to the server indicating a request to start communication. In the second step the server responds with a SYN-ACK packet acknowledging the request and indicating readiness to communicate. In the final step the client sends an ACK packet confirming the connection establishment. After this process both devices can start exchanging data.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/TCP_Three_Way_Handshake_Diagram_jrzjku"
+                ]
+            },
+            {
+                "title": "Purpose of the Three-Way Handshake",
+                "theory": "The three-way handshake ensures that both sender and receiver are ready to communicate and agree on initial sequence numbers for data transmission. It also prevents duplicate or delayed connection requests from creating unintended connections."
+            },
+            {
+                "title": "TCP Segment Structure",
+                "theory": "TCP transmits data in units called segments. Each segment contains a header and a data payload. The header includes important fields such as source port, destination port, sequence number, acknowledgment number, window size, and control flags. These fields allow TCP to manage reliable communication between hosts.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/TCP_Segment_Structure_Diagram_kv98ii"
+                ]
+            },
+            {
+                "title": "Sequence Numbers",
+                "theory": "TCP assigns sequence numbers to every byte of data transmitted. These sequence numbers allow the receiver to reorder packets correctly and detect missing data segments. If a segment arrives out of order the receiver can rearrange the data using the sequence numbers."
+            },
+            {
+                "title": "Acknowledgments",
+                "theory": "After receiving data the receiver sends an acknowledgment (ACK) back to the sender indicating successful receipt of the data. If the sender does not receive an acknowledgment within a certain time it assumes that the packet was lost and retransmits it."
+            },
+            {
+                "title": "Retransmission Mechanism",
+                "theory": "TCP uses retransmission to recover lost packets. If the sender does not receive an acknowledgment within a predefined timeout period it retransmits the missing segment. This ensures reliable delivery even when packets are lost due to network congestion or transmission errors.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/TCP_Reliable_Data_Transmission_Diagram_cgrgw4"
+                ]
+            },
+            {
+                "title": "Sliding Window Mechanism",
+                "theory": "TCP uses a sliding window mechanism for flow control. The receiver advertises a window size indicating how much data it can receive at a time. The sender can transmit multiple packets within this window without waiting for acknowledgments. As acknowledgments arrive the window slides forward allowing more data to be sent."
+            },
+            {
+                "title": "Receiver Buffer Management",
+                "theory": "Flow control ensures that the sender does not send more data than the receiver's buffer can handle. If the receiver's buffer becomes full it reduces the advertised window size which forces the sender to slow down the transmission rate."
+            },
+            {
+                "title": "Four-Way Handshake",
+                "theory": "TCP connections are terminated using a four-step process. First the client sends a FIN packet indicating that it wants to close the connection. The server responds with an ACK confirming receipt. The server then sends its own FIN packet when it is ready to terminate the connection. Finally the client sends an ACK confirming the termination. This process ensures that both sides finish transmitting data before closing the connection.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/TCP_Four_Way_Termination_Diagram_yl72ns"
+                ]
+            },
+            {
+                "title": "Graceful Connection Closure",
+                "theory": "TCP ensures that all remaining data is transmitted before closing the connection. This orderly release mechanism prevents data loss during connection termination."
+            }
+        ]
+    },
+    {
+        "title": "User Datagram Protocol (UDP)",
+        "description": "UDP is a lightweight, connectionless transport layer protocol used for fast data transmission where reliability is not critical.",
+        "subtopics": [
+            {
+                "title": "What is UDP",
+                "theory": "User Datagram Protocol (UDP) is a connectionless transport layer protocol that allows applications to send data without establishing a connection with the receiver. Unlike TCP, UDP does not guarantee reliable delivery, packet ordering, or retransmission of lost packets. Because it avoids the overhead of connection setup and reliability mechanisms, UDP provides faster data transmission and lower latency."
+            },
+            {
+                "title": "Key Characteristics of UDP",
+                "theory": "UDP is a connectionless protocol which means it does not establish a connection before sending data. It does not perform error recovery or retransmission of lost packets. It provides minimal protocol overhead, making it faster than TCP. Because of its simplicity and speed, UDP is commonly used in real-time applications where occasional packet loss is acceptable."
+            },
+            {
+                "title": "Connectionless Communication",
+                "theory": "UDP follows a connectionless communication model where data packets called datagrams are sent directly to the destination without first establishing a session. Each datagram is treated independently and may travel through different paths in the network. The receiver simply receives packets without confirming successful delivery."
+            },
+            {
+                "title": "UDP Datagram",
+                "theory": "A UDP datagram consists of a header and a payload. The header contains minimal information including source port, destination port, length, and checksum. The payload contains the actual data being transmitted by the application.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/UDP_Header_Fields_Diagram_gkviko"
+                ]
+            },
+            {
+                "title": "Source Port and Destination Port",
+                "theory": "The source port identifies the sending application while the destination port identifies the receiving application. These port numbers allow the transport layer to deliver the received data to the correct application process."
+            },
+            {
+                "title": "Length Field",
+                "theory": "The length field specifies the total size of the UDP datagram including both the header and the data. This helps the receiving system determine how much data is contained in the packet."
+            },
+            {
+                "title": "Checksum Field",
+                "theory": "The checksum field is used for error detection. It verifies the integrity of the UDP datagram during transmission. If the checksum does not match, the packet may be discarded."
+            },
+            {
+                "title": "Advantages of UDP",
+                "theory": "UDP is faster than TCP because it does not require connection establishment, acknowledgments, or retransmissions. It has lower overhead and reduced latency, making it suitable for real-time applications such as video streaming, online gaming, and voice communication."
+            },
+            {
+                "title": "Limitations of UDP",
+                "theory": "UDP does not guarantee delivery, packet order, or duplicate protection. Packets may be lost, duplicated, or arrive out of sequence. Because of this, UDP is not suitable for applications where reliable data transmission is required."
+            },
+            {
+                "title": "Real-Time Applications",
+                "theory": "UDP is widely used in real-time communication systems where low latency is more important than reliability. Examples include Voice over IP (VoIP), video conferencing, and live streaming services."
+            },
+            {
+                "title": "Network Services Using UDP",
+                "theory": "Several network protocols rely on UDP because they require fast communication with minimal overhead. Examples include DNS (Domain Name System), DHCP (Dynamic Host Configuration Protocol), SNMP (Simple Network Management Protocol), and online multiplayer gaming protocols."
+            },
+            {
+                "title": "Major Differences Between TCP and UDP",
+                "theory": "TCP is a connection-oriented protocol that provides reliable data transmission using acknowledgments and retransmissions. UDP is connectionless and does not guarantee delivery. TCP ensures ordered packet delivery while UDP sends packets independently without sequence guarantees. TCP has higher overhead and latency, while UDP is faster and more efficient for real-time applications.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/TCP_vs_UDP_Comparison_Diagram_il61bs"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Flow Control and Error Control",
+        "description": "Flow control and error control are mechanisms used in networking to ensure reliable communication between sender and receiver by regulating data transmission and detecting or correcting transmission errors.",
+        "subtopics": [
+            {
+                "title": "What is Flow Control",
+                "theory": "Flow control is a mechanism used to regulate the rate at which data is transmitted from a sender to a receiver. It ensures that the sender does not transmit data faster than the receiver can process. If the sender transmits too quickly, the receiver's buffer may overflow, resulting in packet loss and reduced network performance."
+            },
+            {
+                "title": "Need for Flow Control",
+                "theory": "In data communication systems, the processing speeds of the sender and receiver may differ significantly. Without flow control, a fast sender could overwhelm a slower receiver. Flow control ensures smooth data transmission by allowing the receiver to control how much data it can accept at a time."
+            },
+            {
+                "title": "Stop-and-Wait Flow Control",
+                "theory": "In stop-and-wait flow control, the sender transmits one frame at a time and waits for an acknowledgment from the receiver before sending the next frame. This ensures that the receiver has enough time to process the data before receiving additional frames. Although simple and reliable, this method is inefficient for high-speed networks because the sender remains idle while waiting for acknowledgments.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Stop-and-Wait_Flow_Control_Diagram_rzloyu"
+                ]
+            },
+            {
+                "title": "Sliding Window Flow Control",
+                "theory": "Sliding window flow control allows the sender to transmit multiple frames before receiving acknowledgments. The receiver advertises a window size that determines how many frames the sender can transmit without waiting. As acknowledgments are received, the window slides forward allowing new frames to be transmitted. This technique improves network efficiency compared to stop-and-wait."
+            },
+            {
+                "title": "What is Error Control",
+                "theory": "Error control refers to mechanisms used to detect and recover from transmission errors that occur during data communication. Errors may occur due to noise, interference, or network congestion. Error control ensures that corrupted or lost packets are identified and retransmitted if necessary."
+            },
+            {
+                "title": "Types of Transmission Errors",
+                "theory": "Transmission errors can occur in several forms including single-bit errors where only one bit changes, burst errors where multiple consecutive bits are corrupted, and packet loss where entire packets fail to reach the destination."
+            },
+            {
+                "title": "Checksum",
+                "theory": "A checksum is an error detection technique where the sender calculates a numerical value based on the data being transmitted. The receiver performs the same calculation and compares the result with the received checksum value. If the values differ, the receiver detects that an error has occurred."
+            },
+            {
+                "title": "Cyclic Redundancy Check (CRC)",
+                "theory": "Cyclic Redundancy Check is a widely used error detection technique that treats data as a binary polynomial and performs division using a generator polynomial. The remainder generated during this process is appended to the data as a CRC value. The receiver performs the same operation to verify data integrity."
+            },
+            {
+                "title": "Automatic Repeat Request (ARQ)",
+                "theory": "Automatic Repeat Request is an error recovery technique where the receiver detects errors and requests retransmission of corrupted or lost packets. ARQ protocols combine error detection with retransmission mechanisms to ensure reliable data delivery."
+            },
+            {
+                "title": "Importance of Reliable Transmission",
+                "theory": "Reliable transmission ensures that applications receive accurate data without corruption or loss. Mechanisms such as acknowledgments, sequence numbers, and retransmissions are essential for maintaining data integrity in network communication."
+            }
+        ]
+    },
+    {
+        "title": "Sliding Window Protocols (ARQ)",
+        "description": "Sliding Window protocols are used in networking to ensure reliable data transmission by controlling the number of packets sent before receiving acknowledgments and retransmitting lost packets when necessary.",
+        "subtopics": [
+            {
+                "title": "What is ARQ (Automatic Repeat reQuest)",
+                "theory": "Automatic Repeat reQuest (ARQ) is an error control method used in data communication to ensure reliable data transmission. It combines error detection and retransmission mechanisms. When the receiver detects that a frame is missing or corrupted, it requests the sender to retransmit the frame. ARQ protocols use acknowledgments and sequence numbers to track successful delivery of frames."
+            },
+            {
+                "title": "Need for ARQ Protocols",
+                "theory": "During data transmission packets may be lost due to network congestion, interference, or hardware failures. ARQ protocols ensure that lost or corrupted packets are retransmitted so that the receiver eventually receives the complete and correct data."
+            },
+            {
+                "title": "Working of Stop-and-Wait ARQ",
+                "theory": "In Stop-and-Wait ARQ the sender transmits one frame and waits for an acknowledgment from the receiver before sending the next frame. If the sender receives an acknowledgment, it sends the next frame. If the acknowledgment is not received within a certain timeout period, the sender assumes the frame was lost and retransmits it."
+            },
+            {
+                "title": "Advantages and Limitations of Stop-and-Wait ARQ",
+                "theory": "Stop-and-Wait ARQ is simple to implement and ensures reliable communication. However, it is inefficient for high-speed networks because the sender remains idle while waiting for acknowledgments. This results in poor bandwidth utilization."
+            },
+            {
+                "title": "What is Sliding Window",
+                "theory": "Sliding window is a technique that allows the sender to transmit multiple frames before receiving acknowledgments. Instead of sending one frame at a time, the sender maintains a window of frames that can be transmitted without waiting for acknowledgments. As acknowledgments arrive the window moves forward allowing new frames to be transmitted."
+            },
+            {
+                "title": "Benefits of Sliding Window Protocols",
+                "theory": "Sliding window protocols improve network efficiency by allowing continuous transmission of multiple frames. This reduces idle time and increases bandwidth utilization compared to stop-and-wait methods."
+            },
+            {
+                "title": "Working of Go-Back-N ARQ",
+                "theory": "In Go-Back-N ARQ the sender can transmit multiple frames within a specified window size before receiving acknowledgments. If a frame is lost or corrupted, the receiver discards that frame and all subsequent frames. The sender must then retransmit the lost frame and all frames that were sent after it."
+            },
+            {
+                "title": "Characteristics of Go-Back-N",
+                "theory": "In Go-Back-N ARQ the receiver only accepts frames in order. If a frame arrives out of order it is discarded. The sender maintains a sliding window that controls the number of frames that can be transmitted before acknowledgment."
+            },
+            {
+                "title": "Working of Selective Repeat ARQ",
+                "theory": "In Selective Repeat ARQ the receiver individually acknowledges correctly received frames even if some frames are missing. The sender retransmits only the frames that were lost or corrupted rather than retransmitting the entire window."
+            },
+            {
+                "title": "Advantages of Selective Repeat",
+                "theory": "Selective Repeat improves efficiency because only missing frames are retransmitted. This reduces unnecessary retransmissions and improves network performance in environments with higher error rates."
+            },
+            {
+                "title": "Stop-and-Wait vs Go-Back-N vs Selective Repeat",
+                "theory": "Stop-and-Wait ARQ sends one frame at a time and waits for acknowledgment which makes it simple but inefficient. Go-Back-N allows multiple frames to be sent but retransmits all frames after a lost packet. Selective Repeat retransmits only the lost frames which makes it the most efficient but also more complex to implement."
+            }
+        ]
+    },
+    {
+        "title": "Congestion Control",
+        "description": "Congestion control refers to techniques used to regulate the amount of data entering a network to prevent network overload and maintain efficient data transmission.",
+        "subtopics": [
+            {
+                "title": "What is Network Congestion",
+                "theory": "Network congestion occurs when the amount of data being transmitted through a network exceeds the network's capacity to handle it. When too many packets are injected into the network simultaneously, routers and switches become overloaded. This leads to packet delays, packet loss, and reduced network performance.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Network_Congestion_Example_Diagram_avisca"
+                ]
+            },
+            {
+                "title": "Causes of Network Congestion",
+                "theory": "Network congestion can occur due to several factors including high traffic load, limited bandwidth, slow routers or network devices, inefficient routing algorithms, and bursty data transmissions. When the incoming traffic rate is higher than the network processing capacity, queues start building up in routers causing congestion."
+            },
+            {
+                "title": "Packet Loss",
+                "theory": "When routers become overloaded during congestion, their buffers may overflow causing packets to be dropped. Packet loss requires retransmission which increases network traffic and worsens congestion."
+            },
+            {
+                "title": "Increased Delay",
+                "theory": "Congestion increases the time packets spend waiting in router queues before being transmitted. This results in higher latency and poor performance for real-time applications such as video calls or online gaming."
+            },
+            {
+                "title": "Reduced Throughput",
+                "theory": "When congestion becomes severe the network may spend more time retransmitting lost packets instead of transmitting new data. This reduces the overall data throughput of the network."
+            },
+            {
+                "title": "Open Loop Congestion Control",
+                "theory": "Open loop congestion control attempts to prevent congestion before it occurs. It relies on predefined policies and design strategies to regulate network traffic. Since it does not rely on feedback from the network, it focuses on preventing congestion through careful system design.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Open_Loop_vs_Closed_Loop_Congestion_Control_Diagram_vealjf"
+                ]
+            },
+            {
+                "title": "Closed Loop Congestion Control",
+                "theory": "Closed loop congestion control monitors network conditions and takes corrective actions when congestion is detected. It uses feedback mechanisms to inform senders about congestion so that they can adjust their transmission rate accordingly."
+            },
+            {
+                "title": "Retransmission Policy",
+                "theory": "Retransmission policy controls how retransmissions are handled to avoid unnecessary network traffic. Efficient retransmission strategies reduce the chances of congestion caused by excessive retransmitted packets."
+            },
+            {
+                "title": "Window Policy",
+                "theory": "Window policy regulates the number of packets that can be sent before receiving acknowledgments. Proper window management helps prevent excessive traffic injection into the network."
+            },
+            {
+                "title": "Admission Control",
+                "theory": "Admission control determines whether a new connection should be allowed to enter the network. If the network is already heavily loaded, new connections may be delayed or rejected to avoid congestion."
+            },
+            {
+                "title": "Backpressure",
+                "theory": "Backpressure is a technique where a congested router signals its upstream neighbors to slow down packet transmission. This feedback propagates backward toward the sender, reducing the incoming traffic rate."
+            },
+            {
+                "title": "Choke Packets",
+                "theory": "Choke packets are special control messages sent by routers to inform the sender that congestion is occurring. Upon receiving a choke packet, the sender reduces its transmission rate to relieve network congestion.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Choke_Packet_Congestion_Control_Diagram_hnl2kx"
+                ]
+            },
+            {
+                "title": "Explicit Signaling",
+                "theory": "In explicit signaling the network directly informs the sender about congestion conditions. This can be done either by sending congestion notifications or by marking packets to indicate congestion levels."
+            }
+        ]
+    },
+    {
+        "title": "Network Performance Metrics",
+        "description": "Network performance metrics are parameters used to measure the efficiency, speed, reliability, and quality of a computer network. These metrics help evaluate how well a network is performing under different conditions.",
+        "subtopics": [
+            {
+                "title": "What are Network Performance Metrics",
+                "theory": "Network performance metrics are quantitative measures used to evaluate the efficiency and reliability of a network. These metrics help engineers understand how well data is being transmitted across the network and identify potential bottlenecks or performance issues. Network administrators use these metrics to monitor network health and optimize performance."
+            },
+            {
+                "title": "Importance of Measuring Network Performance",
+                "theory": "Measuring network performance helps organizations ensure reliable communication, maintain quality of service, and detect network problems early. Performance monitoring is essential for maintaining high availability in applications such as cloud computing, video streaming, online gaming, and enterprise networks."
+            },
+            {
+                "title": "What is Bandwidth",
+                "theory": "Bandwidth refers to the maximum amount of data that can be transmitted through a network connection in a given amount of time. It represents the capacity of the communication channel and is typically measured in bits per second such as Mbps or Gbps. Higher bandwidth allows more data to be transmitted simultaneously."
+            },
+            {
+                "title": "Factors Affecting Bandwidth",
+                "theory": "Bandwidth can be affected by the physical transmission medium, network infrastructure, and hardware limitations. Technologies such as fiber optics provide significantly higher bandwidth compared to traditional copper cables."
+            },
+            {
+                "title": "What is Throughput",
+                "theory": "Throughput refers to the actual rate at which data is successfully transmitted across a network. While bandwidth represents the maximum theoretical capacity, throughput represents the real-world performance of the network after accounting for overhead, congestion, and packet loss."
+            },
+            {
+                "title": "Difference Between Bandwidth and Throughput",
+                "theory": "Bandwidth represents the maximum possible data transfer rate of a network while throughput represents the actual data transfer rate achieved during communication. Due to network overhead and congestion, throughput is usually lower than bandwidth."
+            },
+            {
+                "title": "What is Latency",
+                "theory": "Latency is the time taken for a data packet to travel from the source device to the destination device across the network. It is typically measured in milliseconds. Low latency is important for real-time applications such as online gaming, video conferencing, and financial trading systems."
+            },
+            {
+                "title": "Types of Network Delay",
+                "theory": "Network latency is influenced by several types of delay including propagation delay, transmission delay, processing delay, and queueing delay. These delays collectively determine the overall time required for packets to travel through the network."
+            },
+            {
+                "title": "What is Packet Loss",
+                "theory": "Packet loss occurs when data packets traveling through a network fail to reach their destination. This may happen due to network congestion, faulty hardware, or transmission errors. When packets are lost, protocols such as TCP must retransmit the missing packets which increases network traffic and delay."
+            },
+            {
+                "title": "Impact of Packet Loss",
+                "theory": "Packet loss can significantly degrade network performance. It causes interruptions in data streams, reduces throughput, and negatively affects applications such as video streaming, voice communication, and online gaming."
+            },
+            {
+                "title": "What is Jitter",
+                "theory": "Jitter refers to the variation in packet delay during transmission across a network. Instead of arriving at consistent intervals, packets may arrive earlier or later than expected. High jitter can disrupt real-time communication applications such as VoIP and video conferencing."
+            },
+            {
+                "title": "Managing Network Jitter",
+                "theory": "Jitter can be reduced using techniques such as buffering, traffic prioritization, and quality of service mechanisms. These techniques help maintain consistent packet delivery intervals in real-time communication systems."
+            },
+            {
+                "title": "What is Quality of Service",
+                "theory": "Quality of Service (QoS) refers to mechanisms used in networks to prioritize certain types of traffic over others. For example voice or video traffic may be prioritized over regular data traffic to ensure smooth communication."
+            },
+            {
+                "title": "Importance of QoS in Modern Networks",
+                "theory": "QoS is important for maintaining performance in networks that support multiple applications simultaneously. It ensures that critical services receive sufficient bandwidth and low latency even during periods of heavy network usage."
+            }
+        ]
+    },
+    {
+        "title": "Important Network Protocols",
+        "description": "Network protocols define the rules that govern communication between devices in a computer network. Different protocols operate at different layers of the networking stack to perform tasks such as web communication, email transfer, address resolution, and device configuration.",
+        "subtopics": [
+            {
+                "title": "What is a Network Protocol",
+                "theory": "A network protocol is a set of rules and conventions that define how devices communicate over a network. Protocols specify how data is formatted, transmitted, received, and interpreted by devices. They ensure interoperability between different systems and enable reliable communication across complex networks."
+            },
+            {
+                "title": "Protocol Components",
+                "theory": "Protocols are defined by three main elements: syntax, semantics, and timing. Syntax defines the structure and format of the data being transmitted. Semantics defines the meaning of each section of data and how devices should interpret it. Timing specifies when data should be transmitted and how quickly it should be sent."
+            },
+            {
+                "title": "HTTP (HyperText Transfer Protocol)",
+                "theory": "HTTP is an application layer protocol used for transferring web pages between web servers and clients such as browsers. It follows a request-response model where the client sends a request and the server responds with the requested resource. HTTP operates on port 80 and is stateless, meaning each request is processed independently.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/HTTP_Request_Response_Model_Diagram_rhskl5"
+                ]
+            },
+            {
+                "title": "HTTPS (HyperText Transfer Protocol Secure)",
+                "theory": "HTTPS is the secure version of HTTP. It encrypts communication using SSL/TLS to protect sensitive data such as login credentials and payment information. HTTPS operates on port 443 and ensures confidentiality, integrity, and authentication of transmitted data."
+            },
+            {
+                "title": "SMTP (Simple Mail Transfer Protocol)",
+                "theory": "SMTP is the protocol used for sending emails between mail servers. It operates using a store-and-forward mechanism where email messages are transferred from the sender's mail server to the recipient's mail server. SMTP typically uses port 25."
+            },
+            {
+                "title": "POP3 and IMAP",
+                "theory": "POP3 (Post Office Protocol version 3) and IMAP (Internet Message Access Protocol) are protocols used for retrieving emails from mail servers. POP3 downloads emails to the client device and often removes them from the server. IMAP allows emails to remain on the server and synchronizes messages across multiple devices."
+            },
+            {
+                "title": "DHCP (Dynamic Host Configuration Protocol)",
+                "theory": "DHCP is a protocol used to automatically assign IP addresses and network configuration parameters to devices on a network. When a device connects to a network, it sends a DHCP request to a DHCP server which responds with an available IP address, subnet mask, gateway address, and DNS server information.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/DHCP_Address_Allocation_Process_Diagram_q5rbms"
+                ]
+            },
+            {
+                "title": "DNS (Domain Name System)",
+                "theory": "DNS is a hierarchical naming system used to translate human-readable domain names such as www.google.com into IP addresses used by computers. When a user enters a website address in a browser, the DNS system resolves the domain name to the corresponding IP address so the client can locate the server.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/DNS_Resolution_Process_Diagram_ddmujl"
+                ]
+            },
+            {
+                "title": "ICMP (Internet Control Message Protocol)",
+                "theory": "ICMP is used for error reporting and network diagnostics. It allows network devices to send messages indicating problems such as unreachable hosts or network congestion. Tools like ping and traceroute use ICMP to test connectivity and measure network delays."
+            },
+            {
+                "title": "ARP (Address Resolution Protocol)",
+                "theory": "ARP is used to map IP addresses to MAC addresses within a local network. When a device wants to communicate with another device on the same network, it uses ARP to determine the physical hardware address corresponding to the destination IP address."
+            },
+            {
+                "title": "FTP (File Transfer Protocol)",
+                "theory": "FTP is an application layer protocol used to transfer files between a client and a server over a network. It allows users to upload and download files from remote systems. FTP typically uses port 21 for control communication."
+            }
+        ]
+    },
+    {
+        "title": "Network Devices",
+        "description": "Network devices are hardware components used to connect computers and other devices in a network. They help transmit, route, amplify, and manage data communication between devices.",
+        "subtopics": [
+            {
+                "title": "What are Network Devices",
+                "theory": "Network devices are hardware components that enable communication between computers and other devices in a network. These devices control the transmission of data, manage traffic, and ensure efficient communication between connected systems."
+            },
+            {
+                "title": "Hub",
+                "theory": "A hub is a simple networking device that connects multiple computers in a network and broadcasts incoming data to all connected devices. It operates at the Physical Layer of the OSI model and does not perform any intelligent forwarding decisions.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Hub_Broadcast_Communication_Diagram_fap3nj"
+                ]
+            },
+            {
+                "title": "Switch",
+                "theory": "A switch connects devices within a local network and forwards data only to the intended destination device. It operates at the Data Link Layer and uses MAC addresses to determine where to send data. This makes switches more efficient than hubs.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Switch_MAC_Address_Forwarding_Diagram_zxilub"
+                ]
+            },
+            {
+                "title": "Router",
+                "theory": "A router is a networking device that forwards data packets between different networks. It operates at the Network Layer of the OSI model and uses IP addresses to determine the best path for packets to travel across networks.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Router_Inter-Network_Routing_Diagram_uyx5s2"
+                ]
+            },
+            {
+                "title": "Bridge",
+                "theory": "A bridge operates at the Data Link Layer and connects two LAN segments together. It filters traffic based on MAC addresses and helps reduce network congestion by dividing large networks into smaller segments.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Bridge_Network_Segmentation_Diagram_oggbsl"
+                ]
+            },
+            {
+                "title": "Repeater",
+                "theory": "A repeater operates at the Physical Layer and is used to amplify or regenerate signals that have become weak during transmission. It helps extend the distance over which data can travel in a network.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/Repeater_Signal_Regeneration_Diagram_aittpq"
+                ]
+            },
+            {
+                "title": "Gateway",
+                "theory": "A gateway acts as a translator between different network architectures or protocols. It allows communication between networks that use different data formats or communication rules."
+            },
+            {
+                "title": "Modem",
+                "theory": "A modem converts digital signals from a computer into analog signals suitable for transmission over telephone lines and converts incoming analog signals back into digital form. The term modem stands for Modulator-Demodulator."
+            }
+        ]
+    },
+    {
+        "title": "Types of Computer Networks",
+        "description": "Computer networks can be categorized based on their geographical coverage and the type of communication they support.",
+        "subtopics": [
+            {
+                "title": "Network Classification",
+                "theory": "Computer networks are categorized based on their size and geographical coverage. Different types of networks are designed to serve different communication needs ranging from small personal networks to global internet infrastructure."
+            },
+            {
+                "title": "What is PAN",
+                "theory": "A Personal Area Network is a small network used to connect personal devices such as smartphones, laptops, and smartwatches within a short range typically less than 10 meters. Bluetooth is commonly used for PAN communication.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/PAN_Network_Example_Diagram_a6jxoe"
+                ]
+            },
+            {
+                "title": "What is LAN",
+                "theory": "A Local Area Network connects computers within a limited geographical area such as a home, office, or school. LANs provide high-speed communication and are commonly used for file sharing, printing, and local resource access.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/LAN_Office_Network_Diagram_frsioi"
+                ]
+            },
+            {
+                "title": "What is MAN",
+                "theory": "A Metropolitan Area Network connects multiple LANs within a city or metropolitan region. MANs provide high-speed connectivity across larger geographic areas such as university campuses or city-wide communication networks.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/MAN_City_Network_Diagram_dpj6su"
+                ]
+            },
+            {
+                "title": "What is WAN",
+                "theory": "A Wide Area Network connects devices across large geographic areas such as countries or continents. The Internet is the largest example of a WAN and connects millions of devices worldwide.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/WAN_Global_Network_Diagram"
+                ]
+            },
+            {
+                "title": "What is VPN",
+                "theory": "A Virtual Private Network creates a secure connection over a public network such as the Internet. It encrypts data transmission and allows remote users to securely access private organizational networks.",
+                "images": [
+                    "https://res.cloudinary.com/dq3wai4az/image/upload/VPN_Secure_Tunnel_Diagram"
+                ]
+            }
+        ]
+    }
+]

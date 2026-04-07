@@ -170,12 +170,20 @@ const SubjectQuizPage = () => {
                         <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                            <div className="h-full bg-tertiary shadow-[0_0_10px_#4edea3]" style={{ width: `${percent}%` }}></div>
                         </div>
-                        <button 
-                          onClick={() => handleReview(level.id)}
-                          className="w-full py-3 bg-tertiary/10 border border-tertiary/30 text-tertiary font-headline font-semibold text-[10px] uppercase tracking-widest asymmetric-card hover:bg-tertiary/20 transition-all"
-                        >
-                          Review Intel
-                        </button>
+                        <div className="flex gap-2 mt-4">
+                          <button 
+                            onClick={() => handleReview(level.id)}
+                            className="flex-1 py-3 bg-tertiary/10 border border-tertiary/30 text-tertiary font-headline font-semibold text-[10px] uppercase tracking-widest asymmetric-card hover:bg-tertiary/20 transition-all"
+                          >
+                            Review Intel
+                          </button>
+                          <button 
+                            onClick={() => navigate(`/quiz/${subjectId}/${level.id}`)}
+                            className="flex-1 py-3 bg-primary/10 border border-primary/30 text-primary font-headline font-semibold text-[10px] uppercase tracking-widest asymmetric-card hover:bg-primary/20 transition-all"
+                          >
+                            Redeploy Mission
+                          </button>
+                        </div>
                       </div>
                     ) : (
                       <button 

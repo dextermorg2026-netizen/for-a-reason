@@ -1,0 +1,60 @@
+{
+  "subjects": [
+    {
+      "title": "Computer Networks",
+      "description": "Core networking concepts",
+      "topics": [
+        {
+          "title": "Network Basics",
+          "description": "Introduction to networking",
+          "subtopics": [
+            {
+              "title": "What is a Network?",
+              "theory": "A network is a group of interconnected devices that can communicate with each other through a set of rules called protocols."
+            }
+          ]
+        },
+        {
+          "title": "OSI Model",
+          "description": "7-layer architecture",
+          "subtopics": [
+            {
+              "title": "Physical Layer",
+              "theory": "The physical layer is responsible for the transmission of unstructured raw data between a computer and a physical transmission medium."
+            },
+            {
+              "title": "Data Link Layer",
+              "theory": "The data link layer is responsible for the reliable transmission of data frames between nodes over a physical network link."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Operating Systems",
+      "description": "Core OS concepts",
+      "topics": [
+        {
+          "title": "Process Management",
+          "description": "Process lifecycle and scheduling",
+          "subtopics": [
+            {
+              "title": "Process States",
+              "theory": "Processes can exist in various states: new, ready, running, waiting, and terminated."
+            }
+          ]
+        },
+        {
+          "title": "Memory Management",
+          "description": "Paging, segmentation",
+          "subtopics": [
+            {
+              "title": "Virtual Memory",
+              "theory": "Virtual memory is a memory management technique that provides an idealized abstraction of the storage resources."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -32,16 +32,46 @@ export const getUserQuizAttempt = async (userId, subjectId, difficulty) => {
     collection(db, "quizAttempts"),
     where("userId", "==", userId),
     where("subjectId", "==", subjectId),
-    where("difficulty", "==", difficulty),
-    limit(1)
+    where("difficulty", "==", difficulty)
   );
 
   const snapshot = await getDocs(q);
 
   if (snapshot.empty) return null;
 
-  return {
-    id: snapshot.docs[0].id,
-    ...snapshot.docs[0].data(),
-  };
+  const docs = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  // Sort by most recent attempt
+  docs.sort((a, b) => {
+    const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime();
+    const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime();
+    return timeB - timeA;
+  });
+
+  return docs[0];
+};
+
+/* ================= GET ALL PREVIOUSLY CORRECT IDs ================= */
+export const getPreviouslyCorrectQuestionIds = async (userId, subjectId, difficulty) => {
+  const q = query(
+    collection(db, "quizAttempts"),
+    where("userId", "==", userId),
+    where("subjectId", "==", subjectId),
+    where("difficulty", "==", difficulty)
+  );
+
+  const snapshot = await getDocs(q);
+  const correctIds = new Set();
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    if (data.correctQuestionIds && Array.isArray(data.correctQuestionIds)) {
+      data.correctQuestionIds.forEach(id => correctIds.add(id));
+    }
+  });
+
+  return Array.from(correctIds);
 };

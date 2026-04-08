@@ -1,0 +1,202 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to OOP",
+            "content": [
+                "Object-Oriented Programming (OOP) is a programming paradigm based on objects containing data and methods",
+                "Objects represent real-world entities with attributes (data) and behaviors (methods)",
+                "It improves code organization, reusability, and scalability",
+                "It is widely used in modern programming languages like Java"
+            ]
+        },
+        {
+            "title": "Why OOP is Used",
+            "content": [
+                "Procedural programming is difficult to manage for large applications",
+                "OOP organizes code into objects, making it modular and maintainable",
+                "It supports reusability using inheritance and flexibility using polymorphism",
+                "It models real-world systems effectively"
+            ]
+        },
+        {
+            "title": "OOP vs Procedural Programming",
+            "content": [
+                "Procedural programming follows step-by-step execution, OOP focuses on objects",
+                "Data is globally accessible in procedural but encapsulated in OOP",
+                "OOP provides better security and modularity",
+                "OOP is more scalable for large systems"
+            ]
+        },
+        {
+            "title": "Class in OOP",
+            "content": [
+                "A class is a blueprint or template for creating objects",
+                "It defines attributes (data) and methods (functions)",
+                "It does not occupy memory until objects are created",
+                "Example: Employee class with name and salary"
+            ]
+        },
+        {
+            "title": "Object in OOP",
+            "content": [
+                "An object is an instance of a class",
+                "It represents a real-world entity with its own data",
+                "Objects occupy memory and interact using methods",
+                "Each object has separate memory even if from same class"
+            ]
+        },
+        {
+            "title": "Attributes (Fields)",
+            "content": [
+                "Attributes are variables that store data of an object",
+                "They represent the state of the object",
+                "Example: name and balance in BankAccount",
+                "They are usually declared private for data security"
+            ]
+        },
+        {
+            "title": "Methods (Functions)",
+            "content": [
+                "Methods define the behavior of an object",
+                "They perform operations using attributes",
+                "Example: deposit(), withdraw(), getBalance()",
+                "They provide controlled access to object data"
+            ]
+        },
+        {
+            "title": "Encapsulation Concept",
+            "content": [
+                "Encapsulation means wrapping data and methods into a single unit",
+                "Attributes are kept private to restrict direct access",
+                "Access is provided using public methods",
+                "It ensures data security and integrity"
+            ]
+        },
+        {
+            "title": "Getters and Setters",
+            "content": [
+                "Getters are methods used to retrieve attribute values",
+                "Setters are methods used to update attribute values",
+                "They provide controlled access to private data",
+                "Example: getBalance(), setName()"
+            ]
+        },
+        {
+            "title": "Interaction of Attributes and Methods",
+            "content": [
+                "Methods operate on attributes to perform actions",
+                "Private attributes cannot be accessed directly outside class",
+                "Methods act as an interface between user and data",
+                "Ensures controlled modification of object state"
+            ]
+        },
+        {
+            "title": "BankAccount Example",
+            "content": [
+                "Attributes: name (String), balance (double)",
+                "Methods: deposit(), withdraw(), getBalance()",
+                "Balance is private to protect user data",
+                "Methods ensure safe operations like checking balance before withdrawal"
+            ]
+        },
+        {
+            "title": "Important OOP Practices",
+            "content": [
+                "Always use getters and setters for private attributes",
+                "Validate inputs inside methods to prevent errors",
+                "Keep sensitive data private for security",
+                "Use methods to maintain data integrity"
+            ]
+        },
+        {
+            "title": "Java as OOP Language",
+            "content": [
+                "Java is a class-based, object-oriented programming language",
+                "Everything in Java is built around classes and objects",
+                "It supports OOP features like encapsulation and inheritance",
+                "Programs start from the main method inside a class"
+            ]
+        },
+        {
+            "title": "Basic Structure of Java Program",
+            "content": [
+                "Java programs are written inside classes",
+                "Execution starts from main() method",
+                "System.out.println is used to print output",
+                "Java follows 'Write Once, Run Anywhere' concept"
+            ]
+        },
+        {
+            "title": "Constructor in Java",
+            "content": [
+                "A constructor is a special method called when an object is created",
+                "It initializes object attributes",
+                "Constructor name must match class name",
+                "It does not have a return type"
+            ]
+        },
+        {
+            "title": "Types of Constructors",
+            "content": [
+                "Non-parameterized constructor: no arguments",
+                "Parameterized constructor: initializes with given values",
+                "Copy constructor: copies values from another object",
+                "Constructors can be overloaded with different parameters"
+            ]
+        },
+        {
+            "title": "Default Constructor Behavior",
+            "content": [
+                "If no constructor is defined, Java creates a default constructor",
+                "Primitive types get default values like 0",
+                "Reference types like String get null",
+                "Local variables are not automatically initialized"
+            ]
+        },
+        {
+            "title": "Constructor Overloading",
+            "content": [
+                "Multiple constructors with different parameters in same class",
+                "Allows flexible object initialization",
+                "Improves code readability and reuse",
+                "Example: Employee(), Employee(name), Employee(name, salary)"
+            ]
+        },
+        {
+            "title": "Constructor Chaining",
+            "content": [
+                "One constructor calls another using this()",
+                "Helps avoid duplicate code",
+                "this() must be first statement in constructor",
+                "Improves maintainability and consistency"
+            ]
+        },
+        {
+            "title": "Memory in Java (Stack vs Heap)",
+            "content": [
+                "Objects are stored in heap memory",
+                "References and primitive variables are stored in stack",
+                "Heap memory is managed by Garbage Collector",
+                "Stack memory is cleared after method execution"
+            ]
+        },
+        {
+            "title": "Object Creation and Deletion",
+            "content": [
+                "Objects are created using new keyword",
+                "Memory is allocated in heap",
+                "Objects are deleted automatically by Garbage Collector",
+                "Setting reference to null makes object eligible for deletion"
+            ]
+        },
+        {
+            "title": "Advantages of OOP",
+            "content": [
+                "Code reusability using inheritance",
+                "Better security using encapsulation",
+                "Flexibility using polymorphism",
+                "Scalable and maintainable for large applications"
+            ]
+        }
+    ]
+}

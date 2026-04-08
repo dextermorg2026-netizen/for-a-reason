@@ -1,0 +1,256 @@
+{
+    "slides": [
+        {
+            "title": "Relationships and Normalization",
+            "content": [
+                "Defines how data is structured and optimized in databases",
+                "Includes keys, functional dependencies, and normalization",
+                "Ensures data consistency and reduces redundancy",
+                "Essential for efficient database design"
+            ]
+        },
+        {
+            "title": "Intension vs Extension",
+            "content": [
+                "Intension: structure/schema of database",
+                "Extension: actual data stored",
+                "Intension is static",
+                "Extension is dynamic"
+            ]
+        },
+        {
+            "title": "Schema vs Database State",
+            "content": [
+                "Schema defines structure of database",
+                "Database state is current data",
+                "Schema is static",
+                "State changes frequently"
+            ]
+        },
+        {
+            "title": "Three-Schema Architecture",
+            "content": [
+                "External level: user view",
+                "Conceptual level: logical structure",
+                "Internal level: physical storage",
+                "Provides abstraction and independence"
+            ]
+        },
+        {
+            "title": "Data Independence",
+            "content": [
+                "Ability to change schema without affecting users",
+                "Logical independence: change structure",
+                "Physical independence: change storage",
+                "Improves flexibility"
+            ]
+        },
+        {
+            "title": "Types of Keys",
+            "content": [
+                "Primary, Candidate, Alternate",
+                "Composite, Super Key",
+                "Foreign Key, Unique Key",
+                "Used for identification and relationships"
+            ]
+        },
+        {
+            "title": "Primary and Candidate Key",
+            "content": [
+                "Primary key uniquely identifies records",
+                "Cannot be null",
+                "Candidate keys are possible primary keys",
+                "One candidate key is chosen as primary"
+            ]
+        },
+        {
+            "title": "Alternate and Composite Key",
+            "content": [
+                "Alternate key is unused candidate key",
+                "Composite key uses multiple attributes",
+                "Used when single attribute not enough",
+                "Ensures uniqueness"
+            ]
+        },
+        {
+            "title": "Super Key and Foreign Key",
+            "content": [
+                "Super key uniquely identifies records",
+                "May contain extra attributes",
+                "Foreign key links tables",
+                "Maintains referential integrity"
+            ]
+        },
+        {
+            "title": "Functional Dependency (FD)",
+            "content": [
+                "Defines relationship between attributes",
+                "X → Y means X determines Y",
+                "Used in normalization",
+                "Ensures data integrity"
+            ]
+        },
+        {
+            "title": "Types of Functional Dependency",
+            "content": [
+                "Trivial: Y is subset of X",
+                "Non-trivial: meaningful dependency",
+                "Helps in identifying redundancy",
+                "Important for normalization"
+            ]
+        },
+        {
+            "title": "Armstrong’s Axioms",
+            "content": [
+                "Set of rules to derive dependencies",
+                "Reflexivity, Augmentation, Transitivity",
+                "Used for reasoning about FDs",
+                "Foundation of normalization"
+            ]
+        },
+        {
+            "title": "Important Inference Rules",
+            "content": [
+                "Union: combine dependencies",
+                "Decomposition: split dependencies",
+                "Transitivity: indirect relation",
+                "Composition: combine attributes"
+            ]
+        },
+        {
+            "title": "Closure of Attributes",
+            "content": [
+                "X+ gives all attributes derived from X",
+                "Used to find candidate keys",
+                "Helps in dependency checking",
+                "Important for normalization"
+            ]
+        },
+        {
+            "title": "Minimal Cover (Canonical Cover)",
+            "content": [
+                "Simplified set of functional dependencies",
+                "No redundant attributes",
+                "Single attribute on RHS",
+                "Used in normalization"
+            ]
+        },
+        {
+            "title": "Equivalence of Functional Dependencies",
+            "content": [
+                "Two FD sets are equivalent if closures are same",
+                "Used to validate simplification",
+                "Ensures correctness",
+                "Important for optimization"
+            ]
+        },
+        {
+            "title": "Dependency Preservation",
+            "content": [
+                "All dependencies maintained after decomposition",
+                "Ensures data integrity",
+                "Important for database design",
+                "Avoids data inconsistency"
+            ]
+        },
+        {
+            "title": "Lossless Decomposition",
+            "content": [
+                "No data loss after splitting tables",
+                "Original table can be reconstructed",
+                "Ensures correctness",
+                "Important property of normalization"
+            ]
+        },
+        {
+            "title": "Normalization",
+            "content": [
+                "Process of organizing data to reduce redundancy",
+                "Improves data consistency",
+                "Eliminates anomalies",
+                "Based on functional dependencies"
+            ]
+        },
+        {
+            "title": "Types of Anomalies",
+            "content": [
+                "Insertion anomaly",
+                "Deletion anomaly",
+                "Update anomaly",
+                "Occurs due to redundancy"
+            ]
+        },
+        {
+            "title": "First Normal Form (1NF)",
+            "content": [
+                "No repeating groups",
+                "Atomic values only",
+                "Each field contains single value",
+                "Removes multi-valued attributes"
+            ]
+        },
+        {
+            "title": "Second Normal Form (2NF)",
+            "content": [
+                "Must be in 1NF",
+                "No partial dependency",
+                "Non-key attributes fully depend on primary key",
+                "Applies to composite keys"
+            ]
+        },
+        {
+            "title": "Third Normal Form (3NF)",
+            "content": [
+                "Must be in 2NF",
+                "No transitive dependency",
+                "Non-key attributes depend only on key",
+                "Removes indirect dependencies"
+            ]
+        },
+        {
+            "title": "Boyce-Codd Normal Form (BCNF)",
+            "content": [
+                "Stronger version of 3NF",
+                "Every determinant is a candidate key",
+                "Removes anomalies completely",
+                "Used in advanced design"
+            ]
+        },
+        {
+            "title": "Chase Algorithm",
+            "content": [
+                "Used to test lossless decomposition",
+                "Applies dependencies iteratively",
+                "Ensures correctness",
+                "Used in schema validation"
+            ]
+        },
+        {
+            "title": "Denormalization",
+            "content": [
+                "Adds redundancy intentionally",
+                "Improves read performance",
+                "Reduces joins",
+                "Used in data warehouses"
+            ]
+        },
+        {
+            "title": "Normalization vs Denormalization",
+            "content": [
+                "Normalization reduces redundancy",
+                "Denormalization improves performance",
+                "Normalization ensures integrity",
+                "Denormalization increases speed"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Keys identify and connect data",
+                "FDs define relationships",
+                "Normalization improves design",
+                "Decomposition ensures efficiency"
+            ]
+        }
+    ]
+}

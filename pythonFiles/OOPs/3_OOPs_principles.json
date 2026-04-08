@@ -1,0 +1,193 @@
+{
+    "slides": [
+        {
+            "title": "Core Principles of OOP",
+            "content": [
+                "OOP is based on four main principles: Encapsulation, Inheritance, Polymorphism, Abstraction",
+                "These principles help in designing flexible and reusable software",
+                "They model real-world entities effectively",
+                "They improve maintainability and scalability of code"
+            ]
+        },
+        {
+            "title": "What is Polymorphism",
+            "content": [
+                "Polymorphism means 'many forms'",
+                "A single method or object behaves differently in different situations",
+                "It allows flexibility and dynamic behavior in programs",
+                "Example: same method name performing different tasks"
+            ]
+        },
+        {
+            "title": "Types of Polymorphism",
+            "content": [
+                "Compile-Time Polymorphism (Static Binding)",
+                "Run-Time Polymorphism (Dynamic Binding)",
+                "Both allow same method name but different behavior",
+                "Difference lies in when method is resolved"
+            ]
+        },
+        {
+            "title": "Compile-Time Polymorphism",
+            "content": [
+                "Method call is resolved during compilation",
+                "Achieved using method overloading",
+                "Same method name but different parameters",
+                "Example: add(int, int) and add(double, double)"
+            ]
+        },
+        {
+            "title": "Method Overloading Rules",
+            "content": [
+                "Methods must have same name but different parameters",
+                "Parameter difference can be type, number, or order",
+                "Return type alone cannot differentiate methods",
+                "Occurs within the same class"
+            ]
+        },
+        {
+            "title": "Advantages of Compile-Time Polymorphism",
+            "content": [
+                "Faster execution due to early binding",
+                "Improves readability using same method name",
+                "Helps in code reuse",
+                "Resolved at compile-time"
+            ]
+        },
+        {
+            "title": "Run-Time Polymorphism",
+            "content": [
+                "Method call is resolved during runtime",
+                "Achieved using method overriding",
+                "Based on actual object type, not reference type",
+                "Uses dynamic method dispatch"
+            ]
+        },
+        {
+            "title": "Method Overriding Rules",
+            "content": [
+                "Method must have same name, parameters, and return type",
+                "Requires inheritance (parent-child relationship)",
+                "Child class provides specific implementation",
+                "Access modifier cannot be more restrictive"
+            ]
+        },
+        {
+            "title": "Dynamic Method Dispatch",
+            "content": [
+                "JVM decides which method to call at runtime",
+                "Depends on object type, not reference type",
+                "Enables flexible and extensible code",
+                "Example: Animal reference → Dog object calls Dog method"
+            ]
+        },
+        {
+            "title": "Compile-Time vs Run-Time Polymorphism",
+            "content": [
+                "Compile-time uses method overloading, runtime uses overriding",
+                "Compile-time is faster, runtime is slightly slower",
+                "Compile-time resolved by compiler, runtime by JVM",
+                "Runtime provides more flexibility"
+            ]
+        },
+        {
+            "title": "Encapsulation",
+            "content": [
+                "Encapsulation means hiding internal data and exposing only necessary methods",
+                "Data and methods are bundled into a class",
+                "Attributes are kept private for security",
+                "Access is provided through public methods"
+            ]
+        },
+        {
+            "title": "Benefits of Encapsulation",
+            "content": [
+                "Protects sensitive data from unauthorized access",
+                "Improves code maintainability",
+                "Allows controlled modification of data",
+                "Reduces complexity by hiding implementation details"
+            ]
+        },
+        {
+            "title": "Access Modifiers",
+            "content": [
+                "Define visibility of variables and methods",
+                "Public: accessible everywhere",
+                "Private: accessible only within class",
+                "Protected and Default provide controlled access"
+            ]
+        },
+        {
+            "title": "Inheritance",
+            "content": [
+                "Inheritance allows one class to acquire properties of another",
+                "Parent class is superclass, child is subclass",
+                "Promotes code reuse and hierarchy",
+                "Example: Animal → Dog"
+            ]
+        },
+        {
+            "title": "Types of Inheritance",
+            "content": [
+                "Single Inheritance: one parent, one child",
+                "Multilevel Inheritance: chain of inheritance",
+                "Hierarchical Inheritance: one parent, multiple children",
+                "Multiple inheritance not supported in Java using classes"
+            ]
+        },
+        {
+            "title": "Advantages of Inheritance",
+            "content": [
+                "Reusability of existing code",
+                "Improves code organization",
+                "Supports extensibility",
+                "Reduces redundancy"
+            ]
+        },
+        {
+            "title": "Method Overloading vs Overriding",
+            "content": [
+                "Overloading: same class, different parameters",
+                "Overriding: parent-child classes, same method signature",
+                "Overloading resolved at compile-time",
+                "Overriding resolved at runtime"
+            ]
+        },
+        {
+            "title": "Super Keyword",
+            "content": [
+                "Used to access parent class members",
+                "Can call parent class constructor",
+                "Helps avoid ambiguity in inheritance",
+                "Used when child and parent have same variable names"
+            ]
+        },
+        {
+            "title": "Multiple Inheritance & Diamond Problem",
+            "content": [
+                "Multiple inheritance means inheriting from multiple classes",
+                "Java does not support it for classes",
+                "Diamond problem causes ambiguity in method resolution",
+                "Java solves it using interfaces"
+            ]
+        },
+        {
+            "title": "Real-Life Example of Polymorphism",
+            "content": [
+                "Animal class with method sound()",
+                "Dog overrides sound() → barks",
+                "Cat overrides sound() → meows",
+                "Same method behaves differently for each object"
+            ]
+        },
+        {
+            "title": "Summary of Core Principles",
+            "content": [
+                "Encapsulation ensures data security",
+                "Inheritance enables code reuse",
+                "Polymorphism provides flexibility",
+                "Together they form the foundation of OOP"
+            ]
+        }
+    ]
+}

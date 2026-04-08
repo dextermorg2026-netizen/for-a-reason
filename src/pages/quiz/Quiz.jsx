@@ -17,6 +17,8 @@ import {
   getPreviouslyCorrectQuestionIds,
 } from "../../services/quizAttemptService";
 
+import TacticalModal from "../../components/common/TacticalModal";
+
 const QUESTION_TIME = 30;
 
 const Quiz = () => {
@@ -27,12 +29,14 @@ const Quiz = () => {
   const { addCoins } = useCoins();
 
   const [questions, setQuestions] = useState([]);
+  const [subjectName, setSubjectName] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [previouslyCorrectIds, setPreviouslyCorrectIds] = useState([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   /* ================= FETCH QUESTIONS ================= */
 
@@ -40,6 +44,13 @@ const Quiz = () => {
     const loadQuestions = async () => {
       try {
         if (!currentUser) return;
+
+        // Fetch subject name
+        import("../../services/subjectService").then(async ({ getAllSubjects }) => {
+          const subjects = await getAllSubjects();
+          const subject = subjects.find(s => s.id === subjectId);
+          setSubjectName(subject?.title || subject?.name || "");
+        });
 
         const previousCorrectIds = await getPreviouslyCorrectQuestionIds(
           currentUser.uid,
@@ -137,6 +148,10 @@ const Quiz = () => {
 
   /* ================= FINAL SUBMIT ================= */
 
+  const onFinalizeClick = () => {
+    setShowConfirmModal(true);
+  };
+
   const handleFinalSubmit = async (finalAnswers = answers) => {
     if (!currentUser) {
       console.error("USER NOT READY");
@@ -145,6 +160,7 @@ const Quiz = () => {
 
     if (isSubmitting) return;
     setIsSubmitting(true);
+    setShowConfirmModal(false);
 
     const correctIds = [];
     const wrongIds = [];
@@ -210,18 +226,31 @@ const Quiz = () => {
   /* ================= UI ================= */
 
   const totalQuizTime = questions.length * QUESTION_TIME;
+  const unansweredCount = questions.length - Object.keys(answers).length;
 
   return (
     <main className="max-w-6xl mx-auto pb-20 px-4 md:px-8">
+      {/* Confirmation Modal */}
+      <TacticalModal 
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={() => handleFinalSubmit(answers)}
+        title="Finalize Mission?"
+        message={unansweredCount > 0 
+          ? `Warning: You have ${unansweredCount} unanswered questions. Partial synchronization will result in lower XP rewards.` 
+          : "Are you ready to submit your results? Assessment data will be processed immediately."}
+        confirmText="Finalize"
+        cancelText="Review"
+      />
       {/* Header Info */}
       <section className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="w-2 h-2 rounded-full bg-primary pulse-emerald"></span>
-            <span className="font-headline text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Operational_Assessment :: Active</span>
+            <span className="font-headline text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Operational Assessment :: Active</span>
           </div>
           <h1 className="text-3xl font-headline font-bold text-on-surface tracking-tighter uppercase">
-            {subjectId} <span className="text-primary opacity-50">//</span> {level}
+            <span className="text-primary opacity-50">//</span> {level}
           </h1>
         </div>
 
@@ -284,30 +313,30 @@ const Quiz = () => {
             </div>
           </div>
 
-          {/* Footer Actions */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex gap-4 w-full md:w-auto">
+          {/* Footer Actions - Refactored for Zero Overlap */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="grid grid-cols-2 gap-4 w-full sm:w-auto flex-shrink-0">
               <button
                 onClick={handlePrevious}
                 disabled={currentIndex === 0}
-                className="flex-1 md:flex-none px-8 py-4 bg-surface-container-low border border-white/10 text-slate-400 font-headline font-semibold text-xs uppercase tracking-widest asymmetric-card hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="px-6 py-4 bg-surface-container-low border border-white/10 text-slate-400 font-headline font-semibold text-[10px] uppercase tracking-widest asymmetric-card hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed whitespace-nowrap"
               >
                 Previous Protocol
               </button>
               <button
                 onClick={handleNext}
                 disabled={currentIndex === questions.length - 1}
-                className="flex-1 md:flex-none px-8 py-4 bg-surface-container-low border border-white/10 text-slate-400 font-headline font-semibold text-xs uppercase tracking-widest asymmetric-card hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="px-6 py-4 bg-surface-container-low border border-white/10 text-slate-400 font-headline font-semibold text-[10px] uppercase tracking-widest asymmetric-card hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed whitespace-nowrap"
               >
                 Next Protocol
               </button>
             </div>
 
-            <div className="flex gap-4 w-full md:w-auto">
+            <div className="w-full sm:w-auto sm:ml-auto">
               <button
-                onClick={() => handleFinalSubmit(answers)}
+                onClick={onFinalizeClick}
                 disabled={isSubmitting}
-                className="flex-1 md:flex-none px-12 py-4 bg-primary text-on-primary font-headline font-bold text-xs uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_20px_rgba(183,109,255,0.3)] hover:scale-[1.05] transition-transform disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto px-10 py-4 bg-primary text-on-primary font-headline font-bold text-[10px] uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_20px_rgba(183,109,255,0.3)] hover:scale-[1.05] transition-transform disabled:opacity-30 disabled:cursor-not-allowed whitespace-nowrap"
               >
                 {isSubmitting ? "Synchronizing..." : "Finalize Mission"}
               </button>

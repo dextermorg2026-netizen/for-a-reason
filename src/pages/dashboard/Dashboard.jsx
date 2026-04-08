@@ -167,7 +167,7 @@ const Dashboard = () => {
       : "Start your streak today 🚀";
 
   // For Continue Learning button (placeholder - can be enhanced with actual last subject)
-  const continueSubject = null; // TODO: Fetch last accessed subject
+
 
   // =========================
   // Render
@@ -187,7 +187,7 @@ const Dashboard = () => {
             </p>
           </div>
           <button 
-            onClick={() => continueSubject && navigate(`/subjects/${continueSubject.id}`)}
+            onClick={() => navigate("/subjects")}
             className="flex items-center gap-3 px-6 py-4 bg-surface-container-high border-b-2 border-secondary text-secondary font-headline font-semibold uppercase tracking-widest text-xs hover:bg-secondary hover:text-on-secondary transition-all group"
           >
             <span>Continue Learning</span>
@@ -289,7 +289,6 @@ const Dashboard = () => {
               </div>
               <div className="flex gap-2">
                 <span className="px-3 py-1 bg-secondary/10 border border-secondary/30 text-secondary text-[10px] font-semibold uppercase tracking-widest">7 Days</span>
-                <span className="px-3 py-1 bg-white/5 text-slate-500 text-[10px] font-semibold uppercase tracking-widest hover:text-on-surface transition-colors cursor-pointer">30 Days</span>
               </div>
             </div>
             

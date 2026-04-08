@@ -1,0 +1,130 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Data Warehousing",
+            "content": [
+                "Centralized data storage",
+                "Used for analysis",
+                "Supports decision making",
+                "Stores historical data"
+            ]
+        },
+        {
+            "title": "Characteristics of Data Warehouse",
+            "content": [
+                "Subject-oriented",
+                "Integrated",
+                "Time-variant",
+                "Non-volatile"
+            ]
+        },
+        {
+            "title": "ETL Process",
+            "content": [
+                "Extract data",
+                "Transform data",
+                "Load into warehouse",
+                "Key data pipeline"
+            ]
+        },
+        {
+            "title": "Data Warehouse Architecture",
+            "content": [
+                "Source systems",
+                "ETL layer",
+                "Data warehouse",
+                "Analytics tools"
+            ]
+        },
+        {
+            "title": "OLTP vs OLAP",
+            "content": [
+                "OLTP: transactional systems",
+                "OLAP: analytical systems",
+                "OLTP is fast inserts",
+                "OLAP is complex queries"
+            ]
+        },
+        {
+            "title": "Database Migration",
+            "content": [
+                "Move data between systems",
+                "Upgrade or change DB",
+                "Used in modernization",
+                "Requires planning"
+            ]
+        },
+        {
+            "title": "Types of Migration",
+            "content": [
+                "Homogeneous migration",
+                "Heterogeneous migration",
+                "Cloud migration",
+                "Live migration"
+            ]
+        },
+        {
+            "title": "Migration Strategies",
+            "content": [
+                "Big bang migration",
+                "Trickle migration",
+                "Parallel run",
+                "Hybrid approach"
+            ]
+        },
+        {
+            "title": "Big Bang Migration",
+            "content": [
+                "All at once transfer",
+                "Fast but risky",
+                "Downtime required",
+                "Simple approach"
+            ]
+        },
+        {
+            "title": "Trickle Migration",
+            "content": [
+                "Gradual migration",
+                "Low risk",
+                "No downtime",
+                "Complex management"
+            ]
+        },
+        {
+            "title": "Event-Driven Architecture",
+            "content": [
+                "System reacts to events",
+                "Real-time processing",
+                "Uses message queues",
+                "Scalable design"
+            ]
+        },
+        {
+            "title": "Advantages of Data Warehouse",
+            "content": [
+                "Better analytics",
+                "Improved decision making",
+                "Historical insights",
+                "High performance queries"
+            ]
+        },
+        {
+            "title": "Challenges in Migration",
+            "content": [
+                "Data loss risk",
+                "Downtime",
+                "Compatibility issues",
+                "Complex transformation"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Data warehouse supports analytics",
+                "ETL is core process",
+                "Migration moves data systems",
+                "Event-driven systems are scalable"
+            ]
+        }
+    ]
+}

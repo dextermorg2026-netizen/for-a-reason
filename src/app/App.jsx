@@ -18,6 +18,9 @@ import { db } from "../services/firebase";
 import NotificationToast from "../components/common/NotificationToast";
 import "../styles/AppLayout.css";
 
+import TacticalModal from "../components/common/TacticalModal";
+import NotificationDropdown from "../components/common/NotificationDropdown";
+
 function AppLayout() {
   const { logoutUser, userProfile, currentUser } = useAuth();
   const location = useLocation();
@@ -25,6 +28,8 @@ function AppLayout() {
 
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [isLive, setIsLive] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
@@ -40,6 +45,7 @@ function AppLayout() {
   }, []);
 
   const handleLogout = () => {
+    setShowLogoutModal(false);
     logoutUser();
     navigate("/");
   };
@@ -57,6 +63,17 @@ function AppLayout() {
     <div className="min-h-screen bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
       <NotificationToast />
 
+      {/* Logout Confirmation */}
+      <TacticalModal 
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={handleLogout}
+        title="Terminate Session?"
+        message="Are you sure you want to log out of the tactical knowledge core? Local session data will be encrypted and cleared."
+        confirmText="Logout"
+        cancelText="Stay Online"
+      />
+
       {/* --- TOPBAR --- */}
       <header className="bg-[#131313]/90 backdrop-blur-md text-purple-500 font-headline tracking-tighter uppercase border-b border-white/5 fixed top-0 left-0 right-0 z-30 md:left-64 flex justify-between items-center px-6 h-16 transition-all">
         <div className="flex items-center flex-1">
@@ -73,21 +90,25 @@ function AppLayout() {
             <span className="material-symbols-outlined">menu</span>
           </button>
           
-          <div className="hidden md:flex items-center gap-2 pr-4 border-r border-white/10">
+          <div className="hidden md:flex items-center gap-2 pr-4 border-r border-white/10 relative">
             <button 
-              className="p-2 text-slate-400 hover:text-primary transition-all rounded-lg group relative"
-              onClick={() => {
-                if (isLive) {
-                  navigate('/live');
-                } else {
-                  alert('No active broadcast signals detected.');
-                }
-              }}
+              className={`p-2 transition-all rounded-lg group relative ${showNotificationDropdown ? 'text-primary bg-primary/10' : 'text-slate-400 hover:text-primary'}`}
+              onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
             >
               <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">notifications</span>
               {isLive && <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>}
             </button>
-            <button className="p-2 text-slate-400 hover:text-error transition-all rounded-lg group" onClick={() => window.confirm("Terminate Operator Session: Are you sure you want to log out?") && handleLogout()}>
+            
+            <NotificationDropdown 
+              isOpen={showNotificationDropdown} 
+              onClose={() => setShowNotificationDropdown(false)}
+              events={isLive ? [{ type: 'LIVE OPS', time: 'ACTIVE NOW', message: 'Mission control has detected an ongoing live broadcast assessment.' }] : []}
+            />
+
+            <button 
+              className="p-2 text-slate-400 hover:text-error transition-all rounded-lg group" 
+              onClick={() => setShowLogoutModal(true)}
+            >
               <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">logout</span>
             </button>
           </div>

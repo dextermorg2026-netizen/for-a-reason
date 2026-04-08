@@ -1,0 +1,301 @@
+{
+    "slides": [
+        {
+            "title": "Data Models and ER Model",
+            "content": [
+                "Data models define how data is structured and organized",
+                "ER model represents real-world data visually",
+                "Helps in designing efficient databases",
+                "Used before actual database implementation"
+            ]
+        },
+        {
+            "title": "DBMS Interfaces",
+            "content": [
+                "Interfaces allow users to interact with database",
+                "Different interfaces for different users",
+                "Includes SQL, GUI, CLI, and APIs",
+                "Improves accessibility and usability"
+            ]
+        },
+        {
+            "title": "SQL Interface for Users",
+            "content": [
+                "Allows direct interaction using SQL queries",
+                "Used for retrieving and modifying data",
+                "Preferred by analysts and DBAs",
+                "Example: SELECT * FROM table"
+            ]
+        },
+        {
+            "title": "SQL Interface for Programs",
+            "content": [
+                "Used by applications to access database",
+                "Embedded SQL in programming languages",
+                "Uses APIs like JDBC, ODBC",
+                "Enables backend database operations"
+            ]
+        },
+        {
+            "title": "GUI and CLI Interfaces",
+            "content": [
+                "GUI provides visual interaction (MySQL Workbench)",
+                "CLI provides command-line interaction",
+                "GUI is user-friendly",
+                "CLI is faster and flexible"
+            ]
+        },
+        {
+            "title": "API-Based Interfaces",
+            "content": [
+                "Provides programmatic database access",
+                "Uses REST or GraphQL APIs",
+                "Abstracts database complexity",
+                "Used in modern applications"
+            ]
+        },
+        {
+            "title": "What is a Data Model",
+            "content": [
+                "Defines structure and relationships of data",
+                "Ensures consistency and integrity",
+                "Used for database design",
+                "Represents logical view of data"
+            ]
+        },
+        {
+            "title": "Types of Data Models",
+            "content": [
+                "Hierarchical Model",
+                "Network Model",
+                "ER Model",
+                "Relational Model and Object-Oriented Model"
+            ]
+        },
+        {
+            "title": "Hierarchical Model",
+            "content": [
+                "Tree-like structure",
+                "One-to-many relationship",
+                "Each child has one parent",
+                "Example: file system"
+            ]
+        },
+        {
+            "title": "Network Model",
+            "content": [
+                "Graph structure",
+                "Supports many-to-many relationships",
+                "More flexible than hierarchical",
+                "Used in complex systems"
+            ]
+        },
+        {
+            "title": "Relational Model",
+            "content": [
+                "Data stored in tables",
+                "Rows are records, columns are attributes",
+                "Uses primary and foreign keys",
+                "Most widely used model"
+            ]
+        },
+        {
+            "title": "Object-Oriented Model",
+            "content": [
+                "Stores data as objects",
+                "Supports inheritance and polymorphism",
+                "Handles complex data",
+                "Used in advanced applications"
+            ]
+        },
+        {
+            "title": "Entity Relationship (ER) Model",
+            "content": [
+                "Represents data using entities and relationships",
+                "Used for conceptual database design",
+                "Visualized using ER diagrams",
+                "Simplifies complex data structures"
+            ]
+        },
+        {
+            "title": "Entities",
+            "content": [
+                "Entities represent real-world objects",
+                "Example: Student, Course",
+                "Have attributes",
+                "Represented as rectangles"
+            ]
+        },
+        {
+            "title": "Strong vs Weak Entities",
+            "content": [
+                "Strong entity has primary key",
+                "Weak entity depends on strong entity",
+                "Weak entity uses foreign key",
+                "Example: Employee and Dependent"
+            ]
+        },
+        {
+            "title": "Attributes",
+            "content": [
+                "Properties of entities",
+                "Example: Name, Age",
+                "Can be simple, composite, derived",
+                "Represented as ovals"
+            ]
+        },
+        {
+            "title": "Types of Attributes",
+            "content": [
+                "Simple: indivisible",
+                "Composite: divisible",
+                "Derived: calculated",
+                "Multi-valued: multiple values"
+            ]
+        },
+        {
+            "title": "Relationships in ER Model",
+            "content": [
+                "Defines connection between entities",
+                "Represented as diamonds",
+                "Shows how data interacts",
+                "Important for database design"
+            ]
+        },
+        {
+            "title": "Types of Relationships (Cardinality)",
+            "content": [
+                "One-to-One (1:1)",
+                "One-to-Many (1:M)",
+                "Many-to-Many (M:M)",
+                "Defines how entities are related"
+            ]
+        },
+        {
+            "title": "One-to-One Relationship",
+            "content": [
+                "One entity relates to one entity",
+                "Example: Student and ID Card",
+                "Unique mapping",
+                "Used for closely related data"
+            ]
+        },
+        {
+            "title": "One-to-Many Relationship",
+            "content": [
+                "One entity relates to many entities",
+                "Example: Teacher and Classes",
+                "Most common relationship",
+                "Parent-child structure"
+            ]
+        },
+        {
+            "title": "Many-to-Many Relationship",
+            "content": [
+                "Many entities relate to many entities",
+                "Example: Student and Course",
+                "Implemented using junction table",
+                "Stores relationship data"
+            ]
+        },
+        {
+            "title": "Other Relationship Types",
+            "content": [
+                "Unary: entity relates to itself",
+                "Binary: two entities involved",
+                "Ternary: three entities involved",
+                "Recursive relationships possible"
+            ]
+        },
+        {
+            "title": "ER Diagram",
+            "content": [
+                "Visual representation of database",
+                "Shows entities, attributes, relationships",
+                "Used before implementation",
+                "Acts as blueprint"
+            ]
+        },
+        {
+            "title": "Components of ER Diagram",
+            "content": [
+                "Entities: rectangles",
+                "Attributes: ovals",
+                "Relationships: diamonds",
+                "Keys: primary and foreign keys"
+            ]
+        },
+        {
+            "title": "EER Model (Enhanced ER)",
+            "content": [
+                "Extension of ER model",
+                "Handles complex relationships",
+                "Includes inheritance and aggregation",
+                "Used for advanced modeling"
+            ]
+        },
+        {
+            "title": "Generalization and Specialization",
+            "content": [
+                "Generalization combines entities",
+                "Specialization divides entities",
+                "Creates hierarchy",
+                "Reduces redundancy"
+            ]
+        },
+        {
+            "title": "Aggregation and Composition",
+            "content": [
+                "Aggregation represents has-a relationship",
+                "Composition is strong dependency",
+                "Used in complex systems",
+                "Improves structure"
+            ]
+        },
+        {
+            "title": "Inheritance in EER",
+            "content": [
+                "Subclass inherits attributes from superclass",
+                "Supports hierarchy",
+                "Reduces redundancy",
+                "Similar to OOP inheritance"
+            ]
+        },
+        {
+            "title": "Types of Inheritance",
+            "content": [
+                "Single inheritance",
+                "Multiple inheritance",
+                "Overlapping subclasses",
+                "Disjoint subclasses"
+            ]
+        },
+        {
+            "title": "Participation Constraints",
+            "content": [
+                "Total participation: mandatory",
+                "Partial participation: optional",
+                "Defines entity involvement",
+                "Important for design"
+            ]
+        },
+        {
+            "title": "Steps to Create ER Diagram",
+            "content": [
+                "Identify entities",
+                "Define relationships",
+                "Determine cardinality",
+                "Add attributes and keys"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Data models define structure of data",
+                "ER model helps in database design",
+                "Relationships define interactions",
+                "EER extends ER for complex systems"
+            ]
+        }
+    ]
+}

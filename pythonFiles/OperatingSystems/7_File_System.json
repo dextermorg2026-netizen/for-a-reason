@@ -1,0 +1,58 @@
+{
+    "slides": [
+        {
+            "title": "File System Basics",
+            "content": [
+                "A file system is a structure used by the operating system to organize, store, and retrieve data efficiently on storage devices :contentReference[oaicite:0]{index=0}",
+                "It manages files, directories, metadata, and permissions to ensure easy access and security",
+                "It provides hierarchical organization using folders and subfolders for better data management",
+                "It handles operations like file creation, reading, writing, and deletion"
+            ]
+        },
+        {
+            "title": "Types of File Systems",
+            "content": [
+                "FAT32 is a simple and widely compatible file system but has file size limitations and no journaling :contentReference[oaicite:1]{index=1}",
+                "NTFS is a Windows file system that supports large files, security permissions, encryption, and journaling :contentReference[oaicite:2]{index=2}",
+                "ext4 is a Linux file system known for performance, reliability, and support for large storage systems :contentReference[oaicite:3]{index=3}",
+                "APFS is a modern Apple file system optimized for SSDs with features like encryption and snapshots :contentReference[oaicite:4]{index=4}"
+            ]
+        },
+        {
+            "title": "File Allocation & Fragmentation",
+            "content": [
+                "File allocation determines how files are stored on disk using methods like contiguous, linked, and indexed allocation",
+                "Contiguous allocation stores files in continuous blocks for fast access but causes external fragmentation",
+                "Linked allocation stores file blocks as a chain, allowing flexibility but slow random access",
+                "Fragmentation occurs when free space becomes scattered, reducing performance and efficient storage usage"
+            ]
+        },
+        {
+            "title": "FCB & ACL",
+            "content": [
+                "A File Control Block (FCB) stores metadata like file name, size, location, permissions, and timestamps for efficient file management :contentReference[oaicite:5]{index=5}",
+                "Access Control Lists (ACLs) provide detailed permission control for users and groups on files and directories :contentReference[oaicite:6]{index=6}",
+                "FCB provides basic file information while ACLs provide fine-grained access control",
+                "Together they ensure efficient file handling and strong security"
+            ]
+        },
+        {
+            "title": "Authentication & Encryption",
+            "content": [
+                "User authentication verifies identity using passwords, biometrics, or multi-factor authentication to secure system access :contentReference[oaicite:7]{index=7}",
+                "Encryption protects file data by converting it into unreadable format using symmetric or asymmetric key techniques :contentReference[oaicite:8]{index=8}",
+                "Full-disk encryption secures entire storage while file-level encryption protects specific files",
+                "These mechanisms ensure data confidentiality, integrity, and protection from unauthorized access"
+            ]
+        },
+        {
+            "title": "Journaling & Backup",
+            "content": [
+                "Journaling file systems record changes in a log before applying them to prevent data corruption during crashes",
+                "It ensures quick recovery by replaying journal entries to restore consistency",
+                "Backup mechanisms store copies of data using full, incremental, or differential methods for recovery",
+                "Recovery techniques restore data after failures, ensuring data safety and system reliability :contentReference[oaicite:9]{index=9}"
+            ]
+        }
+    ]
+}

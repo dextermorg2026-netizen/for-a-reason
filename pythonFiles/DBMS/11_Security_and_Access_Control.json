@@ -1,0 +1,229 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Database Security",
+            "content": [
+                "Protects data from unauthorized access",
+                "Ensures confidentiality and integrity",
+                "Prevents data breaches",
+                "Critical for sensitive data"
+            ]
+        },
+        {
+            "title": "Goals of Database Security",
+            "content": [
+                "Confidentiality",
+                "Integrity",
+                "Availability",
+                "Authentication and authorization"
+            ]
+        },
+        {
+            "title": "Database Security Threats",
+            "content": [
+                "Unauthorized access",
+                "SQL injection",
+                "Data leakage",
+                "Insider threats"
+            ]
+        },
+        {
+            "title": "Authentication vs Authorization",
+            "content": [
+                "Authentication: verifies identity",
+                "Authorization: grants permissions",
+                "Both are essential",
+                "Used in access control"
+            ]
+        },
+        {
+            "title": "Data Encryption in DBMS",
+            "content": [
+                "Converts data into unreadable form",
+                "Protects sensitive data",
+                "Used during storage and transmission",
+                "Requires decryption key"
+            ]
+        },
+        {
+            "title": "Types of Encryption",
+            "content": [
+                "Symmetric encryption",
+                "Asymmetric encryption",
+                "Hashing",
+                "End-to-end encryption"
+            ]
+        },
+        {
+            "title": "Symmetric Encryption",
+            "content": [
+                "Same key for encryption and decryption",
+                "Fast and efficient",
+                "Used in bulk data",
+                "Example: AES"
+            ]
+        },
+        {
+            "title": "Asymmetric Encryption",
+            "content": [
+                "Uses public and private keys",
+                "More secure",
+                "Slower than symmetric",
+                "Example: RSA"
+            ]
+        },
+        {
+            "title": "Hashing",
+            "content": [
+                "One-way encryption",
+                "Cannot be reversed",
+                "Used for passwords",
+                "Example: SHA"
+            ]
+        },
+        {
+            "title": "Encryption Techniques in DBMS",
+            "content": [
+                "Data-at-rest encryption",
+                "Data-in-transit encryption",
+                "Column-level encryption",
+                "Transparent Data Encryption (TDE)"
+            ]
+        },
+        {
+            "title": "Data Masking",
+            "content": [
+                "Hides sensitive data",
+                "Used for testing",
+                "Protects privacy",
+                "Displays partial data"
+            ]
+        },
+        {
+            "title": "Types of Data Masking",
+            "content": [
+                "Static masking",
+                "Dynamic masking",
+                "Tokenization",
+                "Substitution"
+            ]
+        },
+        {
+            "title": "RBAC (Role-Based Access Control)",
+            "content": [
+                "Access based on roles",
+                "Simplifies permission management",
+                "Used in enterprises",
+                "Improves security"
+            ]
+        },
+        {
+            "title": "RBAC Components",
+            "content": [
+                "Users",
+                "Roles",
+                "Permissions",
+                "Sessions"
+            ]
+        },
+        {
+            "title": "RBAC Models",
+            "content": [
+                "Core RBAC",
+                "Hierarchical RBAC",
+                "Constrained RBAC",
+                "Administrative RBAC"
+            ]
+        },
+        {
+            "title": "Core RBAC",
+            "content": [
+                "Basic model",
+                "Users assigned roles",
+                "Roles have permissions",
+                "Simple structure"
+            ]
+        },
+        {
+            "title": "Hierarchical RBAC",
+            "content": [
+                "Roles inherit permissions",
+                "Parent-child roles",
+                "Reduces redundancy",
+                "Efficient management"
+            ]
+        },
+        {
+            "title": "Constrained RBAC",
+            "content": [
+                "Applies restrictions",
+                "Separation of duties",
+                "Prevents conflicts",
+                "Improves security"
+            ]
+        },
+        {
+            "title": "Administrative RBAC",
+            "content": [
+                "Manages role assignments",
+                "Controls permissions",
+                "Used by admins",
+                "Ensures governance"
+            ]
+        },
+        {
+            "title": "Access Control Techniques",
+            "content": [
+                "Discretionary Access Control (DAC)",
+                "Mandatory Access Control (MAC)",
+                "Role-Based Access Control (RBAC)",
+                "Attribute-Based Access Control (ABAC)"
+            ]
+        },
+        {
+            "title": "DAC vs MAC",
+            "content": [
+                "DAC: user controls access",
+                "MAC: system enforces rules",
+                "MAC is more secure",
+                "DAC is flexible"
+            ]
+        },
+        {
+            "title": "Advantages of Security Measures",
+            "content": [
+                "Protects sensitive data",
+                "Prevents attacks",
+                "Ensures compliance",
+                "Builds trust"
+            ]
+        },
+        {
+            "title": "Challenges in Security",
+            "content": [
+                "Complex implementation",
+                "Performance overhead",
+                "Key management issues",
+                "Human errors"
+            ]
+        },
+        {
+            "title": "Best Practices",
+            "content": [
+                "Use strong authentication",
+                "Encrypt sensitive data",
+                "Apply least privilege",
+                "Regular security audits"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Security ensures protection",
+                "Encryption safeguards data",
+                "RBAC controls access",
+                "Essential for modern DBMS"
+            ]
+        }
+    ]
+}

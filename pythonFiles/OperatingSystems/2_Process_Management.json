@@ -1,0 +1,59 @@
+{
+    "slides": [
+        {
+            "title": "Process & Its States",
+            "content": [
+                "A process is a program in execution that uses system resources like CPU, memory, and I/O devices to perform tasks",
+                "A process in memory consists of text segment (code), data segment (global variables), heap (dynamic memory), and stack (function calls)",
+                "Process states include new, ready, running, waiting (blocked), suspended, and terminated during its lifecycle",
+                "The operating system manages transitions between states using scheduling and resource allocation"
+            ]
+        },
+        {
+            "title": "Process State Transitions",
+            "content": [
+                "A process moves from new to ready when it is created and prepared for execution",
+                "It moves from ready to running when the CPU scheduler assigns it CPU time",
+                "Running processes move to waiting when they request I/O or resources",
+                "Waiting processes return to ready after I/O completion, and running processes terminate after execution",
+                "Suspended state occurs when a process is temporarily swapped out of memory to manage resources"
+            ]
+        },
+        {
+            "title": "Process Control Block (PCB)",
+            "content": [
+                "A Process Control Block (PCB) is a data structure that stores all information required to manage a process",
+                "It includes process state, process ID (PID), program counter, CPU registers, and memory management details",
+                "It also stores scheduling information like priority, CPU usage, and I/O status of the process",
+                "PCB enables process scheduling, context switching, resource allocation, and error handling in the operating system"
+            ]
+        },
+        {
+            "title": "Context Switching",
+            "content": [
+                "Context switching is the process where the CPU switches from one process to another to enable multitasking",
+                "The OS saves the current process state into its PCB and loads the next process state from its PCB",
+                "It is triggered by interrupts, system calls, or scheduling decisions",
+                "It ensures efficient CPU utilization and fairness but introduces overhead and performance cost"
+            ]
+        },
+        {
+            "title": "Kernel Mode vs User Mode",
+            "content": [
+                "User mode is where applications run with limited access to system resources for security and stability",
+                "Kernel mode is where the operating system runs with full access to hardware and critical resources",
+                "System calls, interrupts, and faults cause transitions from user mode to kernel mode",
+                "Errors in user mode affect only applications, while errors in kernel mode can crash the entire system"
+            ]
+        },
+        {
+            "title": "Threads (ULT & KLT)",
+            "content": [
+                "A thread is the smallest unit of execution within a process that shares memory but runs independently",
+                "User-Level Threads (ULTs) are managed by user libraries, are faster, but can block the entire process",
+                "Kernel-Level Threads (KLTs) are managed by the OS, allow true parallelism, and run on multiple CPU cores",
+                "Threads improve performance, responsiveness, and resource utilization in modern applications"
+            ]
+        }
+    ]
+}

@@ -32,15 +32,38 @@ def initialize_firebase():
 # ----------------------------
 
 def get_subject_id_by_title(db, title):
+    if not title:
+        return None
+
+    # Exact titles found in Firestore (case-sensitive)
+    mapping = {
+        "Database Management Systems": "DBMS",
+        "Object Oriented Programming": "OOPS",
+        "Operating Systems": "OPERATINGSYSTEMS",
+        "System Design": "SystemDesign",
+        "Computer Network": "Computer Network"
+    }
+    
+    search_title = mapping.get(title, title)
 
     docs = (
         db.collection("subjects")
-        .where("title", "==", title)
+        .where("title", "==", search_title)
         .limit(1)
         .stream()
     )
 
     docs = list(docs)
+
+    if not docs:
+        # Try finding by original title just in case
+        docs = (
+            db.collection("subjects")
+            .where("title", "==", title)
+            .limit(1)
+            .stream()
+        )
+        docs = list(docs)
 
     if not docs:
         return None

@@ -1,0 +1,328 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Distributed Databases",
+            "content": [
+                "Multiple databases across locations",
+                "Connected via network",
+                "Data distributed across servers",
+                "Supports large-scale systems"
+            ]
+        },
+        {
+            "title": "Key Concepts",
+            "content": [
+                "Data distribution across nodes",
+                "Network-based access",
+                "Data synchronization",
+                "Local independence of nodes"
+            ]
+        },
+        {
+            "title": "Characteristics of Distributed DB",
+            "content": [
+                "Location transparency",
+                "Replication transparency",
+                "Concurrency control",
+                "Fault tolerance and scalability"
+            ]
+        },
+        {
+            "title": "Homogeneous vs Heterogeneous DB",
+            "content": [
+                "Homogeneous: same DBMS",
+                "Heterogeneous: different DBMS",
+                "Homogeneous easier to manage",
+                "Heterogeneous more flexible"
+            ]
+        },
+        {
+            "title": "Advantages of Distributed DB",
+            "content": [
+                "High availability",
+                "Scalability",
+                "Improved performance",
+                "Node autonomy"
+            ]
+        },
+        {
+            "title": "Challenges of Distributed DB",
+            "content": [
+                "Complex design",
+                "Network dependency",
+                "Data security issues",
+                "Consistency management"
+            ]
+        },
+        {
+            "title": "Key Parameters",
+            "content": [
+                "Data distribution",
+                "Replication",
+                "Consistency",
+                "Availability and scalability"
+            ]
+        },
+        {
+            "title": "Client-Server Architecture",
+            "content": [
+                "Central server with clients",
+                "Easy consistency management",
+                "Single point of failure",
+                "Used in traditional systems"
+            ]
+        },
+        {
+            "title": "Peer-to-Peer Architecture",
+            "content": [
+                "No central server",
+                "Each node is equal",
+                "Highly fault tolerant",
+                "Dynamic scalability"
+            ]
+        },
+        {
+            "title": "Federated Databases",
+            "content": [
+                "Multiple independent databases",
+                "Unified access",
+                "Interoperability",
+                "Used in large organizations"
+            ]
+        },
+        {
+            "title": "Fault Tolerance",
+            "content": [
+                "System continues despite failures",
+                "Ensures reliability",
+                "Important for distributed systems",
+                "Used in critical systems"
+            ]
+        },
+        {
+            "title": "Types of Faults",
+            "content": [
+                "Crash faults",
+                "Omission faults",
+                "Timing faults",
+                "Byzantine faults"
+            ]
+        },
+        {
+            "title": "Fault Detection",
+            "content": [
+                "Heartbeat mechanism",
+                "Timeout detection",
+                "Redundancy checks",
+                "Ensures system health"
+            ]
+        },
+        {
+            "title": "Fault Tolerance Strategies",
+            "content": [
+                "Replication",
+                "Redundancy",
+                "Checkpointing",
+                "Consensus algorithms"
+            ]
+        },
+        {
+            "title": "Data Distribution Methods",
+            "content": [
+                "Horizontal fragmentation",
+                "Vertical fragmentation",
+                "Hybrid fragmentation",
+                "Based on usage patterns"
+            ]
+        },
+        {
+            "title": "Horizontal Fragmentation",
+            "content": [
+                "Divides data by rows",
+                "Based on region or criteria",
+                "Improves performance",
+                "Reduces latency"
+            ]
+        },
+        {
+            "title": "Vertical Fragmentation",
+            "content": [
+                "Divides data by columns",
+                "Stores frequently used columns",
+                "Improves efficiency",
+                "Requires key for reconstruction"
+            ]
+        },
+        {
+            "title": "Hybrid Fragmentation",
+            "content": [
+                "Combination of horizontal and vertical",
+                "Flexible design",
+                "Optimized for complex queries",
+                "More complex to manage"
+            ]
+        },
+        {
+            "title": "Replication",
+            "content": [
+                "Copies of data across nodes",
+                "Improves availability",
+                "Enhances fault tolerance",
+                "Used in distributed systems"
+            ]
+        },
+        {
+            "title": "Full vs Partial Replication",
+            "content": [
+                "Full: entire data replicated",
+                "Partial: selected data replicated",
+                "Full increases availability",
+                "Partial reduces storage"
+            ]
+        },
+        {
+            "title": "Replication Types",
+            "content": [
+                "Lazy vs Eager replication",
+                "Synchronous vs Asynchronous",
+                "Master-slave",
+                "Multi-master"
+            ]
+        },
+        {
+            "title": "Lazy vs Eager Replication",
+            "content": [
+                "Lazy: delayed updates",
+                "Eager: immediate updates",
+                "Lazy improves performance",
+                "Eager ensures consistency"
+            ]
+        },
+        {
+            "title": "Synchronous vs Asynchronous",
+            "content": [
+                "Synchronous: strong consistency",
+                "Asynchronous: faster writes",
+                "Trade-off between speed and consistency",
+                "Used based on application needs"
+            ]
+        },
+        {
+            "title": "Master-Slave vs Multi-Master",
+            "content": [
+                "Master-slave: one writer",
+                "Multi-master: multiple writers",
+                "Master simpler",
+                "Multi-master more scalable"
+            ]
+        },
+        {
+            "title": "Quorum-Based Replication",
+            "content": [
+                "Majority agreement required",
+                "Ensures consistency",
+                "Used in distributed systems",
+                "Balances reliability and performance"
+            ]
+        },
+        {
+            "title": "Centralized vs Distributed Allocation",
+            "content": [
+                "Centralized: single server",
+                "Distributed: multiple servers",
+                "Centralized simpler",
+                "Distributed more scalable"
+            ]
+        },
+        {
+            "title": "Load Balancing",
+            "content": [
+                "Distributes workload across nodes",
+                "Improves performance",
+                "Prevents overload",
+                "Enhances scalability"
+            ]
+        },
+        {
+            "title": "Load Balancing Techniques",
+            "content": [
+                "Round robin",
+                "Least connections",
+                "Weighted balancing",
+                "Geo-location based"
+            ]
+        },
+        {
+            "title": "Load Balancing Strategies",
+            "content": [
+                "Horizontal scaling",
+                "Data partitioning",
+                "Replication",
+                "Adaptive balancing"
+            ]
+        },
+        {
+            "title": "Challenges in Load Balancing",
+            "content": [
+                "Dynamic workloads",
+                "Data skew",
+                "Latency issues",
+                "Fault handling complexity"
+            ]
+        },
+        {
+            "title": "Database Lifecycle",
+            "content": [
+                "Planning",
+                "Design",
+                "Implementation",
+                "Deployment and maintenance"
+            ]
+        },
+        {
+            "title": "Lifecycle - Planning and Design",
+            "content": [
+                "Requirement gathering",
+                "Feasibility analysis",
+                "ER modeling",
+                "Schema design"
+            ]
+        },
+        {
+            "title": "Lifecycle - Implementation",
+            "content": [
+                "Create tables and constraints",
+                "Insert initial data",
+                "Testing",
+                "Performance tuning"
+            ]
+        },
+        {
+            "title": "Lifecycle - Deployment",
+            "content": [
+                "Move to production",
+                "Configure user access",
+                "Monitor performance",
+                "Handle queries"
+            ]
+        },
+        {
+            "title": "Lifecycle - Maintenance",
+            "content": [
+                "Backup data",
+                "Apply updates",
+                "Modify schema",
+                "Optimize queries"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Distributed DB improves scalability",
+                "Replication ensures availability",
+                "Fragmentation improves performance",
+                "Load balancing optimizes resources"
+            ]
+        }
+    ]
+}

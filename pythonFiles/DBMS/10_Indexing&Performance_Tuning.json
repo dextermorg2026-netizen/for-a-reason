@@ -1,0 +1,148 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Indexing",
+            "content": [
+                "Improves data retrieval speed",
+                "Avoids full table scan",
+                "Works like book index",
+                "Essential for large databases"
+            ]
+        },
+        {
+            "title": "What is an Index?",
+            "content": [
+                "Data structure for fast lookup",
+                "Stores key and pointer",
+                "Reduces search time",
+                "Used in SELECT queries"
+            ]
+        },
+        {
+            "title": "Types of Indexing",
+            "content": [
+                "Primary index",
+                "Secondary index",
+                "Clustered index",
+                "Non-clustered index"
+            ]
+        },
+        {
+            "title": "Primary Index",
+            "content": [
+                "Based on primary key",
+                "Unique values",
+                "Sorted data",
+                "Fast retrieval"
+            ]
+        },
+        {
+            "title": "Secondary Index",
+            "content": [
+                "Non-primary key indexing",
+                "Multiple indexes possible",
+                "Improves search",
+                "Extra storage required"
+            ]
+        },
+        {
+            "title": "Clustered Index",
+            "content": [
+                "Data stored in sorted order",
+                "Only one per table",
+                "Fast range queries",
+                "Physically organizes data"
+            ]
+        },
+        {
+            "title": "Non-Clustered Index",
+            "content": [
+                "Separate from data",
+                "Multiple allowed",
+                "Uses pointers",
+                "Slower than clustered"
+            ]
+        },
+        {
+            "title": "Indexing Techniques",
+            "content": [
+                "Dense indexing",
+                "Sparse indexing",
+                "Multilevel indexing",
+                "Hash indexing"
+            ]
+        },
+        {
+            "title": "Dense vs Sparse Index",
+            "content": [
+                "Dense: index for every record",
+                "Sparse: index for some records",
+                "Dense faster but more storage",
+                "Sparse efficient storage"
+            ]
+        },
+        {
+            "title": "B-Tree",
+            "content": [
+                "Balanced tree structure",
+                "Maintains sorted data",
+                "Logarithmic search",
+                "Used in indexing"
+            ]
+        },
+        {
+            "title": "B+ Tree",
+            "content": [
+                "All data in leaf nodes",
+                "Leaf nodes are linked",
+                "Faster range queries",
+                "Most widely used"
+            ]
+        },
+        {
+            "title": "B vs B+ Tree",
+            "content": [
+                "B: data in internal + leaf",
+                "B+: data only in leaf",
+                "B+: better performance",
+                "B+: used in DBMS"
+            ]
+        },
+        {
+            "title": "Performance Tuning",
+            "content": [
+                "Improves query efficiency",
+                "Reduces execution time",
+                "Optimizes resources",
+                "Essential for scalability"
+            ]
+        },
+        {
+            "title": "Query Optimization",
+            "content": [
+                "Use indexes",
+                "Avoid unnecessary joins",
+                "Use proper WHERE conditions",
+                "Reduce data retrieval"
+            ]
+        },
+        {
+            "title": "Index Optimization",
+            "content": [
+                "Avoid over-indexing",
+                "Use appropriate index type",
+                "Maintain indexes regularly",
+                "Drop unused indexes"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Indexes improve speed",
+                "B+ trees widely used",
+                "Performance tuning is critical",
+                "Optimization improves efficiency"
+            ]
+        }
+    ]
+}

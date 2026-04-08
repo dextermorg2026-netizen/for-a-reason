@@ -1,0 +1,59 @@
+{
+    "slides": [
+        {
+            "title": "Scheduling Queues & Schedulers",
+            "content": [
+                "Scheduling organizes processes into queues such as job queue (all processes), ready queue (waiting for CPU), and device queue (waiting for I/O)",
+                "Processes move between queues during execution based on events like I/O requests, interrupts, or completion",
+                "Long-term scheduler selects processes from job queue and controls degree of multiprogramming",
+                "Short-term scheduler selects processes from ready queue for CPU execution frequently",
+                "Medium-term scheduler swaps processes in and out of memory to manage system load"
+            ]
+        },
+        {
+            "title": "Process Scheduling Basics",
+            "content": [
+                "Process scheduling determines the order in which processes execute to maximize CPU utilization and system performance",
+                "It considers factors like arrival time, burst time, priority, and I/O or CPU-bound nature of processes",
+                "It ensures fairness, prevents starvation, and meets deadlines in real-time systems",
+                "Scheduling improves throughput, response time, and overall system efficiency"
+            ]
+        },
+        {
+            "title": "Preemptive vs Non-Preemptive",
+            "content": [
+                "Preemptive scheduling allows the OS to interrupt a running process and assign CPU to another process",
+                "It provides high responsiveness and is used in real-time and interactive systems but adds context switching overhead",
+                "Non-preemptive scheduling allows a process to run until completion without interruption",
+                "It is simple and has low overhead but may lead to poor responsiveness and starvation"
+            ]
+        },
+        {
+            "title": "FCFS, SJF, SRTF",
+            "content": [
+                "FCFS (First Come First Serve) executes processes in arrival order and is simple but suffers from convoy effect",
+                "SJF (Shortest Job First) selects the process with the shortest burst time and minimizes average waiting time",
+                "SRTF (Shortest Remaining Time First) is a preemptive version of SJF that always executes the shortest remaining job",
+                "SJF and SRTF improve efficiency but may cause starvation of longer processes"
+            ]
+        },
+        {
+            "title": "HRRN, Round Robin, Priority",
+            "content": [
+                "HRRN (Highest Response Ratio Next) selects processes based on response ratio to balance waiting time and execution time",
+                "Round Robin scheduling assigns CPU for a fixed time slice to each process ensuring fairness",
+                "Priority scheduling executes processes based on priority levels and can be preemptive or non-preemptive",
+                "Round Robin improves responsiveness while priority scheduling handles critical tasks efficiently"
+            ]
+        },
+        {
+            "title": "MLQ & MLFQ Scheduling",
+            "content": [
+                "Multilevel Queue (MLQ) divides processes into different queues based on type with separate scheduling policies",
+                "Each queue may use algorithms like FCFS, Round Robin, or priority scheduling",
+                "Multilevel Feedback Queue (MLFQ) allows processes to move between queues based on behavior and execution history",
+                "MLFQ is adaptive, reduces starvation, and balances performance but is complex to implement"
+            ]
+        }
+    ]
+}

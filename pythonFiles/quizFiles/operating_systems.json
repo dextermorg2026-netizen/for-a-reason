@@ -1,0 +1,609 @@
+{
+    "subject": "Operating Systems",
+    "easy": [
+        {
+            "question": "What is an operating system?",
+            "options": [
+                "Application software",
+                "System software managing hardware",
+                "Programming language",
+                "Database"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os1",
+            "topicName": "Introduction to Operating Systems"
+        },
+        {
+            "question": "OS acts as?",
+            "options": [
+                "Compiler",
+                "Interface between user and hardware",
+                "Storage device",
+                "Network"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os1",
+            "topicName": "Introduction to Operating Systems"
+        },
+        {
+            "question": "Kernel is?",
+            "options": [
+                "User program",
+                "Core of OS",
+                "Application",
+                "Hardware"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os2",
+            "topicName": "Operating System Structure"
+        },
+        {
+            "question": "Process is?",
+            "options": [
+                "Program in execution",
+                "File",
+                "Memory block",
+                "CPU"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os3",
+            "topicName": "Process Management"
+        },
+        {
+            "question": "PCB stands for?",
+            "options": [
+                "Program Control Block",
+                "Process Control Block",
+                "Primary Control Block",
+                "Process Code Block"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os3",
+            "topicName": "Process Management"
+        },
+        {
+            "question": "CPU scheduling selects?",
+            "options": [
+                "Memory",
+                "Disk",
+                "Next process",
+                "File"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "FIFO scheduling is?",
+            "options": [
+                "Shortest job",
+                "Priority based",
+                "First come first serve",
+                "Random"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Deadlock means?",
+            "options": [
+                "Crash",
+                "Infinite loop",
+                "Processes waiting forever",
+                "Memory full"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os5",
+            "topicName": "Deadlocks"
+        },
+        {
+            "question": "Paging is?",
+            "options": [
+                "Memory management technique",
+                "Scheduling",
+                "Process",
+                "File system"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Thread is?",
+            "options": [
+                "Lightweight process",
+                "Heavy process",
+                "File",
+                "Program"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os3",
+            "topicName": "Process Management"
+        },
+        {
+            "question": "Semaphore is used for?",
+            "options": [
+                "Memory",
+                "Synchronization",
+                "Scheduling",
+                "File"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os7",
+            "topicName": "Process Synchronization"
+        },
+        {
+            "question": "Critical section refers to?",
+            "options": [
+                "Memory area",
+                "Code accessing shared resource",
+                "Disk area",
+                "Cache"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os7",
+            "topicName": "Process Synchronization"
+        },
+        {
+            "question": "Interrupt is?",
+            "options": [
+                "Signal to CPU",
+                "Memory unit",
+                "Process",
+                "Thread"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os2",
+            "topicName": "Operating System Structure"
+        },
+        {
+            "question": "Multiprogramming improves?",
+            "options": [
+                "Speed only",
+                "CPU utilization",
+                "Disk usage",
+                "Memory"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os1",
+            "topicName": "Introduction to Operating Systems"
+        },
+        {
+            "question": "Virtual memory allows?",
+            "options": [
+                "More disk",
+                "More RAM illusion",
+                "Faster CPU",
+                "No paging"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "System call is?",
+            "options": [
+                "User request to OS",
+                "Interrupt",
+                "Thread",
+                "File"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os2",
+            "topicName": "Operating System Structure"
+        },
+        {
+            "question": "Round robin uses?",
+            "options": [
+                "Priority",
+                "Time quantum",
+                "Shortest job",
+                "Random"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "File system manages?",
+            "options": [
+                "CPU",
+                "Files",
+                "Processes",
+                "Threads"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os8",
+            "topicName": "File Systems"
+        },
+        {
+            "question": "I/O devices are controlled by?",
+            "options": [
+                "Drivers",
+                "Kernel only",
+                "User",
+                "CPU"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os2",
+            "topicName": "Operating System Structure"
+        },
+        {
+            "question": "Swapping is?",
+            "options": [
+                "Moving process in/out of memory",
+                "Deleting files",
+                "CPU switching",
+                "Threading"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Starvation means?",
+            "options": [
+                "CPU idle",
+                "Process waits indefinitely",
+                "Deadlock",
+                "Crash"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Dispatcher does?",
+            "options": [
+                "Select process",
+                "Switch context",
+                "Manage memory",
+                "Handle files"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Context switch is?",
+            "options": [
+                "Process change",
+                "Memory change",
+                "Disk change",
+                "File change"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os3",
+            "topicName": "Process Management"
+        },
+        {
+            "question": "Buffering helps?",
+            "options": [
+                "CPU",
+                "I/O efficiency",
+                "Memory",
+                "Files"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os9",
+            "topicName": "I/O Systems"
+        },
+        {
+            "question": "Cache memory is?",
+            "options": [
+                "Slow",
+                "Fast small memory",
+                "Disk",
+                "RAM"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        }
+    ],
+    "medium": [
+        {
+            "question": "Why multiprogramming increases CPU utilization?",
+            "options": [
+                "More CPU",
+                "Overlap I/O and CPU",
+                "Less memory",
+                "Fewer processes"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os1",
+            "topicName": "Introduction to Operating Systems"
+        },
+        {
+            "question": "Shortest job first minimizes?",
+            "options": [
+                "Throughput",
+                "Average waiting time",
+                "CPU time",
+                "Memory"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Preemptive scheduling allows?",
+            "options": [
+                "Interrupt process",
+                "Only batch jobs",
+                "No switching",
+                "Disk control"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Deadlock requires?",
+            "options": [
+                "Mutual exclusion",
+                "No waiting",
+                "Free memory",
+                "Fast CPU"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os5",
+            "topicName": "Deadlocks"
+        },
+        {
+            "question": "Thrashing occurs when?",
+            "options": [
+                "Too many page faults",
+                "CPU idle",
+                "Disk slow",
+                "Thread blocked"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Paging avoids?",
+            "options": [
+                "External fragmentation",
+                "Internal fragmentation",
+                "Deadlock",
+                "Scheduling"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Banker's algorithm is used for?",
+            "options": [
+                "Scheduling",
+                "Deadlock avoidance",
+                "Paging",
+                "File system"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os5",
+            "topicName": "Deadlocks"
+        },
+        {
+            "question": "Mutex ensures?",
+            "options": [
+                "Mutual exclusion",
+                "Deadlock",
+                "Scheduling",
+                "Memory"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os7",
+            "topicName": "Process Synchronization"
+        },
+        {
+            "question": "Page fault occurs when?",
+            "options": [
+                "Page not in memory",
+                "CPU fails",
+                "Disk error",
+                "File missing"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "IPC stands for?",
+            "options": [
+                "Interprocess communication",
+                "Internal process control",
+                "Interrupt process control",
+                "Input process control"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os3",
+            "topicName": "Process Management"
+        },
+        {
+            "question": "Context switching overhead is due to?",
+            "options": [
+                "Saving state",
+                "Disk I/O",
+                "Memory only",
+                "File access"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os3",
+            "topicName": "Process Management"
+        },
+        {
+            "question": "Fragmentation occurs due to?",
+            "options": [
+                "Memory allocation",
+                "CPU scheduling",
+                "I/O",
+                "Threads"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Priority scheduling issue?",
+            "options": [
+                "Starvation",
+                "Deadlock",
+                "Thrashing",
+                "Crash"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Semaphore value represents?",
+            "options": [
+                "Resource count",
+                "CPU speed",
+                "Memory size",
+                "Threads"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os7",
+            "topicName": "Process Synchronization"
+        },
+        {
+            "question": "File allocation method example?",
+            "options": [
+                "Contiguous",
+                "CPU scheduling",
+                "Paging",
+                "Threads"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os8",
+            "topicName": "File Systems"
+        }
+    ],
+    "hard": [
+        {
+            "question": "Which condition is NOT required for deadlock?",
+            "options": [
+                "Mutual exclusion",
+                "Hold and wait",
+                "Preemption allowed",
+                "Circular wait"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os5",
+            "topicName": "Deadlocks"
+        },
+        {
+            "question": "Optimal page replacement is?",
+            "options": [
+                "Least recently used",
+                "Future knowledge based",
+                "FIFO",
+                "Random"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Which scheduling gives minimum response time?",
+            "options": [
+                "Round robin",
+                "FCFS",
+                "Priority",
+                "SJF"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Race condition occurs when?",
+            "options": [
+                "Concurrent access to shared data",
+                "Deadlock",
+                "Paging",
+                "Scheduling"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os7",
+            "topicName": "Process Synchronization"
+        },
+        {
+            "question": "Copy-on-write improves?",
+            "options": [
+                "Memory efficiency",
+                "CPU speed",
+                "Disk speed",
+                "Threads"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Livelock differs from deadlock because?",
+            "options": [
+                "Processes still change state",
+                "No processes",
+                "CPU idle",
+                "No waiting"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os5",
+            "topicName": "Deadlocks"
+        },
+        {
+            "question": "Multilevel queue scheduling separates?",
+            "options": [
+                "Processes into queues",
+                "Memory",
+                "Files",
+                "Threads"
+            ],
+            "correctAnswer": 0,
+            "topicId": "os4",
+            "topicName": "CPU Scheduling"
+        },
+        {
+            "question": "Demand paging loads page?",
+            "options": [
+                "On demand",
+                "Before execution",
+                "Always",
+                "Never"
+            ],
+            "correctAnswer": 2,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Belady’s anomaly occurs in?",
+            "options": [
+                "FIFO",
+                "LRU",
+                "Optimal",
+                "Random"
+            ],
+            "correctAnswer": 1,
+            "topicId": "os6",
+            "topicName": "Memory Management"
+        },
+        {
+            "question": "Monitor provides?",
+            "options": [
+                "High-level synchronization",
+                "Memory",
+                "Scheduling",
+                "File system"
+            ],
+            "correctAnswer": 3,
+            "topicId": "os7",
+            "topicName": "Process Synchronization"
+        }
+    ]
+}

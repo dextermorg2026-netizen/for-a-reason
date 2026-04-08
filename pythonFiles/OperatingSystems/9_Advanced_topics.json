@@ -1,0 +1,58 @@
+{
+    "slides": [
+        {
+            "title": "Cache Mapping Techniques",
+            "content": [
+                "Cache is a small high-speed memory that stores frequently used data to reduce access time between CPU and main memory :contentReference[oaicite:0]{index=0}",
+                "Direct mapping assigns each memory block to a fixed cache line, making it simple and fast but prone to conflict misses",
+                "Associative mapping allows any memory block to be placed in any cache line, reducing conflicts but increasing complexity",
+                "Cache mapping improves performance by reducing memory access time and optimizing hit rates"
+            ]
+        },
+        {
+            "title": "Virtual Machines & Spooling",
+            "content": [
+                "A virtual machine is an isolated environment that runs its own operating system using shared physical hardware :contentReference[oaicite:1]{index=1}",
+                "A hypervisor manages virtual machines by allocating CPU, memory, and storage resources",
+                "Spooling stores I/O tasks in a buffer so devices can process them asynchronously without blocking CPU execution",
+                "These concepts improve resource utilization, multitasking, and system efficiency"
+            ]
+        },
+        {
+            "title": "Network File System (NFS)",
+            "content": [
+                "NFS is a distributed file system that allows multiple systems to access and share files over a network as if they were local :contentReference[oaicite:2]{index=2}",
+                "It enables centralized storage, consistent data access, and efficient collaboration",
+                "Clients mount remote directories and perform operations transparently",
+                "It improves scalability but depends on network performance and reliability"
+            ]
+        },
+        {
+            "title": "Thread Safety & Reentrancy",
+            "content": [
+                "Thread safety ensures that code executes correctly when accessed by multiple threads simultaneously using synchronization mechanisms :contentReference[oaicite:3]{index=3}",
+                "Reentrancy ensures that a function can be safely interrupted and called again without affecting previous executions",
+                "Thread-safe code may use locks while reentrant code avoids shared mutable state",
+                "Both concepts are essential for reliable concurrent programming and system stability"
+            ]
+        },
+        {
+            "title": "OS Security Mechanisms",
+            "content": [
+                "Operating system security mechanisms protect system resources from unauthorized access and threats :contentReference[oaicite:4]{index=4}",
+                "They include authentication, authorization, access control, encryption, and auditing",
+                "Techniques like sandboxing and intrusion detection enhance system protection",
+                "These mechanisms ensure confidentiality, integrity, and availability of data"
+            ]
+        },
+        {
+            "title": "Future Trends in OS",
+            "content": [
+                "Microkernels minimize kernel size by moving services to user space, improving security and reliability :contentReference[oaicite:5]{index=5}",
+                "Containers provide lightweight virtualization with shared kernel and isolated environments",
+                "Emerging trends include cloud-native OS, serverless computing, and edge/IoT operating systems",
+                "Future OS designs focus on modularity, scalability, and efficient resource utilization"
+            ]
+        }
+    ]
+}

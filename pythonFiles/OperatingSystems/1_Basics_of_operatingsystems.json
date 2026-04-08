@@ -1,0 +1,60 @@
+{
+    "slides": [
+        {
+            "title": "Operating System Introduction",
+            "content": [
+                "An Operating System (OS) is system software that manages hardware and software resources and acts as an interface between the user and the computer",
+                "It enables applications to run, manages files, and controls devices like CPU, memory, and input/output systems",
+                "It simplifies user interaction by providing graphical or command-line interfaces",
+                "Without an OS, users would have to directly control hardware, making computing complex and inefficient"
+            ]
+        },
+        {
+            "title": "Core Functions of OS",
+            "content": [
+                "Process management creates, schedules, and terminates processes while allocating CPU time efficiently",
+                "Memory management allocates and deallocates memory to ensure programs run without interference",
+                "File system management organizes data into files and directories for easy access and storage",
+                "Device management controls hardware devices like printers, disks, and input/output systems",
+                "Security and access control protect data and ensure only authorized users can access resources"
+            ]
+        },
+        {
+            "title": "Program vs Process vs Thread",
+            "content": [
+                "A program is a static set of instructions stored on disk that becomes active only when executed",
+                "A process is a program in execution that includes code, memory, CPU state, and allocated resources",
+                "A thread is the smallest unit of execution within a process that shares memory but runs independently",
+                "Threads improve performance, responsiveness, and parallel execution within applications"
+            ]
+        },
+        {
+            "title": "Types of Operating Systems",
+            "content": [
+                "Operating systems are categorized based on their functionality, hardware usage, and application requirements",
+                "Batch OS processes jobs in groups without user interaction, suitable for large-scale computations",
+                "Multiprogramming and multitasking OS allow multiple programs to run efficiently by sharing CPU time",
+                "Multiprocessing OS uses multiple CPUs to execute tasks simultaneously for high performance",
+                "Distributed OS manages multiple computers as a single system for scalability and resource sharing"
+            ]
+        },
+        {
+            "title": "Batch & Multiprogramming OS",
+            "content": [
+                "Batch operating systems group similar jobs into batches and execute them sequentially without user interaction",
+                "They improve throughput but have long execution time and lack flexibility",
+                "Multiprogramming OS keeps multiple programs in memory and switches CPU when one waits for I/O",
+                "This improves CPU utilization and system efficiency by reducing idle time"
+            ]
+        },
+        {
+            "title": "Multiprocessing & Distributed OS",
+            "content": [
+                "Multiprocessing OS uses multiple processors to execute tasks in parallel, improving speed and reliability",
+                "It includes symmetric multiprocessing (equal processors) and asymmetric multiprocessing (master-slave model)",
+                "Distributed OS connects multiple independent systems and manages them as a single system",
+                "It provides scalability, fault tolerance, and resource sharing across multiple machines"
+            ]
+        }
+    ]
+}

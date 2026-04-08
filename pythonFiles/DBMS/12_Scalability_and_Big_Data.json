@@ -1,0 +1,121 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Scalability",
+            "content": [
+                "Ability to handle increasing load",
+                "Essential for large systems",
+                "Improves performance",
+                "Supports growth"
+            ]
+        },
+        {
+            "title": "Types of Scaling",
+            "content": [
+                "Vertical scaling",
+                "Horizontal scaling",
+                "Diagonal scaling",
+                "Used in modern systems"
+            ]
+        },
+        {
+            "title": "Vertical Scaling",
+            "content": [
+                "Add more power to same server",
+                "Increase CPU, RAM",
+                "Simple to implement",
+                "Limited scalability"
+            ]
+        },
+        {
+            "title": "Horizontal Scaling",
+            "content": [
+                "Add more servers",
+                "Distributes load",
+                "Highly scalable",
+                "Used in distributed systems"
+            ]
+        },
+        {
+            "title": "Sharding",
+            "content": [
+                "Splits database into parts",
+                "Each shard stores subset",
+                "Improves performance",
+                "Enables horizontal scaling"
+            ]
+        },
+        {
+            "title": "Load Balancing",
+            "content": [
+                "Distributes requests",
+                "Prevents overload",
+                "Improves availability",
+                "Used with scaling"
+            ]
+        },
+        {
+            "title": "Big Data",
+            "content": [
+                "Large volume of data",
+                "High velocity and variety",
+                "Requires special tools",
+                "Beyond traditional DBMS"
+            ]
+        },
+        {
+            "title": "3Vs of Big Data",
+            "content": [
+                "Volume",
+                "Velocity",
+                "Variety",
+                "Defines big data characteristics"
+            ]
+        },
+        {
+            "title": "Big Data Technologies",
+            "content": [
+                "Hadoop",
+                "Spark",
+                "NoSQL databases",
+                "Distributed storage"
+            ]
+        },
+        {
+            "title": "DBaaS (Database as a Service)",
+            "content": [
+                "Cloud-based database service",
+                "Managed by providers",
+                "No infrastructure needed",
+                "Examples: AWS RDS"
+            ]
+        },
+        {
+            "title": "Advantages of DBaaS",
+            "content": [
+                "Scalable",
+                "Cost-effective",
+                "Easy maintenance",
+                "High availability"
+            ]
+        },
+        {
+            "title": "Challenges of DBaaS",
+            "content": [
+                "Security concerns",
+                "Vendor lock-in",
+                "Limited control",
+                "Latency issues"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Scaling supports growth",
+                "Big data needs special systems",
+                "DBaaS simplifies management",
+                "Used in modern applications"
+            ]
+        }
+    ]
+}

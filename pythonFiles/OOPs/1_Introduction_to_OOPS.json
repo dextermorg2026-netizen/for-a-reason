@@ -1,0 +1,112 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to OOP",
+            "content": [
+                "OOP (Object-Oriented Programming) is a programming paradigm based on objects and classes",
+                "It organizes software design around real-world entities like objects instead of functions",
+                "Each object contains data (attributes) and behavior (methods)",
+                "It helps in writing modular, reusable, and maintainable code"
+            ]
+        },
+        {
+            "title": "Why OOP is Needed",
+            "content": [
+                "Procedural programming becomes complex for large applications",
+                "OOP provides better structure by dividing code into objects",
+                "It improves code reusability and reduces redundancy",
+                "It makes debugging and maintenance easier"
+            ]
+        },
+        {
+            "title": "Class in OOP",
+            "content": [
+                "A class is a blueprint or template for creating objects",
+                "It defines properties (variables) and behaviors (methods)",
+                "All objects created from a class share the same structure",
+                "Example: A 'Car' class can define color, speed, and methods like drive()"
+            ]
+        },
+        {
+            "title": "Object in OOP",
+            "content": [
+                "An object is an instance of a class",
+                "It represents a real-world entity with state and behavior",
+                "Each object has its own values for the properties",
+                "Example: A specific car like 'Red BMW' is an object of class Car"
+            ]
+        },
+        {
+            "title": "Features of OOP",
+            "content": [
+                "Encapsulation: Wrapping data and methods into a single unit",
+                "Inheritance: Acquiring properties from another class",
+                "Polymorphism: Same method behaving differently in different contexts",
+                "Abstraction: Hiding internal details and showing only functionality"
+            ]
+        },
+        {
+            "title": "Encapsulation",
+            "content": [
+                "Encapsulation means binding data and methods together in a class",
+                "It restricts direct access to data using access modifiers",
+                "Data is accessed using getter and setter methods",
+                "It improves security and data control"
+            ]
+        },
+        {
+            "title": "Inheritance",
+            "content": [
+                "Inheritance allows one class to inherit properties of another class",
+                "The parent class is called superclass and child is subclass",
+                "It promotes code reuse and hierarchical classification",
+                "Example: Animal → Dog inherits properties of Animal"
+            ]
+        },
+        {
+            "title": "Polymorphism",
+            "content": [
+                "Polymorphism means 'many forms'",
+                "A single method can perform different tasks based on context",
+                "It is achieved using method overloading and method overriding",
+                "Example: same function name but different parameters or behaviors"
+            ]
+        },
+        {
+            "title": "Abstraction",
+            "content": [
+                "Abstraction hides implementation details and shows only essential features",
+                "It reduces complexity by focusing on what an object does",
+                "It is achieved using abstract classes and interfaces",
+                "Example: Using a car without knowing engine internals"
+            ]
+        },
+        {
+            "title": "OOP in Java",
+            "content": [
+                "Java is a class-based, object-oriented programming language",
+                "Everything in Java revolves around classes and objects",
+                "It supports all OOP principles like inheritance and polymorphism",
+                "Programs start from the main method inside a class"
+            ]
+        },
+        {
+            "title": "Real-Life Example of OOP",
+            "content": [
+                "Class: Student (name, age, marks)",
+                "Object: Specific student like 'Rahul' with values",
+                "Encapsulation: Data hidden using private variables",
+                "Inheritance: GraduateStudent inherits Student properties"
+            ]
+        },
+        {
+            "title": "Advantages of OOP",
+            "content": [
+                "Code reusability using inheritance",
+                "Better data security using encapsulation",
+                "Flexibility using polymorphism",
+                "Easy maintenance and scalability of programs"
+            ]
+        }
+    ]
+}

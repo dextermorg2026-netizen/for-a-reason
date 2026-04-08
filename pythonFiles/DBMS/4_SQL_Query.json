@@ -1,0 +1,283 @@
+{
+    "slides": [
+        {
+            "title": "SQL and Database Languages",
+            "content": [
+                "SQL is used to manage relational databases",
+                "Supports data creation, manipulation, and control",
+                "Includes DDL, DML, DCL, TCL",
+                "Standard language for DBMS"
+            ]
+        },
+        {
+            "title": "Types of Database Languages",
+            "content": [
+                "DDL: Define database structure",
+                "DML: Manipulate data",
+                "DCL: Control access",
+                "TCL: Manage transactions"
+            ]
+        },
+        {
+            "title": "DDL Commands",
+            "content": [
+                "CREATE: create objects",
+                "ALTER: modify structure",
+                "DROP: delete objects",
+                "TRUNCATE: remove all data"
+            ]
+        },
+        {
+            "title": "DML Commands",
+            "content": [
+                "INSERT: add records",
+                "SELECT: retrieve data",
+                "UPDATE: modify records",
+                "DELETE: remove records"
+            ]
+        },
+        {
+            "title": "DCL and TCL",
+            "content": [
+                "DCL: GRANT, REVOKE",
+                "TCL: COMMIT, ROLLBACK",
+                "Controls access and transactions",
+                "Ensures data integrity"
+            ]
+        },
+        {
+            "title": "SQL Clauses",
+            "content": [
+                "WHERE: filter rows",
+                "ORDER BY: sort data",
+                "GROUP BY: group data",
+                "HAVING: filter groups"
+            ]
+        },
+        {
+            "title": "DISTINCT and WHERE",
+            "content": [
+                "DISTINCT removes duplicates",
+                "WHERE filters data",
+                "Used to refine results",
+                "Improves query accuracy"
+            ]
+        },
+        {
+            "title": "GROUP BY and HAVING",
+            "content": [
+                "GROUP BY groups rows",
+                "Used with aggregate functions",
+                "HAVING filters grouped data",
+                "Used after GROUP BY"
+            ]
+        },
+        {
+            "title": "ORDER BY Clause",
+            "content": [
+                "Sorts results",
+                "ASC for ascending",
+                "DESC for descending",
+                "Can sort multiple columns"
+            ]
+        },
+        {
+            "title": "Aggregate Functions",
+            "content": [
+                "COUNT, SUM, AVG",
+                "MIN, MAX",
+                "Used for calculations",
+                "Return single value"
+            ]
+        },
+        {
+            "title": "GROUP BY with Aggregates",
+            "content": [
+                "Groups data by column",
+                "Applies functions on groups",
+                "Example: avg salary per department",
+                "Useful for reports"
+            ]
+        },
+        {
+            "title": "SQL Joins",
+            "content": [
+                "Combine data from multiple tables",
+                "Based on common columns",
+                "Important for relational databases",
+                "Used in complex queries"
+            ]
+        },
+        {
+            "title": "Types of Joins",
+            "content": [
+                "INNER JOIN",
+                "LEFT JOIN",
+                "RIGHT JOIN",
+                "FULL OUTER JOIN"
+            ]
+        },
+        {
+            "title": "INNER and LEFT JOIN",
+            "content": [
+                "INNER: only matching rows",
+                "LEFT: all left + matching right",
+                "NULL for unmatched",
+                "Commonly used joins"
+            ]
+        },
+        {
+            "title": "RIGHT and FULL JOIN",
+            "content": [
+                "RIGHT: all right + matching left",
+                "FULL: all records from both",
+                "NULL for unmatched",
+                "Used when full data needed"
+            ]
+        },
+        {
+            "title": "Advanced Joins",
+            "content": [
+                "SELF JOIN: table joins itself",
+                "CROSS JOIN: Cartesian product",
+                "NATURAL JOIN: auto match columns",
+                "EQUI & NON-EQUI joins"
+            ]
+        },
+        {
+            "title": "UNION and UNION ALL",
+            "content": [
+                "UNION removes duplicates",
+                "UNION ALL keeps duplicates",
+                "Combines multiple queries",
+                "Requires same columns"
+            ]
+        },
+        {
+            "title": "Views in SQL",
+            "content": [
+                "Virtual table based on query",
+                "Does not store data",
+                "Improves security",
+                "Simplifies queries"
+            ]
+        },
+        {
+            "title": "Types of Views",
+            "content": [
+                "Simple view: single table",
+                "Complex view: multiple tables",
+                "Security view: restrict access",
+                "Used for abstraction"
+            ]
+        },
+        {
+            "title": "Indexed Views",
+            "content": [
+                "Stores data physically",
+                "Improves performance",
+                "Used for heavy queries",
+                "Requires refresh"
+            ]
+        },
+        {
+            "title": "Subqueries",
+            "content": [
+                "Query inside another query",
+                "Used in SELECT, WHERE, FROM",
+                "Helps in filtering",
+                "Can return single or multiple values"
+            ]
+        },
+        {
+            "title": "Types of Subqueries",
+            "content": [
+                "Single-row subquery",
+                "Multiple-row subquery",
+                "Correlated subquery",
+                "Non-correlated subquery"
+            ]
+        },
+        {
+            "title": "EXISTS and IN",
+            "content": [
+                "EXISTS checks presence",
+                "IN matches list of values",
+                "Used for filtering",
+                "Important in subqueries"
+            ]
+        },
+        {
+            "title": "Query Processing",
+            "content": [
+                "Parsing: check syntax",
+                "Translation: convert to algebra",
+                "Optimization: best plan",
+                "Execution: run query"
+            ]
+        },
+        {
+            "title": "Query Optimization",
+            "content": [
+                "Improves performance",
+                "Reduces execution time",
+                "Uses efficient strategies",
+                "Essential for large databases"
+            ]
+        },
+        {
+            "title": "Types of Optimization",
+            "content": [
+                "Logical optimization",
+                "Physical optimization",
+                "Cost-based optimization",
+                "Rule-based optimization"
+            ]
+        },
+        {
+            "title": "Advanced Optimization Techniques",
+            "content": [
+                "Predicate pushdown",
+                "Join order optimization",
+                "CTE usage",
+                "Materialized views"
+            ]
+        },
+        {
+            "title": "SQL Operators",
+            "content": [
+                "Arithmetic, Comparison",
+                "Logical operators",
+                "Bitwise operators",
+                "Set operators"
+            ]
+        },
+        {
+            "title": "Comparison and Logical Operators",
+            "content": [
+                "Comparison: =, >, <, !=, >=, <=",
+                "Logical: AND, OR, NOT",
+                "Used in WHERE clause",
+                "Filters data"
+            ]
+        },
+        {
+            "title": "Set Operators",
+            "content": [
+                "UNION, UNION ALL",
+                "INTERSECT",
+                "EXCEPT",
+                "Combine query results"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "SQL manages and queries data",
+                "Clauses refine results",
+                "Joins combine tables",
+                "Optimization improves performance"
+            ]
+        }
+    ]
+}

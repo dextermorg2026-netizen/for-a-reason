@@ -155,7 +155,19 @@ const QuizzesPage = () => {
                 <div key={subject.id} className="col-span-12 md:col-span-6 lg:col-span-4" onClick={() => navigate(`/quizzes/${subject.id}`)}>
                   <div className="bg-surface-container-low group hover:bg-surface-container-high transition-colors hud-card-asymmetric relative border border-outline-variant/5 cursor-pointer">
                     <div className="aspect-video w-full relative overflow-hidden">
-                      <img className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500" data-alt={subject.name} src={isPrimary ? "https://lh3.googleusercontent.com/aida-public/AB6AXuC0W03APrwDBPtQ-mjEF5ckBP_YuvuenskHWUGeVZJCrAeshSg34u0_e7HiK-vqCa8c1WTfAg45lUOF40PQvm_BcwpxFRhldnGgkLqg50ybamegkfNNiPssQOgASx7kmYQEIO7mZAdEwXi0nEQrB5ADmHbGYnerStAToLFbd5-kKvduICZa4M5yb59EasKXbjGDdNBg0rXZqV3ktV02-kjDKEOVHZmR6EJwo0RHuloYq7j1gzIffCNDMLNpZK-ktvTs4JpGlQY-6O0" : "https://lh3.googleusercontent.com/aida-public/AB6AXuC6_OY-oa24Yv6BH8OFTevVFe-9hd9ASPOZkpHx7eabuS7RnWc0SJtcYCoa3j_2RoDyPwItcfdvuxzVGdM3TphShSuhD5YlUdFYrmo3dgvSEBBkevFha2R3TqrxS9ZfjMMY2wHe3bWeR_ULZ5HYm8OgeMqR9WI8BvHcPIHPUqooi9NQytU2Ttoj4JEkw8TOFMjVcRwyucLBivpNoZflHZ48SmCbGSwhx-g-OH7a7K5Nnt40ou3nGzc5oevZIZbOxs_wzvAHqFes60k"} alt={subject.name} />
+                      <img 
+                        className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500" 
+                        alt={subject.name} 
+                        src={(() => {
+                           const t = (subject.name || "").toLowerCase();
+                           if (t.includes("operating")) return "/assets/banners/os.png";
+                           if (t.includes("dbms") || t.includes("database")) return "/assets/banners/dbms.png";
+                           if (t.includes("network")) return "/assets/banners/cn.png";
+                           if (t.includes("oops") || t.includes("object")) return "/assets/banners/oops.png";
+                           if (t.includes("system design") || t.includes("systemdesign")) return "/assets/banners/sd.png";
+                           return isPrimary ? "https://lh3.googleusercontent.com/aida-public/AB6AXuC0W03APrwDBPtQ-mjEF5ckBP_YuvuenskHWUGeVZJCrAeshSg34u0_e7HiK-vqCa8c1WTfAg45lUOF40PQvm_BcwpxFRhldnGgkLqg50ybamegkfNNiPssQOgASx7kmYQEIO7mZAdEwXi0nEQrB5ADmHbGYnerStAToLFbd5-kKvduICZa4M5yb59EasKXbjGDdNBg0rXZqV3ktV02-kjDKEOVHZmR6EJwo0RHuloYq7j1gzIffCNDMLNpZK-ktvTs4JpGlQY-6O0" : "https://lh3.googleusercontent.com/aida-public/AB6AXuC6_OY-oa24Yv6BH8OFTevVFe-9hd9ASPOZkpHx7eabuS7RnWc0SJtcYCoa3j_2RoDyPwItcfdvuxzVGdM3TphShSuhD5YlUdFYrmo3dgvSEBBkevFha2R3TqrxS9ZfjMMY2wHe3bWeR_ULZ5HYm8OgeMqR9WI8BvHcPIHPUqooi9NQytU2Ttoj4JEkw8TOFMjVcRwyucLBivpNoZflHZ48SmCbGSwhx-g-OH7a7K5Nnt40ou3nGzc5oevZIZbOxs_wzvAHqFes60k";
+                        })()} 
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
                       <div className="absolute top-4 left-4">
                         <span className={`${bgColorClass} ${textColorClass} border ${borderColorClass} font-headline text-[9px] px-2 py-1 tracking-widest uppercase`}>

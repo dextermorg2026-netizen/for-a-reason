@@ -133,3 +133,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #353534;
 }
+/* ================= NEON TEXT GLOWS ================= */
+.glow-text-primary {
+  text-shadow: 0 0 4px rgba(221, 183, 255, 0.3);
+}
+.glow-text-secondary {
+  text-shadow: 0 0 4px rgba(76, 215, 246, 0.3);
+}
+.glow-text-tertiary {
+  text-shadow: 0 0 4px rgba(78, 222, 163, 0.3);
+}
+.glow-text-rose {
+  text-shadow: 0 0 4px rgba(251, 113, 133, 0.3);
+}
+.glow-text-amber {
+  text-shadow: 0 0 4px rgba(251, 191, 36, 0.3);
+}

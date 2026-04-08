@@ -1,0 +1,193 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Triggers & Procedures",
+            "content": [
+                "Advanced DBMS features",
+                "Automate database operations",
+                "Improve consistency and efficiency",
+                "Used in enterprise systems"
+            ]
+        },
+        {
+            "title": "What are Triggers?",
+            "content": [
+                "Automatically executed actions",
+                "Fired on specific events",
+                "Associated with tables",
+                "No manual execution required"
+            ]
+        },
+        {
+            "title": "Trigger Events",
+            "content": [
+                "INSERT",
+                "UPDATE",
+                "DELETE",
+                "Executed before or after events"
+            ]
+        },
+        {
+            "title": "Types of Triggers",
+            "content": [
+                "BEFORE Trigger",
+                "AFTER Trigger",
+                "INSTEAD OF Trigger",
+                "Row-level and Statement-level"
+            ]
+        },
+        {
+            "title": "BEFORE Trigger",
+            "content": [
+                "Executes before operation",
+                "Used for validation",
+                "Can prevent invalid data",
+                "Example: Check constraints"
+            ]
+        },
+        {
+            "title": "AFTER Trigger",
+            "content": [
+                "Executes after operation",
+                "Used for logging",
+                "Ensures operation success",
+                "Example: Audit logs"
+            ]
+        },
+        {
+            "title": "INSTEAD OF Trigger",
+            "content": [
+                "Replaces actual operation",
+                "Used with views",
+                "Custom logic execution",
+                "Controls complex updates"
+            ]
+        },
+        {
+            "title": "Row-Level vs Statement-Level",
+            "content": [
+                "Row-level: Executes for each row",
+                "Statement-level: Executes once",
+                "Row-level is more detailed",
+                "Statement-level is faster"
+            ]
+        },
+        {
+            "title": "Trigger Example",
+            "content": [
+                "Update audit table after insert",
+                "Track changes automatically",
+                "Maintain history",
+                "Improve accountability"
+            ]
+        },
+        {
+            "title": "Advantages of Triggers",
+            "content": [
+                "Automatic execution",
+                "Enforces rules",
+                "Maintains integrity",
+                "Reduces manual work"
+            ]
+        },
+        {
+            "title": "Disadvantages of Triggers",
+            "content": [
+                "Hidden logic",
+                "Difficult debugging",
+                "Performance overhead",
+                "Complex dependencies"
+            ]
+        },
+        {
+            "title": "What are Stored Procedures?",
+            "content": [
+                "Predefined SQL code block",
+                "Stored in database",
+                "Executed when needed",
+                "Reusable logic"
+            ]
+        },
+        {
+            "title": "Features of Stored Procedures",
+            "content": [
+                "Parameterized execution",
+                "Reusable",
+                "Improves performance",
+                "Encapsulates business logic"
+            ]
+        },
+        {
+            "title": "Procedure Execution",
+            "content": [
+                "Called manually",
+                "Uses input/output parameters",
+                "Executes SQL statements",
+                "Returns results"
+            ]
+        },
+        {
+            "title": "Advantages of Stored Procedures",
+            "content": [
+                "Code reuse",
+                "Reduced network traffic",
+                "Better security",
+                "Faster execution"
+            ]
+        },
+        {
+            "title": "Disadvantages of Stored Procedures",
+            "content": [
+                "Hard to debug",
+                "DB-dependent",
+                "Complex maintenance",
+                "Less flexibility"
+            ]
+        },
+        {
+            "title": "Triggers vs Stored Procedures",
+            "content": [
+                "Trigger: automatic execution",
+                "Procedure: manual execution",
+                "Trigger tied to events",
+                "Procedure used for logic"
+            ]
+        },
+        {
+            "title": "When to Use Triggers",
+            "content": [
+                "Audit logging",
+                "Data validation",
+                "Enforcing constraints",
+                "Automatic updates"
+            ]
+        },
+        {
+            "title": "When to Use Stored Procedures",
+            "content": [
+                "Business logic implementation",
+                "Complex queries",
+                "Batch processing",
+                "Reusable operations"
+            ]
+        },
+        {
+            "title": "Best Practices",
+            "content": [
+                "Avoid excessive triggers",
+                "Keep procedures simple",
+                "Document logic clearly",
+                "Test thoroughly"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Triggers automate actions",
+                "Procedures store reusable logic",
+                "Both improve efficiency",
+                "Used in real-world systems"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "slides": [
+        {
+            "title": "Process Synchronization",
+            "content": [
+                "Process synchronization ensures that multiple processes execute concurrently without interfering with shared resources or causing data inconsistency",
+                "It prevents race conditions by controlling access to critical sections of code where shared data is modified",
+                "It uses mechanisms like semaphores, mutexes, monitors, and barriers to coordinate execution",
+                "It improves system reliability, data integrity, and efficient resource utilization in concurrent environments"
+            ]
+        },
+        {
+            "title": "Critical Section Problem",
+            "content": [
+                "The critical section is the part of a program where shared resources are accessed and must be protected from concurrent access",
+                "A correct solution must satisfy mutual exclusion, progress, and bounded waiting conditions",
+                "Entry section requests access, critical section executes shared code, exit section releases access, and remainder section executes non-critical code",
+                "Solutions include software algorithms, hardware instructions, and OS-level synchronization tools"
+            ]
+        },
+        {
+            "title": "Semaphores",
+            "content": [
+                "A semaphore is a synchronization variable used to control access to shared resources using atomic operations wait() and signal()",
+                "Binary semaphore acts as a lock with values 0 or 1 to ensure mutual exclusion",
+                "Counting semaphore allows multiple resources to be shared using a range of values",
+                "Semaphores prevent race conditions but improper use can lead to deadlocks or starvation"
+            ]
+        },
+        {
+            "title": "Producer Consumer Problem",
+            "content": [
+                "The producer-consumer problem is a classic synchronization problem where producers add data to a shared buffer and consumers remove it",
+                "Synchronization ensures producers do not add data when the buffer is full and consumers do not remove data when empty",
+                "It uses mutex locks and condition variables for mutual exclusion and coordination",
+                "It demonstrates wait-notify mechanisms and efficient thread communication in concurrent systems"
+            ]
+        },
+        {
+            "title": "Deadlock & Banker's Algorithm",
+            "content": [
+                "Deadlock occurs when processes are stuck waiting for each other due to mutual exclusion, hold and wait, no preemption, and circular wait conditions",
+                "Deadlock prevention removes one of these conditions while avoidance ensures safe states using algorithms",
+                "Banker's algorithm checks resource allocation and grants requests only if the system remains in a safe state",
+                "Deadlock detection and recovery involve identifying deadlocks and terminating processes or reallocating resources"
+            ]
+        },
+        {
+            "title": "Starvation & Aging",
+            "content": [
+                "Starvation occurs when a process is indefinitely delayed due to continuous preference for higher-priority processes",
+                "Aging is a technique that gradually increases the priority of waiting processes to prevent starvation",
+                "It ensures fairness in scheduling and improves system responsiveness",
+                "These concepts are important in priority-based scheduling and resource allocation systems"
+            ]
+        }
+    ]
+}

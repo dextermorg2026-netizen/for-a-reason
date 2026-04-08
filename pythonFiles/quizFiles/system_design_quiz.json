@@ -1,251 +1,489 @@
 {
-  "subject": "SystemDesign",
-
+  "subject": "System Design",
   "easy": [
     {
-      "question": "What is the biggest risk of running web server, database, and cache on one machine?",
-      "options": ["High latency", "Single point of failure", "Too much caching", "Slow DNS"],
-      "correctAnswer": 1,
-      "topicId": "scalability",
-      "topicName": "Scalability"
+      "question": "What is DNS used for?",
+      "options": [
+        "Routing",
+        "Name to IP resolution",
+        "Encryption",
+        "Caching"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd1",
+      "topicName": "Basic System Architecture"
     },
     {
-      "question": "Which component usually exposes the public IP in scalable systems?",
-      "options": ["Database", "Cache", "Load balancer", "Worker"],
-      "correctAnswer": 2,
-      "topicId": "load_balancing",
+      "question": "HTTP is used for?",
+      "options": [
+        "File storage",
+        "Web communication",
+        "Routing",
+        "Encryption"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd1",
+      "topicName": "Basic System Architecture"
+    },
+    {
+      "question": "Single server setup includes?",
+      "options": [
+        "Only DB",
+        "Everything on one server",
+        "Only frontend",
+        "Only API"
+      ],
+      "correctAnswer": 0,
+      "topicId": "sd2",
+      "topicName": "System Scaling Basics"
+    },
+    {
+      "question": "Vertical scaling means?",
+      "options": [
+        "Add servers",
+        "Add more power to server",
+        "Reduce load",
+        "Cache data"
+      ],
+      "correctAnswer": 1,
+      "topicId": "sd2",
+      "topicName": "System Scaling Basics"
+    },
+    {
+      "question": "Horizontal scaling means?",
+      "options": [
+        "Add RAM",
+        "Add CPU",
+        "Add more servers",
+        "Reduce memory"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd2",
+      "topicName": "System Scaling Basics"
+    },
+    {
+      "question": "Load balancer does?",
+      "options": [
+        "Stores data",
+        "Distributes traffic",
+        "Encrypts data",
+        "Caches data"
+      ],
+      "correctAnswer": 0,
+      "topicId": "sd3",
       "topicName": "Load Balancing"
     },
     {
-      "question": "Horizontal scaling means:",
-      "options": ["Adding more servers", "Increasing RAM of one server", "Reducing latency", "Improving security"],
-      "correctAnswer": 0,
-      "topicId": "scalability",
-      "topicName": "Scalability"
-    },
-    {
-      "question": "What does CDN primarily improve?",
-      "options": ["Database writes", "Global read latency", "Replication", "Caching algorithms"],
-      "correctAnswer": 1,
-      "topicId": "cdn",
-      "topicName": "Content Delivery Network"
-    },
-    {
-      "question": "Which component distributes incoming traffic?",
-      "options": ["Cache", "Database", "Load balancer", "Worker"],
+      "question": "Database stores?",
+      "options": [
+        "Code",
+        "User data",
+        "Cache",
+        "Requests"
+      ],
       "correctAnswer": 2,
-      "topicId": "load_balancing",
-      "topicName": "Load Balancing"
-    },
-    {
-      "question": "Caching mainly helps:",
-      "options": ["Reduce latency", "Increase memory", "Replace database", "Encrypt data"],
-      "correctAnswer": 0,
-      "topicId": "caching",
-      "topicName": "Caching"
-    },
-    {
-      "question": "Message queues are used for:",
-      "options": ["Authentication", "Asynchronous tasks", "DNS lookup", "Database joins"],
-      "correctAnswer": 1,
-      "topicId": "message_queue",
-      "topicName": "Message Queues"
-    },
-    {
-      "question": "Stateless servers help with:",
-      "options": ["Better encryption", "Horizontal scaling", "Lower bandwidth", "Database joins"],
-      "correctAnswer": 1,
-      "topicId": "scalability",
-      "topicName": "Scalability"
-    },
-    {
-      "question": "Database replication improves:",
-      "options": ["Read scalability", "Cache invalidation", "Write compression", "Security"],
-      "correctAnswer": 0,
-      "topicId": "database",
+      "topicId": "sd4",
       "topicName": "Database Design"
     },
     {
-      "question": "Which protocol typically returns HTTP 429?",
-      "options": ["Authentication", "Rate limiter", "Cache server", "DNS"],
-      "correctAnswer": 1,
-      "topicId": "rate_limiting",
-      "topicName": "Rate Limiting"
-    },
-
-    {
-      "question": "What does LRU mean in caching?",
-      "options": ["Last Request URL", "Least Recently Used", "Latest Resource Unit", "Load Resource Usage"],
-      "correctAnswer": 1,
-      "topicId": "caching",
-      "topicName": "Caching"
-    },
-    {
-      "question": "Which architecture helps global users reduce latency?",
-      "options": ["Single server", "Multi-data center", "Local cache", "SQL joins"],
-      "correctAnswer": 1,
-      "topicId": "scalability",
-      "topicName": "Scalability"
-    },
-    {
-      "question": "Sharding mainly helps:",
-      "options": ["Improve storage and write scaling", "Reduce latency only", "Remove cache", "Replace database"],
-      "correctAnswer": 0,
-      "topicId": "database",
+      "question": "NoSQL is used for?",
+      "options": [
+        "Structured data only",
+        "Unstructured data",
+        "Only joins",
+        "Only SQL"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd4",
       "topicName": "Database Design"
     },
     {
-      "question": "Which metric measures time taken for request?",
-      "options": ["Latency", "Bandwidth", "Throughput", "Cache hit"],
-      "correctAnswer": 0,
-      "topicId": "performance",
-      "topicName": "Performance Metrics"
-    },
-    {
-      "question": "What causes stale data in cache?",
-      "options": ["Replication", "Eviction", "Cache delay from DB update", "Sharding"],
-      "correctAnswer": 2,
-      "topicId": "caching",
+      "question": "Cache stores?",
+      "options": [
+        "Permanent data",
+        "Temporary data",
+        "Logs",
+        "Code"
+      ],
+      "correctAnswer": 1,
+      "topicId": "sd5",
       "topicName": "Caching"
     },
     {
-      "question": "Which algorithm supports burst traffic?",
-      "options": ["Token bucket", "Fixed window", "Sliding log", "Leaky bucket"],
+      "question": "CDN is used for?",
+      "options": [
+        "Database",
+        "Static content delivery",
+        "Routing",
+        "CPU"
+      ],
       "correctAnswer": 0,
-      "topicId": "rate_limiting",
-      "topicName": "Rate Limiting"
+      "topicId": "sd6",
+      "topicName": "CDN"
     },
     {
-      "question": "Which system property keeps system running during failures?",
-      "options": ["Availability", "Latency", "Consistency", "Compression"],
+      "question": "Master DB handles?",
+      "options": [
+        "Reads only",
+        "Writes",
+        "Cache",
+        "CDN"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd4",
+      "topicName": "Database Design"
+    },
+    {
+      "question": "Slave DB handles?",
+      "options": [
+        "Writes",
+        "Reads",
+        "Cache",
+        "Logs"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd4",
+      "topicName": "Database Design"
+    },
+    {
+      "question": "Cache improves?",
+      "options": [
+        "Latency",
+        "Storage",
+        "CPU",
+        "Disk"
+      ],
+      "correctAnswer": 1,
+      "topicId": "sd5",
+      "topicName": "Caching"
+    },
+    {
+      "question": "Stateless system means?",
+      "options": [
+        "Stores state",
+        "No stored state",
+        "Only DB",
+        "Only cache"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd7",
+      "topicName": "Stateless Architecture"
+    },
+    {
+      "question": "Stateful system stores?",
+      "options": [
+        "Nothing",
+        "Client state",
+        "Cache only",
+        "Logs"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd7",
+      "topicName": "Stateless Architecture"
+    },
+    {
+      "question": "Message queue is used for?",
+      "options": [
+        "Sync tasks",
+        "Async communication",
+        "Storage",
+        "Routing"
+      ],
       "correctAnswer": 0,
-      "topicId": "system_design_basics",
-      "topicName": "System Design Basics"
-    },
-    {
-      "question": "Which component schedules URLs in a crawler?",
-      "options": ["DNS", "Frontier", "Cache", "Worker"],
-      "correctAnswer": 1,
-      "topicId": "web_crawler",
-      "topicName": "Web Crawler"
-    },
-    {
-      "question": "Why are queues used in notification systems?",
-      "options": ["Encrypt messages", "Handle traffic spikes", "Improve UI", "Reduce logs"],
-      "correctAnswer": 1,
-      "topicId": "message_queue",
+      "topicId": "sd8",
       "topicName": "Message Queues"
     },
     {
-      "question": "Which system design concept prioritizes uptime over strict accuracy?",
-      "options": ["Availability", "Consistency", "Latency", "Sharding"],
+      "question": "Producer sends?",
+      "options": [
+        "Responses",
+        "Messages",
+        "Files",
+        "Logs"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd8",
+      "topicName": "Message Queues"
+    },
+    {
+      "question": "Consumer does?",
+      "options": [
+        "Stores",
+        "Processes messages",
+        "Routes",
+        "Caches"
+      ],
+      "correctAnswer": 1,
+      "topicId": "sd8",
+      "topicName": "Message Queues"
+    },
+    {
+      "question": "Sharding splits?",
+      "options": [
+        "CPU",
+        "Database",
+        "Cache",
+        "Logs"
+      ],
       "correctAnswer": 0,
-      "topicId": "system_design_basics",
-      "topicName": "System Design Basics"
+      "topicId": "sd9",
+      "topicName": "Database Scaling"
+    },
+    {
+      "question": "GeoDNS routes based on?",
+      "options": [
+        "Time",
+        "Location",
+        "Speed",
+        "Memory"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd10",
+      "topicName": "Data Centers"
+    },
+    {
+      "question": "Replication improves?",
+      "options": [
+        "Speed only",
+        "Reliability",
+        "CPU",
+        "Disk"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd4",
+      "topicName": "Database Design"
+    },
+    {
+      "question": "LRU is?",
+      "options": [
+        "Routing",
+        "Cache eviction policy",
+        "DB type",
+        "Protocol"
+      ],
+      "correctAnswer": 1,
+      "topicId": "sd5",
+      "topicName": "Caching"
+    },
+    {
+      "question": "TTL means?",
+      "options": [
+        "Time to live",
+        "Total time load",
+        "Task time limit",
+        "Transfer time"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd5",
+      "topicName": "Caching"
+    },
+    {
+      "question": "Auto scaling adjusts?",
+      "options": [
+        "Storage",
+        "Servers",
+        "Cache",
+        "Files"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd2",
+      "topicName": "System Scaling Basics"
+    },
+    {
+      "question": "Logging helps?",
+      "options": [
+        "Errors tracking",
+        "Storage",
+        "CPU",
+        "Cache"
+      ],
+      "correctAnswer": 0,
+      "topicId": "sd11",
+      "topicName": "Monitoring and Logging"
     }
   ],
-
   "medium": [
     {
-      "question": "What is the purpose of consistent hashing?",
-      "options": ["Encrypt keys", "Minimize key remapping when servers change", "Improve latency", "Remove replication"],
+      "question": "Why horizontal scaling preferred?",
+      "options": [
+        "Cheap",
+        "No limits",
+        "Better fault tolerance",
+        "Simple"
+      ],
       "correctAnswer": 1,
-      "topicId": "consistent_hashing",
-      "topicName": "Consistent Hashing"
+      "topicId": "sd2",
+      "topicName": "System Scaling Basics"
     },
     {
-      "question": "In consistent hashing, keys are mapped to:",
-      "options": ["Tree", "Circular hash ring", "Array", "Queue"],
-      "correctAnswer": 1,
-      "topicId": "consistent_hashing",
-      "topicName": "Consistent Hashing"
-    },
-    {
-      "question": "Which system property ensures requests are processed even during failures?",
-      "options": ["Availability", "Latency", "Throughput", "Serialization"],
-      "correctAnswer": 0,
-      "topicId": "system_design_basics",
-      "topicName": "System Design Basics"
-    },
-    {
-      "question": "What is a hot key problem?",
-      "options": ["High CPU", "Too many requests hitting same key", "Cache eviction", "Disk failure"],
-      "correctAnswer": 1,
-      "topicId": "caching",
+      "question": "Cache reduces?",
+      "options": [
+        "CPU",
+        "DB load",
+        "Memory",
+        "Network"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd5",
       "topicName": "Caching"
     },
     {
-      "question": "Which system component stores rate limiter counters?",
-      "options": ["Redis", "Browser", "DNS", "CDN"],
-      "correctAnswer": 0,
-      "topicId": "rate_limiting",
-      "topicName": "Rate Limiting"
+      "question": "CDN improves?",
+      "options": [
+        "Latency",
+        "Memory",
+        "CPU",
+        "Disk"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd6",
+      "topicName": "CDN"
     },
     {
-      "question": "CAP theorem says a distributed system can guarantee:",
-      "options": ["Only one property", "At most two properties", "All three always", "None"],
+      "question": "Replication uses?",
+      "options": [
+        "Master-slave",
+        "Queue",
+        "Cache",
+        "CDN"
+      ],
       "correctAnswer": 1,
-      "topicId": "cap_theorem",
-      "topicName": "CAP Theorem"
-    },
-    {
-      "question": "Vector clocks help detect:",
-      "options": ["Concurrent writes", "Cache eviction", "DNS conflicts", "Sharding"],
-      "correctAnswer": 0,
-      "topicId": "distributed_systems",
-      "topicName": "Distributed Systems"
-    },
-    {
-      "question": "Which system benefits most from caching?",
-      "options": ["Read-heavy systems", "Write-only systems", "Encryption services", "Authentication"],
-      "correctAnswer": 0,
-      "topicId": "caching",
-      "topicName": "Caching"
-    },
-    {
-      "question": "Which consistency model allows temporary stale reads?",
-      "options": ["Strong", "Eventual", "Linearizable", "Strict"],
-      "correctAnswer": 1,
-      "topicId": "consistency",
-      "topicName": "Consistency Models"
-    },
-    {
-      "question": "Which storage engine optimizes heavy writes?",
-      "options": ["LSM Tree", "Heap", "Linked list", "Binary tree"],
-      "correctAnswer": 0,
-      "topicId": "database",
+      "topicId": "sd4",
       "topicName": "Database Design"
+    },
+    {
+      "question": "Sharding key decides?",
+      "options": [
+        "Cache",
+        "Data distribution",
+        "Routing",
+        "Logs"
+      ],
+      "correctAnswer": 0,
+      "topicId": "sd9",
+      "topicName": "Database Scaling"
+    },
+    {
+      "question": "Queue decouples?",
+      "options": [
+        "CPU",
+        "Services",
+        "Cache",
+        "DB"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd8",
+      "topicName": "Message Queues"
+    },
+    {
+      "question": "Cache inconsistency occurs due to?",
+      "options": [
+        "Sync issues",
+        "CPU",
+        "Disk",
+        "Routing"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd5",
+      "topicName": "Caching"
+    },
+    {
+      "question": "SPOF means?",
+      "options": [
+        "Single failure point",
+        "Speed",
+        "Cache",
+        "DB"
+      ],
+      "correctAnswer": 1,
+      "topicId": "sd3",
+      "topicName": "Load Balancing"
+    },
+    {
+      "question": "GeoDNS helps in?",
+      "options": [
+        "Routing users geographically",
+        "Cache",
+        "DB",
+        "Queue"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd10",
+      "topicName": "Data Centers"
+    },
+    {
+      "question": "Stateless systems are?",
+      "options": [
+        "Hard",
+        "Scalable",
+        "Slow",
+        "Costly"
+      ],
+      "correctAnswer": 0,
+      "topicId": "sd7",
+      "topicName": "Stateless Architecture"
     }
   ],
-
   "hard": [
     {
-      "question": "Why does hash(key)%N fail in distributed scaling?",
-      "options": ["Too slow", "Keys remap when N changes", "Memory heavy", "No hashing"],
+      "question": "Why vertical scaling fails at large scale?",
+      "options": [
+        "No CPU",
+        "Hardware limits",
+        "Cache issues",
+        "Routing"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd2",
+      "topicName": "System Scaling Basics"
+    },
+    {
+      "question": "Celebrity problem in sharding?",
+      "options": [
+        "Hotspot key",
+        "Cache miss",
+        "DB crash",
+        "Queue delay"
+      ],
+      "correctAnswer": 3,
+      "topicId": "sd9",
+      "topicName": "Database Scaling"
+    },
+    {
+      "question": "Resharding needed when?",
+      "options": [
+        "Data imbalance",
+        "Cache miss",
+        "CPU low",
+        "Disk slow"
+      ],
       "correctAnswer": 1,
-      "topicId": "consistent_hashing",
-      "topicName": "Consistent Hashing"
+      "topicId": "sd9",
+      "topicName": "Database Scaling"
     },
     {
-      "question": "What is the time complexity of key lookup in consistent hashing ring?",
-      "options": ["O(1)", "O(log N)", "O(N)", "O(N²)"],
-      "correctAnswer": 1,
-      "topicId": "consistent_hashing",
-      "topicName": "Consistent Hashing"
+      "question": "Why message queues improve reliability?",
+      "options": [
+        "Buffering",
+        "CPU",
+        "Disk",
+        "Cache"
+      ],
+      "correctAnswer": 2,
+      "topicId": "sd8",
+      "topicName": "Message Queues"
     },
     {
-      "question": "Which rate limiting algorithm has highest accuracy but high memory cost?",
-      "options": ["Sliding window log", "Token bucket", "Leaky bucket", "Fixed window"],
+      "question": "Why CDN fallback needed?",
+      "options": [
+        "Failure handling",
+        "Cache",
+        "DB",
+        "CPU"
+      ],
       "correctAnswer": 0,
-      "topicId": "rate_limiting",
-      "topicName": "Rate Limiting"
-    },
-    {
-      "question": "What happens if clock moves backward in Snowflake?",
-      "options": ["ID duplication risk", "Cache eviction", "Sharding failure", "DNS error"],
-      "correctAnswer": 0,
-      "topicId": "distributed_systems",
-      "topicName": "Distributed Systems"
+      "topicId": "sd6",
+      "topicName": "CDN"
     }
   ]
 }

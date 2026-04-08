@@ -1,0 +1,220 @@
+{
+    "slides": [
+        {
+            "title": "Advanced Programming in OOP",
+            "content": [
+                "Advanced programming in OOP focuses on handling complex real-world scenarios",
+                "Includes exception handling, generics, and file handling",
+                "Improves robustness, flexibility, and scalability of programs",
+                "Essential for building real-world applications"
+            ]
+        },
+        {
+            "title": "Exception Handling",
+            "content": [
+                "Exception handling manages runtime errors in a program",
+                "Prevents program crashes and ensures smooth execution",
+                "An exception is an unexpected event during execution",
+                "Handled using try-catch mechanism"
+            ]
+        },
+        {
+            "title": "Why Exception Handling is Important",
+            "content": [
+                "Prevents sudden program termination",
+                "Helps in debugging errors effectively",
+                "Separates normal code from error-handling code",
+                "Ensures proper resource management"
+            ]
+        },
+        {
+            "title": "Try-Catch Block",
+            "content": [
+                "try block contains risky code",
+                "catch block handles the exception",
+                "Multiple catch blocks can be used",
+                "Only first matching exception is executed"
+            ]
+        },
+        {
+            "title": "Finally Block",
+            "content": [
+                "Always executes whether exception occurs or not",
+                "Used to close resources like files or connections",
+                "Optional but recommended",
+                "Ensures cleanup operations"
+            ]
+        },
+        {
+            "title": "throw Keyword",
+            "content": [
+                "Used to manually throw an exception",
+                "Defined inside method or block",
+                "Used for custom error conditions",
+                "Example: throw new Exception()"
+            ]
+        },
+        {
+            "title": "throws Keyword",
+            "content": [
+                "Used to declare exceptions in method signature",
+                "Forces caller to handle exception",
+                "Does not handle exception itself",
+                "Can declare multiple exceptions"
+            ]
+        },
+        {
+            "title": "Checked vs Unchecked Exceptions",
+            "content": [
+                "Checked exceptions must be handled at compile-time",
+                "Unchecked exceptions occur at runtime",
+                "Checked: IOException, SQLException",
+                "Unchecked: ArithmeticException, NullPointerException"
+            ]
+        },
+        {
+            "title": "Custom Exceptions",
+            "content": [
+                "User-defined exceptions for specific scenarios",
+                "Extend Exception class",
+                "Provide meaningful error messages",
+                "Useful for application-specific errors"
+            ]
+        },
+        {
+            "title": "Generics",
+            "content": [
+                "Generics allow writing code for multiple data types",
+                "Ensures type safety at compile-time",
+                "Reduces need for type casting",
+                "Introduced in Java 5"
+            ]
+        },
+        {
+            "title": "Advantages of Generics",
+            "content": [
+                "Prevents ClassCastException",
+                "Improves code reusability",
+                "Provides strong type checking",
+                "Eliminates explicit type casting"
+            ]
+        },
+        {
+            "title": "Generic Classes",
+            "content": [
+                "Classes that work with different data types",
+                "Defined using type parameter <T>",
+                "Example: Box<T>",
+                "Reusable for multiple data types"
+            ]
+        },
+        {
+            "title": "Generic Methods",
+            "content": [
+                "Methods that can operate on different data types",
+                "Defined with <T> before return type",
+                "No need for method overloading",
+                "Works for multiple input types"
+            ]
+        },
+        {
+            "title": "Bounded Type Parameters",
+            "content": [
+                "Restrict types allowed in generics",
+                "Uses extends keyword",
+                "Ensures only specific class types are used",
+                "Example: T extends Number"
+            ]
+        },
+        {
+            "title": "Wildcard Types",
+            "content": [
+                "Represent unknown generic types using ?",
+                "Provides flexibility in method parameters",
+                "Two types: Upper bounded and Lower bounded",
+                "Used for reusable and flexible code"
+            ]
+        },
+        {
+            "title": "Upper vs Lower Bounded Wildcards",
+            "content": [
+                "? extends T allows reading but not writing",
+                "? super T allows writing but restricts reading",
+                "Upper bound used for processing data",
+                "Lower bound used for adding data"
+            ]
+        },
+        {
+            "title": "Raw Types and Type Erasure",
+            "content": [
+                "Raw types ignore generics and are unsafe",
+                "Can lead to runtime errors",
+                "Type erasure removes generics at compile-time",
+                "Generics exist only during compilation"
+            ]
+        },
+        {
+            "title": "File Handling",
+            "content": [
+                "File handling allows reading and writing data to files",
+                "Used for data storage and retrieval",
+                "Supports create, read, write, delete operations",
+                "Uses java.io package"
+            ]
+        },
+        {
+            "title": "File Class",
+            "content": [
+                "Represents files and directories",
+                "Methods: createNewFile(), exists(), delete()",
+                "Provides file information like size and path",
+                "Used to manage files"
+            ]
+        },
+        {
+            "title": "Writing Files",
+            "content": [
+                "FileWriter writes data to files",
+                "BufferedWriter improves performance",
+                "Used for efficient file writing",
+                "Supports appending data"
+            ]
+        },
+        {
+            "title": "Reading Files",
+            "content": [
+                "FileReader reads data from files",
+                "BufferedReader improves efficiency",
+                "Reads data line by line",
+                "Used for file processing"
+            ]
+        },
+        {
+            "title": "Try-With-Resources",
+            "content": [
+                "Automatically closes file resources",
+                "Prevents resource leaks",
+                "Simplifies file handling code",
+                "Recommended practice in Java"
+            ]
+        },
+        {
+            "title": "Common File Handling Issues",
+            "content": [
+                "FileNotFoundException when file is missing",
+                "IOException for file operation errors",
+                "Resource leaks if files are not closed",
+                "Handled using try-catch blocks"
+            ]
+        },
+        {
+            "title": "Advantages of Advanced OOP Programming",
+            "content": [
+                "Builds robust and error-resistant programs",
+                "Improves flexibility using generics",
+                "Handles real-world data using files",
+                "Enhances maintainability and scalability"
+            ]
+        }
+    ]
+}

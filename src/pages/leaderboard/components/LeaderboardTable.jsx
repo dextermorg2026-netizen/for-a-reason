@@ -35,11 +35,11 @@ const LeaderboardTable = ({ entries = [], currentUserId, loading }) => {
               {entries.map((user, idx) => {
                 const isCurrentUser = user.userId === currentUserId || user.id === currentUserId;
                 const rank = idx + 1;
-                const progress = 50 + (Math.random() * 40); // Simulated accuracy
+                const progress = user.accuracy ?? (70 + (idx * -2) + (user.coins % 10)); // Deterministic fallback
 
                 return (
                   <tr 
-                    key={user.id || idx} 
+                    key={user.id || user.userId || idx} 
                     className={`transition-colors group ${isCurrentUser ? 'bg-primary/10 border-l-4 border-primary shadow-[inset_4px_0_0_0_#ddb7ff]' : 'hover:bg-white/5 border-l-4 border-transparent hover:border-slate-700'}`}
                   >
                     <td className={`px-6 py-4 font-headline font-semibold ${isCurrentUser ? 'text-primary' : 'text-slate-400'}`}>

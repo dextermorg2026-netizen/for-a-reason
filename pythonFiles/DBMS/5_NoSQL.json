@@ -1,0 +1,319 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to NoSQL Databases",
+            "content": [
+                "Non-relational databases",
+                "Store unstructured or semi-structured data",
+                "Flexible schema design",
+                "Designed for scalability and performance"
+            ]
+        },
+        {
+            "title": "Why Use NoSQL",
+            "content": [
+                "Horizontal scalability",
+                "Handles big data efficiently",
+                "High performance for read/write",
+                "Supports flexible data models"
+            ]
+        },
+        {
+            "title": "Key Features of NoSQL",
+            "content": [
+                "Schema-less design",
+                "Distributed architecture",
+                "High availability",
+                "Supports multiple data models"
+            ]
+        },
+        {
+            "title": "Types of NoSQL Databases",
+            "content": [
+                "Key-Value Store",
+                "Document Store",
+                "Column-Family Store",
+                "Graph Database"
+            ]
+        },
+        {
+            "title": "Key-Value Stores",
+            "content": [
+                "Data stored as key-value pairs",
+                "Fast retrieval using keys",
+                "Used in caching",
+                "Example: Redis, DynamoDB"
+            ]
+        },
+        {
+            "title": "Document Stores",
+            "content": [
+                "Store data in JSON-like format",
+                "Flexible schema",
+                "Supports nested data",
+                "Example: MongoDB, CouchDB"
+            ]
+        },
+        {
+            "title": "Column-Family Stores",
+            "content": [
+                "Store data in column groups",
+                "Efficient for large data",
+                "Flexible column structure",
+                "Example: Cassandra, HBase"
+            ]
+        },
+        {
+            "title": "Graph Databases",
+            "content": [
+                "Data stored as nodes and edges",
+                "Efficient for relationships",
+                "Used in social networks",
+                "Example: Neo4j"
+            ]
+        },
+        {
+            "title": "Advantages of NoSQL",
+            "content": [
+                "High scalability",
+                "Flexible schema",
+                "Fast performance",
+                "Fault tolerance"
+            ]
+        },
+        {
+            "title": "Limitations of NoSQL",
+            "content": [
+                "Limited querying capabilities",
+                "Eventual consistency issues",
+                "Less mature ecosystem",
+                "Limited transaction support"
+            ]
+        },
+        {
+            "title": "BASE Properties",
+            "content": [
+                "Basically Available",
+                "Soft State",
+                "Eventual Consistency",
+                "Used in distributed systems"
+            ]
+        },
+        {
+            "title": "Basically Available",
+            "content": [
+                "System remains available",
+                "May return stale data",
+                "Handles failures gracefully",
+                "Ensures uptime"
+            ]
+        },
+        {
+            "title": "Soft State",
+            "content": [
+                "Temporary inconsistent state allowed",
+                "Data changes over time",
+                "No strict consistency",
+                "Useful in distributed systems"
+            ]
+        },
+        {
+            "title": "Eventual Consistency",
+            "content": [
+                "Data becomes consistent over time",
+                "No immediate synchronization",
+                "Suitable for large systems",
+                "Used in social media apps"
+            ]
+        },
+        {
+            "title": "BASE vs ACID",
+            "content": [
+                "BASE focuses on availability",
+                "ACID focuses on consistency",
+                "BASE allows flexibility",
+                "ACID ensures strict correctness"
+            ]
+        },
+        {
+            "title": "NoSQL Query Languages",
+            "content": [
+                "Different for each database",
+                "No standard like SQL",
+                "Optimized for data model",
+                "Examples: MongoDB, CQL, Cypher"
+            ]
+        },
+        {
+            "title": "MongoDB Query Language",
+            "content": [
+                "Uses JSON-like syntax",
+                "Flexible document queries",
+                "Supports CRUD operations",
+                "Used in document databases"
+            ]
+        },
+        {
+            "title": "Cassandra Query Language",
+            "content": [
+                "Similar to SQL",
+                "Used for column-family stores",
+                "Supports large-scale data",
+                "Optimized for writes"
+            ]
+        },
+        {
+            "title": "Cypher Query Language",
+            "content": [
+                "Used in graph databases",
+                "Pattern-based querying",
+                "Handles relationships",
+                "Used in Neo4j"
+            ]
+        },
+        {
+            "title": "Redis Commands",
+            "content": [
+                "SET, GET, DEL operations",
+                "Key-value based",
+                "Very fast access",
+                "Used for caching"
+            ]
+        },
+        {
+            "title": "Graph Database Basics",
+            "content": [
+                "Nodes represent entities",
+                "Edges represent relationships",
+                "Properties store data",
+                "Efficient traversal"
+            ]
+        },
+        {
+            "title": "Types of Graphs",
+            "content": [
+                "Directed and undirected graphs",
+                "Weighted and unweighted",
+                "Cyclic and acyclic graphs",
+                "Used in real-world networks"
+            ]
+        },
+        {
+            "title": "Graph vs RDBMS",
+            "content": [
+                "Graph uses nodes and edges",
+                "RDBMS uses tables",
+                "Graph avoids joins",
+                "Better for relationship queries"
+            ]
+        },
+        {
+            "title": "In-Memory Databases",
+            "content": [
+                "Data stored in RAM",
+                "Faster than disk databases",
+                "Low latency",
+                "Used in real-time systems"
+            ]
+        },
+        {
+            "title": "Features of In-Memory DB",
+            "content": [
+                "High-speed operations",
+                "Real-time analytics",
+                "Supports persistence",
+                "Efficient indexing"
+            ]
+        },
+        {
+            "title": "In-Memory vs Disk Databases",
+            "content": [
+                "RAM vs disk storage",
+                "Faster vs slower",
+                "Higher cost vs lower cost",
+                "Real-time vs long-term storage"
+            ]
+        },
+        {
+            "title": "Partitioning",
+            "content": [
+                "Divide large tables into parts",
+                "Improves performance",
+                "Enhances scalability",
+                "Better manageability"
+            ]
+        },
+        {
+            "title": "Partitioning Strategies",
+            "content": [
+                "Range partitioning",
+                "List partitioning",
+                "Hash partitioning",
+                "Composite partitioning"
+            ]
+        },
+        {
+            "title": "Horizontal vs Vertical Partitioning",
+            "content": [
+                "Horizontal: divide rows",
+                "Vertical: divide columns",
+                "Improves performance",
+                "Used in large datasets"
+            ]
+        },
+        {
+            "title": "Sharding",
+            "content": [
+                "Horizontal partitioning across servers",
+                "Distributes data across nodes",
+                "Improves scalability",
+                "Used in distributed systems"
+            ]
+        },
+        {
+            "title": "Shard Key",
+            "content": [
+                "Determines data distribution",
+                "Should ensure balance",
+                "Affects performance",
+                "Critical design decision"
+            ]
+        },
+        {
+            "title": "Shard Management",
+            "content": [
+                "Monitors shard load",
+                "Ensures data balance",
+                "Handles scaling",
+                "Maintains consistency"
+            ]
+        },
+        {
+            "title": "Shard Rebalancing",
+            "content": [
+                "Redistributes data across shards",
+                "Prevents overload",
+                "Maintains performance",
+                "Can be automatic or manual"
+            ]
+        },
+        {
+            "title": "Replication vs Sharding",
+            "content": [
+                "Sharding distributes data",
+                "Replication duplicates data",
+                "Used together for reliability",
+                "Ensures availability and scalability"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "NoSQL supports flexible data models",
+                "BASE ensures availability",
+                "Graph and in-memory improve performance",
+                "Partitioning and sharding enable scalability"
+            ]
+        }
+    ]
+}

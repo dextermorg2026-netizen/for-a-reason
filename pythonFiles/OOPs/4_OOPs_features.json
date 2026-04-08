@@ -1,0 +1,193 @@
+{
+    "slides": [
+        {
+            "title": "Advanced OOP Features",
+            "content": [
+                "Advanced OOP features enhance flexibility and modularity of programs",
+                "They include abstraction, interfaces, static members, and inner classes",
+                "These concepts help in designing scalable and maintainable systems",
+                "They build on basic OOP principles like inheritance and polymorphism"
+            ]
+        },
+        {
+            "title": "Abstraction",
+            "content": [
+                "Abstraction means hiding implementation details and showing only essential features",
+                "Focuses on what an object does instead of how it works",
+                "Reduces complexity and improves usability",
+                "Example: Using a car without knowing engine details"
+            ]
+        },
+        {
+            "title": "Features of Abstraction",
+            "content": [
+                "Hides internal implementation details",
+                "Provides simple interface for users",
+                "Uses abstract methods without implementation",
+                "Allows concrete methods with implementation"
+            ]
+        },
+        {
+            "title": "Abstract Classes",
+            "content": [
+                "Abstract class cannot be instantiated directly",
+                "Can contain abstract and concrete methods",
+                "Used as a blueprint for subclasses",
+                "Subclasses must implement abstract methods"
+            ]
+        },
+        {
+            "title": "Key Points of Abstract Class",
+            "content": [
+                "Can have constructors but cannot create objects",
+                "Can extend another abstract class",
+                "Supports code reuse using concrete methods",
+                "Used when partial implementation is required"
+            ]
+        },
+        {
+            "title": "Interfaces",
+            "content": [
+                "An interface defines a contract for classes",
+                "Contains abstract methods (and default/static methods)",
+                "Classes must implement all methods of interface",
+                "Used for achieving full abstraction"
+            ]
+        },
+        {
+            "title": "Features of Interfaces",
+            "content": [
+                "All methods are abstract by default (before Java 8)",
+                "Variables are public, static, and final",
+                "Cannot have constructors",
+                "Supports multiple inheritance"
+            ]
+        },
+        {
+            "title": "Interface vs Abstract Class",
+            "content": [
+                "Abstract class can have both abstract and concrete methods",
+                "Interface mainly has abstract methods",
+                "Class can implement multiple interfaces",
+                "Class can extend only one abstract class"
+            ]
+        },
+        {
+            "title": "Default Methods in Interfaces",
+            "content": [
+                "Default methods have implementation inside interface",
+                "Introduced in Java 8",
+                "Used for backward compatibility",
+                "Can be overridden by implementing classes"
+            ]
+        },
+        {
+            "title": "Static Methods in Interfaces",
+            "content": [
+                "Static methods belong to interface, not objects",
+                "Can be called without creating object",
+                "Used for utility operations",
+                "Cannot access non-static members"
+            ]
+        },
+        {
+            "title": "Static Keyword in Java",
+            "content": [
+                "Static members belong to class, not objects",
+                "Shared among all instances",
+                "Loaded once in memory",
+                "Used for common data and methods"
+            ]
+        },
+        {
+            "title": "Static Variables",
+            "content": [
+                "Shared across all objects of a class",
+                "Initialized only once",
+                "Used for common data like counters",
+                "Stored in class memory"
+            ]
+        },
+        {
+            "title": "Static Methods",
+            "content": [
+                "Can be called without creating object",
+                "Used for utility functions",
+                "Cannot directly access non-static members",
+                "Example: Math functions"
+            ]
+        },
+        {
+            "title": "Static Blocks",
+            "content": [
+                "Used to initialize static variables",
+                "Executed when class is loaded",
+                "Runs before main method",
+                "Executed only once"
+            ]
+        },
+        {
+            "title": "Inner Classes",
+            "content": [
+                "Classes defined inside another class",
+                "Used for better organization of code",
+                "Can access outer class members",
+                "Improve encapsulation"
+            ]
+        },
+        {
+            "title": "Types of Inner Classes",
+            "content": [
+                "Static Nested Classes",
+                "Non-static Inner Classes",
+                "Local Inner Classes",
+                "Anonymous Inner Classes"
+            ]
+        },
+        {
+            "title": "Static Nested Classes",
+            "content": [
+                "Declared using static keyword",
+                "Do not need outer class object",
+                "Access only static members of outer class",
+                "Used for grouping related classes"
+            ]
+        },
+        {
+            "title": "Non-Static Inner Classes",
+            "content": [
+                "Require outer class object",
+                "Can access all members of outer class",
+                "Used when inner class depends on outer class",
+                "More flexible than static nested classes"
+            ]
+        },
+        {
+            "title": "Local Inner Classes",
+            "content": [
+                "Defined inside a method",
+                "Accessible only within that method",
+                "Can access final or effectively final variables",
+                "Used for method-specific logic"
+            ]
+        },
+        {
+            "title": "Anonymous Inner Classes",
+            "content": [
+                "Do not have a name",
+                "Used for one-time implementation",
+                "Commonly used with interfaces or abstract classes",
+                "Simplifies code for short implementations"
+            ]
+        },
+        {
+            "title": "Advantages of Advanced OOP Features",
+            "content": [
+                "Improves code modularity and flexibility",
+                "Enhances reusability and maintainability",
+                "Supports scalable application design",
+                "Provides better abstraction and security"
+            ]
+        }
+    ]
+}

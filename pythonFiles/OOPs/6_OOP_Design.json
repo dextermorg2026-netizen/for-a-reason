@@ -1,0 +1,184 @@
+{
+    "slides": [
+        {
+            "title": "OOP Design and Lifecycle Management",
+            "content": [
+                "Focuses on designing scalable and maintainable systems",
+                "Includes SOLID principles and object lifecycle",
+                "Helps manage memory and improve code quality",
+                "Essential for real-world software development"
+            ]
+        },
+        {
+            "title": "SOLID Principles Overview",
+            "content": [
+                "Five design principles for writing clean code",
+                "Improves maintainability and scalability",
+                "Introduced by Robert C. Martin",
+                "Includes SRP, OCP, LSP, ISP, DIP"
+            ]
+        },
+        {
+            "title": "Single Responsibility Principle (SRP)",
+            "content": [
+                "A class should have only one responsibility",
+                "One reason to change per class",
+                "Improves readability and maintainability",
+                "Example: separate salary calculation and report generation"
+            ]
+        },
+        {
+            "title": "Open/Closed Principle (OCP)",
+            "content": [
+                "Classes should be open for extension but closed for modification",
+                "New functionality added without changing existing code",
+                "Achieved using inheritance and polymorphism",
+                "Example: adding new shapes without modifying existing classes"
+            ]
+        },
+        {
+            "title": "Liskov Substitution Principle (LSP)",
+            "content": [
+                "Subclasses should replace parent classes without breaking behavior",
+                "Ensures consistency in inheritance",
+                "Avoids unexpected runtime errors",
+                "Example: Penguin should not inherit flying behavior"
+            ]
+        },
+        {
+            "title": "Interface Segregation Principle (ISP)",
+            "content": [
+                "Classes should not implement unnecessary methods",
+                "Use smaller, specific interfaces",
+                "Improves flexibility and design",
+                "Example: separate work() and eat() interfaces"
+            ]
+        },
+        {
+            "title": "Dependency Inversion Principle (DIP)",
+            "content": [
+                "Depend on abstractions, not concrete classes",
+                "Reduces coupling between components",
+                "Improves flexibility and scalability",
+                "Example: use Keyboard interface instead of WiredKeyboard class"
+            ]
+        },
+        {
+            "title": "Importance of SOLID Principles",
+            "content": [
+                "Creates modular and reusable code",
+                "Improves maintainability",
+                "Reduces bugs and side effects",
+                "Makes system easier to extend"
+            ]
+        },
+        {
+            "title": "Object Lifecycle in Java",
+            "content": [
+                "Object lifecycle defines stages of object existence",
+                "Includes creation, usage, and destruction",
+                "Managed automatically by JVM",
+                "Important for memory management"
+            ]
+        },
+        {
+            "title": "Stages of Object Lifecycle",
+            "content": [
+                "Creation: object created using new keyword",
+                "Usage: object methods and fields are used",
+                "Garbage Collection: object becomes unreachable",
+                "Destruction: memory is freed by JVM"
+            ]
+        },
+        {
+            "title": "Object Creation",
+            "content": [
+                "Objects are created using new keyword",
+                "Memory is allocated in heap",
+                "Constructor initializes object",
+                "Reference stored in stack"
+            ]
+        },
+        {
+            "title": "Garbage Collection (GC)",
+            "content": [
+                "Automatic memory management in Java",
+                "Removes unused objects from heap",
+                "Triggered when objects are unreachable",
+                "Improves memory efficiency"
+            ]
+        },
+        {
+            "title": "GC Process",
+            "content": [
+                "Mark phase: identify reachable objects",
+                "Sweep phase: remove unreachable objects",
+                "Compaction phase: reorganize memory",
+                "Reduces fragmentation"
+            ]
+        },
+        {
+            "title": "Stop-The-World Events",
+            "content": [
+                "JVM pauses execution during GC",
+                "Ensures safe memory management",
+                "Can affect performance temporarily",
+                "Advanced GC reduces pause time"
+            ]
+        },
+        {
+            "title": "System.gc()",
+            "content": [
+                "Requests JVM to run garbage collection",
+                "Does not guarantee execution",
+                "Not recommended in production",
+                "JVM decides when to run GC"
+            ]
+        },
+        {
+            "title": "Reference Concept",
+            "content": [
+                "Objects become eligible for GC when no references exist",
+                "Reference variables point to heap objects",
+                "Null reference makes object eligible for GC",
+                "Helps understand memory behavior"
+            ]
+        },
+        {
+            "title": "Memory Leaks",
+            "content": [
+                "Occurs when unused objects are not released",
+                "Caused by lingering references",
+                "Leads to high memory usage",
+                "Example: static collections holding objects"
+            ]
+        },
+        {
+            "title": "Cyclic References",
+            "content": [
+                "Objects reference each other forming a loop",
+                "Do not cause leaks in Java",
+                "GC detects unreachable cycles",
+                "Handled by reachability algorithm"
+            ]
+        },
+        {
+            "title": "Best Practices for Lifecycle Management",
+            "content": [
+                "Minimize scope of variables",
+                "Avoid unnecessary object references",
+                "Clear unused collections",
+                "Use try-with-resources for cleanup"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "SOLID principles improve software design",
+                "Object lifecycle ensures efficient memory usage",
+                "Garbage collection manages memory automatically",
+                "Together they ensure robust and scalable applications"
+            ]
+        }
+    ]
+}

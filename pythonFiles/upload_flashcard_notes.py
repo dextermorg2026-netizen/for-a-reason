@@ -69,7 +69,7 @@ def upload_flashcard_notes(db):
     subject_folders = [
         f for f in os.listdir(BASE_DIR)
         if os.path.isdir(os.path.join(BASE_DIR, f))
-        and f not in ["__pycache__", "LiveQuizFiles", "quizFiles", "SystemDesign"]
+        and f not in ["__pycache__", "LiveQuizFiles", "quizFiles"]
     ]
 
     if not subject_folders:
@@ -102,11 +102,13 @@ def upload_flashcard_notes(db):
 
         for file in json_files:
             file_path = os.path.join(subject_path, file)
-            # Topic title from filename: "1_Introduction to Computer Networks.json" -> "Introduction to Computer Networks"
-            # Split by '_' and join the rest, or just use regex
+            # Topic title from filename: "1_Introduction_to_Computer_Networks.json" -> "Introduction to Computer Networks"
             parts = file.replace(".json", "").split("_")
             topic_order = int(parts[0]) if parts[0].isdigit() else 99
-            topic_title = "_".join(parts[1:]) if len(parts) > 1 else parts[0]
+            
+            # Join the rest of the parts with spaces, not underscores
+            raw_title = " ".join(parts[1:]) if len(parts) > 1 else parts[0]
+            topic_title = raw_title.strip()
             
             print(f"  🔹 TOPIC: {topic_title} (Order: {topic_order})")
             

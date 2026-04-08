@@ -1,0 +1,58 @@
+{
+    "slides": [
+        {
+            "title": "Memory Allocation Techniques",
+            "content": [
+                "Memory management allocates and manages main memory to ensure efficient execution of processes",
+                "First Fit allocates the first available block that is large enough, making it fast but prone to fragmentation",
+                "Best Fit selects the smallest suitable block to minimize leftover space but requires more searching",
+                "Worst Fit chooses the largest block to leave large free spaces but may waste memory for small processes"
+            ]
+        },
+        {
+            "title": "Contiguous Allocation, Paging, Segmentation",
+            "content": [
+                "Contiguous allocation assigns a single continuous block of memory to a process, which is simple but causes external fragmentation :contentReference[oaicite:0]{index=0}",
+                "Paging divides memory into fixed-size pages and frames, eliminating external fragmentation using page tables for mapping :contentReference[oaicite:1]{index=1}",
+                "Segmentation divides memory into variable-sized logical segments like code, data, and stack, reflecting program structure :contentReference[oaicite:2]{index=2}",
+                "Paging improves flexibility while segmentation improves logical organization but may cause fragmentation"
+            ]
+        },
+        {
+            "title": "Virtual Memory & Page Fault",
+            "content": [
+                "Virtual memory is a technique that uses disk storage to extend RAM, allowing programs larger than physical memory to execute :contentReference[oaicite:3]{index=3}",
+                "It uses paging and page tables to map logical addresses to physical memory dynamically",
+                "A page fault occurs when a required page is not in memory and must be fetched from disk :contentReference[oaicite:4]{index=4}",
+                "Frequent page faults can reduce performance and lead to excessive disk activity"
+            ]
+        },
+        {
+            "title": "Page Replacement Algorithms",
+            "content": [
+                "Page replacement algorithms decide which page to remove when memory is full to minimize page faults",
+                "FIFO replaces the oldest page first but may lead to inefficient performance and anomalies",
+                "LRU replaces the least recently used page based on past usage patterns for better performance",
+                "Optimal replaces the page that will not be used for the longest future time and provides the best theoretical performance"
+            ]
+        },
+        {
+            "title": "Belady's Anomaly & Thrashing",
+            "content": [
+                "Belady's anomaly occurs when increasing memory frames leads to more page faults, commonly seen in FIFO :contentReference[oaicite:5]{index=5}",
+                "Thrashing occurs when the system spends more time swapping pages than executing processes due to insufficient memory :contentReference[oaicite:6]{index=6}",
+                "It leads to low CPU utilization, high disk activity, and poor system performance",
+                "It can be controlled using working set models and reducing multiprogramming levels"
+            ]
+        },
+        {
+            "title": "Dynamic Binding",
+            "content": [
+                "Dynamic binding resolves memory addresses at runtime instead of compile time for flexibility and efficient memory use :contentReference[oaicite:7]{index=7}",
+                "It allows programs to be loaded anywhere in memory and supports relocation during execution",
+                "It uses hardware like Memory Management Unit (MMU) for address translation",
+                "It improves flexibility but introduces runtime overhead and complexity"
+            ]
+        }
+    ]
+}

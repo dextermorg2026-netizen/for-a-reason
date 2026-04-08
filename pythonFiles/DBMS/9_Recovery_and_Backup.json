@@ -1,0 +1,193 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Recovery & Backup",
+            "content": [
+                "Ensures data safety",
+                "Protects against failures",
+                "Maintains data integrity",
+                "Critical for DBMS reliability"
+            ]
+        },
+        {
+            "title": "Types of Failures",
+            "content": [
+                "Transaction failure",
+                "System crash",
+                "Disk failure",
+                "Human errors"
+            ]
+        },
+        {
+            "title": "Database Recovery",
+            "content": [
+                "Process of restoring database",
+                "Ensures consistency after failure",
+                "Uses logs and backups",
+                "Maintains ACID properties"
+            ]
+        },
+        {
+            "title": "Recovery Techniques",
+            "content": [
+                "Log-based recovery",
+                "Checkpointing",
+                "Shadow paging",
+                "Backup-based recovery"
+            ]
+        },
+        {
+            "title": "Log-Based Recovery",
+            "content": [
+                "Records all operations",
+                "Used for undo and redo",
+                "Maintains transaction logs",
+                "Ensures durability"
+            ]
+        },
+        {
+            "title": "Undo and Redo Operations",
+            "content": [
+                "UNDO: reverses uncommitted changes",
+                "REDO: reapplies committed changes",
+                "Maintains consistency",
+                "Used after crashes"
+            ]
+        },
+        {
+            "title": "Write-Ahead Logging (WAL)",
+            "content": [
+                "Logs written before data changes",
+                "Ensures recovery capability",
+                "Prevents data loss",
+                "Key recovery principle"
+            ]
+        },
+        {
+            "title": "Checkpointing",
+            "content": [
+                "Saves database state periodically",
+                "Reduces recovery time",
+                "Avoids scanning full log",
+                "Improves performance"
+            ]
+        },
+        {
+            "title": "Shadow Paging",
+            "content": [
+                "Maintains two page tables",
+                "No overwrite of original data",
+                "Simplifies recovery",
+                "Less commonly used"
+            ]
+        },
+        {
+            "title": "Deferred vs Immediate Update",
+            "content": [
+                "Deferred: updates after commit",
+                "Immediate: updates before commit",
+                "Deferred uses REDO only",
+                "Immediate uses UNDO + REDO"
+            ]
+        },
+        {
+            "title": "Database Backup",
+            "content": [
+                "Copy of database",
+                "Used for restoration",
+                "Protects from data loss",
+                "Essential for disaster recovery"
+            ]
+        },
+        {
+            "title": "Types of Backups",
+            "content": [
+                "Full backup",
+                "Incremental backup",
+                "Differential backup",
+                "Transaction log backup"
+            ]
+        },
+        {
+            "title": "Full Backup",
+            "content": [
+                "Complete database copy",
+                "Simple restoration",
+                "Takes more time and space",
+                "Base for other backups"
+            ]
+        },
+        {
+            "title": "Incremental Backup",
+            "content": [
+                "Backs up changes since last backup",
+                "Faster and smaller",
+                "Complex restoration",
+                "Efficient storage usage"
+            ]
+        },
+        {
+            "title": "Differential Backup",
+            "content": [
+                "Backs up changes since last full backup",
+                "Faster than full backup",
+                "Simpler than incremental restore",
+                "Moderate storage"
+            ]
+        },
+        {
+            "title": "Transaction Log Backup",
+            "content": [
+                "Stores transaction logs",
+                "Supports point-in-time recovery",
+                "Used in critical systems",
+                "Maintains durability"
+            ]
+        },
+        {
+            "title": "Recovery vs Backup",
+            "content": [
+                "Recovery: restore consistency",
+                "Backup: copy of data",
+                "Recovery uses logs",
+                "Backup used after major failures"
+            ]
+        },
+        {
+            "title": "Advantages of Backup",
+            "content": [
+                "Prevents data loss",
+                "Supports disaster recovery",
+                "Ensures business continuity",
+                "Provides historical data"
+            ]
+        },
+        {
+            "title": "Challenges in Recovery",
+            "content": [
+                "Large log processing",
+                "Time-consuming recovery",
+                "Complex systems",
+                "Requires proper planning"
+            ]
+        },
+        {
+            "title": "Best Practices",
+            "content": [
+                "Regular backups",
+                "Use checkpointing",
+                "Maintain logs properly",
+                "Test recovery plans"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "Recovery ensures consistency",
+                "Backup ensures data safety",
+                "Logs are critical",
+                "Both are essential for DBMS"
+            ]
+        }
+    ]
+}

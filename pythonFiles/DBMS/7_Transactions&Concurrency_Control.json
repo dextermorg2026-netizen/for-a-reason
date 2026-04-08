@@ -1,0 +1,311 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to Transactions",
+            "content": [
+                "Sequence of operations treated as one unit",
+                "Ensures data integrity",
+                "All operations succeed or fail together",
+                "Used in banking, e-commerce"
+            ]
+        },
+        {
+            "title": "ACID Properties",
+            "content": [
+                "Atomicity",
+                "Consistency",
+                "Isolation",
+                "Durability"
+            ]
+        },
+        {
+            "title": "Atomicity",
+            "content": [
+                "All or nothing execution",
+                "Rollback on failure",
+                "Ensures no partial updates",
+                "Example: Bank transfer"
+            ]
+        },
+        {
+            "title": "Consistency",
+            "content": [
+                "Maintains valid database state",
+                "Follows constraints",
+                "Prevents invalid data",
+                "Example: No negative balance"
+            ]
+        },
+        {
+            "title": "Isolation",
+            "content": [
+                "Transactions execute independently",
+                "Prevents interference",
+                "Appears sequential",
+                "Handles concurrency"
+            ]
+        },
+        {
+            "title": "Durability",
+            "content": [
+                "Changes persist after commit",
+                "Stored in permanent storage",
+                "Survives system crash",
+                "Ensures reliability"
+            ]
+        },
+        {
+            "title": "CAP Theorem",
+            "content": [
+                "Consistency",
+                "Availability",
+                "Partition tolerance",
+                "Only 2 out of 3 possible"
+            ]
+        },
+        {
+            "title": "CAP Trade-offs",
+            "content": [
+                "CP: consistency + partition tolerance",
+                "AP: availability + partition tolerance",
+                "CA: consistency + availability",
+                "Used in distributed systems"
+            ]
+        },
+        {
+            "title": "Transaction States",
+            "content": [
+                "Active",
+                "Partially committed",
+                "Committed",
+                "Failed",
+                "Aborted"
+            ]
+        },
+        {
+            "title": "Transaction Management",
+            "content": [
+                "Begin transaction",
+                "Commit transaction",
+                "Rollback transaction",
+                "Maintains ACID"
+            ]
+        },
+        {
+            "title": "Concurrency Control",
+            "content": [
+                "Manages simultaneous transactions",
+                "Prevents conflicts",
+                "Ensures consistency",
+                "Used in multi-user systems"
+            ]
+        },
+        {
+            "title": "Problems Without Concurrency Control",
+            "content": [
+                "Lost updates",
+                "Dirty reads",
+                "Uncommitted dependency",
+                "Inconsistent analysis"
+            ]
+        },
+        {
+            "title": "Lock-Based Protocols",
+            "content": [
+                "Uses locks to control access",
+                "Shared lock (read)",
+                "Exclusive lock (write)",
+                "Prevents conflicts"
+            ]
+        },
+        {
+            "title": "Two-Phase Locking (2PL)",
+            "content": [
+                "Growing phase (acquire locks)",
+                "Shrinking phase (release locks)",
+                "Ensures serializability",
+                "May cause deadlocks"
+            ]
+        },
+        {
+            "title": "Timestamp-Based Protocol",
+            "content": [
+                "Assigns timestamp to transactions",
+                "Ensures order of execution",
+                "Avoids deadlocks",
+                "May cause rollbacks"
+            ]
+        },
+        {
+            "title": "Wait-Die vs Wound-Wait",
+            "content": [
+                "Wait-Die: older waits, younger aborts",
+                "Wound-Wait: older aborts younger",
+                "Deadlock prevention methods",
+                "Based on timestamps"
+            ]
+        },
+        {
+            "title": "Thomas Write Rule",
+            "content": [
+                "Skips outdated writes",
+                "Improves performance",
+                "Handles write conflicts",
+                "Avoids unnecessary aborts"
+            ]
+        },
+        {
+            "title": "Optimistic Concurrency Control",
+            "content": [
+                "Assumes low conflicts",
+                "Validation before commit",
+                "No initial locking",
+                "Good for low contention"
+            ]
+        },
+        {
+            "title": "Multi-Version Concurrency Control",
+            "content": [
+                "Maintains multiple versions",
+                "Readers don’t block writers",
+                "Improves performance",
+                "Used in PostgreSQL"
+            ]
+        },
+        {
+            "title": "Serialization",
+            "content": [
+                "Ensures correct transaction order",
+                "Equivalent to serial execution",
+                "Maintains consistency",
+                "Used in concurrency control"
+            ]
+        },
+        {
+            "title": "Serial vs Non-Serial Schedules",
+            "content": [
+                "Serial: one after another",
+                "Non-serial: interleaved",
+                "Serial is safe",
+                "Non-serial needs control"
+            ]
+        },
+        {
+            "title": "Conflict Serializability",
+            "content": [
+                "Reorder non-conflicting operations",
+                "Ensures serial equivalence",
+                "Easier to test",
+                "Uses precedence graph"
+            ]
+        },
+        {
+            "title": "View Serializability",
+            "content": [
+                "Same final result as serial",
+                "More flexible",
+                "Harder to check",
+                "Allows more schedules"
+            ]
+        },
+        {
+            "title": "Precedence Graph",
+            "content": [
+                "Nodes = transactions",
+                "Edges = conflicts",
+                "Cycle means non-serializable",
+                "Used for testing"
+            ]
+        },
+        {
+            "title": "Recoverable Schedules",
+            "content": [
+                "Read only committed data",
+                "Prevents cascading rollback",
+                "Ensures safe recovery",
+                "Important for reliability"
+            ]
+        },
+        {
+            "title": "Cascading Rollbacks",
+            "content": [
+                "Failure spreads to dependent transactions",
+                "Causes multiple rollbacks",
+                "Avoid using cascadeless schedules",
+                "Reduces system efficiency"
+            ]
+        },
+        {
+            "title": "Isolation Levels",
+            "content": [
+                "Read Uncommitted",
+                "Read Committed",
+                "Repeatable Read",
+                "Serializable"
+            ]
+        },
+        {
+            "title": "Isolation Level Comparison",
+            "content": [
+                "Serializable: highest consistency",
+                "Repeatable Read: prevents non-repeatable",
+                "Read Committed: prevents dirty reads",
+                "Read Uncommitted: fastest but unsafe"
+            ]
+        },
+        {
+            "title": "Concurrency Problems",
+            "content": [
+                "Dirty reads",
+                "Non-repeatable reads",
+                "Phantom reads",
+                "Lost updates"
+            ]
+        },
+        {
+            "title": "Deadlocks",
+            "content": [
+                "Transactions wait indefinitely",
+                "Circular dependency",
+                "Causes system halt",
+                "Needs prevention"
+            ]
+        },
+        {
+            "title": "Deadlock Detection",
+            "content": [
+                "Wait-for graph",
+                "Cycle detection",
+                "Transaction rollback",
+                "Resource allocation control"
+            ]
+        },
+        {
+            "title": "Deadlock Prevention",
+            "content": [
+                "Avoid circular wait",
+                "Use resource ordering",
+                "Allow preemption",
+                "Reduce hold and wait"
+            ]
+        },
+        {
+            "title": "Starvation",
+            "content": [
+                "Transaction waits indefinitely",
+                "Low priority issue",
+                "Aging technique fixes it",
+                "Ensures fairness"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "ACID ensures reliability",
+                "Concurrency control ensures consistency",
+                "Locks and timestamps manage conflicts",
+                "Deadlocks and starvation must be handled"
+            ]
+        }
+    ]
+}

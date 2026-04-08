@@ -1,169 +1,729 @@
 {
   "subject": "Computer Network",
-
   "easy": [
     {
-      "question": "What are network performance metrics used for?",
-      "options": ["Measuring network efficiency", "Encrypting data", "Routing packets", "Compressing files"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "What is a computer network?",
+      "options": [
+        "Single computer system",
+        "Collection of autonomous computers connected together",
+        "Only wireless devices",
+        "Internet only"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t1",
+      "topicName": "Introduction to Computer Networks"
     },
     {
-      "question": "Which metric measures the maximum data transfer capacity of a network?",
-      "options": ["Bandwidth", "Latency", "Jitter", "Packet loss"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "Which model uses request-reply communication?",
+      "options": [
+        "Peer-to-peer",
+        "Distributed",
+        "Client-server",
+        "Hybrid"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t1",
+      "topicName": "Network Models"
     },
     {
-      "question": "Bandwidth is typically measured in ______.",
-      "options": ["Bits per second", "Bytes per second", "Packets per minute", "Frames per second"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "What is the Internet?",
+      "options": [
+        "A LAN",
+        "Network of networks",
+        "A protocol",
+        "A device"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t1",
+      "topicName": "Introduction to Computer Networks"
     },
     {
-      "question": "Which metric measures the actual data transfer rate achieved in a network?",
-      "options": ["Throughput", "Bandwidth", "Latency", "Jitter"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "Which layer deals with transmission media?",
+      "options": [
+        "Network",
+        "Physical",
+        "Transport",
+        "Session"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t6",
+      "topicName": "OSI Model"
     },
     {
-      "question": "Which metric measures the delay experienced by a packet traveling across a network?",
-      "options": ["Latency", "Bandwidth", "Throughput", "Packet loss"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "LAN stands for?",
+      "options": [
+        "Logical Area Network",
+        "Large Area Network",
+        "Linear Area Network",
+        "Local Area Network"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t5",
+      "topicName": "Types of Networks"
     },
     {
-      "question": "Latency is usually measured in ______.",
-      "options": ["Milliseconds", "Seconds", "Megabytes", "Packets"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "WAN covers?",
+      "options": [
+        "Entire city",
+        "Small building",
+        "Large geographic area",
+        "One room"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t5",
+      "topicName": "Types of Networks"
     },
     {
-      "question": "Which metric represents lost data packets during transmission?",
-      "options": ["Packet loss", "Latency", "Throughput", "Bandwidth"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "Example of PAN?",
+      "options": [
+        "Ethernet",
+        "Satellite",
+        "Bluetooth",
+        "Internet"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t5",
+      "topicName": "Types of Networks"
     },
     {
-      "question": "What does jitter represent in networking?",
-      "options": ["Variation in packet delay", "Maximum data speed", "Total packets transmitted", "Network encryption"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "OSI has how many layers?",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "8"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t6",
+      "topicName": "OSI Model"
     },
     {
-      "question": "Which metric is important for real-time applications like VoIP?",
-      "options": ["Low latency", "High packet loss", "Low bandwidth", "High jitter"],
+      "question": "TCP/IP model has?",
+      "options": [
+        "4 layers",
+        "5 layers",
+        "3 layers",
+        "7 layers"
+      ],
       "correctAnswer": 0,
-      "topicId": "qos",
-      "topicName": "Quality of Service"
+      "topicId": "t6",
+      "topicName": "TCP/IP Model"
     },
     {
-      "question": "What does QoS stand for?",
-      "options": ["Quality of Service", "Quantity of Signal", "Queue of System", "Quality of Security"],
-      "correctAnswer": 0,
-      "topicId": "qos",
-      "topicName": "Quality of Service"
-    },
-
-    {
-      "question": "Which delay occurs due to signal travel time through the medium?",
-      "options": ["Propagation delay", "Processing delay", "Queueing delay", "Transmission delay"],
-      "correctAnswer": 0,
-      "topicId": "network_delays",
-      "topicName": "Network Delays"
+      "question": "A protocol defines?",
+      "options": [
+        "Hardware",
+        "Speed",
+        "Rules of communication",
+        "Cable type"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t2",
+      "topicName": "Network Protocols and Communication"
     },
     {
-      "question": "Which delay occurs when routers examine packet headers?",
-      "options": ["Processing delay", "Propagation delay", "Transmission delay", "Queueing delay"],
-      "correctAnswer": 0,
-      "topicId": "network_delays",
-      "topicName": "Network Delays"
+      "question": "Example of connectionless service?",
+      "options": [
+        "TCP",
+        "HTTP",
+        "FTP",
+        "UDP"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t2",
+      "topicName": "Network Protocols and Communication"
     },
     {
-      "question": "Which delay occurs when packets wait in router buffers?",
-      "options": ["Queueing delay", "Propagation delay", "Transmission delay", "Processing delay"],
-      "correctAnswer": 0,
-      "topicId": "network_delays",
-      "topicName": "Network Delays"
+      "question": "Ethernet belongs to?",
+      "options": [
+        "Application",
+        "MAC sublayer",
+        "Network",
+        "Physical"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t10",
+      "topicName": "Network Technologies and Standards"
     },
     {
-      "question": "Which delay represents time required to push bits onto a link?",
-      "options": ["Transmission delay", "Propagation delay", "Processing delay", "Queueing delay"],
-      "correctAnswer": 0,
-      "topicId": "network_delays",
-      "topicName": "Network Delays"
+      "question": "What is bandwidth?",
+      "options": [
+        "Delay",
+        "Packet size",
+        "Frequency range",
+        "Error rate"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t9",
+      "topicName": "Network Performance Metrics"
     },
-
     {
-      "question": "Which technology provides very high bandwidth?",
-      "options": ["Fiber optics", "Copper cables", "Dial-up", "Bluetooth"],
-      "correctAnswer": 0,
-      "topicId": "network_media",
+      "question": "Fiber optics uses?",
+      "options": [
+        "Electricity",
+        "Sound",
+        "Radio waves",
+        "Light"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t7",
       "topicName": "Transmission Media"
     },
     {
-      "question": "Which application is most affected by high packet loss?",
-      "options": ["Video streaming", "File storage", "Printing", "Local backup"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "A server is?",
+      "options": [
+        "Storage device",
+        "Weak computer",
+        "Provides services to clients",
+        "Only database"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t1",
+      "topicName": "Client Server Model"
     },
-
     {
-      "question": "Which network device broadcasts data to all connected devices?",
-      "options": ["Hub", "Router", "Switch", "Gateway"],
+      "question": "Example of guided media?",
+      "options": [
+        "Fiber",
+        "Radio",
+        "Infrared",
+        "Microwave"
+      ],
       "correctAnswer": 0,
-      "topicId": "network_devices",
+      "topicId": "t7",
+      "topicName": "Transmission Media"
+    },
+    {
+      "question": "VPN stands for?",
+      "options": [
+        "Virtual Public Network",
+        "Virtual Private Network",
+        "Variable Private Network",
+        "Visual Protocol Network"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t11",
+      "topicName": "Network Security"
+    },
+    {
+      "question": "Peer-to-peer means?",
+      "options": [
+        "Only routers",
+        "Equal nodes",
+        "Only clients",
+        "Central server"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t1",
+      "topicName": "Network Models"
+    },
+    {
+      "question": "HTTP is used for?",
+      "options": [
+        "File transfer",
+        "Routing",
+        "Web browsing",
+        "Email"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t2",
+      "topicName": "Network Protocols and Communication"
+    },
+    {
+      "question": "SMTP is used for?",
+      "options": [
+        "Email sending",
+        "Encryption",
+        "Routing",
+        "File transfer"
+      ],
+      "correctAnswer": 0,
+      "topicId": "t2",
+      "topicName": "Network Protocols and Communication"
+    },
+    {
+      "question": "IP address identifies?",
+      "options": [
+        "Protocol",
+        "Device in network",
+        "Cable",
+        "User"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t8",
+      "topicName": "IP Addressing"
+    },
+    {
+      "question": "DNS resolves?",
+      "options": [
+        "Name → IP",
+        "IP → MAC",
+        "URL → File",
+        "Port → IP"
+      ],
+      "correctAnswer": 0,
+      "topicId": "t2",
+      "topicName": "DNS"
+    },
+    {
+      "question": "Router works at?",
+      "options": [
+        "Data Link",
+        "Transport",
+        "Network",
+        "Physical"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t3",
       "topicName": "Network Devices"
+    },
+    {
+      "question": "Switch works at?",
+      "options": [
+        "Transport",
+        "Network",
+        "Physical",
+        "Data Link"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t3",
+      "topicName": "Network Devices"
+    },
+    {
+      "question": "MAC address is?",
+      "options": [
+        "Logical",
+        "Virtual",
+        "Temporary",
+        "Physical"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t6",
+      "topicName": "OSI Model"
     }
   ],
-
   "medium": [
     {
-      "question": "Why is throughput usually lower than bandwidth?",
-      "options": ["Network overhead and congestion", "Packet encryption", "IP addressing", "MAC addressing"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "Difference between network & distributed system?",
+      "options": [
+        "Speed",
+        "Hardware",
+        "Software transparency",
+        "Size"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t1",
+      "topicName": "Distributed Systems"
     },
     {
-      "question": "Which device connects multiple networks together?",
-      "options": ["Router", "Switch", "Hub", "Repeater"],
-      "correctAnswer": 0,
-      "topicId": "network_devices",
-      "topicName": "Network Devices"
+      "question": "Client-server disadvantage?",
+      "options": [
+        "No scalability",
+        "Central dependency",
+        "No control",
+        "No security"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t1",
+      "topicName": "Client Server Model"
     },
     {
-      "question": "Which QoS technique reduces jitter?",
-      "options": ["Buffering", "Encryption", "Compression", "Fragmentation"],
+      "question": "Routing happens in?",
+      "options": [
+        "Data Link",
+        "Session",
+        "Network",
+        "Transport"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t6",
+      "topicName": "OSI Model"
+    },
+    {
+      "question": "Sliding window improves?",
+      "options": [
+        "Errors",
+        "Throughput",
+        "Delay",
+        "Bandwidth"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t3",
+      "topicName": "Data Link Layer"
+    },
+    {
+      "question": "CRC is used for?",
+      "options": [
+        "Encryption",
+        "Routing",
+        "Flow control",
+        "Error detection"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t3",
+      "topicName": "Error Control"
+    },
+    {
+      "question": "Stop-and-wait drawback?",
+      "options": [
+        "High speed",
+        "Complex",
+        "Low utilization",
+        "No reliability"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t3",
+      "topicName": "Flow Control"
+    },
+    {
+      "question": "CSMA/CD is used in?",
+      "options": [
+        "WiFi",
+        "Satellite",
+        "Ethernet",
+        "Fiber"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t4",
+      "topicName": "MAC Sublayer"
+    },
+    {
+      "question": "ALOHA problem?",
+      "options": [
+        "Delay",
+        "Collisions",
+        "Routing",
+        "Security"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t4",
+      "topicName": "MAC Sublayer"
+    },
+    {
+      "question": "Virtual circuit is?",
+      "options": [
+        "Connectionless",
+        "Broadcast",
+        "Multicast",
+        "Connection-oriented"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t5",
+      "topicName": "Network Layer"
+    },
+    {
+      "question": "Datagram network is?",
+      "options": [
+        "Stateless",
+        "Reliable",
+        "Fixed path",
+        "Connection-oriented"
+      ],
       "correctAnswer": 0,
-      "topicId": "qos",
-      "topicName": "Quality of Service"
+      "topicId": "t5",
+      "topicName": "Network Layer"
+    },
+    {
+      "question": "Congestion occurs when?",
+      "options": [
+        "Low traffic",
+        "No routers",
+        "High load",
+        "No packets"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t5",
+      "topicName": "Congestion Control"
+    },
+    {
+      "question": "Distance vector issue?",
+      "options": [
+        "Looping",
+        "Speed",
+        "Security",
+        "Memory"
+      ],
+      "correctAnswer": 0,
+      "topicId": "t5",
+      "topicName": "Routing Algorithms"
+    },
+    {
+      "question": "Link state advantage?",
+      "options": [
+        "Low memory",
+        "Accurate routing",
+        "Slow",
+        "No updates"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t5",
+      "topicName": "Routing Algorithms"
+    },
+    {
+      "question": "TCP provides?",
+      "options": [
+        "Unreliable",
+        "No order",
+        "Reliable delivery",
+        "No control"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "UDP is?",
+      "options": [
+        "Slow",
+        "Ordered",
+        "Reliable",
+        "Connectionless"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "TCP handshake ensures?",
+      "options": [
+        "Speed",
+        "Encryption",
+        "Reliability",
+        "Connection setup"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "Flow control prevents?",
+      "options": [
+        "Delay",
+        "Errors",
+        "Overloading receiver",
+        "Routing"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "Multiplexing allows?",
+      "options": [
+        "Error correction",
+        "Multiple signals sharing medium",
+        "Routing",
+        "Single signal"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t2",
+      "topicName": "Physical Layer"
+    },
+    {
+      "question": "FDM divides?",
+      "options": [
+        "Packets",
+        "Time",
+        "Signals",
+        "Frequency"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t2",
+      "topicName": "Physical Layer"
+    },
+    {
+      "question": "TDM divides?",
+      "options": [
+        "Frequency",
+        "Signals",
+        "Time",
+        "Packets"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t2",
+      "topicName": "Physical Layer"
+    },
+    {
+      "question": "DNS hierarchy is?",
+      "options": [
+        "Flat",
+        "Linear",
+        "Tree",
+        "Circular"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t7",
+      "topicName": "DNS"
+    },
+    {
+      "question": "Firewall protects?",
+      "options": [
+        "Routing",
+        "Delay",
+        "Security",
+        "Speed"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t11",
+      "topicName": "Network Security"
+    },
+    {
+      "question": "Encryption ensures?",
+      "options": [
+        "Confidentiality",
+        "Routing",
+        "Delay",
+        "Speed"
+      ],
+      "correctAnswer": 0,
+      "topicId": "t11",
+      "topicName": "Network Security"
+    },
+    {
+      "question": "RSA is?",
+      "options": [
+        "Hash",
+        "Symmetric",
+        "Routing",
+        "Asymmetric"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t11",
+      "topicName": "Cryptography"
+    },
+    {
+      "question": "CDN improves?",
+      "options": [
+        "Routing",
+        "Latency",
+        "Encryption",
+        "Security"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t7",
+      "topicName": "Content Delivery"
     }
   ],
-
   "hard": [
     {
-      "question": "Which formula represents throughput efficiency?",
-      "options": ["Successful data delivered / Total data sent", "Total packets / Latency", "Bandwidth × Latency", "Propagation delay / Packet size"],
-      "correctAnswer": 0,
-      "topicId": "network_metrics",
-      "topicName": "Network Metrics"
+      "question": "Why distributed systems appear as single system?",
+      "options": [
+        "Same OS",
+        "Middleware abstraction",
+        "Same IP",
+        "Hardware uniformity"
+      ],
+      "correctAnswer": 1,
+      "topicId": "t1",
+      "topicName": "Distributed Systems"
     },
     {
-      "question": "Which QoS mechanism ensures guaranteed bandwidth?",
-      "options": ["Traffic shaping", "Checksum verification", "Fragmentation", "ARP mapping"],
-      "correctAnswer": 0,
-      "topicId": "qos",
-      "topicName": "Quality of Service"
+      "question": "Best scenario for peer-to-peer?",
+      "options": [
+        "Banking",
+        "High security",
+        "Content sharing",
+        "Central control"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t1",
+      "topicName": "Network Models"
+    },
+    {
+      "question": "Why TCP slower than UDP?",
+      "options": [
+        "Larger packets",
+        "Routing",
+        "Encryption",
+        "Control overhead"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "Hidden terminal problem occurs in?",
+      "options": [
+        "Ethernet",
+        "Fiber",
+        "Satellite",
+        "Wireless networks"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t4",
+      "topicName": "Wireless Networks"
+    },
+    {
+      "question": "CSMA/CD fails in wireless because?",
+      "options": [
+        "No signals",
+        "No bandwidth",
+        "Cannot detect collisions easily",
+        "No routing"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t4",
+      "topicName": "MAC Sublayer"
+    },
+    {
+      "question": "Main issue in distance vector?",
+      "options": [
+        "Packet loss",
+        "Speed",
+        "Count-to-infinity",
+        "Delay"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t5",
+      "topicName": "Routing Algorithms"
+    },
+    {
+      "question": "Globally aware routing?",
+      "options": [
+        "Distance vector",
+        "Static",
+        "Flooding",
+        "Link state"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t5",
+      "topicName": "Routing Algorithms"
+    },
+    {
+      "question": "TCP congestion control reduces?",
+      "options": [
+        "Speed always",
+        "Packet size",
+        "Routing",
+        "Network overload"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "Slow start increases?",
+      "options": [
+        "Constant",
+        "Random",
+        "Linear",
+        "Exponential"
+      ],
+      "correctAnswer": 3,
+      "topicId": "t6",
+      "topicName": "Transport Layer"
+    },
+    {
+      "question": "Selective repeat advantage?",
+      "options": [
+        "Security",
+        "Simplicity",
+        "Efficiency",
+        "Speed"
+      ],
+      "correctAnswer": 2,
+      "topicId": "t3",
+      "topicName": "Data Link Layer"
     }
   ]
 }

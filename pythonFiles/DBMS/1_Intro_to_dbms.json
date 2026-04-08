@@ -1,0 +1,274 @@
+{
+    "slides": [
+        {
+            "title": "Introduction to DBMS",
+            "content": [
+                "DBMS (Database Management System) is software used to store, manage, and retrieve data",
+                "Acts as an interface between users and database",
+                "Ensures data security, consistency, and integrity",
+                "Examples: MySQL, Oracle, PostgreSQL"
+            ]
+        },
+        {
+            "title": "What is Data",
+            "content": [
+                "Data is raw, unprocessed facts and figures",
+                "It has no meaning on its own",
+                "Can be numbers, text, images, or symbols",
+                "Example: 45, 'Hello', true"
+            ]
+        },
+        {
+            "title": "Types of Data",
+            "content": [
+                "Numerical: Numbers like 123, 45.6",
+                "Textual: Words like 'Database'",
+                "Boolean: True or False",
+                "Categorical: Groups like Male/Female"
+            ]
+        },
+        {
+            "title": "Data Hierarchy",
+            "content": [
+                "Bit → Byte → Field → Record → File → Database",
+                "Bit is smallest unit (0 or 1)",
+                "Record is collection of fields",
+                "Database is collection of related files"
+            ]
+        },
+        {
+            "title": "What is Information",
+            "content": [
+                "Information is processed and meaningful data",
+                "Used for decision making",
+                "Example: Marks → Average Marks",
+                "Adds context and meaning to raw data"
+            ]
+        },
+        {
+            "title": "Data vs Information",
+            "content": [
+                "Data is raw, information is processed",
+                "Data has no meaning alone",
+                "Information is useful and meaningful",
+                "Example: [55, 78] → Average = 66.5"
+            ]
+        },
+        {
+            "title": "What is a Database",
+            "content": [
+                "A database is an organized collection of data",
+                "Allows easy access, management, and updates",
+                "Stores data in structured form",
+                "Example: Student database"
+            ]
+        },
+        {
+            "title": "Types of Databases",
+            "content": [
+                "Relational: Table-based (MySQL)",
+                "NoSQL: Flexible schema (MongoDB)",
+                "In-Memory: Fast access (Redis)",
+                "Distributed: Data across locations"
+            ]
+        },
+        {
+            "title": "Relational Database",
+            "content": [
+                "Stores data in tables (rows and columns)",
+                "Uses SQL for queries",
+                "Maintains relationships using keys",
+                "Follows ACID properties"
+            ]
+        },
+        {
+            "title": "NoSQL Database",
+            "content": [
+                "Stores unstructured or semi-structured data",
+                "Flexible schema design",
+                "Highly scalable",
+                "Used in big data applications"
+            ]
+        },
+        {
+            "title": "What is DBMS",
+            "content": [
+                "DBMS is software that manages databases",
+                "Provides data storage and retrieval",
+                "Controls access and ensures security",
+                "Handles data efficiently"
+            ]
+        },
+        {
+            "title": "Functions of DBMS",
+            "content": [
+                "Data Definition: Define structure",
+                "Data Manipulation: Insert, update, delete",
+                "Data Security: Access control",
+                "Data Recovery: Backup and restore"
+            ]
+        },
+        {
+            "title": "DBMS vs File System",
+            "content": [
+                "DBMS reduces redundancy, file system duplicates data",
+                "DBMS ensures security, file system is limited",
+                "DBMS supports concurrency",
+                "DBMS provides integrity and recovery"
+            ]
+        },
+        {
+            "title": "Need for DBMS",
+            "content": [
+                "Handles large amount of data efficiently",
+                "Reduces data redundancy",
+                "Improves data consistency",
+                "Supports multiple users"
+            ]
+        },
+        {
+            "title": "Advantages of DBMS",
+            "content": [
+                "Data security and integrity",
+                "Easy data retrieval using SQL",
+                "Supports concurrent users",
+                "Backup and recovery features"
+            ]
+        },
+        {
+            "title": "Disadvantages of DBMS",
+            "content": [
+                "High cost of setup and maintenance",
+                "Complex system",
+                "Performance overhead for small apps",
+                "Requires skilled professionals"
+            ]
+        },
+        {
+            "title": "Data Abstraction",
+            "content": [
+                "Hides complex details from users",
+                "Shows only essential information",
+                "Improves usability and security",
+                "Focuses on what not how"
+            ]
+        },
+        {
+            "title": "Levels of Abstraction",
+            "content": [
+                "Physical Level: how data is stored",
+                "Logical Level: what data is stored",
+                "View Level: user-specific view",
+                "Provides layered data access"
+            ]
+        },
+        {
+            "title": "Database Schema vs Instance",
+            "content": [
+                "Schema: structure of database",
+                "Instance: actual data at a moment",
+                "Schema is static",
+                "Instance changes frequently"
+            ]
+        },
+        {
+            "title": "DBMS Architecture",
+            "content": [
+                "Defines structure of database system",
+                "Includes 1-tier, 2-tier, 3-tier",
+                "Affects scalability and security",
+                "Used in different applications"
+            ]
+        },
+        {
+            "title": "1-Tier Architecture",
+            "content": [
+                "Database and UI on same system",
+                "Simple and fast",
+                "Used for testing or personal apps",
+                "Not scalable"
+            ]
+        },
+        {
+            "title": "2-Tier Architecture",
+            "content": [
+                "Client communicates directly with server",
+                "Supports multiple users",
+                "Used in small applications",
+                "Limited scalability"
+            ]
+        },
+        {
+            "title": "3-Tier Architecture",
+            "content": [
+                "Client, application server, database server",
+                "Highly scalable and secure",
+                "Used in web applications",
+                "Separates logic and data"
+            ]
+        },
+        {
+            "title": "Database Users",
+            "content": [
+                "Different users interact with DBMS differently",
+                "Includes DBA, end users, programmers",
+                "Each has specific role",
+                "Ensures smooth database operation"
+            ]
+        },
+        {
+            "title": "Database Administrator (DBA)",
+            "content": [
+                "Manages and maintains database",
+                "Handles security and backups",
+                "Optimizes performance",
+                "Ensures data integrity"
+            ]
+        },
+        {
+            "title": "End Users",
+            "content": [
+                "Interact with database via applications",
+                "Include casual, naive, and power users",
+                "Do not need technical knowledge",
+                "Example: banking app user"
+            ]
+        },
+        {
+            "title": "Application Programmers",
+            "content": [
+                "Develop applications using databases",
+                "Write SQL queries and code",
+                "Ensure smooth integration",
+                "Handle data operations"
+            ]
+        },
+        {
+            "title": "System Analysts",
+            "content": [
+                "Bridge business and technical requirements",
+                "Design database schema",
+                "Analyze user needs",
+                "Work with developers and DBAs"
+            ]
+        },
+        {
+            "title": "Data Scientists and Analysts",
+            "content": [
+                "Extract insights from data",
+                "Analyze patterns and trends",
+                "Use data for decision making",
+                "Create reports and visualizations"
+            ]
+        },
+        {
+            "title": "Summary",
+            "content": [
+                "DBMS manages data efficiently",
+                "Data becomes information after processing",
+                "Architecture and abstraction improve usability",
+                "DBMS is essential in modern applications"
+            ]
+        }
+    ]
+}

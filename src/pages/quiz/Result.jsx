@@ -1,18 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const Result = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   const [aiLoading, setAiLoading] = useState(false);
   const [aiData, setAiData] = useState(null);
-  const planText =
-    typeof aiData?.plan === "string"
-      ? aiData.plan
-      : aiData?.plan?.plan || "";
+  
   const state = location.state || {};
-
   const score = state.score || 0;
   const total = state.total || 0;
   const coinsEarned = state.coinsEarned || 0;
@@ -20,82 +18,132 @@ const Result = () => {
   const answers = state.answers || {};
   const previouslyCorrectIds = state.previouslyCorrectIds || [];
 
-  /* ================= AI HANDLER ================= */
+  const planText =
+    typeof aiData?.plan === "string"
+      ? aiData.plan
+      : aiData?.plan?.plan || "";
 
+  /* ================= AI HANDLER (Local + Remote) ================= */
   const handleAIAnalysis = async () => {
-    console.log("✅ AI BUTTON CLICKED");
-
     if (!questions.length) {
       alert("No quiz data found");
       return;
     }
 
-    // 🔥 BUILD CORRECT PAYLOAD
-    const topicStats = {};
-
-    questions.forEach((q) => {
-      const topic = q.topicName || q.topicId || "General";
-
-      if (!topicStats[topic]) {
-        topicStats[topic] = { correct: 0, total: 0 };
-      }
-
-      topicStats[topic].total++;
-
-      if (answers[q.id] === Number(q.correctAnswer)) {
-        topicStats[topic].correct++;
-      }
-    });
-
-    const topic_accuracy = {};
-    const avg_time_per_question = {};
-
-    Object.keys(topicStats).forEach((topic) => {
-      const { correct, total } = topicStats[topic];
-      topic_accuracy[topic] = (correct / total) * 100;
-      avg_time_per_question[topic] = 30;
-    });
-
-    const aiPayload = {
-      user_id: currentUser?.uid || "demo_user",
-      topic_accuracy,
-      avg_time_per_question,
-      mistakes: [],
-      recent_scores: [score],
-    };
-
-    console.log("🔥 CORRECT PAYLOAD:", aiPayload);
-
     setAiLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/analyze", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(aiPayload),
+      // 1. LOCAL RULE-BASED ANALYSIS (The "Stashed" version)
+      const topicsMap = {};
+      const weakTopics = [];
+      const topicStats = {};
+
+      questions.forEach((q) => {
+        const topic = q.topicName || q.topicId || "General";
+        if (!topicsMap[topic]) topicsMap[topic] = { correct: 0, total: 0 };
+        if (!topicStats[topic]) topicStats[topic] = { correct: 0, total: 0 };
+        
+        topicsMap[topic].total++;
+        topicStats[topic].total++;
+        
+        if (answers[q.id] === Number(q.correctAnswer)) {
+          topicsMap[topic].correct++;
+          topicStats[topic].correct++;
+        }
       });
 
-      const data = await res.json();
-      console.log("🤖 AI RESPONSE:", data);
+      Object.keys(topicsMap).forEach(name => {
+        const accuracy = (topicsMap[name].correct / topicsMap[name].total) * 100;
+        if (accuracy < 80) weakTopics.push(name);
+      });
 
-      setAiData(data);
+      const consolidatedPlan = [
+        { title: "Review Core Concepts", detail: `Go back and study the basics of ${weakTopics.slice(0, 3).join(", ")} ${weakTopics.length > 3 ? "...and other topics." : "."}` },
+        { title: "Practice Problems", detail: `Solve a few more practice questions specifically about ${weakTopics[0] || "these topics"}.` },
+        { title: "Analyze Mistakes", detail: "Check the Question Review below to see exactly where you went wrong in your answers." },
+        { title: "Apply What You've Learned", detail: "Try to explain these concepts in your own words or apply them to real-world examples." },
+        { title: "Track Your Progress", detail: "Take the quiz again after studying to see how much you've improved." }
+      ];
+
+      const percentage = total > 0 ? (score / total) * 100 : 0;
+      let feedback = { emoji: "🎯", text: "", level: "", range: "" };
+
+      if (percentage === 100) {
+        feedback = { level: "Perfect", range: "100%", emoji: "🟣", text: "Perfect score — outstanding performance! You’ve mastered this topic. Keep up the consistency and challenge yourself with harder problems." };
+      } else if (percentage >= 91) {
+        feedback = { level: "Very Good", range: "91% – 99%", emoji: "🔵", text: "Excellent work! You’re very close to mastery. Just minor improvements needed — polish those last details and aim for perfection." };
+      } else if (percentage >= 71) {
+        feedback = { level: "Good", range: "71% – 90%", emoji: "🟢", text: "Really good performance! You’ve understood most of the concepts — just a few gaps left. Focus on those weak areas and you’ll reach the next level." };
+      } else if (percentage >= 51) {
+        feedback = { level: "Average / Improving", range: "51% – 70%", emoji: "🟡", text: "You’re getting there — good progress! A few concepts need clarity, but you’re on the right track. Keep practicing and refining your understanding." };
+      } else if (percentage >= 21) {
+        feedback = { level: "Low", range: "21% – 50%", emoji: "🟠", text: "Looks like you gave it a shot! You might have relied a bit on guesses — try strengthening your concepts and revisiting the topics before your next attempt." };
+      } else {
+        feedback = { level: "Very Low", range: "0% – 20%", emoji: "🔴", text: "Well tried — this was a tough one. Don’t worry, everyone starts somewhere. Focus on understanding the basics first, and you’ll improve quickly." };
+      }
+
+      // Initial Local State
+      const localResult = {
+        feedback,
+        weakTopics,
+        plan: weakTopics.length > 0 ? consolidatedPlan : []
+      };
+
+      setAiData(localResult);
+
+      // 2. REMOTE AI ANALYSIS (The "Incoming" version)
+      const topic_accuracy = {};
+      const avg_time_per_question = {};
+      Object.keys(topicStats).forEach((topic) => {
+        const { correct, total } = topicStats[topic];
+        topic_accuracy[topic] = (correct / total) * 100;
+        avg_time_per_question[topic] = 30;
+      });
+
+      const aiPayload = {
+        user_id: currentUser?.uid || "demo_user",
+        topic_accuracy,
+        avg_time_per_question,
+        mistakes: [],
+        recent_scores: [score],
+      };
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(aiPayload),
+        });
+
+        if (res.ok) {
+          const remoteData = await res.json();
+          console.log("🤖 AI REMOTE RESPONSE:", remoteData);
+          // Merge remote data into local context
+          setAiData({
+            ...localResult,
+            ...remoteData,
+            // Prioritize remote weak topics if available
+            weakTopics: remoteData.analysis?.weak_topics || weakTopics
+          });
+        }
+      } catch (apiErr) {
+        console.warn("⚠️ Local AI server not reachable, using local fallback.");
+      }
+
     } catch (err) {
-      console.error("❌ API ERROR:", err);
+      console.error("❌ ANALYSIS_ERROR:", err);
+    } finally {
+      setAiLoading(false);
     }
-
-    setAiLoading(false);
   };
 
   /* ================= UI ================= */
-
   return (
-    <main className="max-w-4xl mx-auto pb-20">
-      <section className="mb-12">
+    <main className="max-w-4xl mx-auto pb-20 px-4">
+      <section className="mb-12 mt-8">
         <div className="flex flex-col gap-1">
           <h1 className="text-3xl font-headline font-bold text-on-surface tracking-tight uppercase">Mission debriefing</h1>
-          <p className="text-slate-500 font-label text-xs uppercase tracking-[0.4em]">SYNC_COMPLETE // ANALYSIS_READY</p>
+          <p className="text-slate-500 font-label text-xs uppercase tracking-[0.4em]">SYNC_COMPLETE // PERFORMANCE_ANALYSIS</p>
         </div>
       </section>
 
@@ -129,8 +177,7 @@ const Result = () => {
         <button
           onClick={handleAIAnalysis}
           disabled={aiLoading}
-          className={`w-full py-6 asymmetric-card hud-border transition-all flex items-center justify-center gap-4 group ${aiLoading ? 'bg-surface-container-low' : 'bg-primary/10 hover:bg-primary/20 border-primary/30'
-            }`}
+          className={`w-full py-6 asymmetric-card hud-border transition-all flex items-center justify-center gap-4 group ${aiLoading ? 'bg-surface-container-low animate-pulse' : 'bg-primary/10 hover:bg-primary/20 border-primary/30'}`}
         >
           <div className={`w-8 h-8 rounded-full border border-primary/30 flex items-center justify-center transition-all ${aiLoading ? 'animate-spin' : 'group-hover:scale-110'}`}>
             <span className="material-symbols-outlined text-primary text-base">
@@ -146,37 +193,99 @@ const Result = () => {
           <div className="mt-8 bg-[#131313] asymmetric-card hud-border p-8 animate-in fade-in slide-in-from-top-4 duration-500">
             <div className="flex items-center gap-2 mb-8">
               <span className="material-symbols-outlined text-primary text-xl">smart_toy</span>
-              <h3 className="font-headline font-semibold text-xs text-slate-500 uppercase tracking-[0.3em]">AI_COACH_OUTPUT :: VER_1.0</h3>
+              <h3 className="font-headline font-semibold text-xs text-slate-500 uppercase tracking-[0.3em]">AI_COACH_OUTPUT :: VER_2.0_HYBRID</h3>
             </div>
 
-            <div className="space-y-8">
-              <div>
-                <h4 className="font-headline font-semibold text-on-surface uppercase tracking-widest text-sm mb-4">Strategic Summary</h4>
-                <p className="font-body text-slate-400 text-sm leading-relaxed max-w-2xl">
-                  Subject shows vulnerability in <span className="text-error font-semibold">{aiData.analysis?.weak_topics?.length || 0}</span> specialized topic zones.
-                  Efficiency metrics suggest immediate recalibration in the following sectors.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="font-headline font-semibold text-on-surface uppercase tracking-widest text-[10px] mb-4">Tactical Weaknesses</h4>
-                <div className="flex flex-wrap gap-2">
-                  {aiData.analysis?.weak_topics?.map((topic, i) => (
-                    <span key={i} className="px-3 py-1 bg-error/10 border border-error/20 text-error font-headline text-[9px] font-semibold uppercase tracking-widest rounded-sm">
-                      {topic}
-                    </span>
-                  ))}
+            <div className="space-y-10">
+              {/* 1. SCORE FEEDBACK (LOCAL) */}
+              {aiData.feedback && (
+                <div className="bg-surface-container-lowest p-6 rounded border border-white/5">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[10px] font-headline font-bold text-slate-500 uppercase tracking-[0.2em]">
+                      {aiData.feedback.emoji} {aiData.feedback.range} ({aiData.feedback.level})
+                    </p>
+                    <h4 className="font-headline font-bold text-on-surface text-lg leading-tight">
+                      {aiData.feedback.text}
+                    </h4>
+                  </div>
                 </div>
-              </div>
+              )}
 
+              {/* 2. STRATEGIC SUMMARY (REMOTE) */}
+              {aiData.analysis?.summary && (
+                <div>
+                  <h4 className="font-headline font-semibold text-on-surface uppercase tracking-widest text-[10px] mb-3 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[12px] text-secondary">analytics</span>
+                    Strategic Summary
+                  </h4>
+                  <p className="font-body text-slate-400 text-xs leading-relaxed max-w-2xl uppercase tracking-wider">
+                    {aiData.analysis.summary}
+                  </p>
+                </div>
+              )}
+
+              {/* 3. WEAK TOPICS (HYBRID) */}
+              {aiData.weakTopics?.length > 0 && (
+                <div>
+                  <h4 className="font-headline font-semibold text-on-surface uppercase tracking-widest text-[10px] mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[12px] text-error">warning</span>
+                    Vulnerability Zones
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {aiData.weakTopics.map((topic, i) => (
+                      <span key={i} className="px-3 py-1 bg-error/10 border border-error/20 text-error font-headline text-[9px] font-semibold uppercase tracking-widest rounded-sm">
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 4. ACTION PLAN (HYBRID) */}
               <div>
-                <h4 className="font-headline font-semibold text-on-surface uppercase tracking-widest text-[10px] mb-4">Remediation Steps</h4>
-                <div className="grid gap-3">
-                  {planText.split("\n").filter(l => l.trim().startsWith("Step")).map((step, i) => (
-                    <div key={i} className="p-4 bg-surface-container-lowest border-l-2 border-primary rounded-r">
-                      <p className="font-body text-xs text-on-surface uppercase tracking-wider">{step}</p>
+                <h4 className="font-headline font-semibold text-on-surface uppercase tracking-widest text-[10px] mb-6 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[12px] text-primary">edit_note</span>
+                  Remediation Protocol
+                </h4>
+                
+                <div className="space-y-6">
+                  {typeof aiData.plan === "string" ? (
+                    // Server-side string plan
+                    <div className="grid gap-4">
+                      {planText.split("\n").filter(l => l.trim()).map((step, i) => (
+                        <div key={i} className="p-4 bg-surface-container-lowest border-l-2 border-primary group hover:bg-primary/5 transition-colors">
+                           <p className="font-body text-[10px] text-on-surface uppercase tracking-widest leading-relaxed">
+                             {step.startsWith("Step") ? (
+                               <span className="text-primary font-bold mr-2">{step.split(":")[0]}:</span>
+                             ) : null}
+                             {step.includes(":") ? step.split(":").slice(1).join(":") : step}
+                           </p>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  ) : aiData.plan?.length > 0 ? (
+                    // Local-side array plan
+                    <div className="grid gap-6">
+                      {aiData.plan.map((step, i) => (
+                        <div key={i} className="group">
+                          <p className="font-headline font-bold text-[11px] text-on-surface uppercase tracking-widest mb-2 transition-colors group-hover:text-primary">
+                            Step {i + 1} — {step.title}
+                          </p>
+                          <div className="pl-4 border-l border-white/5 flex gap-3 items-start group-hover:border-primary/30 transition-colors">
+                            <span className="text-primary text-[10px] mt-0.5">→</span>
+                            <p className="font-body text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                              {step.detail}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-8 bg-tertiary/5 border border-tertiary/20 rounded asymmetric-card-small flex flex-col items-center gap-4">
+                      <span className="material-symbols-outlined text-tertiary text-4xl animate-pulse">check_circle</span>
+                      <p className="font-headline text-[10px] text-tertiary uppercase tracking-[0.3em] text-center font-bold">Great job! All topics mastered.</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -201,8 +310,8 @@ const Result = () => {
             <div key={q.id} className={`bg-[#131313] asymmetric-card-small hud-border p-8 border-l-4 ${isCorrect ? 'border-tertiary/20' : 'border-error/20'}`}>
               <div className="flex justify-between items-start mb-6">
                 <div className="flex flex-col gap-2">
-                   <span className="font-headline text-[10px] font-bold text-slate-700 uppercase tracking-widest">Question 0{index + 1}</span>
-                   {wasCorrectPreviously && <span className="font-headline text-[8px] font-semibold text-primary uppercase tracking-[0.2em] bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full inline-block w-max">Previously Secured</span>}
+                  <span className="font-headline text-[10px] font-bold text-slate-700 uppercase tracking-widest">Question 0{index + 1}</span>
+                  {wasCorrectPreviously && <span className="font-headline text-[8px] font-semibold text-primary uppercase tracking-[0.2em] bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full inline-block w-max">Previously Secured</span>}
                 </div>
                 <div className={`px-3 py-1 rounded text-[9px] font-headline font-semibold uppercase tracking-widest ${isCorrect ? 'bg-tertiary/10 text-tertiary border border-tertiary/20' : 'bg-error/10 text-error border border-error/20'}`}>
                   {isCorrect ? 'VALID_PROTOCOL' : 'PROTOCOL_ERROR'}
@@ -222,10 +331,10 @@ const Result = () => {
                     <div
                       key={i}
                       className={`p-4 font-body text-xs uppercase tracking-widest rounded transition-all ${isCorrectOption
-                          ? 'bg-tertiary/20 border border-tertiary shadow-[0_0_15px_rgba(78,222,163,0.1)] text-on-surface font-semibold'
-                          : isUserSelection
-                            ? 'bg-error/20 border border-error text-error'
-                            : 'bg-surface-container-lowest border border-white/5 text-slate-500 opacity-60'
+                        ? 'bg-tertiary/20 border border-tertiary shadow-[0_0_15px_rgba(78,222,163,0.1)] text-on-surface font-semibold'
+                        : isUserSelection
+                          ? 'bg-error/20 border border-error text-error'
+                          : 'bg-surface-container-lowest border border-white/5 text-slate-500 opacity-60'
                         }`}
                     >
                       <div className="flex items-center gap-3">

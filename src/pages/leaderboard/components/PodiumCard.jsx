@@ -17,15 +17,24 @@ const PodiumCard = ({ user, rank, getInitials, large }) => {
           {rank === 1 && <div className="podium-crown">👑</div>}
   
           <div
-            className="podium-avatar"
+            className="podium-avatar flex items-center justify-center bg-surface"
             style={{
               width: size,
               height: size,
               fontSize: large ? 34 : 24,
               border: `4px solid ${rankColor}`,
+              overflow: "hidden",
             }}
           >
-            {getInitials(user?.name)}
+            {user?.photoURL ? (
+              <img 
+                src={user.photoURL} 
+                alt={user.name || "Operator"} 
+                className="w-full h-full object-cover" 
+              />
+            ) : (
+              getInitials(user?.name)
+            )}
           </div>
   
           <div

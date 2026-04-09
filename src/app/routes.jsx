@@ -23,6 +23,9 @@ import ProtectedRoute from '../components/common/ProtectedRoute.jsx'
 import AdminRoute from '../components/common/AdminRoute.jsx'
 import AdminDashboard from '../pages/admin/AdminDashboard.jsx'
 
+import Profile from '../pages/profile/Profile.jsx'
+import Support from '../pages/support/Support.jsx'
+
 const routes = [
 
   // ================= PUBLIC ROUTES =================
@@ -169,6 +172,26 @@ const routes = [
       <AdminRoute>
         <AdminDashboard />
       </AdminRoute>
+    ),
+  },
+
+  // ================= USER SETTINGS =================
+
+  {
+    path: '/profile',
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
+  },
+
+  {
+    path: '/support',
+    element: (
+      <ProtectedRoute>
+        <Support />
+      </ProtectedRoute>
     ),
   },
 

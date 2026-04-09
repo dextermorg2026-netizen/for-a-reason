@@ -4,10 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { currentUser, loginUser, signInWithGoogle } = useAuth();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { currentUser, signInWithGoogle } = useAuth();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,206 +16,105 @@ const Login = () => {
     }
   }, [currentUser, navigate]);
 
-  /* ================= EMAIL LOGIN ================= */
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  /* ================= GOOGLE LOGIN ================= */
+  const handleGoogleLogin = async () => {
     try {
       setLoading(true);
       setError("");
-      await loginUser(email, password);
+      await signInWithGoogle();
       navigate("/");
     } catch (err) {
-      setError(err.message || "Login failed");
+      setError(err.message || "Authentication failed. Check your connection.");
     } finally {
       setLoading(false);
     }
   };
 
-  /* ================= GOOGLE LOGIN ================= */
-  const handleGoogleLogin = async () => {
-    try {
-      setError("");
-      await signInWithGoogle();
-    } catch (err) {
-      setError(err.message || "Google login failed");
-    }
-  };
-
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "40px",
-      }}
-    >
-      <div
-        className="glass-card"
-        style={{
-          width: "420px",
-          padding: "40px",
-        }}
-      >
-        <h1
-          className="page-title"
-          style={{ textAlign: "center" }}
-        >
-          Welcome Back 👋
-        </h1>
+    <div className="min-h-screen bg-[#131313] flex items-center justify-center p-4 relative overflow-hidden">
+      {/* BACKGROUND DECORATIONS */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 blur-[120px] rounded-full"></div>
+      
+      {/* AMBIENT GRID (OPTIONAL TEXTURE) */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+           style={{ backgroundImage: `radial-gradient(var(--primary) 1px, transparent 1px)`, backgroundSize: '32px 32px' }}>
+      </div>
 
-        <p
-          className="page-subtitle"
-          style={{
-            textAlign: "center",
-            marginBottom: "30px",
-          }}
-        >
-          Login to continue your journey
-        </p>
+      <div className="glass-panel asymmetric-card w-full max-w-[440px] p-10 relative group fade-in">
+        {/* HUD CORNER ACCENTS */}
+        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary/30 rounded-tl-xl transition-all group-hover:border-primary"></div>
+        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary/30 group-hover:border-primary transition-all"></div>
 
-        {/* ERROR MESSAGE */}
+        {/* HEADER SECTION */}
+        <div className="mb-12 text-center">
+          <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 mx-auto mb-6 primary-glow relative">
+            <span className="material-symbols-outlined text-primary text-4xl">security</span>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-tertiary rounded-full pulse-emerald"></div>
+          </div>
+          
+          <h1 className="font-headline text-3xl font-bold tracking-tighter text-white mb-2 uppercase italic">
+            OPERATOR AUTH
+          </h1>
+          <p className="text-slate-500 text-[10px] tracking-[0.3em] uppercase font-bold">
+            Establishing Secure Uplink...
+          </p>
+        </div>
+
+        {/* ERROR DISPLAY */}
         {error && (
-          <div
-            style={{
-              marginBottom: "20px",
-              padding: "10px 14px",
-              borderRadius: "10px",
-              background: "rgba(239,68,68,0.1)",
-              color: "var(--danger)",
-              fontSize: "14px",
-            }}
-          >
+          <div className="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-wider flex items-center gap-3 animate-shake">
+            <span className="material-symbols-outlined text-base">warning</span>
             {error}
           </div>
         )}
 
-        {/* EMAIL LOGIN */}
-        <form onSubmit={handleLogin}>
-          <div style={{ marginBottom: "20px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "6px",
-                fontSize: "14px",
-                color: "var(--text-muted)",
-              }}
+        {/* MAIN ACTION AREA */}
+        <div className="space-y-6">
+          <div className="relative group/btn">
+            <button
+              onClick={handleGoogleLogin}
+              disabled={loading}
+              className="w-full bg-[#1a1a1f] border border-white/5 py-5 rounded-xl text-white text-xs font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-[#25252a] hover:border-primary/50 transition-all duration-300 relative overflow-hidden active:scale-95 disabled:opacity-50"
             >
-              Email
-            </label>
-
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
-              style={{
-                width: "100%",
-                padding: "12px 14px",
-                borderRadius: "12px",
-                border: "none",
-                background: "var(--bg-glass)",
-                color: "var(--text-primary)",
-                outline: "none",
-              }}
-            />
+              {loading ? (
+                <span className="material-symbols-outlined animate-spin text-primary">sync</span>
+              ) : (
+                <>
+                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="G" />
+                  Sync Google Identity
+                </>
+              )}
+              
+              {/* BUTTON SHIMMER */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/btn:animate-shimmer"></div>
+            </button>
           </div>
 
-          <div style={{ marginBottom: "25px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "6px",
-                fontSize: "14px",
-                color: "var(--text-muted)",
-              }}
-            >
-              Password
-            </label>
-
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-              style={{
-                width: "100%",
-                padding: "12px 14px",
-                borderRadius: "12px",
-                border: "none",
-                background: "var(--bg-glass)",
-                color: "var(--text-primary)",
-                outline: "none",
-              }}
-            />
+          <div className="text-center space-y-4">
+            <p className="text-slate-600 text-[9px] uppercase tracking-widest leading-relaxed">
+              By initializing authentication, you agree to comply with simulation protocols and data encryption standards.
+            </p>
+            
+            <div className="flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary/40"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary/40"></span>
+            </div>
           </div>
-
-          <button
-            type="submit"
-            className="btn-primary"
-            style={{ width: "100%" }}
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-
-        {/* DIVIDER */}
-        <div
-          style={{
-            margin: "25px 0",
-            textAlign: "center",
-            fontSize: "14px",
-            color: "var(--text-muted)",
-          }}
-        >
-          — OR —
         </div>
 
-        {/* GOOGLE LOGIN */}
-        <button
-          onClick={handleGoogleLogin}
-              style={{
-                width: "100%",
-                padding: "12px",
-                borderRadius: "12px",
-                border: "1px solid var(--accent-primary)",
-                cursor: "pointer",
-                fontWeight: 600,
-                background: "transparent",
-                color: "var(--accent-primary)",
-              }}
->
-  Continue with Google
-</button>
-
-        {/* SIGNUP LINK */}
-        <p
-          style={{
-            marginTop: "25px",
-            textAlign: "center",
-            fontSize: "14px",
-            color: "var(--text-muted)",
-          }}
-        >
-          Don't have an account?{" "}
-          <span
-            style={{
-              color: "var(--accent-primary)",
-              cursor: "pointer",
-              fontWeight: 600,
-            }}
-            onClick={() => navigate("/signup")}
-          >
-            Sign up
-          </span>
-        </p>
+        {/* HUD FOOTER INFO */}
+        <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[8px] font-bold text-slate-500 tracking-tighter uppercase relative">
+          <div className="flex flex-col gap-1">
+            <span>Protocol: OAUTH_2.0</span>
+            <span>Status: READY</span>
+          </div>
+          <div className="text-right flex flex-col gap-1">
+            <span>Terminal: NEXUS_NODE_01</span>
+            <span className="text-primary/50">ENCRYPTION: AES-256</span>
+          </div>
+        </div>
       </div>
     </div>
   );

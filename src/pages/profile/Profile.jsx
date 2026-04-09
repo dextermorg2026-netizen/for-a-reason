@@ -5,35 +5,37 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
 
 const PREDEFINED_AVATARS = [
-  // 🎓 Students & Youth (8 Notionists vector portraits)
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Jack&backgroundColor=ffdfbf",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Jocelyn&backgroundColor=b6e3f4",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Mason&backgroundColor=c0aede",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Sophia&backgroundColor=d1d4f9",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Alexander&backgroundColor=ffdfbf",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Mia&backgroundColor=b6e3f4",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Arjun&backgroundColor=c0aede",
-  "https://api.dicebear.com/7.x/notionists/svg?seed=Aneka&backgroundColor=d1d4f9",
+  // 🎓 Students & Youth (8 Toon-Head portraits)
+  "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Leah",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?backgroundColor=c0aede&seed=Sophia",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Ryker",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Easton",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,d1d4f9,c0aede,b6e3f4,ffd5dc,ffdfbf&seed=Averyf",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,d1d4f9,c0aede,b6e3f4,ffd5dc,ffdfbf&seed=Liam",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Alexander",
+  "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Eden",
 
-  // 🧑‍🎓 Urban / Gen-Z (8 Micah vector portraits)
-  "https://api.dicebear.com/7.x/micah/svg?seed=Aiden&backgroundColor=ffdfbf",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Amelia&backgroundColor=d1d4f9",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Ethan&backgroundColor=c0aede",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Chloe&backgroundColor=b6e3f4",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Caleb&backgroundColor=ffdfbf",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Zoe&backgroundColor=d1d4f9",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=b6e3f4",
-  "https://api.dicebear.com/7.x/micah/svg?seed=Aisha&backgroundColor=c0aede",
+  // 🧑‍🎓 Urban / Gen-Z (8 Toon-Head portraits)
+  "https://api.dicebear.com/9.x/toon-head/svg?beard=chin,fullBeard,longBeard,moustacheTwirl,chinMoustache&beardProbability=0&hair=sideComed,spiky,undercut&seed=Brooklynn",
+  "https://api.dicebear.com/9.x/toon-head/svg?beard[]&beardProbability=0&clothes=dress&clothesColor=0b3286,b11f1f,ec4899&eyes=happy&hair=bun&hairColor=2c1b18,a55728&mouth=laugh&rearHair=longWavy&rearHairProbability=100&skinColor=f1c3a5&seed=Sarah",
+  "https://api.dicebear.com/9.x/toon-head/svg?seed=Oliver",
+  "https://api.dicebear.com/9.x/toon-head/svg?clothes=shirt&clothesColor=b11f1f,731ac3,545454,151613&eyebrows=sad&eyes=happy&hairColor=2c1b18&mouth=laugh,smile&skinColor=c68e7a,f1c3a5&seed=Andrea",
+
+
+  "https://api.dicebear.com/9.x/toon-head/svg?eyes=bow,happy,wide&mouth=angry,laugh,smile&rearHair=longStraight,neckHigh&rearHairProbability=0&skinColor=f1c3a5&seed=Jameson",
+  "https://api.dicebear.com/9.x/toon-head/svg?mouth=angry,laugh,smile&rearHair=longStraight,neckHigh&rearHairProbability=0&skinColor=f1c3a5&seed=Brian",
+  "https://api.dicebear.com/9.x/toon-head/svg?eyes=bow,happy,wide&mouth=angry,laugh,smile&rearHair=longStraight,neckHigh&rearHairProbability=0&skinColor=f1c3a5&seed=Liliana",
+  "https://api.dicebear.com/9.x/toon-head/svg?seed=Alexander",
 
   // 🐾 Animals (8 Diverse Animals via Icons8)
-  "https://img.icons8.com/color/150/dog.png",
-  "https://img.icons8.com/color/150/cat.png",
+  "https://img.icons8.com/?size=100&id=TQsd7VI4Lb6H&format=png&color=000000",
   "https://img.icons8.com/color/150/fox.png",
   "https://img.icons8.com/color/150/bear.png",
   "https://img.icons8.com/color/150/panda.png",
-  "https://img.icons8.com/color/150/monkey.png",
+  "https://img.icons8.com/?size=100&id=g7oQSfBmLJb1&format=png&color=000000",
   "https://img.icons8.com/color/150/lion.png",
-  "https://img.icons8.com/color/150/rabbit.png",
+  "https://img.icons8.com/?size=100&id=69301&format=png&color=000000",
+  "https://img.icons8.com/?size=100&id=8ogzInvS2gD2&format=png&color=000000",
 
   // 🤖 Drones / Bots (8)
   "https://api.dicebear.com/7.x/bottts/svg?seed=Robot1&backgroundColor=b6e3f4",
@@ -48,7 +50,7 @@ const PREDEFINED_AVATARS = [
 
 export default function Profile() {
   const { currentUser, userProfile } = useAuth();
-  
+
   const [displayName, setDisplayName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
@@ -112,11 +114,10 @@ export default function Profile() {
 
       <div className="bg-[#131317] p-8 rounded-2xl border border-white/5 relative overflow-hidden">
         {statusMsg.text && (
-          <div className={`mb-6 px-4 py-3 rounded-lg text-sm flex items-center gap-2 border ${
-            statusMsg.type === "success" 
-              ? "bg-tertiary/10 border-tertiary/30 text-tertiary" 
-              : "bg-error/10 border-error/30 text-error"
-          }`}>
+          <div className={`mb-6 px-4 py-3 rounded-lg text-sm flex items-center gap-2 border ${statusMsg.type === "success"
+            ? "bg-tertiary/10 border-tertiary/30 text-tertiary"
+            : "bg-error/10 border-error/30 text-error"
+            }`}>
             <span className="material-symbols-outlined text-lg">
               {statusMsg.type === "success" ? "check_circle" : "error"}
             </span>
@@ -162,18 +163,17 @@ export default function Profile() {
               <span>Select Visual Identifier</span>
               <span className="text-primary material-symbols-outlined text-xs">face</span>
             </label>
-            
+
             <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
               {PREDEFINED_AVATARS.map((avatarUrl, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setSelectedAvatar(avatarUrl)}
-                  className={`relative aspect-square rounded-full flex items-center justify-center overflow-hidden border-2 transition-all duration-300 ${
-                    selectedAvatar === avatarUrl
-                      ? "border-primary scale-110 shadow-[0_0_15px_rgba(221,183,255,0.4)]"
-                      : "border-transparent hover:border-primary/50 hover:scale-105 opacity-60 hover:opacity-100"
-                  }`}
+                  className={`relative aspect-square rounded-full flex items-center justify-center overflow-hidden border-2 transition-all duration-300 ${selectedAvatar === avatarUrl
+                    ? "border-primary scale-110 shadow-[0_0_15px_rgba(221,183,255,0.4)]"
+                    : "border-transparent hover:border-primary/50 hover:scale-105 opacity-60 hover:opacity-100"
+                    }`}
                 >
                   <img src={avatarUrl} alt={`Avatar option ${idx + 1}`} className="w-full h-full object-cover bg-white/5" />
                   {selectedAvatar === avatarUrl && (

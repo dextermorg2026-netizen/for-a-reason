@@ -11,6 +11,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [activeQuizzes, setActiveQuizzes] = useState([]);
+  const [duration, setDuration] = useState(20); // Default 20 minutes
 
   useEffect(() => {
     // Listen for quizzes that are waiting or playing
@@ -49,7 +50,8 @@ const AdminDashboard = () => {
       const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
       
       // Upload to Firestore
-      await createLiveQuiz(roomCode, questions, 'General', 1200);
+      const durationSeconds = duration * 60;
+      await createLiveQuiz(roomCode, questions, 'General', durationSeconds);
 
       // Send Global Notification
       await createGlobalNotification(
@@ -168,21 +170,40 @@ const AdminDashboard = () => {
             Upload JSON payload. System will auto-generate encryption key [ROOM CODE] and trigger global broadcast.
           </p>
           
-          <div className="relative mb-6">
-            <input 
-              type="file" 
-              id="json-upload"
-              accept=".json" 
-              onChange={handleFileChange}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-            />
-            <div className={`w-full p-4 border-2 border-dashed flex flex-col items-center justify-center gap-2 transition-all ${file ? 'border-primary/50 bg-primary/5' : 'border-white/10 bg-surface-container-lowest hover:border-white/20'}`}>
-              <span className={`material-symbols-outlined text-2xl ${file ? 'text-primary' : 'text-slate-500'}`}>
-                {file ? 'check_circle' : 'drive_folder_upload'}
-              </span>
-              <span className={`font-headline text-[10px] font-semibold uppercase tracking-widest ${file ? 'text-primary' : 'text-slate-500'}`}>
-                {file ? file.name : 'Select JSON Payload'}
-              </span>
+          <div className="space-y-4 mb-6">
+            <div className="relative group">
+              <input 
+                type="file" 
+                id="json-upload"
+                accept=".json" 
+                onChange={handleFileChange}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              />
+              <div className={`w-full p-4 border-2 border-dashed flex flex-col items-center justify-center gap-2 transition-all ${file ? 'border-primary/50 bg-primary/5' : 'border-white/10 bg-surface-container-lowest hover:border-white/20'}`}>
+                <span className={`material-symbols-outlined text-2xl ${file ? 'text-primary' : 'text-slate-500'}`}>
+                  {file ? 'check_circle' : 'drive_folder_upload'}
+                </span>
+                <span className={`font-headline text-[10px] font-semibold uppercase tracking-widest ${file ? 'text-primary' : 'text-slate-500'}`}>
+                  {file ? file.name : 'Select JSON Payload'}
+                </span>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <label className="text-[9px] font-headline font-bold text-slate-500 uppercase tracking-widest mb-2 block">
+                Mission Duration (Minutes)
+              </label>
+              <div className="flex items-center gap-4 bg-surface-container-lowest border border-white/10 p-3 rounded-sm">
+                <span className="material-symbols-outlined text-sm text-primary">timer</span>
+                <input 
+                  type="number" 
+                  min="1"
+                  max="180"
+                  value={duration}
+                  onChange={(e) => setDuration(parseInt(e.target.value) || 1)}
+                  className="bg-transparent border-none text-on-surface font-mono text-xs w-full focus:outline-none"
+                />
+              </div>
             </div>
           </div>
 

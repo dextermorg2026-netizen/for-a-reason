@@ -28,11 +28,18 @@ export const joinParticipant = async ({
     userId
   );
 
+  const sessionSnap = await getDoc(doc(db, "liveQuizzes", sessionId));
+  const sessionData = sessionSnap.data();
+
+  // If already playing, start the timer immediately for this user
+  const startedAt = sessionData?.status === "playing" ? Date.now() : null;
+
   await setDoc(
     ref,
     {
       username,
       joinedAt: Date.now(),
+      startedAt,
       answers: {},
       score: 0,
       coins: 0,
@@ -40,6 +47,17 @@ export const joinParticipant = async ({
     },
     { merge: true }
   );
+};
+
+// ==============================
+// 🔹 RECORD START TIME (USER ENTERED EXAM)
+// ==============================
+export const recordParticipantStartTime = async (sessionId, userId) => {
+  const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
+  const snap = await getDoc(ref);
+  if (snap.exists() && !snap.data().startedAt) {
+    await updateDoc(ref, { startedAt: Date.now() });
+  }
 };
 
 // ==============================
@@ -57,6 +75,20 @@ export const subscribeToLiveQuiz = (sessionId, callback) => { if (!sessionId) re
   const sessionRef = doc(db, "liveQuizzes", sessionId);
 
   return onSnapshot(sessionRef, (snap) => {
+    if (snap.exists()) {
+      callback(snap.data());
+    }
+  });
+};
+
+// ==============================
+// 🔹 SUBSCRIBE PARTICIPANT
+// ==============================
+export const subscribeToParticipant = (sessionId, userId, callback) => {
+  if (!sessionId || !userId) return () => {};
+  const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
+
+  return onSnapshot(ref, (snap) => {
     if (snap.exists()) {
       callback(snap.data());
     }
@@ -100,26 +132,31 @@ export const submitLiveAnswer = async ({
 
   await updateDoc(ref, {
     [`answers.${questionIndex}`]: selectedOptionIndex,
+    lastViewedIndex: questionIndex,
     updatedAt: Date.now(),
+  });
+};
+
+// ==============================
+// 🔹 UPDATE CURRENT INDEX
+// ==============================
+export const updateParticipantIndex = async (sessionId, userId, index) => {
+  const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
+  await updateDoc(ref, { 
+    lastViewedIndex: index,
+    updatedAt: Date.now()
   });
 };
 
 // ==============================
 // 🔹 START QUIZ (HOST)
 // ==============================
-export const startLiveQuiz = async (
-  sessionId,
-  durationInSeconds = 1200
-) => {
+export const startLiveQuiz = async (sessionId) => {
   const ref = doc(db, "liveQuizzes", sessionId);
-
-  const startTime = Date.now();
-  const endTime = startTime + durationInSeconds * 1000;
 
   await updateDoc(ref, {
     status: "playing",
-    startTime,
-    endTime,
+    startTime: Date.now()
   });
 };
 

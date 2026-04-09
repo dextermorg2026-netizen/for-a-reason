@@ -9,6 +9,9 @@ import {
   joinParticipant,
   calculateScore,
   getParticipant,
+  subscribeToParticipant,
+  recordParticipantStartTime,
+  updateParticipantIndex,
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -31,6 +34,7 @@ const LiveQuiz = () => {
   const [answersMap, setAnswersMap] = useState({});
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [participantData, setParticipantData] = useState(null);
   const [globalLiveDetail, setGlobalLiveDetail] = useState({ isLive: false, code: "" });
   const hasAutoSubmittedRef = useRef(false);
 
@@ -91,6 +95,16 @@ const LiveQuiz = () => {
       if (sessionId) {
         getLiveQuizQuestions(sessionId).then(setQuestions);
         subscribeToLiveQuiz(sessionId, setSession);
+        subscribeToParticipant(sessionId, currentUser.uid, (data) => {
+          setParticipantData(data);
+          // ✅ SYNC FROM SERVER IF LOCAL IS BEHIND OR MISSING
+          if (data?.answers && Object.keys(data.answers).length > Object.keys(answersMap).length) {
+             setAnswersMap(data.answers);
+          }
+          if (data?.lastViewedIndex !== undefined && data.lastViewedIndex > currentIndex) {
+             setCurrentIndex(data.lastViewedIndex);
+          }
+        });
 
         // ✅ CHECK IF ALREADY FINISHED
         if (currentUser?.uid) {
@@ -105,12 +119,19 @@ const LiveQuiz = () => {
     }
   }, [currentUser]);
 
+  // ================= PARTICIPANT START TRIGGER =================
+  useEffect(() => {
+    if (joined && session?.status === "playing" && !participantData?.startedAt) {
+      recordParticipantStartTime(sessionId, currentUser?.uid);
+    }
+  }, [session?.status, joined, participantData?.startedAt]);
+
   // ================= TIMER =================
   useEffect(() => {
-    if (!session?.endTime || session?.status !== "active") return;
+    if (!participantData?.startedAt || session?.status === "waiting") return;
   
-    const endAt = getMillis(session.endTime);
-    if (!endAt) return;
+    const duration = session?.duration || 1200; // default 20 mins
+    const endAt = participantData.startedAt + duration * 1000;
   
     const updateRemaining = () => {
       const remaining = Math.max(
@@ -123,13 +144,10 @@ const LiveQuiz = () => {
       if (remaining === 0) autoSubmit();
     };
   
-    // ✅ Immediate update (fixes 0:00 issue)
     updateRemaining();
-  
     const interval = setInterval(updateRemaining, 1000);
-  
     return () => clearInterval(interval);
-  }, [session?.endTime, session?.status]);
+  }, [participantData?.startedAt, session?.status, session?.duration]);
 
   const autoSubmit = async () => {
     if (hasAutoSubmittedRef.current) return;
@@ -146,26 +164,20 @@ const LiveQuiz = () => {
     }
   
     setIsFinished(true);
-    // Note: We intentionally avoid removing localStorage here to prevent refresh amnesia!
   };
 
-  // If host ends quiz for everyone, all joined users should move to result.
+  // ================= NAVIGATION =================
   useEffect(() => {
-    if (session?.status === "finished") {
-      // Force auto submit just in case they haven't yet
-      if (!hasAutoSubmittedRef.current) {
-        autoSubmit();
-      }
-
-      // Clear local storage ONLY when the session is actually done globally
+    if (session?.status === "finished" && isFinished) {
+      // Clear local storage ONLY when the user is truly done
       localStorage.removeItem("liveQuizSession");
 
-      // Everyone gets booted to the results screen
+      // Move to results
       navigate("/live/result", {
         state: { sessionId },
       });
     }
-  }, [session?.status]);
+  }, [session?.status, isFinished]);
 
   // ================= JOIN =================
   const handleJoin = async () => {
@@ -215,6 +227,7 @@ const LiveQuiz = () => {
       );
 
       subscribeToLiveQuiz(sessionId, setSession);
+      subscribeToParticipant(sessionId, currentUser.uid, setParticipantData);
       setJoined(true);
     } catch (err) {
       console.error("Failed to join:", err);
@@ -252,6 +265,11 @@ const LiveQuiz = () => {
       "liveQuizSession",
       JSON.stringify({ ...saved, currentIndex })
     );
+
+    // ✅ PERSIST TO FIREBASE FOR CROSS-DEVICE
+    if (sessionId && currentUser?.uid) {
+      updateParticipantIndex(sessionId, currentUser.uid, currentIndex);
+    }
   }, [currentIndex, joined]);
 
   // ================= SUBMIT =================
@@ -290,11 +308,11 @@ const LiveQuiz = () => {
             <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 flex items-center justify-between backdrop-blur-md shadow-[0_0_20px_rgba(221,183,255,0.2)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary animate-pulse">radar</span>
+                   <span className="material-symbols-outlined text-primary animate-pulse">radar</span>
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-headline font-bold text-primary uppercase tracking-[0.2em] mb-0.5">Active Mission Detected</h4>
-                  <p className="text-[11px] font-mono text-white/70 font-bold uppercase tracking-widest">{globalLiveDetail.code}</p>
+                   <h4 className="text-[10px] font-headline font-bold text-primary uppercase tracking-[0.2em] mb-0.5">Active Mission Detected</h4>
+                   <p className="text-[11px] font-mono text-white/70 font-bold uppercase tracking-widest">{globalLiveDetail.code}</p>
                 </div>
               </div>
               <button 
@@ -425,6 +443,10 @@ const LiveQuiz = () => {
                <p className="font-headline text-xs font-semibold text-on-surface tracking-widest">AWAITING_SQUAD_COMPLETION...</p>
              </div>
              <span className="material-symbols-outlined text-secondary animate-pulse">cloud_upload</span>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-white/5">
+             <SignalGame />
           </div>
         </div>
       </div>
@@ -580,4 +602,115 @@ const LiveQuiz = () => {
   );
 };
 
-export default LiveQuiz;
+// ==============================
+// 🎮 MINI-GAME: SIGNAL SYNC
+// ==============================
+const SignalGame = () => {
+  const [sequence, setSequence] = useState([]);
+  const [userSequence, setUserSequence] = useState([]);
+  const [isFlashing, setIsFlashing] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [score, setScore] = useState(0);
+  const [status, setStatus] = useState("idle"); // idle, playing, success, error
+
+  const startRound = () => {
+    const nextNode = Math.floor(Math.random() * 9);
+    const newSeq = [...sequence, nextNode];
+    setSequence(newSeq);
+    setUserSequence([]);
+    flashSequence(newSeq);
+  };
+
+  const flashSequence = async (seq) => {
+    setIsFlashing(true);
+    setStatus("playing");
+    for (let i = 0; i < seq.length; i++) {
+      setActiveIndex(seq[i]);
+      await new Promise(r => setTimeout(r, 600));
+      setActiveIndex(null);
+      await new Promise(r => setTimeout(r, 200));
+    }
+    setIsFlashing(false);
+  };
+
+  const handleNodeClick = (index) => {
+    if (isFlashing || status !== "playing") return;
+
+    const newSeq = [...userSequence, index];
+    setUserSequence(newSeq);
+
+    if (index !== sequence[newSeq.length - 1]) {
+      setStatus("error");
+      setTimeout(() => {
+        setSequence([]);
+        setUserSequence([]);
+        setScore(0);
+        setStatus("idle");
+      }, 1500);
+      return;
+    }
+
+    if (newSeq.length === sequence.length) {
+      setScore(s => s + 1);
+      setStatus("success");
+      setTimeout(startRound, 800);
+    }
+  };
+
+  return (
+    <div className="max-w-xs mx-auto text-center">
+      <div className="flex items-center justify-between mb-6">
+        <div className="text-left">
+          <h4 className="font-headline text-[10px] font-bold text-secondary uppercase tracking-[0.2em] mb-1">Signal Sync</h4>
+          <p className="font-headline text-[8px] text-slate-600 uppercase tracking-widest leading-none">Stabilize Encryption</p>
+        </div>
+        <div className="bg-secondary/10 border border-secondary/20 px-3 py-1 rounded">
+           <span className="font-mono text-xs text-secondary font-bold">LVL_{score}</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3 mb-6 p-4 bg-black/20 rounded-xl border border-white/5">
+        {[...Array(9)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => handleNodeClick(i)}
+            className={`aspect-square rounded-lg border transition-all duration-200 ${
+              activeIndex === i 
+                ? "bg-secondary shadow-[0_0_20px_#4cd7f6] border-secondary" 
+                : "bg-surface-container-lowest border-white/5 hover:border-white/10"
+            } ${status ==='error' && sequence.includes(i) ? 'border-error bg-error/10' : ''}`}
+          />
+        ))}
+      </div>
+
+      {status === "idle" && (
+        <button 
+          onClick={startRound}
+          className="w-full py-3 bg-secondary/20 border border-secondary/40 text-secondary font-headline text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-secondary/30 transition-all"
+        >
+          Initialize Sync
+        </button>
+      )}
+
+      {status === "playing" && (
+        <p className="font-headline text-[10px] text-slate-500 uppercase tracking-widest animate-pulse">
+          {isFlashing ? "Observing Signal..." : "Replicating..."}
+        </p>
+      )}
+
+      {status === "success" && (
+        <p className="font-headline text-[10px] text-tertiary uppercase tracking-widest font-bold">
+          Signal Locked
+        </p>
+      )}
+
+      {status === "error" && (
+        <p className="font-headline text-[10px] text-error uppercase tracking-widest font-bold">
+          Sync Corrupted
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default LiveQuiz;

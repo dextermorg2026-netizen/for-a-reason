@@ -49,7 +49,7 @@ const PREDEFINED_AVATARS = [
 ];
 
 export default function Profile() {
-  const { currentUser, userProfile } = useAuth();
+  const { currentUser, userProfile, refreshUser } = useAuth();
 
   const [displayName, setDisplayName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
@@ -84,6 +84,7 @@ export default function Profile() {
         photoURL: selectedAvatar
       });
 
+      await refreshUser();
       setStatusMsg({ text: "Profile identity updated successfully.", type: "success" });
     } catch (err) {
       console.error("Update failed:", err);
@@ -170,15 +171,25 @@ export default function Profile() {
                   key={idx}
                   type="button"
                   onClick={() => setSelectedAvatar(avatarUrl)}
-                  className={`relative aspect-square rounded-full flex items-center justify-center overflow-hidden border-2 transition-all duration-300 ${selectedAvatar === avatarUrl
-                    ? "border-primary scale-110 shadow-[0_0_15px_rgba(221,183,255,0.4)]"
-                    : "border-transparent hover:border-primary/50 hover:scale-105 opacity-60 hover:opacity-100"
+                  className={`relative aspect-square rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 ${selectedAvatar === avatarUrl
+                    ? "border-primary scale-110 shadow-[0_0_20px_rgba(221,183,255,0.4)]"
+                    : "border-white/10 hover:border-primary/50 hover:scale-105"
                     }`}
                 >
-                  <img src={avatarUrl} alt={`Avatar option ${idx + 1}`} className="w-full h-full object-cover bg-white/5" />
+                  <img 
+                    src={avatarUrl} 
+                    alt={`Avatar option ${idx + 1}`} 
+                    className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${
+                      selectedAvatar === avatarUrl 
+                        ? "brightness-110 saturate-125" 
+                        : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
+                    }`} 
+                  />
                   {selectedAvatar === avatarUrl && (
-                    <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-white drop-shadow-md">check</span>
+                    <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
+                      <div className="bg-primary/80 rounded-full p-1 shadow-lg">
+                        <span className="material-symbols-outlined text-white text-sm scale-75">check</span>
+                      </div>
                     </div>
                   )}
                 </button>

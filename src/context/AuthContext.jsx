@@ -37,13 +37,24 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  const refreshUser = async () => {
+    if (currentUser) {
+      await currentUser.reload();
+      const updatedUser = { ...currentUser }; // Clone to ensure reference change
+      setCurrentUser(updatedUser);
+      const profile = await getUserProfile(currentUser.uid);
+      setUserProfile(profile);
+    }
+  };
+
   const value = {
     currentUser,
     userProfile,
     signupUser,
     loginUser,
     logoutUser,
-    signInWithGoogle
+    signInWithGoogle,
+    refreshUser
   };
 
   return (

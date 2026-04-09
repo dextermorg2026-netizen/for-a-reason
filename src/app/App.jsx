@@ -28,18 +28,22 @@ function AppLayout() {
 
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [isLive, setIsLive] = useState(false);
+  const [liveCode, setLiveCode] = useState("");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
       let live = false;
+      let code = "";
       snap.forEach((doc) => {
         if (doc.data().status === "playing") {
           live = true;
+          code = doc.id; // Usually the doc ID is the room code
         }
       });
       setIsLive(live);
+      setLiveCode(code);
     });
     return () => unsub();
   }, []);
@@ -102,7 +106,12 @@ function AppLayout() {
             <NotificationDropdown 
               isOpen={showNotificationDropdown} 
               onClose={() => setShowNotificationDropdown(false)}
-              events={isLive ? [{ type: 'LIVE OPS', time: 'ACTIVE NOW', message: 'Mission control has detected an ongoing live broadcast assessment.' }] : []}
+              events={isLive ? [{ 
+                type: 'LIVE OPS', 
+                time: 'ACTIVE NOW', 
+                message: `Mission control detected an active assessment. CODE: ${liveCode}`,
+                code: liveCode
+              }] : []}
             />
 
             <button 

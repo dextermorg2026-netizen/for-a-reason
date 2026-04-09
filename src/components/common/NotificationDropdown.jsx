@@ -37,12 +37,48 @@ const NotificationDropdown = ({ isOpen, onClose, events = [] }) => {
                   </div>
                 ) : (
                   events.map((event, idx) => (
-                    <div key={idx} className="p-3 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+                    <div 
+                      key={idx} 
+                      className="p-3 bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group relative overflow-hidden"
+                      onClick={() => {
+                        if (event.code) {
+                          navigator.clipboard.writeText(event.code);
+                          // We could add a local state for 'copied' per item if needed, 
+                          // but for simplicity, we'll use a temporary visual indicator.
+                          const el = document.getElementById(`copy-indicator-${idx}`);
+                          if (el) {
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                            setTimeout(() => {
+                              el.style.opacity = '0';
+                              el.style.transform = 'translateY(10px)';
+                            }, 2000);
+                          }
+                        }
+                      }}
+                    >
+                      <div id={`copy-indicator-${idx}`} className="absolute inset-0 bg-primary/20 backdrop-blur-sm flex items-center justify-center opacity-0 transform translate-y-2 transition-all duration-300 pointer-events-none z-10">
+                        <span className="text-[10px] font-bold text-white uppercase tracking-widest flex items-center gap-2">
+                          <span className="material-symbols-outlined text-sm">content_copy</span>
+                          Code Copied to Clipboard
+                        </span>
+                      </div>
+                      
                       <div className="flex justify-between items-start mb-1">
                         <span className="text-[10px] font-headline font-bold text-primary group-hover:text-glow transition-all uppercase">{event.type || 'Mission'}</span>
                         <span className="text-[8px] font-mono text-slate-500">{event.time || 'T-Minus 0h'}</span>
                       </div>
-                      <p className="text-[11px] font-body text-slate-300 line-clamp-2">{event.message || 'New cognitive assessment available.'}</p>
+                      <p className="text-[11px] font-body text-slate-300 line-clamp-2">
+                        {event.message}
+                      </p>
+                      {event.code && (
+                        <div className="mt-2 flex items-center gap-2">
+                          <span className="text-[9px] px-2 py-0.5 bg-primary/10 border border-primary/20 text-primary font-mono rounded select-all font-bold tracking-widest">
+                            {event.code}
+                          </span>
+                          <span className="text-[8px] text-slate-500 italic">Click to copy</span>
+                        </div>
+                      )}
                     </div>
                   ))
                 )}

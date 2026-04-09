@@ -12,6 +12,8 @@ import {
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { onSnapshot, collection } from "firebase/firestore";
+import { db } from "../../services/firebase";
 
 const LiveQuiz = () => {
   const { currentUser, userProfile } = useAuth();
@@ -29,6 +31,7 @@ const LiveQuiz = () => {
   const [answersMap, setAnswersMap] = useState({});
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [globalLiveDetail, setGlobalLiveDetail] = useState({ isLive: false, code: "" });
   const hasAutoSubmittedRef = useRef(false);
 
   const isHost = userProfile?.role === "admin";
@@ -39,6 +42,28 @@ const LiveQuiz = () => {
       return value.toMillis();
     }
     return null;
+  };
+
+  // ================= GLOBAL LIVE DETECTION =================
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
+      let live = false;
+      let code = "";
+      snap.forEach((doc) => {
+        if (doc.data().status === "playing") {
+          live = true;
+          code = doc.id;
+        }
+      });
+      setGlobalLiveDetail({ isLive: live, code });
+    });
+    return () => unsub();
+  }, []);
+
+  const handleQuickSync = () => {
+    if (globalLiveDetail.code) {
+      setSessionId(globalLiveDetail.code);
+    }
   };
 
   // ================= RESTORE =================
@@ -258,7 +283,30 @@ const LiveQuiz = () => {
   // ================= RENDER =================
   if (!joined) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center p-6">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 gap-6">
+        {/* Active Mission Alert Banner */}
+        {globalLiveDetail.isLive && (
+          <div className="w-full max-w-md animate-bounce">
+            <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 flex items-center justify-between backdrop-blur-md shadow-[0_0_20px_rgba(221,183,255,0.2)]">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary animate-pulse">radar</span>
+                </div>
+                <div>
+                  <h4 className="text-[10px] font-headline font-bold text-primary uppercase tracking-[0.2em] mb-0.5">Active Mission Detected</h4>
+                  <p className="text-[11px] font-mono text-white/70 font-bold uppercase tracking-widest">{globalLiveDetail.code}</p>
+                </div>
+              </div>
+              <button 
+                onClick={handleQuickSync}
+                className="px-4 py-2 bg-primary/20 hover:bg-primary/40 border border-primary/40 rounded text-[9px] font-headline font-bold text-primary uppercase tracking-widest transition-all active:scale-95"
+              >
+                Quick Sync
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="w-full max-w-md bg-[#131313] asymmetric-card hud-border p-10 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors duration-1000"></div>
           

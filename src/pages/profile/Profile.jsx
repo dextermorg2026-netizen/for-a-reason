@@ -183,14 +183,13 @@ export default function Profile() {
                     : "border-white/10 hover:border-primary/50 hover:scale-105"
                     }`}
                 >
-                  <img 
-                    src={avatarUrl} 
-                    alt={`Avatar option ${idx + 1}`} 
-                    className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${
-                      selectedAvatar === avatarUrl 
-                        ? "brightness-110 saturate-125" 
-                        : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
-                    }`} 
+                  <img
+                    src={avatarUrl}
+                    alt={`Avatar option ${idx + 1}`}
+                    className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${selectedAvatar === avatarUrl
+                      ? "brightness-110 saturate-125"
+                      : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
+                      }`}
                   />
                   {selectedAvatar === avatarUrl && (
                     <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">

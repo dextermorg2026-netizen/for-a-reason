@@ -214,6 +214,19 @@ const LiveResult = () => {
                     <div className={`px-3 py-1 rounded text-[9px] font-headline font-semibold uppercase tracking-widest ${isCorrectAt ? 'bg-tertiary/10 text-tertiary border border-tertiary/20' : 'bg-error/10 text-error border border-error/20'}`}>
                        {isCorrectAt ? 'VALID_PROTOCOL' : userAns === undefined ? 'MISSING_DATA' : 'PROTOCOL_ERROR'}
                     </div>
+
+                    {/* Explanation Section */}
+                    {q.explanation && (
+                      <div className="bg-primary/5 border-l-2 border-primary/30 p-4 mt-6 animate-in fade-in slide-in-from-left-2 duration-700">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="material-symbols-outlined text-primary text-sm">info</span>
+                          <span className="font-headline text-[9px] font-bold text-primary uppercase tracking-widest">Tactical Briefing</span>
+                        </div>
+                        <p className="font-body text-xs text-slate-400 italic leading-relaxed">
+                          {q.explanation}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <h3 className="font-headline font-semibold text-on-surface text-lg uppercase tracking-tight mb-8">

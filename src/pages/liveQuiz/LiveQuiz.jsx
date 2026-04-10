@@ -17,6 +17,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { onSnapshot, collection } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import LiveHistorySection from "./components/LiveHistorySection";
 
 const LiveQuiz = () => {
   const { currentUser, userProfile } = useAuth();
@@ -415,6 +416,9 @@ const LiveQuiz = () => {
             </div>
           </div>
         </div>
+
+        {/* Global Personal History Section */}
+        <LiveHistorySection userId={currentUser?.uid} />
       </div>
     );
   }

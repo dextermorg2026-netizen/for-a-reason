@@ -1,46 +1,106 @@
 {
-    "topics": [
-      {
-        "title": "Back-of-the-Envelope Estimation",
-        "description": "Estimating system scale, storage, QPS and feasibility using quick calculations.",
-        "subtopics": [
-          {
-            "title": "Back-of-the-Envelope Estimation",
-            "theory": "1️⃣ Back-of-the-Envelope Estimation\n\nInterview Definition\n\nBack-of-the-envelope estimation is a quick, approximate calculation used to evaluate system scale, capacity, and feasibility using assumptions and rough numbers.\n\nWhy It Is Used\n\nCheck if design is feasible\n\nEstimate scale before deep design\n\nValidate architecture decisions\n\nWhat Interviewers Evaluate\n\nLogical thinking\n\nCorrect order of magnitude\n\nClear assumptions\n\nProper unit labeling\n\nImportant Rule\n\nPrecision is NOT required.\nFeasibility and reasoning are required."
-          },
-          {
-            "title": "Power of Two (Storage Basics)",
-            "theory": "2️⃣ Power of Two (Storage Basics)\n\nInterview Definition\n\nPower-of-two calculation refers to using binary-based data units (2¹⁰, 2²⁰, etc.) to estimate memory and storage accurately.\n\nMust Memorize\n\nUnit\n\nPower\n\nApprox\n\n1 KB\n\n2¹⁰\n\n~10³ bytes\n\n1 MB\n\n2²⁰\n\n~10⁶ bytes\n\n1 GB\n\n2³⁰\n\n~10⁹ bytes\n\n1 TB\n\n2⁴⁰\n\n~10¹² bytes\n\n1 PB\n\n2⁵⁰\n\n~10¹⁵ bytes\n\nKey Facts\n\n1 byte = 8 bits\n\n1 ASCII character ≈ 1 byte\n\nWhy Important\n\nAll storage, cache, and bandwidth calculations depend on this."
-          },
-          {
-            "title": "Latency Numbers Every Programmer Should Know",
-            "theory": "3️⃣ Latency Numbers Every Programmer Should Know\n\nInterview Definition\n\nLatency numbers describe the relative time taken by different system operations.\n\nSpeed Order (Fast → Slow)\n\nCPU cache\n\nRAM\n\nSSD/Disk\n\nNetwork (same region)\n\nNetwork (cross region)\n\nCore Insights\n\nMemory is fast\n\nDisk is slow\n\nNetwork is very slow\n\nCross-region calls are expensive\n\nCompression is cheaper than network transfer\n\nDesign Impact\n\nCache hot data\n\nAvoid disk seeks\n\nMinimize network calls"
-          },
-          {
-            "title": "Availability and Nines",
-            "theory": "4️⃣ Availability & Nines\n\nInterview Definition\n\nAvailability is the percentage of time a system remains operational.\n\nSLA (Service Level Agreement)\n\nFormal uptime guarantee to customers.\n\nNines of Availability\n\nAvailability\n\nDowntime/year\n\n99%\n\n~3.6 days\n\n99.9%\n\n~8.7 hours\n\n99.99%\n\n~52 minutes\n\n99.999%\n\n~5 minutes\n\nKey Insight\n\nEach extra “nine” increases cost and complexity significantly.\n\nTradeoff\n\nHigher availability → More redundancy → Higher cost."
-          },
-          {
-            "title": "Core Estimation Metrics",
-            "theory": "5️⃣ Core Estimation Metrics\n\n1. QPS (Queries Per Second)\n\nRequests handled per second.\n\nFormula:\n\nQPS = Total Requests per Day ÷ 86,400\n\n2. Peak QPS\n\nTraffic is uneven.\n\nRule:\n\nPeak ≈ 2 × Average\n\n3. Storage Estimation\n\nSteps:\n\nSize per item\n\nItems per day\n\nMultiply by retention period\n\n4. Bandwidth\n\nBandwidth = QPS × Response Size\n\n5. Cache Size\n\nCache hot data only.\nOften 80/20 rule applies.\n\n6. Number of Servers\n\nServers = Peak QPS ÷ QPS per server\n\nAdd buffer (20–30%)."
-          },
-          {
-            "title": "Example Flow Pattern",
-            "theory": "6️⃣ Example Flow Pattern (VERY IMPORTANT)\n\nStandard Interview Flow\n\nWrite assumptions\n\nCalculate DAU\n\nCalculate total actions/day\n\nCompute QPS\n\nCompute Peak QPS\n\nEstimate storage\n\nEstimate long-term storage"
-          },
-          {
-            "title": "Estimation Best Practices",
-            "theory": "7️⃣ Estimation Best Practices\n\nDo’s\n\nState assumptions\n\nUse round numbers\n\nLabel units\n\nThink aloud\n\nFocus on order of magnitude\n\nDon’ts\n\nDon’t overcalculate\n\nDon’t give exact precision\n\nDon’t mix bits and bytes\n\nDon’t forget peak traffic"
-          },
-          {
-            "title": "Important Terms",
-            "theory": "🔤 Important Terms (Definitions)\n\nAssumption\n\nA reasonable estimated input used when exact data is unavailable.\n\nOrder of Magnitude\n\nThe scale of a number (thousands, millions, billions).\n\nFeasibility\n\nWhether a system design can realistically work at the required scale.\n\nLatency\n\nTime delay between request and response.\n\nSLA\n\nService Level Agreement defining uptime guarantee.\n\nPeak Traffic\n\nHighest load during busy periods.\n\nThroughput\n\nAmount of work processed per unit time (e.g., QPS).\n\nBandwidth\n\nAmount of data transferred per second."
-          },
-          {
-            "title": "Practice Problems",
-            "theory": "Problems\n\nPractice Problems (With Solutions)\n\n1️⃣ QPS + Peak QPS\n\nProblem 1: News App Traffic\n\nA news app has:\n\n60 million MAU\n\n50% DAU\n\nEach active user opens the app 5 times per day\n\nEstimate:\n\nAverage QPS\n\nPeak QPS\n\nSolution\n\nAssumptions\n\n1 day = 86,400 seconds\n\nPeak ≈ 2× average\n\nCalculations\n\nDAU = 60M × 0.5 = 30M\n\nRequests/day = 30M × 5 = 150M\n\nAverage QPS = 150M ÷ 86,400 ≈ 1,700 QPS\n\nPeak QPS ≈ 2 × 1,700 = 3,400 QPS\n\nFinal Answer\n\nAvg ≈ 1.7K QPS\n\nPeak ≈ 3.4K QPS\n\n2️⃣ Storage Estimation\n\nProblem 2: Document Upload System\n\nSystem has:\n\n8 million DAU\n\nEach uploads 2 documents/day\n\nAvg document size = 5 MB\n\nRetention = 1 year\n\nEstimate:\n\nDaily storage\n\n1-year storage\n\nSolution\n\nAssumptions\n\n1 year = 365 days\n\nCalculations\n\nDocuments/day = 8M × 2 = 16M\n\nDaily storage = 16M × 5 MB = 80M MB\n\n= 80,000 GB\n\n= 80 TB/day\n\nYearly storage = 80 TB × 365 ≈ 29,200 TB\n\n≈ 29 PB\n\nFinal Answer\n\nDaily ≈ 80 TB\n\n1 year ≈ 29 PB"
-          }
-        ]
-      }
-    ]
-  }
+  "slides": [
+    {
+      "title": "Back-of-the-Envelope Estimation",
+      "content": [
+        "Back-of-the-envelope estimation is a quick approximate calculation to evaluate system scale and feasibility",
+        "Used to estimate capacity, traffic, and storage before detailed system design",
+        "Helps validate architecture decisions early in interviews",
+        "Focus is on logical reasoning and correct order of magnitude, not exact precision",
+        "Always state assumptions clearly and use proper units"
+      ]
+    },
+    {
+      "title": "Power of Two (Storage Basics)",
+      "content": [
+        "Storage calculations are based on binary powers such as 2^10, 2^20, 2^30",
+        "1 KB ≈ 10^3 bytes, 1 MB ≈ 10^6 bytes, 1 GB ≈ 10^9 bytes",
+        "1 TB ≈ 10^12 bytes and 1 PB ≈ 10^15 bytes",
+        "1 byte equals 8 bits and one ASCII character is approximately 1 byte",
+        "Important for estimating storage, memory usage, and bandwidth"
+      ]
+    },
+    {
+      "title": "Latency Basics",
+      "content": [
+        "Latency represents the time delay between request and response",
+        "CPU cache is fastest, followed by RAM, disk, and then network",
+        "Cross-region network calls are the slowest and most expensive",
+        "Memory access is faster than disk and network operations",
+        "System design should minimize disk access and network calls"
+      ]
+    },
+    {
+      "title": "Availability and Nines",
+      "content": [
+        "Availability is the percentage of time a system remains operational",
+        "99% availability means about 3.6 days downtime per year",
+        "99.9% gives around 8.7 hours downtime per year",
+        "99.99% gives around 52 minutes downtime per year",
+        "Higher availability requires more redundancy and increases system cost"
+      ]
+    },
+    {
+      "title": "Core Estimation Metrics",
+      "content": [
+        "QPS means queries per second and is calculated as total requests per day divided by 86400",
+        "Peak QPS is typically estimated as twice the average QPS",
+        "Storage estimation depends on size per item, number of items, and retention period",
+        "Bandwidth is calculated as QPS multiplied by response size",
+        "Number of servers is calculated using peak QPS divided by capacity per server with buffer"
+      ]
+    },
+    {
+      "title": "Estimation Flow Pattern",
+      "content": [
+        "Start by writing assumptions clearly before calculations",
+        "Estimate number of daily active users",
+        "Calculate total actions or requests per day",
+        "Compute average QPS and then peak QPS",
+        "Estimate storage requirements and long-term growth",
+        "Follow a structured approach to avoid missing steps"
+      ]
+    },
+    {
+      "title": "Estimation Best Practices",
+      "content": [
+        "Always state assumptions before solving",
+        "Use rounded numbers for easier calculations",
+        "Label all units clearly such as bytes, seconds, or requests",
+        "Focus on order of magnitude instead of exact values",
+        "Avoid mixing bits and bytes and do not ignore peak traffic"
+      ]
+    },
+    {
+      "title": "Important Terms",
+      "content": [
+        "Assumption is an estimated input used when exact data is unavailable",
+        "Order of magnitude represents the scale like thousands or millions",
+        "Feasibility checks whether the system design can work at scale",
+        "Latency is the delay between request and response",
+        "Throughput is the amount of work processed per unit time such as QPS",
+        "Bandwidth is the amount of data transferred per second"
+      ]
+    },
+    {
+      "title": "QPS Estimation Example",
+      "content": [
+        "Daily active users are calculated from total users and activity percentage",
+        "Total requests per day equals users multiplied by actions per user",
+        "Average QPS is calculated by dividing total requests by seconds in a day",
+        "Peak QPS is approximately twice the average QPS",
+        "Used to estimate system load and required infrastructure"
+      ]
+    },
+    {
+      "title": "Storage Estimation Example",
+      "content": [
+        "Calculate number of items generated per day based on user activity",
+        "Multiply items by size per item to get daily storage",
+        "Convert units from MB to GB or TB for clarity",
+        "Multiply daily storage by retention period to estimate long-term storage",
+        "Helps design storage systems for large-scale applications"
+      ]
+    }
+  ]
+}

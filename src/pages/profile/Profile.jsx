@@ -8,6 +8,7 @@ const PREDEFINED_AVATARS = [
   // ⭐ Featured Characters
   "/assets/avatars/rubiks_boy.png",
   "/assets/avatars/red_hair_girl.png",
+
   // 🎓 Students & Youth (8 Toon-Head portraits)
   "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Leah",
   "https://api.dicebear.com/9.x/fun-emoji/svg?backgroundColor=c0aede&seed=Sophia",

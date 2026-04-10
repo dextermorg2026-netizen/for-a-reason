@@ -1,54 +1,165 @@
 {
-    "topics": [
-      {
-        "title": "Design a URL Shortener",
-        "description": "Understanding large-scale URL shortening systems including hashing strategies, caching, database design, and redirect flows.",
-        "subtopics": [
-          {
-            "title": "Problem Overview",
-            "theory": "1️⃣ Problem Overview\n\nInterview Definition\n\nA URL shortener is a system that converts a long URL into a short, unique alias and redirects users from the short URL to the original URL efficiently at large scale.\n\n\n\nCore Use Cases\n\nURL Shortening\n\nURL Redirecting\n\nHigh availability\n\nScalability"
-          },
-          {
-            "title": "Back-of-the-Envelope Estimation",
-            "theory": "2️⃣ Back-of-the-Envelope Estimation\n\nInterview Definition\n\nBack-of-the-envelope estimation is a rough calculation used to validate system feasibility and scale.\n\n\n\nImportant Points\n\n100M URLs/day\n\n~365B URLs in 10 years\n\n62 characters allowed (0-9, a-z, A-Z)\n\n7 characters enough (62⁷ ≈ 3.5T)\n\n\n\nAdvantages\n\nPrevents under-designing\n\nHelps choose hash length\n\nValidates scalability\n\nDisadvantages\n\nApproximate numbers only\n\nDepends on assumptions"
-          },
-          {
-            "title": "API Design",
-            "theory": "3️⃣ API Design\n\nInterview Definition\n\nAPI design defines how clients interact with the URL shortening system using REST endpoints.\n\n\n\nImportant Points\n\nPOST /shorten → Create short URL\n\nGET /{shortURL} → Redirect\n\nUse HTTP 301 redirect\n\nStateless APIs\n\n\n\nAdvantages\n\nClean separation of responsibilities\n\nEasy scaling\n\nCache-friendly\n\nDisadvantages\n\nNeeds proper versioning\n\nMust handle invalid URLs"
-          },
-          {
-            "title": "Data Model",
-            "theory": "4️⃣ Data Model\n\nInterview Definition\n\nThe data model defines how URL mappings are stored persistently for scalability and reliability.\n\n\n\nTable Design\n\nid\n\nshort_url\n\nlong_url\n\n\n\nImportant Points\n\nid is BIGINT primary key\n\nshort_url indexed\n\nlong_url stored as text\n\nAppend-only system\n\n\n\nAdvantages\n\nSimple schema\n\nEasy indexing\n\nStrong consistency\n\nDisadvantages\n\nStorage grows continuously\n\nRequires sharding at scale"
-          },
-          {
-            "title": "Hash Function Design",
-            "theory": "5️⃣ Hash Function Design\n\nInterview Definition\n\nA hash function converts long URLs into short identifiers while ensuring uniqueness and scalability.\n\n\n\nTwo Approaches\n\n1. Hash + Collision Resolution\n\nUse MD5/SHA\n\nHandle collisions manually\n\nAdvantage\n\nSimple concept\n\nDisadvantage\n\nCollisions possible\n\nMultiple DB checks\n\n\n\n2. Base-62 Conversion (Preferred)\n\nConvert unique numeric ID → Base-62 string.\n\nExample:\n\n2009215674938 → zn9edcu\n\n\n\nAdvantages\n\nNo collisions\n\nFaster\n\nDeterministic\n\nDisadvantages\n\nRequires distributed ID generator"
-          },
-          {
-            "title": "URL Shortening Flow",
-            "theory": "6️⃣ URL Shortening Flow\n\nInterview Definition\n\nThe URL shortening flow generates a unique ID, converts it to a short code, stores it, and returns the short URL.\n\n\n\nFlow\n\nReceive long URL\n\nCheck duplicate\n\nGenerate unique ID\n\nConvert to Base-62\n\nStore in DB\n\nReturn short URL\n\n\n\nAdvantages\n\nCollision-free\n\nSimple logic\n\nScalable\n\nDisadvantages\n\nDB write required\n\nRequires ID coordination"
-          },
-          {
-            "title": "URL Redirecting Flow",
-            "theory": "7️⃣ URL Redirecting Flow\n\nInterview Definition\n\nThe redirecting flow retrieves the original URL using a cache-first strategy and returns an HTTP redirect response.\n\n\n\nFlow\n\nUser clicks short URL\n\nLoad balancer routes request\n\nCheck cache\n\nIf miss → check DB\n\nReturn 301 redirect\n\n\n\nAdvantages\n\nVery fast with cache\n\nDB load reduced\n\nDisadvantages\n\nCache consistency issues\n\nRequires proper TTL management"
-          },
-          {
-            "title": "Caching Strategy",
-            "theory": "8️⃣ Caching Strategy\n\nInterview Definition\n\nCaching stores frequently accessed URL mappings in memory to reduce latency and database load.\n\n\n\nImportant Concepts\n\nCache-aside pattern\n\nLRU eviction\n\nTTL\n\nDB as source of truth\n\n\n\nAdvantages\n\nMillisecond response time\n\nScales reads easily\n\nReduces DB pressure\n\nDisadvantages\n\nStale data risk\n\nExtra memory cost"
-          },
-          {
-            "title": "Additional Design Considerations",
-            "theory": "9️⃣ Additional Design Considerations\n\nRate Limiting\n\nLimits URL creation requests per user/IP.\n\nDatabase Replication\n\nPrimary handles writes, replicas handle reads.\n\nSharding\n\nSplit database across servers for scalability.\n\nAnalytics\n\nTrack click counts and usage.\n\nAvailability\n\nNo single point of failure."
-          },
-          {
-            "title": "Important Definitions",
-            "theory": "🔑 Important Definitions (Interview Words)\n\nUnique ID Generator\n\nA distributed system component that generates globally unique numeric IDs.\n\nBase-62 Encoding\n\nA numbering system using 62 characters to shorten numeric IDs.\n\nCache-Aside\n\nApplication checks cache first, then database if miss.\n\nTTL (Time To Live)\n\nTime duration before cached data expires.\n\nSharding\n\nHorizontal partitioning of database across multiple machines.\n\nReplication\n\nCopying data across servers for availability.\n\nStateless Server\n\nServer that does not store session locally.\n\n301 Redirect\n\nPermanent HTTP redirect response."
-          },
-          {
-            "title": "Final Summary",
-            "theory": "🎯 Final One-Line Summary\n\nA URL shortener uses a unique ID generator with Base-62 encoding, a simple relational data model, and a cache-first redirect strategy to serve billions of URL requests efficiently and reliably."
-          }
-        ]
-      }
-    ]
-  }
+  "slides": [
+    {
+      "title": "URL Shortener Overview",
+      "content": [
+        "A URL shortener converts long URLs into short unique aliases",
+        "Allows users to access original URLs using shortened links",
+        "Designed for high scalability and availability",
+        "Handles massive number of requests efficiently",
+        "Used in platforms like social media and messaging apps"
+      ]
+    },
+    {
+      "title": "Core Use Cases",
+      "content": [
+        "Shortening long URLs into compact links",
+        "Redirecting users from short URL to original URL",
+        "Handling high traffic with low latency",
+        "Ensuring high availability and reliability",
+        "Supporting scalable distributed systems"
+      ]
+    },
+    {
+      "title": "System Estimation",
+      "content": [
+        "System may handle around 100 million URLs per day",
+        "Total URLs can reach billions over years",
+        "Uses 62 characters including digits and alphabets",
+        "Short URL length of 6 to 7 characters is sufficient",
+        "Helps estimate storage and scalability requirements"
+      ]
+    },
+    {
+      "title": "API Design",
+      "content": [
+        "POST endpoint is used to create short URLs",
+        "GET endpoint is used to redirect to original URL",
+        "Uses HTTP 301 redirect for permanent redirection",
+        "APIs are stateless for scalability",
+        "Requires validation for invalid or malicious URLs"
+      ]
+    },
+    {
+      "title": "Data Model",
+      "content": [
+        "Stores mapping between short URL and long URL",
+        "Uses unique ID as primary key",
+        "Short URL is indexed for fast lookup",
+        "Long URL stored as text",
+        "System is append-only and continuously grows"
+      ]
+    },
+    {
+      "title": "Hashing Approach",
+      "content": [
+        "Hash functions convert long URLs into short identifiers",
+        "Methods include MD5 or SHA hashing",
+        "Collisions must be handled explicitly",
+        "May require multiple database checks",
+        "Less efficient for large-scale systems"
+      ]
+    },
+    {
+      "title": "Base62 Encoding",
+      "content": [
+        "Converts numeric ID into short string using 62 characters",
+        "Ensures no collision when used with unique IDs",
+        "Produces compact and readable URLs",
+        "Deterministic and fast conversion",
+        "Preferred method in large-scale systems"
+      ]
+    },
+    {
+      "title": "URL Shortening Flow",
+      "content": [
+        "System receives long URL from user",
+        "Checks if URL already exists",
+        "Generates unique ID",
+        "Converts ID into Base62 string",
+        "Stores mapping in database and returns short URL"
+      ]
+    },
+    {
+      "title": "URL Redirecting Flow",
+      "content": [
+        "User accesses short URL",
+        "Request is routed through load balancer",
+        "System checks cache for mapping",
+        "If cache miss occurs, fetch from database",
+        "Returns HTTP redirect response to original URL"
+      ]
+    },
+    {
+      "title": "Caching Strategy",
+      "content": [
+        "Uses cache-aside pattern for performance",
+        "Frequently accessed URLs stored in memory",
+        "LRU policy used for eviction",
+        "TTL defines cache expiration time",
+        "Database acts as source of truth"
+      ]
+    },
+    {
+      "title": "Performance Benefits",
+      "content": [
+        "Caching reduces database load significantly",
+        "Provides millisecond-level response time",
+        "Handles high read traffic efficiently",
+        "Improves user experience with faster redirects",
+        "Scales easily for large number of requests"
+      ]
+    },
+    {
+      "title": "System Challenges",
+      "content": [
+        "Cache consistency issues may arise",
+        "Storage grows continuously over time",
+        "Requires database sharding at scale",
+        "Handling duplicate URLs efficiently is needed",
+        "Requires proper monitoring and maintenance"
+      ]
+    },
+    {
+      "title": "Scalability Techniques",
+      "content": [
+        "Database sharding distributes data across servers",
+        "Replication improves read performance and availability",
+        "Load balancing distributes incoming traffic",
+        "Stateless servers allow horizontal scaling",
+        "System avoids single point of failure"
+      ]
+    },
+    {
+      "title": "Additional Features",
+      "content": [
+        "Rate limiting prevents abuse of system",
+        "Analytics tracks click counts and usage patterns",
+        "Monitoring ensures system reliability",
+        "Security prevents malicious URLs",
+        "Logging helps debugging and performance tuning"
+      ]
+    },
+    {
+      "title": "Important Concepts",
+      "content": [
+        "Unique ID generator creates globally unique identifiers",
+        "Base62 encoding converts numbers into short strings",
+        "Cache-aside loads data from DB on cache miss",
+        "TTL defines how long cache data is valid",
+        "Sharding distributes data horizontally",
+        "Replication copies data for availability"
+      ]
+    },
+    {
+      "title": "Final Summary",
+      "content": [
+        "URL shortener systems map long URLs to short identifiers",
+        "Base62 encoding with unique ID generation is preferred approach",
+        "Caching ensures fast redirection performance",
+        "Database design supports scalability and persistence",
+        "System handles billions of requests efficiently"
+      ]
+    }
+  ]
+}

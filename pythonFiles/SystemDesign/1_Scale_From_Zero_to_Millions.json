@@ -1,73 +1,112 @@
 {
-    "title": "Scale From Zero to Millions of Users",
-    "description": "Architecture evolution of a system as it grows from a single server to a globally distributed architecture.",
-    "topics": [
-    {
-    "title": "Scaling From Zero to Millions of Users",
-    "description": "Fundamental architecture evolution used in system design interviews.",
-    "subtopics": [
-    
-    {
-    "title": "Single Server Setup",
-    "theory": "A single server setup runs the web application, database, and services on one machine. It is the simplest architecture but introduces a Single Point of Failure (SPOF). If the server crashes, the entire system becomes unavailable. This model is typically used in early-stage startups or MVP products where traffic is low and simplicity is preferred."
-    },
-    
-    {
-    "title": "Web Tier vs Data Tier",
-    "theory": "Separating the web tier from the data tier improves system structure. The web tier handles HTTP requests, business logic, and authentication, while the data tier manages persistent storage such as SQL or NoSQL databases. This separation allows the application layer and database layer to evolve independently but the database can still become a bottleneck."
-    },
-    
-    {
-    "title": "Vertical vs Horizontal Scaling",
-    "theory": "Vertical scaling increases the resources of a single machine by adding CPU, RAM, or storage. Horizontal scaling distributes traffic across multiple machines. Vertical scaling is simpler but limited by hardware constraints, while horizontal scaling allows systems to grow almost indefinitely and improves fault tolerance."
-    },
-    
-    {
-    "title": "Load Balancer",
-    "theory": "A load balancer distributes incoming traffic across multiple web servers to prevent overload and improve system availability. It acts as a gateway between clients and servers, routing requests to healthy servers using health checks. If one server fails, traffic is automatically redirected to other available servers."
-    },
-    
-    {
-    "title": "Database Replication",
-    "theory": "Database replication duplicates database data across multiple machines using a primary-replica architecture. The primary database handles write operations while replica databases handle read operations. This improves read scalability, reliability, and availability but heavy write workloads can still create a bottleneck at the primary node."
-    },
-    
-    {
-    "title": "Cache",
-    "theory": "A cache is a fast in-memory storage layer that stores frequently accessed data to reduce database load and improve response latency. When a request arrives, the system first checks the cache. If the data is not present, it fetches from the database and stores it in the cache. Cache systems use eviction policies such as LRU and expiration rules like TTL."
-    },
-    
-    {
-    "title": "Content Delivery Network (CDN)",
-    "theory": "A Content Delivery Network is a globally distributed network of servers that cache static content such as images, CSS, JavaScript, and videos. By serving content from locations closer to users, CDNs reduce latency and decrease load on origin servers."
-    },
-    
-    {
-    "title": "Stateless Web Tier",
-    "theory": "A stateless architecture ensures that web servers do not store session data locally. Instead, session information is stored in shared storage such as Redis or databases. This allows any server to handle any request, enabling horizontal scaling and auto-scaling of web servers."
-    },
-    
-    {
-    "title": "Multi Data Center and GeoDNS",
-    "theory": "A multi data center architecture deploys system components across multiple geographic regions. GeoDNS routes users to the nearest healthy data center, reducing latency and improving disaster recovery. However, data synchronization across regions introduces eventual consistency challenges."
-    },
-    
-    {
-    "title": "Message Queue",
-    "theory": "A message queue allows services to communicate asynchronously. Producers send tasks to the queue while consumers process them later. This decouples services and prevents slow operations such as email sending or image processing from blocking user requests."
-    },
-    
-    {
-    "title": "Logging Metrics and Automation",
-    "theory": "Logging records system events and errors for debugging purposes. Metrics track system performance indicators such as latency, CPU usage, memory usage, and error rates. Automation tools enable continuous integration, deployment pipelines, and auto scaling, which are essential for large scale systems."
-    },
-    
-    {
-    "title": "Database Sharding",
-    "theory": "Sharding horizontally partitions a database into multiple smaller databases called shards. Each shard stores a subset of the data determined by a sharding key. Sharding improves scalability for large datasets but introduces complexities such as rebalancing shards, hotspot issues, and cross shard queries."
-    }
-    
+    "slides": [
+        {
+            "title": "Single Server Setup",
+            "content": [
+                "A single server setup runs the web application, database, and services on one machine",
+                "It is the simplest architecture and is commonly used for MVPs or early-stage applications",
+                "It introduces a Single Point of Failure (SPOF), meaning if the server crashes the entire system goes down",
+                "Suitable only for low traffic systems due to limited scalability and reliability"
+            ]
+        },
+        {
+            "title": "Web Tier vs Data Tier",
+            "content": [
+                "Separates the application layer (web tier) from the storage layer (data tier)",
+                "Web tier handles HTTP requests, business logic, and authentication",
+                "Data tier manages databases such as SQL or NoSQL for persistent storage",
+                "Improves modularity and allows independent scaling but database can still become a bottleneck"
+            ]
+        },
+        {
+            "title": "Vertical vs Horizontal Scaling",
+            "content": [
+                "Vertical scaling increases resources of a single machine like CPU, RAM, or storage",
+                "Horizontal scaling distributes load across multiple machines or servers",
+                "Vertical scaling is simple but limited by hardware constraints",
+                "Horizontal scaling provides better scalability and fault tolerance for large systems"
+            ]
+        },
+        {
+            "title": "Load Balancer",
+            "content": [
+                "Distributes incoming traffic across multiple servers to avoid overload",
+                "Acts as an entry point between clients and backend servers",
+                "Uses health checks to route traffic only to healthy servers",
+                "Improves availability and reliability by redirecting traffic if a server fails"
+            ]
+        },
+        {
+            "title": "Database Replication",
+            "content": [
+                "Replicates data across multiple database servers using primary-replica architecture",
+                "Primary database handles write operations while replicas handle read operations",
+                "Improves read scalability and availability",
+                "Primary database can still become a bottleneck for heavy write workloads"
+            ]
+        },
+        {
+            "title": "Cache",
+            "content": [
+                "Cache is a fast in-memory storage used to store frequently accessed data",
+                "Reduces database load and improves response time",
+                "System checks cache first before querying the database",
+                "Uses strategies like LRU eviction and TTL expiration for data management"
+            ]
+        },
+        {
+            "title": "Content Delivery Network (CDN)",
+            "content": [
+                "A CDN is a distributed network of servers that cache static content",
+                "Stores assets like images, CSS, JavaScript, and videos",
+                "Delivers content from servers closer to users to reduce latency",
+                "Reduces load on the origin server and improves performance"
+            ]
+        },
+        {
+            "title": "Stateless Web Tier",
+            "content": [
+                "Stateless systems do not store session data on individual servers",
+                "Session data is stored in shared storage like Redis or databases",
+                "Allows any server to handle any request",
+                "Enables easy horizontal scaling and auto-scaling"
+            ]
+        },
+        {
+            "title": "Multi Data Center and GeoDNS",
+            "content": [
+                "Deploys system across multiple geographic data centers",
+                "GeoDNS routes users to the nearest or healthiest data center",
+                "Improves latency, availability, and disaster recovery",
+                "Requires handling data consistency challenges across regions"
+            ]
+        },
+        {
+            "title": "Message Queue",
+            "content": [
+                "Enables asynchronous communication between services",
+                "Producers send tasks to the queue and consumers process them later",
+                "Helps decouple system components and improve scalability",
+                "Prevents slow operations from blocking user requests"
+            ]
+        },
+        {
+            "title": "Logging Metrics and Automation",
+            "content": [
+                "Logging records system events and errors for debugging",
+                "Metrics track performance indicators like latency, CPU, and memory usage",
+                "Helps monitor system health and detect issues early",
+                "Automation supports CI/CD pipelines and auto-scaling in large systems"
+            ]
+        },
+        {
+            "title": "Database Sharding",
+            "content": [
+                "Sharding splits a large database into smaller partitions called shards",
+                "Each shard stores a subset of data based on a sharding key",
+                "Improves scalability and performance for large datasets",
+                "Introduces challenges like shard rebalancing, hotspots, and cross-shard queries"
+            ]
+        }
     ]
-    }
-    ]
-    }
+}

@@ -205,7 +205,6 @@ const Dashboard = () => {
             </div>
             <div className="flex items-baseline gap-2">
               <h2 className="text-3xl font-headline font-semibold text-primary">{animatedCoins}</h2>
-              <span className="text-[10px] text-tertiary font-mono">+12 today</span>
             </div>
           </div>
 
@@ -281,7 +280,7 @@ const Dashboard = () => {
           </div>
 
           {/* Weekly Performance Telemetry - Bar Chart */}
-          <div className="lg:col-span-7 bg-surface-container-low rounded-xl p-8 relative border border-white/5 overflow-hidden">
+          <div className="lg:col-span-7 bg-surface-container-low rounded-xl p-8 relative border border-white/5 overflow-hidden flex flex-col min-h-[440px]">
             <div className="flex justify-between items-center mb-8">
               <div>
                 <h3 className="font-headline font-semibold text-xl uppercase">Performance Telemetry</h3>
@@ -292,7 +291,9 @@ const Dashboard = () => {
               </div>
             </div>
             
-            <WeeklyPerformance performanceData={performanceData} />
+            <div className="flex-1 min-h-0">
+              <WeeklyPerformance performanceData={performanceData} />
+            </div>
           </div>
         </section>
 
@@ -309,8 +310,14 @@ const Dashboard = () => {
           </div>
 
           {/* Achievement Cards */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            <h3 className="font-headline font-semibold text-sm uppercase tracking-[0.2em]">Protocol Ribbons</h3>
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div>
+              <p className="text-[10px] font-headline font-semibold text-slate-500 uppercase tracking-[0.3em] mb-3">Protocol Ribbons</p>
+              <h3 className="font-headline font-bold text-2xl uppercase tracking-widest text-on-surface flex items-center gap-3">
+                <span className="material-symbols-outlined text-tertiary">military_tech</span>
+                Achievements
+              </h3>
+            </div>
             <Achievements stats={stats} totalXP={totalXP} />
             <p className="text-[10px] font-headline uppercase font-semibold text-slate-500 self-start tracking-widest mt-2">
               All combat protocols engaged. Standby for new directives.

@@ -53,9 +53,9 @@ const FlashcardViewer = () => {
         <main className="pb-20 max-w-5xl mx-auto px-4">
             {/* Intel Path Breadcrumbs */}
             <nav className="mb-12 flex items-center gap-2 text-slate-500 font-headline text-[10px] font-bold uppercase tracking-[0.25em]">
-                <Link to="/flashcards" className="hover:text-primary transition-colors">Sector Archive</Link>
+                <Link to="/subjects" className="hover:text-primary transition-colors">Sector Archive</Link>
                 <span className="material-symbols-outlined text-[12px]">chevron_right</span>
-                <Link to={topic ? `/flashcards/${topic.subjectId}` : "/flashcards"} className="hover:text-primary transition-colors">Modules</Link>
+                <Link to={topic ? `/subjects/${topic.subjectId}` : "/subjects"} className="hover:text-primary transition-colors">Modules</Link>
                 <span className="material-symbols-outlined text-[12px]">chevron_right</span>
                 <span className="text-on-surface">Cognitive Reinforcement</span>
             </nav>
@@ -177,7 +177,7 @@ const FlashcardViewer = () => {
                 <div className="mt-16 flex items-center gap-6 opacity-40 hover:opacity-100 transition-opacity">
                     <button 
                         className="flex items-center gap-2 text-[10px] font-headline font-bold text-slate-500 hover:text-error transition-colors uppercase tracking-widest"
-                        onClick={() => navigate(`/flashcards/${topic?.subjectId}`)}
+                        onClick={() => navigate(`/subjects/${topic?.subjectId}`)}
                     >
                         <span className="material-symbols-outlined text-sm">cancel</span>
                         Terminate_Session

@@ -42,7 +42,7 @@ const FlashcardTopics = () => {
         <main className="pb-20">
             {/* Intel Path Breadcrumbs */}
             <nav className="mb-12 flex items-center gap-2 text-slate-500 font-headline text-[10px] font-bold uppercase tracking-[0.25em]">
-                <Link to="/flashcards" className="hover:text-primary transition-colors">Sector Archive</Link>
+                <Link to="/subjects" className="hover:text-primary transition-colors">Sector Archive</Link>
                 <span className="material-symbols-outlined text-[12px]">chevron_right</span>
                 <span className="text-on-surface">{subjectName}</span>
                 <span className="material-symbols-outlined text-[12px]">chevron_right</span>

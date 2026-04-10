@@ -36,25 +36,28 @@ const ActivityHeatmap = ({ last28 = [], loading }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="font-headline text-lg font-semibold uppercase tracking-widest text-on-surface flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary">analytics</span>
+      <div className="flex justify-between items-center mb-10">
+        <h2 className="font-headline text-lg font-semibold uppercase tracking-widest text-on-surface flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+            <span className="material-symbols-outlined text-primary">analytics</span>
+          </div>
           Activity
         </h2>
         <div className="flex gap-2 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
           <span>Less</span>
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-2 items-center">
             <div className="w-2.5 h-2.5 bg-white/5 rounded-sm"></div>
-            <div className="w-2.5 h-2.5 bg-primary/40 rounded-sm"></div>
-            <div className="w-2.5 h-2.5 bg-[#b76dff] rounded-sm"></div>
+            <div className="w-2.5 h-2.5 bg-primary/20 rounded-sm"></div>
+            <div className="w-2.5 h-2.5 bg-[#b76dff]/30 rounded-sm"></div>
+            <div className="w-2.5 h-2.5 bg-[#b76dff]/60 rounded-sm"></div>
             <div className="w-2.5 h-2.5 bg-secondary rounded-sm drop-shadow-[0_0_5px_rgba(76,215,246,0.8)]"></div>
           </div>
           <span>More</span>
         </div>
       </div>
 
-      <div className="flex-1">
-        <div className="grid grid-cols-7 md:grid-cols-14 gap-2">
+      <div className="px-2">
+        <div className="grid grid-cols-7 gap-4">
           {countsArr.map((cnt, i) => (
             <div
               key={i}

@@ -147,7 +147,7 @@ function AppLayout() {
         <div className="relative p-6 flex flex-col gap-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 min-w-[3rem] rounded-2xl bg-surface-container border border-white/5 flex items-center justify-center shadow-[inset_0_0_20px_rgba(0,0,0,0.5),0_0_15px_rgba(221,183,255,0.05)] relative overflow-hidden group">
-              <span className="material-symbols-outlined text-3xl text-primary drop-shadow-[0_0_10px_rgba(221,183,255,0.6)] group-hover:scale-110 transition-transform">all_inclusive</span>
+              <img src="/logo.png" alt="LearnLoop Logo" className="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(221,183,255,0.6)] group-hover:scale-110 transition-transform" />
             </div>
             <div className="flex flex-col justify-center">
               <span className="text-2xl font-bold tracking-tighter italic bg-gradient-to-r from-primary via-[#f0dbff] to-secondary bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(221,183,255,0.2)] leading-tight">
@@ -162,7 +162,9 @@ function AppLayout() {
           
           <div className="flex flex-col border-l-2 border-white/10 pl-4 py-0.5">
             <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-semibold mb-0.5">OPERATOR</span>
-            <span className="text-sm font-bold text-on-surface tracking-widest font-headline">VYRO-0041</span>
+            <span className="text-sm font-bold text-on-surface tracking-widest font-headline uppercase">
+              {userProfile?.name?.split(' ')[0] || currentUser?.displayName?.split(' ')[0] || "OPERATOR"}
+            </span>
           </div>
         </div>
 

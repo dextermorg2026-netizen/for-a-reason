@@ -27,14 +27,14 @@ const LiveQuiz = () => {
   const [sessionId, setSessionId] = useState(location.state?.code || "");
   const [username, setUsername] = useState("");
 
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState(undefined);
   const [questions, setQuestions] = useState([]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answersMap, setAnswersMap] = useState({});
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const [participantData, setParticipantData] = useState(null);
+  const [participantData, setParticipantData] = useState(undefined);
   const [globalLiveDetail, setGlobalLiveDetail] = useState({ isLive: false, code: "" });
   const hasAutoSubmittedRef = useRef(false);
 
@@ -70,53 +70,57 @@ const LiveQuiz = () => {
     }
   };
 
-  // ================= RESTORE =================
+  // ================= SUBSCRIPTIONS & RESTORE =================
   useEffect(() => {
     const saved = localStorage.getItem("liveQuizSession");
+    if (!saved || !currentUser) return;
 
-    if (saved) {
-      const { 
-        sessionId, 
-        username, 
-        answersMap: savedAnswers,
-        currentIndex: savedIndex 
-      } = JSON.parse(saved);
+    const { 
+      sessionId: savedId, 
+      username: savedName, 
+      answersMap: savedAnswers,
+      currentIndex: savedIndex 
+    } = JSON.parse(saved);
 
-      setSessionId(sessionId);
-      setUsername(username);
-      if (savedAnswers) {
-        setAnswersMap(savedAnswers);
+    if (!savedId) return;
+
+    setSessionId(savedId);
+    setUsername(savedName);
+    if (savedAnswers) setAnswersMap(savedAnswers);
+    if (savedIndex !== undefined) setCurrentIndex(savedIndex);
+    setJoined(true);
+
+    // Load questions
+    getLiveQuizQuestions(savedId).then(setQuestions);
+
+    // Subscribe to Session
+    const unsubSession = subscribeToLiveQuiz(savedId, (data) => {
+      setSession(data);
+    });
+
+    // Subscribe to Participant
+    const unsubParticipant = subscribeToParticipant(savedId, currentUser.uid, (data) => {
+      setParticipantData(data);
+      if (data?.answers && Object.keys(data.answers).length > Object.keys(answersMap).length) {
+        setAnswersMap(data.answers);
       }
-      if (savedIndex !== undefined) {
-        setCurrentIndex(savedIndex);
+      if (data?.lastViewedIndex !== undefined && data.lastViewedIndex > currentIndex) {
+        setCurrentIndex(data.lastViewedIndex);
       }
-      setJoined(true);
+    });
 
-      if (sessionId) {
-        getLiveQuizQuestions(sessionId).then(setQuestions);
-        subscribeToLiveQuiz(sessionId, setSession);
-        subscribeToParticipant(sessionId, currentUser.uid, (data) => {
-          setParticipantData(data);
-          // ✅ SYNC FROM SERVER IF LOCAL IS BEHIND OR MISSING
-          if (data?.answers && Object.keys(data.answers).length > Object.keys(answersMap).length) {
-             setAnswersMap(data.answers);
-          }
-          if (data?.lastViewedIndex !== undefined && data.lastViewedIndex > currentIndex) {
-             setCurrentIndex(data.lastViewedIndex);
-          }
-        });
-
-        // ✅ CHECK IF ALREADY FINISHED
-        if (currentUser?.uid) {
-          getParticipant(sessionId, currentUser.uid).then((p) => {
-            if (p?.finished) {
-              setIsFinished(true);
-              hasAutoSubmittedRef.current = true;
-            }
-          });
-        }
+    // Check if finished
+    getParticipant(savedId, currentUser.uid).then((p) => {
+      if (p?.finished) {
+        setIsFinished(true);
+        hasAutoSubmittedRef.current = true;
       }
-    }
+    });
+
+    return () => {
+      unsubSession();
+      unsubParticipant();
+    };
   }, [currentUser]);
 
   // ================= PARTICIPANT START TRIGGER =================
@@ -125,6 +129,30 @@ const LiveQuiz = () => {
       recordParticipantStartTime(sessionId, currentUser?.uid);
     }
   }, [session?.status, joined, participantData?.startedAt]);
+  const clearAndReset = (msg) => {
+    localStorage.removeItem("liveQuizSession");
+    setJoined(false);
+    setSessionId("");
+    setQuestions([]);
+    setAnswersMap({});
+    setSession(undefined);
+    setParticipantData(undefined);
+    if (msg) alert(msg);
+  };
+
+  useEffect(() => {
+    if (joined && session === null) {
+      console.warn("Session no longer exists. Resetting...");
+      clearAndReset("This live quiz session has been closed or deleted.");
+    }
+  }, [session, joined]);
+
+  useEffect(() => {
+    if (joined && participantData === null && session?.status === "playing") {
+      console.warn("Participant data no longer exists.");
+      clearAndReset("Your session data was removed. Please join again.");
+    }
+  }, [participantData, joined, session?.status]);
 
   // ================= TIMER =================
   useEffect(() => {
@@ -237,24 +265,28 @@ const LiveQuiz = () => {
 
   // ================= ANSWER =================
   const handleSelect = async (index) => {
-    await submitLiveAnswer({
-      sessionId,
-      userId: currentUser?.uid,
-      questionIndex: currentIndex,
-      selectedOptionIndex: index,
-    });
+    try {
+      await submitLiveAnswer({
+        sessionId,
+        userId: currentUser?.uid,
+        questionIndex: currentIndex,
+        selectedOptionIndex: index,
+      });
 
-    setAnswersMap((prev) => {
-      const newMap = { ...prev, [currentIndex]: index };
-      
-      const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
-      localStorage.setItem(
-        "liveQuizSession",
-        JSON.stringify({ ...saved, answersMap: newMap })
-      );
-      
-      return newMap;
-    });
+      setAnswersMap((prev) => {
+        const newMap = { ...prev, [currentIndex]: index };
+        
+        const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+        localStorage.setItem(
+          "liveQuizSession",
+          JSON.stringify({ ...saved, answersMap: newMap })
+        );
+        
+        return newMap;
+      });
+    } catch (err) {
+      console.error("Answer submission failed:", err);
+    }
   };
 
   // ✅ PERSIST CURRENT INDEX

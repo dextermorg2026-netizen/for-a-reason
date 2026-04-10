@@ -53,10 +53,14 @@ export const joinParticipant = async ({
 // 🔹 RECORD START TIME (USER ENTERED EXAM)
 // ==============================
 export const recordParticipantStartTime = async (sessionId, userId) => {
-  const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
-  const snap = await getDoc(ref);
-  if (snap.exists() && !snap.data().startedAt) {
-    await updateDoc(ref, { startedAt: Date.now() });
+  try {
+    const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
+    const snap = await getDoc(ref);
+    if (snap.exists() && !snap.data().startedAt) {
+      await updateDoc(ref, { startedAt: Date.now() });
+    }
+  } catch (err) {
+    console.warn("[liveQuizService] Failed to record start time:", err.message);
   }
 };
 
@@ -75,9 +79,7 @@ export const subscribeToLiveQuiz = (sessionId, callback) => { if (!sessionId) re
   const sessionRef = doc(db, "liveQuizzes", sessionId);
 
   return onSnapshot(sessionRef, (snap) => {
-    if (snap.exists()) {
-      callback(snap.data());
-    }
+    callback(snap.exists() ? snap.data() : null);
   });
 };
 
@@ -89,9 +91,7 @@ export const subscribeToParticipant = (sessionId, userId, callback) => {
   const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
 
   return onSnapshot(ref, (snap) => {
-    if (snap.exists()) {
-      callback(snap.data());
-    }
+    callback(snap.exists() ? snap.data() : null);
   });
 };
 
@@ -122,145 +122,169 @@ export const submitLiveAnswer = async ({
   questionIndex,
   selectedOptionIndex,
 }) => {
-  const ref = doc(
-    db,
-    "liveQuizzes",
-    sessionId,
-    "participants",
-    userId
-  );
+  try {
+    const ref = doc(
+      db,
+      "liveQuizzes",
+      sessionId,
+      "participants",
+      userId
+    );
 
-  await updateDoc(ref, {
-    [`answers.${questionIndex}`]: selectedOptionIndex,
-    lastViewedIndex: questionIndex,
-    updatedAt: Date.now(),
-  });
+    await updateDoc(ref, {
+      [`answers.${questionIndex}`]: selectedOptionIndex,
+      lastViewedIndex: questionIndex,
+      updatedAt: Date.now(),
+    });
+  } catch (err) {
+    console.warn("[liveQuizService] Failed to submit answer:", err.message);
+  }
 };
 
 // ==============================
 // 🔹 UPDATE CURRENT INDEX
 // ==============================
 export const updateParticipantIndex = async (sessionId, userId, index) => {
-  const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
-  await updateDoc(ref, { 
-    lastViewedIndex: index,
-    updatedAt: Date.now()
-  });
+  try {
+    const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
+    await updateDoc(ref, { 
+      lastViewedIndex: index,
+      updatedAt: Date.now()
+    });
+  } catch (err) {
+    console.warn("[liveQuizService] Failed to update participant index:", err.message);
+  }
 };
 
 // ==============================
 // 🔹 START QUIZ (HOST)
 // ==============================
 export const startLiveQuiz = async (sessionId) => {
-  const ref = doc(db, "liveQuizzes", sessionId);
+  try {
+    const ref = doc(db, "liveQuizzes", sessionId);
 
-  await updateDoc(ref, {
-    status: "playing",
-    startTime: Date.now()
-  });
+    await updateDoc(ref, {
+      status: "playing",
+      startTime: Date.now()
+    });
+  } catch (err) {
+    console.error("[liveQuizService] Failed to start quiz:", err.message);
+    throw err;
+  }
 };
 
 // ==============================
 // 🔹 FINISH QUIZ (HOST)
 // ==============================
 export const finishLiveQuiz = async (sessionId) => {
-  const ref = doc(db, "liveQuizzes", sessionId);
+  try {
+    const ref = doc(db, "liveQuizzes", sessionId);
 
-  const snap = await getDoc(ref);
-  const session = snap.data();
+    const snap = await getDoc(ref);
+    if (!snap.exists()) return;
+    const session = snap.data();
 
-  await updateDoc(ref, {
-    status: "finished",
-  });
+    await updateDoc(ref, {
+      status: "finished",
+    });
 
-  // ✅ STORE QUIZ HISTORY META
-  await setDoc(
-    doc(db, "liveQuizHistory", sessionId),
-    {
-      subject: session?.subject || "General",
-      date: Date.now(),
-      totalQuestions: session?.totalQuestions || 0,
-    },
-    { merge: true }
-  );
+    // ✅ STORE QUIZ HISTORY META
+    await setDoc(
+      doc(db, "liveQuizHistory", sessionId),
+      {
+        subject: session?.subject || "General",
+        date: Date.now(),
+        totalQuestions: session?.totalQuestions || 0,
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.error("[liveQuizService] Failed to finish quiz:", err.message);
+    throw err;
+  }
 };
 
 // ==============================
 // 🔹 CALCULATE SCORE + COINS + HISTORY
 // ==============================
 export const calculateScore = async (sessionId, userId) => {
-  const qSnap = await getDocs(
-    collection(db, "liveQuizzes", sessionId, "questions")
-  );
-
-  const questions = {};
-  qSnap.forEach((docSnap) => {
-    questions[docSnap.id] = docSnap.data();
-  });
-
-  const userRef = doc(
-    db,
-    "liveQuizzes",
-    sessionId,
-    "participants",
-    userId
-  );
-
-  const userSnap = await getDoc(userRef);
-
-  if (!userSnap.exists()) return 0;
-
-  const userData = userSnap.data();
-  const answers = userData.answers || {};
-
-  let score = 0;
-
-  Object.keys(answers).forEach((qIndex) => {
-    if (questions[qIndex]?.correctAnswer === answers[qIndex]) {
-      score++;
-    }
-  });
-
-  const coinsEarned = score * 20;
-
-  // ✅ UPDATE PARTICIPANT
-  await updateDoc(userRef, {
-    score,
-    coins: coinsEarned,
-    finished: true,
-    submittedAt: Date.now(),
-  });
-
-  // ✅ ADD COINS TO USER PROFILE
-  const userDoc = doc(db, "users", userId);
-  await setDoc(
-    userDoc,
-    {
-      coins: increment(coinsEarned),
-    },
-    { merge: true }
-  );
-
-  // ✅ STORE HISTORY (ONLY IF ATTEMPTED)
-  if (Object.keys(answers).length > 0) {
-    await setDoc(
-      doc(
-        db,
-        "liveQuizHistory",
-        sessionId,
-        "participants",
-        userId
-      ),
-      {
-        username: userData.username,
-        score,
-        coins: coinsEarned,
-        submittedAt: Date.now(),
-      }
+  try {
+    const qSnap = await getDocs(
+      collection(db, "liveQuizzes", sessionId, "questions")
     );
-  }
 
-  return score;
+    const questions = {};
+    qSnap.forEach((docSnap) => {
+      questions[docSnap.id] = docSnap.data();
+    });
+
+    const userRef = doc(
+      db,
+      "liveQuizzes",
+      sessionId,
+      "participants",
+      userId
+    );
+
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) return 0;
+
+    const userData = userSnap.data();
+    const answers = userData.answers || {};
+
+    let score = 0;
+
+    Object.keys(answers).forEach((qIndex) => {
+      if (questions[qIndex]?.correctAnswer === answers[qIndex]) {
+        score++;
+      }
+    });
+
+    const coinsEarned = score * 20;
+
+    // ✅ UPDATE PARTICIPANT
+    await updateDoc(userRef, {
+      score,
+      coins: coinsEarned,
+      finished: true,
+      submittedAt: Date.now(),
+    });
+
+    // ✅ ADD COINS TO USER PROFILE
+    const userDoc = doc(db, "users", userId);
+    await setDoc(
+      userDoc,
+      {
+        coins: increment(coinsEarned),
+      },
+      { merge: true }
+    );
+
+    // ✅ STORE HISTORY (ONLY IF ATTEMPTED)
+    if (Object.keys(answers).length > 0) {
+      await setDoc(
+        doc(
+          db,
+          "liveQuizHistory",
+          sessionId,
+          "participants",
+          userId
+        ),
+        {
+          username: userData.username,
+          score,
+          coins: coinsEarned,
+          submittedAt: Date.now(),
+        }
+      );
+    }
+
+    return score;
+  } catch (err) {
+    console.error("[liveQuizService] Failed to calculate score:", err.message);
+    return 0;
+  }
 };
 
 // ==============================

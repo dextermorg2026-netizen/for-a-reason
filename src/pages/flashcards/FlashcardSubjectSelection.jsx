@@ -77,7 +77,7 @@ const FlashcardSubjectSelection = () => {
                         return (
                             <div 
                                 key={subject.id}
-                                onClick={() => navigate(`/flashcards/${subject.id}`)}
+                                onClick={() => navigate(`/subjects/${subject.id}`)}
                                 className="group relative bg-surface-container-low asymmetric-card p-6 border-t border-l border-white/5 hover:bg-surface-container-high transition-all cursor-pointer"
                             >
                                 <div className={`absolute -top-1 -left-1 w-8 h-8 border-t-2 border-l-2 ${style.border} rounded-tl-lg`}></div>

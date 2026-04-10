@@ -57,11 +57,14 @@ export default function Profile() {
   const [statusMsg, setStatusMsg] = useState({ text: "", type: "" });
 
   useEffect(() => {
-    if (currentUser) {
-      setDisplayName(currentUser.displayName || "");
-      setSelectedAvatar(currentUser.photoURL || PREDEFINED_AVATARS[0]);
-    }
-  }, [currentUser]);
+    // Prioritize Firestore 'name' and 'photoURL' from userProfile
+    // Fallback to Firebase Auth currentUser data if profile isn't loaded yet
+    const name = userProfile?.name || currentUser?.displayName || "";
+    const avatar = userProfile?.photoURL || currentUser?.photoURL || PREDEFINED_AVATARS[0];
+
+    setDisplayName(name);
+    setSelectedAvatar(avatar);
+  }, [currentUser, userProfile]);
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -77,10 +80,10 @@ export default function Profile() {
         photoURL: selectedAvatar
       });
 
-      // Update Firestore User Document (if needed, name is stored there)
+      // Update Firestore User Document (Syncing the 'name' field shown in collection)
       const userRef = doc(db, "users", currentUser.uid);
       await updateDoc(userRef, {
-        name: displayName,
+        name: displayName.trim(),
         photoURL: selectedAvatar
       });
 

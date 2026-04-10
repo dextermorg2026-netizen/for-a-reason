@@ -50,7 +50,8 @@ const FlashcardViewer = () => {
     const progressPercent = flashcards.length > 0 ? ((currentIndex + 1) / flashcards.length) * 100 : 0;
 
     return (
-        <main className="pb-20 max-w-5xl mx-auto px-4">
+        <main className="pb-20 max-w-5xl mx-auto px-4 print:p-0 print:m-0 print:max-w-none">
+            <div className="print:hidden">
             {/* Intel Path Breadcrumbs */}
             <nav className="mb-12 flex items-center gap-2 text-slate-500 font-headline text-[10px] font-bold uppercase tracking-[0.25em]">
                 <Link to="/subjects" className="hover:text-primary transition-colors">Sector Archive</Link>
@@ -137,7 +138,7 @@ const FlashcardViewer = () => {
                                 </div>
                                 
                                 <div className="absolute bottom-6 right-6 text-neutral-800 font-headline text-[30px] font-black italic select-none opacity-20 pointer-events-none tracking-tighter">
-                                    LEARNLOOP AI
+                                    LEARNLOOP
                                 </div>
                             </div>
                         </motion.div>
@@ -211,6 +212,52 @@ const FlashcardViewer = () => {
                     <p className="text-[9px] font-headline text-neutral-500 uppercase tracking-widest font-bold">Operational</p>
                     <p className="text-sm font-headline text-[#fb7185] font-bold uppercase">Active</p>
                 </div>
+            </div>
+            </div>
+
+            {/* PRINT ONLY SECTION - Renders all cards */}
+            <div className="hidden print:block space-y-8">
+                {flashcards.map((card, index) => (
+                    <div key={index} className="break-after-page min-h-[500px] flex flex-col items-center justify-center p-8 bg-[#0c0c0c] text-white border-2 border-primary/30 relative overflow-hidden mb-12">
+                        {/* Print Header */}
+                        <div className="absolute top-8 left-8 flex items-center gap-3">
+                            <span className="text-[10px] font-headline font-bold text-primary uppercase tracking-[0.3em]">Query_Input</span>
+                            <span className="text-[10px] font-headline text-slate-500 uppercase font-bold">Node_Index: 0{index + 1}</span>
+                        </div>
+
+                        <div className="mt-12 text-center max-w-2xl px-8">
+                            <h3 className="text-2xl md:text-3xl font-headline font-semibold uppercase tracking-tight leading-tight mb-8">
+                                {card.title}
+                            </h3>
+                            
+                            <div className="w-24 h-0.5 bg-primary/30 mx-auto mb-8"></div>
+
+                            <div className="space-y-6 text-left">
+                                {(() => {
+                                    const theory = card.theory;
+                                    if (!theory) return <p className="text-sm italic uppercase text-center text-slate-500">No intel data available for this node.</p>;
+                                    
+                                    const lines = Array.isArray(theory) 
+                                        ? theory 
+                                        : theory.split('\n').filter(l => l.trim() !== '');
+
+                                    return lines.map((line, i) => (
+                                        <div key={i} className="flex gap-4 items-start">
+                                            <span className="text-primary font-bold mt-1 text-xs">▶</span>
+                                            <p className="text-lg font-body text-slate-200 leading-relaxed tracking-wider normal-case">
+                                                {line}
+                                            </p>
+                                        </div>
+                                    ));
+                                })()}
+                            </div>
+                        </div>
+
+                        <div className="absolute bottom-8 right-8 text-neutral-800 font-headline text-[40px] font-black italic select-none opacity-10 tracking-tighter">
+                            LEARNLOOP
+                        </div>
+                    </div>
+                ))}
             </div>
         </main>
     );

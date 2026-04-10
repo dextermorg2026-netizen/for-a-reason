@@ -5,6 +5,9 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
 
 const PREDEFINED_AVATARS = [
+  // ⭐ Featured Characters
+  "/assets/avatars/rubiks_boy.png",
+  "/assets/avatars/red_hair_girl.png",
   // 🎓 Students & Youth (8 Toon-Head portraits)
   "https://api.dicebear.com/9.x/fun-emoji/svg?seed=Leah",
   "https://api.dicebear.com/9.x/fun-emoji/svg?backgroundColor=c0aede&seed=Sophia",
@@ -179,14 +182,13 @@ export default function Profile() {
                     : "border-white/10 hover:border-primary/50 hover:scale-105"
                     }`}
                 >
-                  <img 
-                    src={avatarUrl} 
-                    alt={`Avatar option ${idx + 1}`} 
-                    className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${
-                      selectedAvatar === avatarUrl 
-                        ? "brightness-110 saturate-125" 
-                        : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
-                    }`} 
+                  <img
+                    src={avatarUrl}
+                    alt={`Avatar option ${idx + 1}`}
+                    className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${selectedAvatar === avatarUrl
+                      ? "brightness-110 saturate-125"
+                      : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
+                      }`}
                   />
                   {selectedAvatar === avatarUrl && (
                     <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">

@@ -193,11 +193,21 @@ export const finishLiveQuiz = async (sessionId) => {
       doc(db, "liveQuizHistory", sessionId),
       {
         subject: session?.subject || "General",
+        id: sessionId,
         date: Date.now(),
         totalQuestions: session?.totalQuestions || 0,
       },
       { merge: true }
     );
+
+    // ✅ ARCHIVE QUESTIONS
+    const qSnap = await getDocs(collection(db, "liveQuizzes", sessionId, "questions"));
+    for (const qDoc of qSnap.docs) {
+      await setDoc(
+        doc(db, "liveQuizHistory", sessionId, "questions", qDoc.id),
+        qDoc.data()
+      );
+    }
   } catch (err) {
     console.error("[liveQuizService] Failed to finish quiz:", err.message);
     throw err;
@@ -274,6 +284,8 @@ export const calculateScore = async (sessionId, userId) => {
         {
           username: userData.username,
           score,
+          totalQuestions: Object.keys(questions).length,
+          answers, // Store answers for detailed report
           coins: coinsEarned,
           submittedAt: Date.now(),
         }
@@ -379,4 +391,59 @@ export const getPastLeaderboard = async (sessionId) => {
   const q = query(ref, orderBy("score", "desc"));
   const snap = await getDocs(q);
   return snap.docs.map(doc => ({ userId: doc.id, ...doc.data() }));
+};
+
+// ==============================
+// 🔹 GET MY LIVE HISTORY
+// ==============================
+export const getMyLiveQuizHistory = async (userId) => {
+  if (!userId) return [];
+  
+  try {
+    // We'll use a collection group query on 'participants' where the document ID matches the userId
+    // Note: This requires a Firestore index for collection group 'participants'
+    // Alternatively, we can just fetch all history sessions and check if user participated.
+    // Given potential scale, a dedicated "userHistory" collection might be better, 
+    // but for now let's try to fetch recent history and filter for simplicity if no index.
+    
+    // Better approach: Join participant results with session meta
+    const sessions = await getAllPastSessions();
+    const myHistory = [];
+
+    for (const session of sessions) {
+      const partRef = doc(db, "liveQuizHistory", session.id, "participants", userId);
+      const partSnap = await getDoc(partRef);
+      
+      if (partSnap.exists()) {
+        myHistory.push({
+          ...session,
+          participation: partSnap.data()
+        });
+      }
+    }
+
+    return myHistory;
+  } catch (err) {
+    console.error("[liveQuizService] Failed to get personal history:", err.message);
+    return [];
+  }
+};
+
+// ==============================
+// 🔹 GET HISTORY QUESTIONS
+// ==============================
+export const getHistoryQuestions = async (sessionId) => {
+  if (!sessionId) return [];
+  try {
+    const snap = await getDocs(collection(db, "liveQuizHistory", sessionId, "questions"));
+    const questions = [];
+    snap.forEach((docSnap) => {
+      const index = parseInt(docSnap.id);
+      questions[index] = docSnap.data();
+    });
+    return questions;
+  } catch (err) {
+    console.error("[liveQuizService] Failed to get history questions:", err.message);
+    return [];
+  }
 };

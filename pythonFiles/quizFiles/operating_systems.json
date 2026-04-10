@@ -9,7 +9,7 @@
                 "Programming language",
                 "Database"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "os1",
             "topicName": "Introduction to Operating Systems"
         },
@@ -21,7 +21,7 @@
                 "Storage device",
                 "Network"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "os1",
             "topicName": "Introduction to Operating Systems"
         },
@@ -45,7 +45,7 @@
                 "Memory block",
                 "CPU"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os3",
             "topicName": "Process Management"
         },
@@ -57,7 +57,7 @@
                 "Primary Control Block",
                 "Process Code Block"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 1,
             "topicId": "os3",
             "topicName": "Process Management"
         },
@@ -69,7 +69,7 @@
                 "Next process",
                 "File"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -81,7 +81,7 @@
                 "First come first serve",
                 "Random"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 2,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -93,7 +93,7 @@
                 "Processes waiting forever",
                 "Memory full"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 2,
             "topicId": "os5",
             "topicName": "Deadlocks"
         },
@@ -105,7 +105,7 @@
                 "Process",
                 "File system"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -117,7 +117,7 @@
                 "File",
                 "Program"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "os3",
             "topicName": "Process Management"
         },
@@ -141,7 +141,7 @@
                 "Disk area",
                 "Cache"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 1,
             "topicId": "os7",
             "topicName": "Process Synchronization"
         },
@@ -153,7 +153,7 @@
                 "Process",
                 "Thread"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os2",
             "topicName": "Operating System Structure"
         },
@@ -165,7 +165,7 @@
                 "Disk usage",
                 "Memory"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "os1",
             "topicName": "Introduction to Operating Systems"
         },
@@ -177,7 +177,7 @@
                 "Faster CPU",
                 "No paging"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 1,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -189,7 +189,7 @@
                 "Thread",
                 "File"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "os2",
             "topicName": "Operating System Structure"
         },
@@ -201,7 +201,7 @@
                 "Shortest job",
                 "Random"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -213,7 +213,7 @@
                 "Processes",
                 "Threads"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "os8",
             "topicName": "File Systems"
         },
@@ -237,7 +237,7 @@
                 "CPU switching",
                 "Threading"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -261,7 +261,7 @@
                 "Manage memory",
                 "Handle files"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -285,7 +285,7 @@
                 "Memory",
                 "Files"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "os9",
             "topicName": "I/O Systems"
         },
@@ -311,7 +311,7 @@
                 "Less memory",
                 "Fewer processes"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "os1",
             "topicName": "Introduction to Operating Systems"
         },
@@ -323,7 +323,7 @@
                 "CPU time",
                 "Memory"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 1,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -335,7 +335,7 @@
                 "No switching",
                 "Disk control"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -347,7 +347,7 @@
                 "Free memory",
                 "Fast CPU"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "os5",
             "topicName": "Deadlocks"
         },
@@ -359,7 +359,7 @@
                 "Disk slow",
                 "Thread blocked"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -371,7 +371,7 @@
                 "Deadlock",
                 "Scheduling"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -383,7 +383,7 @@
                 "Paging",
                 "File system"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 1,
             "topicId": "os5",
             "topicName": "Deadlocks"
         },
@@ -395,7 +395,7 @@
                 "Scheduling",
                 "Memory"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os7",
             "topicName": "Process Synchronization"
         },
@@ -407,7 +407,7 @@
                 "Disk error",
                 "File missing"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -419,69 +419,9 @@
                 "Interrupt process control",
                 "Input process control"
             ],
-            "correctAnswer": 3,
-            "topicId": "os3",
-            "topicName": "Process Management"
-        },
-        {
-            "question": "Context switching overhead is due to?",
-            "options": [
-                "Saving state",
-                "Disk I/O",
-                "Memory only",
-                "File access"
-            ],
-            "correctAnswer": 2,
-            "topicId": "os3",
-            "topicName": "Process Management"
-        },
-        {
-            "question": "Fragmentation occurs due to?",
-            "options": [
-                "Memory allocation",
-                "CPU scheduling",
-                "I/O",
-                "Threads"
-            ],
-            "correctAnswer": 3,
-            "topicId": "os6",
-            "topicName": "Memory Management"
-        },
-        {
-            "question": "Priority scheduling issue?",
-            "options": [
-                "Starvation",
-                "Deadlock",
-                "Thrashing",
-                "Crash"
-            ],
-            "correctAnswer": 1,
-            "topicId": "os4",
-            "topicName": "CPU Scheduling"
-        },
-        {
-            "question": "Semaphore value represents?",
-            "options": [
-                "Resource count",
-                "CPU speed",
-                "Memory size",
-                "Threads"
-            ],
-            "correctAnswer": 2,
-            "topicId": "os7",
-            "topicName": "Process Synchronization"
-        },
-        {
-            "question": "File allocation method example?",
-            "options": [
-                "Contiguous",
-                "CPU scheduling",
-                "Paging",
-                "Threads"
-            ],
             "correctAnswer": 0,
-            "topicId": "os8",
-            "topicName": "File Systems"
+            "topicId": "os3",
+            "topicName": "Process Management"
         }
     ],
     "hard": [
@@ -493,7 +433,7 @@
                 "Preemption allowed",
                 "Circular wait"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 2,
             "topicId": "os5",
             "topicName": "Deadlocks"
         },
@@ -505,7 +445,7 @@
                 "FIFO",
                 "Random"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -517,7 +457,7 @@
                 "Priority",
                 "SJF"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os4",
             "topicName": "CPU Scheduling"
         },
@@ -529,7 +469,7 @@
                 "Paging",
                 "Scheduling"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "os7",
             "topicName": "Process Synchronization"
         },
@@ -541,7 +481,7 @@
                 "Disk speed",
                 "Threads"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -553,21 +493,9 @@
                 "CPU idle",
                 "No waiting"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "os5",
             "topicName": "Deadlocks"
-        },
-        {
-            "question": "Multilevel queue scheduling separates?",
-            "options": [
-                "Processes into queues",
-                "Memory",
-                "Files",
-                "Threads"
-            ],
-            "correctAnswer": 0,
-            "topicId": "os4",
-            "topicName": "CPU Scheduling"
         },
         {
             "question": "Demand paging loads page?",
@@ -577,7 +505,7 @@
                 "Always",
                 "Never"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -589,7 +517,7 @@
                 "Optimal",
                 "Random"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "os6",
             "topicName": "Memory Management"
         },
@@ -601,7 +529,7 @@
                 "Scheduling",
                 "File system"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "os7",
             "topicName": "Process Synchronization"
         }

@@ -9,7 +9,7 @@
                 "Object Order Processing",
                 "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop1",
             "topicName": "OOP Basics"
         },
@@ -19,7 +19,7 @@
                 "Instance",
                 "Blueprint",
                 "Variable",
-                "Function"
+                "Loop"
             ],
             "correctAnswer": 1,
             "topicId": "oop1",
@@ -29,23 +29,23 @@
             "question": "Object is?",
             "options": [
                 "Function",
-                "Instance of class",
                 "Loop",
+                "Instance of class",
                 "Variable"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "oop1",
             "topicName": "OOP Basics"
         },
         {
             "question": "Encapsulation means?",
             "options": [
-                "Hiding data",
-                "Looping",
+                "Loop",
                 "Inheritance",
-                "Calling methods"
+                "Hiding data",
+                "Function"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 2,
             "topicId": "oop2",
             "topicName": "Encapsulation"
         },
@@ -55,31 +55,31 @@
                 "Set value",
                 "Get value",
                 "Delete value",
-                "Print value"
+                "Print"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "oop2",
             "topicName": "Encapsulation"
         },
         {
             "question": "Inheritance represents?",
             "options": [
-                "is-a relationship",
+                "Condition",
                 "has-a relationship",
-                "loop",
-                "condition"
+                "is-a relationship",
+                "Loop"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 2,
             "topicId": "oop3",
             "topicName": "Inheritance"
         },
         {
             "question": "Polymorphism means?",
             "options": [
-                "Single form",
                 "Many forms",
-                "No form",
-                "Two forms"
+                "One form",
+                "Loop",
+                "None"
             ],
             "correctAnswer": 0,
             "topicId": "oop4",
@@ -90,10 +90,10 @@
             "options": [
                 "Runtime",
                 "Compile-time",
-                "Both",
-                "None"
+                "None",
+                "Loop"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "oop4",
             "topicName": "Polymorphism"
         },
@@ -105,7 +105,7 @@
                 "Loop",
                 "Interface"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "oop4",
             "topicName": "Polymorphism"
         },
@@ -125,45 +125,45 @@
             "question": "Static keyword belongs to?",
             "options": [
                 "Object",
-                "Class",
                 "Loop",
-                "Method"
+                "Class",
+                "Variable"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 2,
             "topicId": "oop6",
-            "topicName": "Static Keyword"
+            "topicName": "Static"
         },
         {
             "question": "Interface provides?",
             "options": [
                 "Full abstraction",
-                "No abstraction",
                 "Partial",
-                "Loop"
+                "Loop",
+                "None"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "oop7",
             "topicName": "Interfaces"
         },
         {
             "question": "Abstract class can?",
             "options": [
-                "Be instantiated",
                 "Have abstract methods",
-                "No methods",
-                "Only static"
+                "Be instantiated",
+                "Loop",
+                "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop7",
             "topicName": "Abstraction"
         },
         {
             "question": "Aggregation is?",
             "options": [
-                "Strong relation",
+                "Strong",
                 "Weak relation",
                 "Loop",
-                "Condition"
+                "None"
             ],
             "correctAnswer": 1,
             "topicId": "oop8",
@@ -174,36 +174,36 @@
             "options": [
                 "Weak",
                 "Strong",
-                "None",
-                "Loop"
+                "Loop",
+                "None"
             ],
-            "correctAnswer": 0,
+            "correctAnswer": 1,
             "topicId": "oop8",
             "topicName": "Relationships"
         },
         {
             "question": "Cloning creates?",
             "options": [
-                "Reference",
                 "Copy",
+                "Reference",
                 "Loop",
-                "Class"
+                "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop9",
             "topicName": "Cloning"
         },
         {
             "question": "Exception is?",
             "options": [
-                "Error",
                 "Loop",
-                "Class",
-                "Method"
+                "Error",
+                "Variable",
+                "Class"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "oop10",
-            "topicName": "Exception Handling"
+            "topicName": "Exception"
         },
         {
             "question": "Generics provide?",
@@ -211,19 +211,19 @@
                 "Type safety",
                 "Loop",
                 "Error",
-                "File"
+                "None"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "oop11",
             "topicName": "Generics"
         },
         {
             "question": "File handling is used for?",
             "options": [
-                "Data storage",
+                "Storage",
                 "Loop",
                 "Condition",
-                "Print"
+                "None"
             ],
             "correctAnswer": 0,
             "topicId": "oop12",
@@ -234,33 +234,93 @@
             "options": [
                 "Garbage Collection",
                 "Global Class",
-                "General Code",
+                "Loop",
                 "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop13",
             "topicName": "Lifecycle"
-        }
-    ],
-    "medium": [
+        },
         {
-            "question": "Why encapsulation is important?",
+            "question": "Default constructor is?",
             "options": [
-                "Security",
-                "Speed",
+                "User defined",
+                "System generated",
                 "Loop",
-                "Memory"
+                "None"
+            ],
+            "correctAnswer": 1,
+            "topicId": "oop5",
+            "topicName": "Constructors"
+        },
+        {
+            "question": "Overloading uses?",
+            "options": [
+                "Same name",
+                "Different class",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop4",
+            "topicName": "Polymorphism"
+        },
+        {
+            "question": "Public access allows?",
+            "options": [
+                "Restricted",
+                "Global access",
+                "Loop",
+                "None"
             ],
             "correctAnswer": 1,
             "topicId": "oop2",
             "topicName": "Encapsulation"
         },
         {
+            "question": "Protected access allows?",
+            "options": [
+                "Same package",
+                "Only class",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop2",
+            "topicName": "Encapsulation"
+        },
+        {
+            "question": "Method is?",
+            "options": [
+                "Function in class",
+                "Variable",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop1",
+            "topicName": "Basics"
+        }
+    ],
+    "medium": [
+        {
+            "question": "Encapsulation provides?",
+            "options": [
+                "Security",
+                "Loop",
+                "Speed",
+                "Memory"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop2",
+            "topicName": "Encapsulation"
+        },
+        {
             "question": "Overloading depends on?",
             "options": [
-                "Return type",
                 "Parameters",
-                "Name only",
+                "Return type",
+                "Loop",
                 "None"
             ],
             "correctAnswer": 0,
@@ -270,154 +330,106 @@
         {
             "question": "Runtime polymorphism uses?",
             "options": [
-                "Overloading",
                 "Overriding",
-                "Constructor",
-                "Static"
+                "Overloading",
+                "Loop",
+                "None"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "oop4",
             "topicName": "Polymorphism"
         },
         {
             "question": "Private access modifier allows?",
             "options": [
-                "Global access",
                 "Class only",
                 "Package",
+                "Loop",
                 "All"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop2",
             "topicName": "Encapsulation"
         },
         {
-            "question": "Which is has-a relation?",
+            "question": "Deep cloning creates?",
             "options": [
-                "Inheritance",
-                "Aggregation",
-                "Loop",
-                "Condition"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop8",
-            "topicName": "Relationships"
-        },
-        {
-            "question": "Deep cloning ensures?",
-            "options": [
-                "Shared refs",
                 "Independent objects",
+                "Reference copy",
                 "Loop",
-                "Same memory"
+                "None"
             ],
             "correctAnswer": 0,
             "topicId": "oop9",
             "topicName": "Cloning"
         },
         {
-            "question": "Why use interfaces?",
+            "question": "Interface supports?",
             "options": [
                 "Multiple inheritance",
-                "Speed",
+                "Single",
                 "Loop",
-                "Memory"
+                "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop7",
             "topicName": "Interfaces"
         },
         {
-            "question": "Static methods cannot access?",
-            "options": [
-                "Static vars",
-                "Non-static vars",
-                "Both",
-                "None"
-            ],
-            "correctAnswer": 3,
-            "topicId": "oop6",
-            "topicName": "Static Keyword"
-        },
-        {
-            "question": "Finally block executes?",
-            "options": [
-                "Sometimes",
-                "Always",
-                "Never",
-                "Only exception"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop10",
-            "topicName": "Exception Handling"
-        },
-        {
-            "question": "Checked exception handled?",
+            "question": "Checked exception occurs at?",
             "options": [
                 "Compile-time",
                 "Runtime",
-                "Never",
-                "Always"
+                "Loop",
+                "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop10",
-            "topicName": "Exception Handling"
+            "topicName": "Exception"
         },
         {
             "question": "Generics remove?",
             "options": [
                 "Casting",
-                "Loops",
-                "Memory",
-                "Classes"
+                "Loop",
+                "Error",
+                "None"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "oop11",
             "topicName": "Generics"
         },
         {
-            "question": "SOLID SRP means?",
+            "question": "Open Closed Principle means?",
             "options": [
-                "Single task",
-                "Multiple tasks",
+                "Extend code",
+                "Modify code",
                 "Loop",
                 "None"
             ],
             "correctAnswer": 0,
             "topicId": "oop14",
-            "topicName": "SOLID Principles"
+            "topicName": "SOLID"
         },
         {
-            "question": "OCP allows?",
+            "question": "Garbage collection runs when?",
             "options": [
-                "Modify code",
-                "Extend code",
-                "Delete code",
+                "Object unreachable",
+                "Loop",
+                "Manual",
                 "None"
             ],
-            "correctAnswer": 2,
-            "topicId": "oop14",
-            "topicName": "SOLID Principles"
-        },
-        {
-            "question": "GC runs when?",
-            "options": [
-                "Manual",
-                "Object unreachable",
-                "Always",
-                "Loop"
-            ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
             "topicId": "oop13",
             "topicName": "Lifecycle"
         },
         {
-            "question": "Memory leak happens due to?",
+            "question": "Memory leak occurs when?",
             "options": [
-                "No refs",
                 "Unused refs kept",
-                "GC",
-                "Loop"
+                "Loop",
+                "GC fails",
+                "None"
             ],
             "correctAnswer": 0,
             "topicId": "oop13",
@@ -427,49 +439,25 @@
             "question": "Aggregation vs composition?",
             "options": [
                 "Weak vs strong",
-                "Same",
+                "Strong vs weak",
                 "Loop",
                 "None"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "oop8",
             "topicName": "Relationships"
         },
         {
             "question": "Interface cannot have?",
             "options": [
-                "Methods",
                 "Constructors",
-                "Variables",
-                "None"
-            ],
-            "correctAnswer": 2,
-            "topicId": "oop7",
-            "topicName": "Interfaces"
-        },
-        {
-            "question": "Constructor overloading is?",
-            "options": [
-                "Polymorphism",
-                "Inheritance",
+                "Methods",
                 "Loop",
                 "None"
             ],
-            "correctAnswer": 3,
-            "topicId": "oop5",
-            "topicName": "Constructors"
-        },
-        {
-            "question": "FileReader is used for?",
-            "options": [
-                "Writing",
-                "Reading",
-                "Deleting",
-                "Loop"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop12",
-            "topicName": "File Handling"
+            "correctAnswer": 0,
+            "topicId": "oop7",
+            "topicName": "Interfaces"
         },
         {
             "question": "BufferedWriter improves?",
@@ -477,236 +465,308 @@
                 "Speed",
                 "Memory",
                 "Loop",
-                "CPU"
+                "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "oop12",
             "topicName": "File Handling"
-        }
-    ],
-    "hard": [
+        },
         {
-            "question": "Why overriding needed?",
+            "question": "Static methods cannot access?",
             "options": [
-                "Runtime flexibility",
-                "Speed",
-                "Memory",
-                "Loop"
+                "Non-static vars",
+                "Static vars",
+                "Loop",
+                "None"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
+            "topicId": "oop6",
+            "topicName": "Static"
+        },
+        {
+            "question": "Constructor overloading is?",
+            "options": [
+                "Allowed",
+                "Not allowed",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop5",
+            "topicName": "Constructors"
+        },
+        {
+            "question": "Abstract class cannot?",
+            "options": [
+                "Be instantiated",
+                "Have methods",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop7",
+            "topicName": "Abstraction"
+        },
+        {
+            "question": "Method overriding uses?",
+            "options": [
+                "Same signature",
+                "Different name",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
             "topicId": "oop4",
             "topicName": "Polymorphism"
         },
         {
-            "question": "LSP violation leads to?",
-            "options": [
-                "Bug",
-                "Speed",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 2,
-            "topicId": "oop14",
-            "topicName": "SOLID Principles"
-        },
-        {
-            "question": "DIP promotes?",
-            "options": [
-                "Concrete dependency",
-                "Abstraction dependency",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 3,
-            "topicId": "oop14",
-            "topicName": "SOLID Principles"
-        },
-        {
-            "question": "Why deep copy needed?",
-            "options": [
-                "Avoid shared refs",
-                "Speed",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 0,
-            "topicId": "oop9",
-            "topicName": "Cloning"
-        },
-        {
-            "question": "Type erasure removes?",
-            "options": [
-                "Runtime types",
-                "Compile types",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop11",
-            "topicName": "Generics"
-        },
-        {
-            "question": "Why GC pause happens?",
-            "options": [
-                "Memory safety",
-                "Loop",
-                "CPU",
-                "None"
-            ],
-            "correctAnswer": 2,
-            "topicId": "oop13",
-            "topicName": "Lifecycle"
-        },
-        {
-            "question": "Difference abstraction vs encapsulation?",
-            "options": [
-                "Hide impl vs hide data",
-                "Same",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 3,
-            "topicId": "oop2",
-            "topicName": "Encapsulation"
-        },
-        {
-            "question": "Interface default methods used for?",
-            "options": [
-                "Backward compatibility",
-                "Speed",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop7",
-            "topicName": "Interfaces"
-        },
-        {
-            "question": "Why static memory efficient?",
-            "options": [
-                "Shared data",
-                "Loop",
-                "CPU",
-                "None"
-            ],
-            "correctAnswer": 2,
-            "topicId": "oop6",
-            "topicName": "Static Keyword"
-        },
-        {
-            "question": "Composition preferred when?",
-            "options": [
-                "Strong ownership",
-                "Weak",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 3,
-            "topicId": "oop8",
-            "topicName": "Relationships"
-        },
-        {
-            "question": "Why generics safer?",
-            "options": [
-                "Compile checks",
-                "Runtime only",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 0,
-            "topicId": "oop11",
-            "topicName": "Generics"
-        },
-        {
-            "question": "Exception propagation occurs when?",
-            "options": [
-                "Not handled",
-                "Handled",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop10",
-            "topicName": "Exception Handling"
-        },
-        {
-            "question": "Best design practice?",
-            "options": [
-                "Loose coupling",
-                "Tight coupling",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 2,
-            "topicId": "oop14",
-            "topicName": "SOLID Principles"
-        },
-        {
-            "question": "Why use try-with-resources?",
-            "options": [
-                "Auto close",
-                "Loop",
-                "Memory",
-                "None"
-            ],
-            "correctAnswer": 3,
-            "topicId": "oop12",
-            "topicName": "File Handling"
-        },
-        {
-            "question": "Cyclic references cause leak?",
-            "options": [
-                "No",
-                "Yes",
-                "Sometimes",
-                "Always"
-            ],
-            "correctAnswer": 0,
-            "topicId": "oop13",
-            "topicName": "Lifecycle"
-        },
-        {
-            "question": "What breaks encapsulation?",
-            "options": [
-                "Public fields",
-                "Private fields",
-                "Loop",
-                "None"
-            ],
-            "correctAnswer": 1,
-            "topicId": "oop2",
-            "topicName": "Encapsulation"
-        },
-        {
-            "question": "Why composition over inheritance?",
+            "question": "Loose coupling improves?",
             "options": [
                 "Flexibility",
                 "Speed",
                 "Loop",
                 "None"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "SOLID"
+        },
+        {
+            "question": "Strong relation is?",
+            "options": [
+                "Composition",
+                "Aggregation",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
             "topicId": "oop8",
             "topicName": "Relationships"
         },
         {
-            "question": "Overloading fails if?",
+            "question": "Weak relation is?",
             "options": [
-                "Same params",
-                "Diff params",
+                "Aggregation",
+                "Composition",
                 "Loop",
                 "None"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 0,
+            "topicId": "oop8",
+            "topicName": "Relationships"
+        },
+        {
+            "question": "Abstraction hides?",
+            "options": [
+                "Implementation",
+                "Data",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop7",
+            "topicName": "Abstraction"
+        },
+        {
+            "question": "Encapsulation hides?",
+            "options": [
+                "Data",
+                "Logic",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop2",
+            "topicName": "Encapsulation"
+        },
+        {
+            "question": "Polymorphism improves?",
+            "options": [
+                "Flexibility",
+                "Memory",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop4",
+            "topicName": "Polymorphism"
+        },
+        {
+            "question": "Inheritance improves?",
+            "options": [
+                "Reusability",
+                "Speed",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop3",
+            "topicName": "Inheritance"
+        }
+    ],
+    "hard": [
+        {
+            "question": "Overriding provides?",
+            "options": [
+                "Runtime flexibility",
+                "Speed",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop4",
+            "topicName": "Polymorphism"
+        },
+        {
+            "question": "LSP violation causes?",
+            "options": [
+                "Bug",
+                "Speed",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "SOLID"
+        },
+        {
+            "question": "DIP promotes?",
+            "options": [
+                "Abstraction dependency",
+                "Concrete",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "SOLID"
+        },
+        {
+            "question": "GC pause affects?",
+            "options": [
+                "Performance",
+                "Security",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop13",
+            "topicName": "Lifecycle"
+        },
+        {
+            "question": "Abstraction vs encapsulation?",
+            "options": [
+                "Hide impl vs data",
+                "Same",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop7",
+            "topicName": "Abstraction"
+        },
+        {
+            "question": "Static improves memory because?",
+            "options": [
+                "Shared data",
+                "Loop",
+                "Duplicate",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop6",
+            "topicName": "Static"
+        },
+        {
+            "question": "Composition preferred because?",
+            "options": [
+                "Flexibility",
+                "Speed",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop8",
+            "topicName": "Relationships"
+        },
+        {
+            "question": "Exception propagation occurs when?",
+            "options": [
+                "Not handled",
+                "Loop",
+                "Handled",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop10",
+            "topicName": "Exception"
+        },
+        {
+            "question": "Best practice is?",
+            "options": [
+                "Loose coupling",
+                "Tight",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "SOLID"
+        },
+        {
+            "question": "Try-with-resources ensures?",
+            "options": [
+                "Auto close",
+                "Loop",
+                "Error",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop10",
+            "topicName": "Exception"
+        },
+        {
+            "question": "Cyclic references handled by GC?",
+            "options": [
+                "Sometimes",
+                "Always",
+                "Never",
+                "Loop"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop13",
+            "topicName": "Lifecycle"
+        },
+        {
+            "question": "Encapsulation broken by?",
+            "options": [
+                "Public fields",
+                "Private",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop2",
+            "topicName": "Encapsulation"
+        },
+        {
+            "question": "Overloading fails when?",
+            "options": [
+                "Same parameters",
+                "Different params",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
             "topicId": "oop4",
             "topicName": "Polymorphism"
         },
         {
             "question": "GC identifies?",
             "options": [
-                "Reachable objects",
                 "Unreachable objects",
-                "Both",
+                "Loop",
+                "Used objects",
                 "None"
             ],
             "correctAnswer": 0,
@@ -717,13 +777,133 @@
             "question": "Main benefit of OOP?",
             "options": [
                 "Modularity",
+                "Speed",
                 "Loop",
-                "Speed only",
                 "None"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "oop1",
-            "topicName": "OOP Basics"
+            "topicName": "Basics"
+        },
+        {
+            "question": "SOLID improves?",
+            "options": [
+                "Maintainability",
+                "Speed",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "SOLID"
+        },
+        {
+            "question": "High cohesion means?",
+            "options": [
+                "Focused class",
+                "Loose class",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "Design"
+        },
+        {
+            "question": "Low coupling means?",
+            "options": [
+                "Independent modules",
+                "Dependent",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop14",
+            "topicName": "Design"
+        },
+        {
+            "question": "Polymorphism reduces?",
+            "options": [
+                "Code duplication",
+                "Loop",
+                "Error",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop4",
+            "topicName": "Polymorphism"
+        },
+        {
+            "question": "Inheritance increases?",
+            "options": [
+                "Reusability",
+                "Loop",
+                "Error",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop3",
+            "topicName": "Inheritance"
+        },
+        {
+            "question": "Encapsulation improves?",
+            "options": [
+                "Security",
+                "Loop",
+                "Error",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop2",
+            "topicName": "Encapsulation"
+        },
+        {
+            "question": "Abstraction improves?",
+            "options": [
+                "Simplicity",
+                "Loop",
+                "Error",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop7",
+            "topicName": "Abstraction"
+        },
+        {
+            "question": "Constructor chaining uses?",
+            "options": [
+                "this()",
+                "super()",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop5",
+            "topicName": "Constructors"
+        },
+        {
+            "question": "super keyword refers to?",
+            "options": [
+                "Parent class",
+                "Child class",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop3",
+            "topicName": "Inheritance"
+        },
+        {
+            "question": "Method overriding requires?",
+            "options": [
+                "Same signature",
+                "Different name",
+                "Loop",
+                "None"
+            ],
+            "correctAnswer": 0,
+            "topicId": "oop4",
+            "topicName": "Polymorphism"
         }
     ]
 }

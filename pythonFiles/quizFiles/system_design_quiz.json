@@ -9,7 +9,7 @@
         "Encryption",
         "Caching"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd1",
       "topicName": "Basic System Architecture"
     },
@@ -21,7 +21,7 @@
         "Routing",
         "Encryption"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd1",
       "topicName": "Basic System Architecture"
     },
@@ -33,7 +33,7 @@
         "Only frontend",
         "Only API"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd2",
       "topicName": "System Scaling Basics"
     },
@@ -57,7 +57,7 @@
         "Add more servers",
         "Reduce memory"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 2,
       "topicId": "sd2",
       "topicName": "System Scaling Basics"
     },
@@ -69,7 +69,7 @@
         "Encrypts data",
         "Caches data"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd3",
       "topicName": "Load Balancing"
     },
@@ -81,7 +81,7 @@
         "Cache",
         "Requests"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd4",
       "topicName": "Database Design"
     },
@@ -93,7 +93,7 @@
         "Only joins",
         "Only SQL"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd4",
       "topicName": "Database Design"
     },
@@ -117,7 +117,7 @@
         "Routing",
         "CPU"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd6",
       "topicName": "CDN"
     },
@@ -129,7 +129,7 @@
         "Cache",
         "CDN"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd4",
       "topicName": "Database Design"
     },
@@ -141,7 +141,7 @@
         "Cache",
         "Logs"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd4",
       "topicName": "Database Design"
     },
@@ -153,7 +153,7 @@
         "CPU",
         "Disk"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "topicId": "sd5",
       "topicName": "Caching"
     },
@@ -165,7 +165,7 @@
         "Only DB",
         "Only cache"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd7",
       "topicName": "Stateless Architecture"
     },
@@ -177,7 +177,7 @@
         "Cache only",
         "Logs"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd7",
       "topicName": "Stateless Architecture"
     },
@@ -189,7 +189,7 @@
         "Storage",
         "Routing"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd8",
       "topicName": "Message Queues"
     },
@@ -201,7 +201,7 @@
         "Files",
         "Logs"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd8",
       "topicName": "Message Queues"
     },
@@ -225,7 +225,7 @@
         "Cache",
         "Logs"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd9",
       "topicName": "Database Scaling"
     },
@@ -237,7 +237,7 @@
         "Speed",
         "Memory"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd10",
       "topicName": "Data Centers"
     },
@@ -249,7 +249,7 @@
         "CPU",
         "Disk"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd4",
       "topicName": "Database Design"
     },
@@ -273,7 +273,7 @@
         "Task time limit",
         "Transfer time"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "topicId": "sd5",
       "topicName": "Caching"
     },
@@ -285,7 +285,7 @@
         "Cache",
         "Files"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd2",
       "topicName": "System Scaling Basics"
     },
@@ -311,7 +311,7 @@
         "Better fault tolerance",
         "Simple"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 2,
       "topicId": "sd2",
       "topicName": "System Scaling Basics"
     },
@@ -323,7 +323,7 @@
         "Memory",
         "Network"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 1,
       "topicId": "sd5",
       "topicName": "Caching"
     },
@@ -335,7 +335,7 @@
         "CPU",
         "Disk"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "topicId": "sd6",
       "topicName": "CDN"
     },
@@ -347,7 +347,7 @@
         "Cache",
         "CDN"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "topicId": "sd4",
       "topicName": "Database Design"
     },
@@ -359,7 +359,7 @@
         "Routing",
         "Logs"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd9",
       "topicName": "Database Scaling"
     },
@@ -371,7 +371,7 @@
         "Cache",
         "DB"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd8",
       "topicName": "Message Queues"
     },
@@ -383,7 +383,7 @@
         "Disk",
         "Routing"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 0,
       "topicId": "sd5",
       "topicName": "Caching"
     },
@@ -395,7 +395,7 @@
         "Cache",
         "DB"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "topicId": "sd3",
       "topicName": "Load Balancing"
     },
@@ -407,7 +407,7 @@
         "DB",
         "Queue"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "topicId": "sd10",
       "topicName": "Data Centers"
     },
@@ -419,7 +419,7 @@
         "Slow",
         "Costly"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "topicId": "sd7",
       "topicName": "Stateless Architecture"
     }
@@ -433,7 +433,7 @@
         "Cache issues",
         "Routing"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "topicId": "sd2",
       "topicName": "System Scaling Basics"
     },
@@ -445,7 +445,7 @@
         "DB crash",
         "Queue delay"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 0,
       "topicId": "sd9",
       "topicName": "Database Scaling"
     },
@@ -457,7 +457,7 @@
         "CPU low",
         "Disk slow"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "topicId": "sd9",
       "topicName": "Database Scaling"
     },
@@ -469,7 +469,7 @@
         "Disk",
         "Cache"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "topicId": "sd8",
       "topicName": "Message Queues"
     },

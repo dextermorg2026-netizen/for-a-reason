@@ -4,12 +4,12 @@
         {
             "question": "Which SQL command is used to insert data?",
             "options": [
-                "DELETE",
                 "INSERT",
+                "DELETE",
                 "UPDATE",
                 "SELECT"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "db1",
             "topicName": "SQL Basics"
         },
@@ -18,10 +18,10 @@
             "options": [
                 "Manipulating data",
                 "Defining structure",
-                "Controlling transactions",
-                "Granting permissions"
+                "Transactions",
+                "Permissions"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db2",
             "topicName": "Database Languages"
         },
@@ -31,9 +31,9 @@
                 "ORDER BY",
                 "GROUP BY",
                 "WHERE",
-                "DISTINCT"
+                "HAVING"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db3",
             "topicName": "SQL Clauses"
         },
@@ -43,35 +43,35 @@
                 "SUM()",
                 "COUNT()",
                 "AVG()",
-                "MAX()"
+                "MIN()"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db4",
             "topicName": "SQL Aggregate Functions"
         },
         {
             "question": "LEFT JOIN returns?",
             "options": [
-                "Only right table",
-                "Only matching rows",
+                "Matching rows",
                 "All left rows",
-                "No rows"
+                "Right rows only",
+                "None"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "db5",
             "topicName": "SQL Joins"
         },
         {
             "question": "COMMIT does?",
             "options": [
-                "Undo changes",
-                "Delete table",
+                "Undo",
                 "Save changes",
-                "Create table"
+                "Delete",
+                "Rollback"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 1,
             "topicId": "db6",
-            "topicName": "Transaction Control Language"
+            "topicName": "TCL"
         },
         {
             "question": "Which NoSQL type uses JSON?",
@@ -81,45 +81,45 @@
                 "Document",
                 "Column"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db7",
-            "topicName": "NoSQL Databases"
+            "topicName": "NoSQL"
         },
         {
             "question": "Graph DB stores data as?",
             "options": [
                 "Tables",
                 "Files",
-                "Nodes and edges",
-                "Keys only"
+                "Nodes & edges",
+                "Keys"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db8",
-            "topicName": "Graph Databases"
+            "topicName": "Graph DB"
         },
         {
             "question": "Atomicity ensures?",
             "options": [
-                "Partial execution",
                 "All or nothing",
                 "Parallelism",
-                "Speed"
+                "Speed",
+                "Backup"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 0,
             "topicId": "db9",
-            "topicName": "ACID Properties"
+            "topicName": "ACID"
         },
         {
             "question": "Durability ensures?",
             "options": [
-                "Temporary storage",
-                "Rollback always",
+                "Temporary",
+                "Rollback",
                 "Permanent save",
-                "Faster execution"
+                "Speed"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db9",
-            "topicName": "ACID Properties"
+            "topicName": "ACID"
         },
         {
             "question": "Index improves?",
@@ -129,7 +129,7 @@
                 "Query speed",
                 "Backup"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db10",
             "topicName": "Indexing"
         },
@@ -139,9 +139,9 @@
                 "Indexing",
                 "Access control",
                 "Backup",
-                "Querying"
+                "Query"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db11",
             "topicName": "Security"
         },
@@ -151,21 +151,21 @@
                 "Speed",
                 "Confidentiality",
                 "Backup",
-                "Scalability"
+                "Scaling"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db11",
             "topicName": "Security"
         },
         {
             "question": "Horizontal scaling means?",
             "options": [
-                "Increase CPU",
+                "More CPU",
                 "Add servers",
-                "Reduce data",
-                "Compress DB"
+                "Compress DB",
+                "Reduce data"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db12",
             "topicName": "Scalability"
         },
@@ -177,31 +177,31 @@
                 "Security",
                 "Backup"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db13",
-            "topicName": "Data Warehousing"
+            "topicName": "Data Warehouse"
         },
         {
             "question": "Trigger executes?",
             "options": [
-                "Manually",
-                "Automatically",
-                "Periodically",
-                "Randomly"
+                "Manual",
+                "Automatic",
+                "Periodic",
+                "Random"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db14",
             "topicName": "Triggers"
         },
         {
             "question": "Stored procedure is?",
             "options": [
-                "Temporary query",
+                "Temp query",
                 "Stored SQL code",
                 "Index",
                 "Backup"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db14",
             "topicName": "Stored Procedures"
         },
@@ -210,82 +210,82 @@
             "options": [
                 "Queries",
                 "Tables",
-                "Indexes",
-                "Users"
+                "Users",
+                "Indexes"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db15",
             "topicName": "Partitioning"
         },
         {
             "question": "Sharding is?",
             "options": [
-                "Vertical partitioning",
-                "Horizontal partitioning",
+                "Vertical",
+                "Horizontal partition",
                 "Backup",
                 "Encryption"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db15",
             "topicName": "Partitioning"
         },
         {
-            "question": "CAP theorem deals with?",
+            "question": "CAP theorem includes?",
             "options": [
                 "Security",
                 "Scalability",
                 "Consistency Availability Partition",
                 "Backup"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db16",
-            "topicName": "Distributed Systems"
+            "topicName": "Distributed DB"
         },
         {
             "question": "Replication improves?",
             "options": [
-                "Speed only",
+                "Speed",
                 "Availability",
                 "Security",
-                "Indexing"
+                "Index"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db16",
-            "topicName": "Distributed Systems"
+            "topicName": "Distributed DB"
         },
         {
-            "question": "BASE property focuses on?",
+            "question": "BASE focuses on?",
             "options": [
-                "Strict consistency",
+                "Consistency",
                 "Availability",
                 "Transactions",
                 "Joins"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db17",
-            "topicName": "NoSQL Properties"
+            "topicName": "NoSQL"
         },
         {
             "question": "Rollback does?",
             "options": [
-                "Save changes",
+                "Save",
                 "Undo changes",
-                "Insert data",
-                "Delete table"
+                "Insert",
+                "Delete"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db6",
-            "topicName": "Transaction Control Language"
+            "topicName": "TCL"
         },
         {
             "question": "View is?",
             "options": [
-                "Physical table",
+                "Table",
                 "Virtual table",
                 "Index",
                 "Backup"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db18",
             "topicName": "Views"
         },
@@ -297,7 +297,7 @@
                 "Trigger",
                 "Procedure"
             ],
-            "correctAnswer": 1,
+            "correctAnswer": 0,
             "topicId": "db19",
             "topicName": "Subqueries"
         }
@@ -311,19 +311,19 @@
                 "Groups",
                 "Tables"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db3",
             "topicName": "SQL Clauses"
         },
         {
             "question": "UNION ALL does?",
             "options": [
-                "Removes duplicates",
-                "Keeps duplicates",
-                "Sorts data",
-                "Groups data"
+                "Remove duplicates",
+                "Keep duplicates",
+                "Sort",
+                "Group"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db20",
             "topicName": "SQL UNION"
         },
@@ -335,21 +335,21 @@
                 "Left rows",
                 "Right rows"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db5",
-            "topicName": "SQL Joins"
+            "topicName": "Joins"
         },
         {
             "question": "MongoDB is?",
             "options": [
-                "Graph DB",
-                "Relational DB",
-                "Document DB",
-                "Column DB"
+                "Graph",
+                "Relational",
+                "Document",
+                "Column"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db7",
-            "topicName": "NoSQL Databases"
+            "topicName": "NoSQL"
         },
         {
             "question": "CQL belongs to?",
@@ -359,69 +359,9 @@
                 "Redis",
                 "Neo4j"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db7",
-            "topicName": "NoSQL Databases"
-        },
-        {
-            "question": "Consistency ensures?",
-            "options": [
-                "Speed",
-                "Valid state",
-                "Backup",
-                "Isolation"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db9",
-            "topicName": "ACID Properties"
-        },
-        {
-            "question": "Isolation prevents?",
-            "options": [
-                "Failures",
-                "Interference",
-                "Backup",
-                "Replication"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db9",
-            "topicName": "ACID Properties"
-        },
-        {
-            "question": "Distributed DB improves?",
-            "options": [
-                "Latency",
-                "Availability",
-                "Security",
-                "Storage"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db16",
-            "topicName": "Distributed Systems"
-        },
-        {
-            "question": "Hash partitioning ensures?",
-            "options": [
-                "Range",
-                "Even distribution",
-                "List grouping",
-                "Sorting"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db15",
-            "topicName": "Partitioning"
-        },
-        {
-            "question": "Materialized view stores?",
-            "options": [
-                "Query only",
-                "Virtual data",
-                "Physical data",
-                "Indexes"
-            ],
-            "correctAnswer": 3,
-            "topicId": "db18",
-            "topicName": "Views"
+            "topicName": "NoSQL"
         },
         {
             "question": "Dirty read occurs in?",
@@ -431,9 +371,9 @@
                 "Read committed",
                 "Read uncommitted"
             ],
-            "correctAnswer": 4,
+            "correctAnswer": 3,
             "topicId": "db22",
-            "topicName": "Isolation Levels"
+            "topicName": "Isolation"
         },
         {
             "question": "Non-repeatable read occurs in?",
@@ -443,9 +383,9 @@
                 "Read committed",
                 "All"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db22",
-            "topicName": "Isolation Levels"
+            "topicName": "Isolation"
         },
         {
             "question": "MVCC provides?",
@@ -453,21 +393,21 @@
                 "Locks",
                 "Versions",
                 "Indexes",
-                "Backups"
+                "Backup"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db21",
-            "topicName": "Concurrency Control"
+            "topicName": "Concurrency"
         },
         {
-            "question": "Checkpointing helps in?",
+            "question": "Checkpointing helps?",
             "options": [
-                "Querying",
+                "Query",
                 "Recovery",
                 "Indexing",
-                "Encryption"
+                "Security"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db23",
             "topicName": "Recovery"
         },
@@ -479,19 +419,19 @@
                 "Security",
                 "Storage"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db24",
-            "topicName": "Query Optimization"
+            "topicName": "Optimization"
         },
         {
-            "question": "B+ Tree is used for?",
+            "question": "B+ tree used for?",
             "options": [
                 "Sorting",
                 "Indexing",
                 "Backup",
                 "Security"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db10",
             "topicName": "Indexing"
         },
@@ -503,57 +443,33 @@
                 "Update",
                 "All"
             ],
-            "correctAnswer": 4,
+            "correctAnswer": 3,
             "topicId": "db14",
             "topicName": "Triggers"
         },
         {
-            "question": "Encryption technique?",
+            "question": "Encryption techniques?",
             "options": [
                 "AES",
                 "RSA",
                 "Both",
                 "None"
             ],
-            "correctAnswer": 3,
+            "correctAnswer": 2,
             "topicId": "db11",
             "topicName": "Security"
         },
         {
-            "question": "CAP means?",
+            "question": "Federated DB?",
             "options": [
-                "Consistency Availability Partition",
-                "Control Access Process",
-                "Cache Access Protocol",
-                "Compute Allocation Policy"
+                "Central",
+                "Independent DBs",
+                "No DB",
+                "Local"
             ],
             "correctAnswer": 1,
             "topicId": "db16",
-            "topicName": "Distributed Systems"
-        },
-        {
-            "question": "Federated DB is?",
-            "options": [
-                "Centralized",
-                "Independent DBs",
-                "No DB",
-                "Local DB"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db16",
-            "topicName": "Distributed Systems"
-        },
-        {
-            "question": "Graph DB uses?",
-            "options": [
-                "Tables",
-                "Nodes",
-                "Keys",
-                "Columns"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db8",
-            "topicName": "Graph Databases"
+            "topicName": "Distributed"
         },
         {
             "question": "Redis is?",
@@ -563,9 +479,9 @@
                 "Column",
                 "Relational"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db7",
-            "topicName": "NoSQL Databases"
+            "topicName": "NoSQL"
         },
         {
             "question": "Vertical partitioning divides?",
@@ -575,19 +491,19 @@
                 "Tables",
                 "Indexes"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db15",
             "topicName": "Partitioning"
         },
         {
-            "question": "Backup type?",
+            "question": "Backup types?",
             "options": [
                 "Full",
                 "Incremental",
                 "Differential",
                 "All"
             ],
-            "correctAnswer": 4,
+            "correctAnswer": 3,
             "topicId": "db23",
             "topicName": "Backup"
         },
@@ -599,9 +515,9 @@
                 "CPU",
                 "All"
             ],
-            "correctAnswer": 4,
+            "correctAnswer": 3,
             "topicId": "db24",
-            "topicName": "Query Optimization"
+            "topicName": "Optimization"
         }
     ],
     "hard": [
@@ -613,9 +529,9 @@
                 "3",
                 "All"
             ],
-            "correctAnswer": 2,
+            "correctAnswer": 1,
             "topicId": "db16",
-            "topicName": "Distributed Systems"
+            "topicName": "Distributed"
         },
         {
             "question": "CP sacrifices?",
@@ -625,9 +541,8 @@
                 "Partition",
                 "Security"
             ],
-            "correctAnswer": 2,
-            "topicId": "db16",
-            "topicName": "Distributed Systems"
+            "correctAnswer": 1,
+            "topicId": "db16"
         },
         {
             "question": "AP sacrifices?",
@@ -637,9 +552,8 @@
                 "Partition",
                 "Replication"
             ],
-            "correctAnswer": 1,
-            "topicId": "db16",
-            "topicName": "Distributed Systems"
+            "correctAnswer": 0,
+            "topicId": "db16"
         },
         {
             "question": "2PL ensures?",
@@ -649,9 +563,8 @@
                 "Backup",
                 "Encryption"
             ],
-            "correctAnswer": 2,
-            "topicId": "db21",
-            "topicName": "Concurrency Control"
+            "correctAnswer": 1,
+            "topicId": "db21"
         },
         {
             "question": "Wait-Die is?",
@@ -659,23 +572,21 @@
                 "Deadlock prevention",
                 "Backup",
                 "Indexing",
-                "Querying"
+                "Query"
             ],
-            "correctAnswer": 1,
-            "topicId": "db21",
-            "topicName": "Concurrency Control"
+            "correctAnswer": 0,
+            "topicId": "db21"
         },
         {
             "question": "Wound-Wait does?",
             "options": [
                 "Younger abort",
                 "Older abort",
-                "Both wait",
+                "Wait",
                 "None"
             ],
-            "correctAnswer": 1,
-            "topicId": "db21",
-            "topicName": "Concurrency Control"
+            "correctAnswer": 0,
+            "topicId": "db21"
         },
         {
             "question": "Conflict serializable requires?",
@@ -685,9 +596,8 @@
                 "Lock",
                 "Commit"
             ],
-            "correctAnswer": 2,
-            "topicId": "db22",
-            "topicName": "Serializability"
+            "correctAnswer": 1,
+            "topicId": "db22"
         },
         {
             "question": "Phantom read occurs due to?",
@@ -697,9 +607,8 @@
                 "Update",
                 "All"
             ],
-            "correctAnswer": 4,
-            "topicId": "db22",
-            "topicName": "Isolation Levels"
+            "correctAnswer": 3,
+            "topicId": "db22"
         },
         {
             "question": "Predicate pushdown?",
@@ -709,141 +618,19 @@
                 "Join",
                 "Sort"
             ],
-            "correctAnswer": 2,
-            "topicId": "db24",
-            "topicName": "Query Optimization"
+            "correctAnswer": 1,
+            "topicId": "db24"
         },
         {
-            "question": "Hash join is best for?",
+            "question": "Hash join best for?",
             "options": [
-                "Small data",
+                "Small",
                 "Large data",
                 "Sorted",
                 "Index"
             ],
-            "correctAnswer": 2,
-            "topicId": "db24",
-            "topicName": "Query Optimization"
-        },
-        {
-            "question": "Nested loop best for?",
-            "options": [
-                "Large tables",
-                "Small tables",
-                "Sorted data",
-                "Index only"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db24",
-            "topicName": "Query Optimization"
-        },
-        {
-            "question": "Materialized view drawback?",
-            "options": [
-                "Slow read",
-                "Refresh needed",
-                "No storage",
-                "No speed"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db18",
-            "topicName": "Views"
-        },
-        {
-            "question": "Sharding issue?",
-            "options": [
-                "Speed",
-                "Complex queries",
-                "Storage",
-                "Backup"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db15",
-            "topicName": "Partitioning"
-        },
-        {
-            "question": "Byzantine fault?",
-            "options": [
-                "Crash",
-                "Delay",
-                "Malicious",
-                "Loss"
-            ],
-            "correctAnswer": 3,
-            "topicId": "db16",
-            "topicName": "Fault Tolerance"
-        },
-        {
-            "question": "Heartbeat used for?",
-            "options": [
-                "Backup",
-                "Failure detection",
-                "Security",
-                "Query"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db16",
-            "topicName": "Fault Tolerance"
-        },
-        {
-            "question": "Event-driven architecture uses?",
-            "options": [
-                "Triggers",
-                "Events",
-                "Tables",
-                "Indexes"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db25",
-            "topicName": "Event Driven Architecture"
-        },
-        {
-            "question": "DBaaS provides?",
-            "options": [
-                "Local DB",
-                "Managed DB",
-                "Offline DB",
-                "Manual DB"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db25",
-            "topicName": "Scalability and Big Data"
-        },
-        {
-            "question": "Index not good for?",
-            "options": [
-                "Reads",
-                "Writes",
-                "Search",
-                "Sort"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db10",
-            "topicName": "Indexing"
-        },
-        {
-            "question": "Graph traversal efficient because?",
-            "options": [
-                "Joins",
-                "Edges stored",
-                "Tables",
-                "Indexes"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db8",
-            "topicName": "Graph Databases"
-        },
-        {
-            "question": "Partition pruning improves?",
-            "options": [
-                "Storage",
-                "Speed",
-                "Backup",
-                "Security"
-            ],
-            "correctAnswer": 2,
-            "topicId": "db15",
-            "topicName": "Partitioning"
+            "correctAnswer": 1,
+            "topicId": "db24"
         }
     ]
 }

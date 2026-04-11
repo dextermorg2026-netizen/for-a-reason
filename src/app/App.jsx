@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   NavLink,
+  Link,
   useLocation,
   useNavigate,
 } from "react-router-dom";
@@ -145,12 +146,12 @@ function AppLayout() {
         
         {/* Header Section */}
         <div className="relative p-6 flex flex-col gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 min-w-[3rem] rounded-2xl bg-surface-container border border-white/5 flex items-center justify-center shadow-[inset_0_0_20px_rgba(0,0,0,0.5),0_0_15px_rgba(221,183,255,0.05)] relative overflow-hidden group">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity" onClick={() => setSidebarVisible(false)}>
+            <div className="w-12 h-12 min-w-[3rem] rounded-2xl bg-surface-container border border-white/5 flex items-center justify-center shadow-[inset_0_0_20px_rgba(0,0,0,0.5),0_0_15_px_rgba(221,183,255,0.05)] relative overflow-hidden group">
               <img src="/logo.png" alt="LearnLoop Logo" className="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(221,183,255,0.6)] group-hover:scale-110 transition-transform" />
             </div>
             <div className="flex flex-col justify-center">
-              <span className="text-2xl font-bold tracking-tighter italic bg-gradient-to-r from-primary via-[#f0dbff] to-secondary bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(221,183,255,0.2)] leading-tight">
+              <span className="text-2xl font-bold tracking-tighter italic bg-gradient-to-r from-primary via-[#f0dbff] to-secondary bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(221,183,255,0.25)] leading-tight">
                 LearnLoop
               </span>
               <div className="flex items-center gap-1.5 mt-0.5">
@@ -158,7 +159,7 @@ function AppLayout() {
                 <span className="text-[7.5px] uppercase tracking-[0.15em] text-tertiary font-semibold whitespace-nowrap">TACTICAL KNOWLEDGE CORE</span>
               </div>
             </div>
-          </div>
+          </Link>
           
           <div className="flex flex-col border-l-2 border-white/10 pl-4 py-0.5">
             <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-semibold mb-0.5">OPERATOR</span>

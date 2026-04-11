@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getMyLiveQuizHistory, getHistoryQuestions } from "../../../services/liveQuizService";
+import { subscribeToMyLiveHistory, getHistoryQuestions } from "../../../services/liveQuizService";
 import DetailedReportModal from "./DetailedReportModal";
 
 const LiveHistorySection = ({ userId }) => {
@@ -13,19 +13,12 @@ const LiveHistorySection = ({ userId }) => {
   useEffect(() => {
     if (!userId) return;
     
-    const loadHistory = async () => {
-      setLoading(true);
-      try {
-        const data = await getMyLiveQuizHistory(userId);
-        setHistory(data);
-      } catch (err) {
-        console.error("Failed to load history:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const unsub = subscribeToMyLiveHistory(userId, (data) => {
+      setHistory(data);
+      setLoading(false);
+    });
 
-    loadHistory();
+    return () => unsub && unsub();
   }, [userId]);
 
   const handleViewReport = async (session) => {

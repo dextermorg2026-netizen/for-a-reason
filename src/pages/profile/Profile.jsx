@@ -52,8 +52,22 @@ const PREDEFINED_AVATARS = [
   "https://api.dicebear.com/7.x/bottts/svg?seed=Robot8&backgroundColor=ffdfbf"
 ];
 
+// Only these display name prefixes can select the featured character avatars
+const EXCLUSIVE_AVATAR_URLS = [
+  "/assets/avatars/rubiks_boy.png",
+  "/assets/avatars/red_hair_girl.png",
+];
+
+const EXCLUSIVE_ACCOUNTS = ["vybhu", "rohit"];
+
+const isExclusiveAccount = (user, profile) => {
+  const name = (profile?.name || user?.displayName || "").toLowerCase().trim();
+  return EXCLUSIVE_ACCOUNTS.some((n) => name.startsWith(n));
+};
+
 export default function Profile() {
   const { currentUser, userProfile, refreshUser } = useAuth();
+  const canUseExclusive = isExclusiveAccount(currentUser, userProfile);
 
   const [displayName, setDisplayName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
@@ -173,33 +187,52 @@ export default function Profile() {
             </label>
 
             <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-              {PREDEFINED_AVATARS.map((avatarUrl, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setSelectedAvatar(avatarUrl)}
-                  className={`relative aspect-square rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 ${selectedAvatar === avatarUrl
-                    ? "border-primary scale-110 shadow-[0_0_20px_rgba(221,183,255,0.4)]"
-                    : "border-white/10 hover:border-primary/50 hover:scale-105"
+              {PREDEFINED_AVATARS.map((avatarUrl, idx) => {
+                const isExclusive = EXCLUSIVE_AVATAR_URLS.includes(avatarUrl);
+                const isLocked = isExclusive && !canUseExclusive;
+                const isSelected = selectedAvatar === avatarUrl;
+
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    disabled={isLocked}
+                    onClick={() => !isLocked && setSelectedAvatar(avatarUrl)}
+                    className={`relative aspect-square rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 ${
+                      isLocked
+                        ? "border-error/30 cursor-not-allowed opacity-60"
+                        : isSelected
+                        ? "border-primary scale-110 shadow-[0_0_20px_rgba(221,183,255,0.4)]"
+                        : "border-white/10 hover:border-primary/50 hover:scale-105"
                     }`}
-                >
-                  <img
-                    src={avatarUrl}
-                    alt={`Avatar option ${idx + 1}`}
-                    className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${selectedAvatar === avatarUrl
-                      ? "brightness-110 saturate-125"
-                      : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
+                  >
+                    <img
+                      src={avatarUrl}
+                      alt={`Avatar option ${idx + 1}`}
+                      className={`w-full h-full object-cover bg-white/10 transition-all duration-300 ${
+                        isLocked
+                          ? "brightness-50 saturate-0"
+                          : isSelected
+                          ? "brightness-110 saturate-125"
+                          : "brightness-[0.85] saturate-[0.85] opacity-80 hover:opacity-100 hover:brightness-100 hover:saturate-100"
                       }`}
-                  />
-                  {selectedAvatar === avatarUrl && (
-                    <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
-                      <div className="bg-primary/80 rounded-full p-1 shadow-lg">
-                        <span className="material-symbols-outlined text-white text-sm scale-75">check</span>
+                    />
+                    {isLocked && (
+                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center gap-1">
+                        <span className="material-symbols-outlined text-error text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>cancel</span>
+                        <span className="text-[8px] font-headline font-bold text-error uppercase tracking-widest">Locked</span>
                       </div>
-                    </div>
-                  )}
-                </button>
-              ))}
+                    )}
+                    {!isLocked && isSelected && (
+                      <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
+                        <div className="bg-primary/80 rounded-full p-1 shadow-lg">
+                          <span className="material-symbols-outlined text-white text-sm scale-75">check</span>
+                        </div>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

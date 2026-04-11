@@ -16,7 +16,7 @@ const PodiumSection = ({ topThree = [] }) => {
             <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border-[3px] border-[#C0C0C0] p-1 bg-surface-container-low overflow-hidden transition-all group-hover:scale-105 shadow-[0_0_20px_rgba(192,192,192,0.3)] group-hover:shadow-[0_0_30px_rgba(192,192,192,0.5)]">
               <img 
                 alt="2nd Place" 
-                className="w-full h-full object-cover grayscale brightness-110"
+                className="w-full h-full object-cover"
                 src={getAvatar(topThree[1], 2)} 
               />
             </div>
@@ -84,7 +84,7 @@ const PodiumSection = ({ topThree = [] }) => {
             <div className="w-14 h-14 md:w-20 md:h-20 rounded-full border-[2px] border-[#CD7F32] p-1 bg-surface-container-low overflow-hidden transition-all group-hover:scale-105 shadow-[0_0_15px_rgba(205,127,50,0.3)] group-hover:shadow-[0_0_25px_rgba(205,127,50,0.5)]">
               <img 
                 alt="3rd Place" 
-                className="w-full h-full object-cover grayscale opacity-90"
+                className="w-full h-full object-cover"
                 src={getAvatar(topThree[2], 3)} 
               />
             </div>

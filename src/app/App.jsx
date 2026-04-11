@@ -276,11 +276,11 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <QuizProvider>
-          <XPProvider>
-            <CoinProvider>
+          <CoinProvider>
+            <XPProvider>
               <AppLayout />
-            </CoinProvider>
-          </XPProvider>
+            </XPProvider>
+          </CoinProvider>
         </QuizProvider>
       </AuthProvider>
     </BrowserRouter>

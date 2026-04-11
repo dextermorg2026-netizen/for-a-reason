@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useXP } from "../../context/XPContext";
 import { useAuth } from "../../context/AuthContext";
-import { getGlobalCoins } from "../../services/statsService";
+import { getGlobalCoins, getSkillRating } from "../../services/statsService";
 import "./Dashboard.css";
 import {
   getUserStreak,
@@ -34,6 +34,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [animatedCoins, setAnimatedCoins] = useState(0);
+  const [skillRating, setSkillRating] = useState("B");
 
   // =========================
   // Data Load
@@ -52,7 +53,7 @@ const Dashboard = () => {
         setLoading(true);
         setError("");
 
-        const [coins, streak, weekly, currentWeek, last28Raw, leaderboard] =
+        const [coins, streak, weekly, currentWeek, last28Raw, leaderboard, fetchedRating] =
           await Promise.all([
             getGlobalCoins(currentUser.uid),
             getUserStreak(currentUser.uid),
@@ -60,6 +61,7 @@ const Dashboard = () => {
             getCurrentWeekStats(currentUser.uid),
             getLast28DaysActivity(currentUser.uid),
             getGlobalLeaderboard(),
+            getSkillRating(currentUser.uid),
           ]);
 
         const safeWeekly = Array.isArray(weekly) ? weekly : [];
@@ -75,6 +77,8 @@ const Dashboard = () => {
         const rank = rankIndex >= 0 ? rankIndex + 1 : null;
 
         if (!mounted) return;
+
+        setSkillRating(fetchedRating);
 
         setStats({
           coins: Number(coins) || 0,
@@ -274,7 +278,7 @@ const Dashboard = () => {
               </div>
               <div className="text-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors">
                 <p className="text-xs uppercase font-headline text-slate-500 mb-2">Skill Rating</p>
-                <p className="font-headline font-semibold text-2xl text-secondary">A+</p>
+                <p className="font-headline font-semibold text-2xl text-secondary">{skillRating}</p>
               </div>
             </div>
           </div>

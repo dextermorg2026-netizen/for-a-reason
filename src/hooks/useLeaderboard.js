@@ -29,6 +29,7 @@ export function useLeaderboard(subjectId) {
           return {
             id: doc.id,
             name: data?.name || "Unknown",
+            photoURL: data?.photoURL || null,
             coins: subjectCoins,
           };
         });

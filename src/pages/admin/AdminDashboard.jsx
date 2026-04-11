@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { createLiveQuiz, startLiveQuiz, finishLiveQuiz } from '../../services/liveQuizService';
+import { createLiveQuiz, startLiveQuiz, finishLiveQuiz, getLiveQuizSession } from '../../services/liveQuizService';
 import { createGlobalNotification } from '../../services/notificationService';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../../services/firebase';
@@ -12,6 +12,7 @@ const AdminDashboard = () => {
   const [message, setMessage] = useState('');
   const [activeQuizzes, setActiveQuizzes] = useState([]);
   const [duration, setDuration] = useState(20); // Default 20 minutes
+  const [missionType, setMissionType] = useState('competitive'); // 'competitive' or 'analysis'
 
   useEffect(() => {
     // Listen for quizzes that are waiting or playing
@@ -46,12 +47,25 @@ const AdminDashboard = () => {
         throw new Error('JSON must be a non-empty array of questions.');
       }
 
-      // Generate 6-letter room code
-      const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+      // Generate unique 6-letter room code
+      let roomCode = '';
+      let isUnique = false;
+      let attempts = 0;
+      
+      while (!isUnique && attempts < 5) {
+        roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const existing = await getLiveQuizSession(roomCode);
+        if (!existing) {
+          isUnique = true;
+        }
+        attempts++;
+      }
+
+      if (!isUnique) throw new Error('Failed to generate unique room code. Try again.');
       
       // Upload to Firestore
       const durationSeconds = duration * 60;
-      await createLiveQuiz(roomCode, questions, 'General', durationSeconds);
+      await createLiveQuiz(roomCode, questions, 'General', durationSeconds, missionType);
 
       // Send Global Notification
       await createGlobalNotification(
@@ -142,6 +156,11 @@ const AdminDashboard = () => {
                         }`}>
                           {quiz.status}
                         </span>
+                        {quiz.type === 'analysis' && (
+                          <span className="ml-2 font-headline text-[8px] px-2 py-0.5 font-bold uppercase tracking-widest bg-primary/10 text-primary border border-primary/20">
+                            Analysis
+                          </span>
+                        )}
                       </td>
                       <td className="py-4 flex justify-end gap-2">
                         {quiz.status === 'waiting' && (
@@ -203,6 +222,26 @@ const AdminDashboard = () => {
                   onChange={(e) => setDuration(parseInt(e.target.value) || 1)}
                   className="bg-transparent border-none text-on-surface font-mono text-xs w-full focus:outline-none"
                 />
+              </div>
+            </div>
+
+            <div className="relative group">
+              <label className="text-[9px] font-headline font-bold text-slate-500 uppercase tracking-widest mb-2 block">
+                Mission Type
+              </label>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setMissionType('competitive')}
+                  className={`flex-1 py-3 border font-headline text-[10px] font-bold uppercase tracking-widest transition-all ${missionType === 'competitive' ? 'bg-primary/20 border-primary text-primary shadow-[0_0_10px_rgba(183,109,255,0.2)]' : 'bg-surface-container-lowest border-white/10 text-slate-500 hover:border-white/20'}`}
+                >
+                  Competitive
+                </button>
+                <button 
+                  onClick={() => setMissionType('analysis')}
+                  className={`flex-1 py-3 border font-headline text-[10px] font-bold uppercase tracking-widest transition-all ${missionType === 'analysis' ? 'bg-secondary/20 border-secondary text-secondary shadow-[0_0_10px_rgba(78,222,163,0.2)]' : 'bg-surface-container-lowest border-white/10 text-slate-500 hover:border-white/20'}`}
+                >
+                  Analysis
+                </button>
               </div>
             </div>
           </div>

@@ -255,9 +255,9 @@ function AppLayout() {
           <span className="material-symbols-outlined">quiz</span>
           <span className="text-[10px] font-semibold uppercase">Quizzes</span>
         </NavLink>
-        <NavLink to="/leaderboard" className={({ isActive }) => `flex flex-col items-center gap-1 ${isActive ? 'text-cyan-400' : 'text-slate-500'}`}>
-          <span className="material-symbols-outlined">military_tech</span>
-          <span className="text-[10px] font-semibold uppercase">Rank</span>
+        <NavLink to="/live" className={({ isActive }) => `flex flex-col items-center gap-1 ${isActive ? 'text-cyan-400' : 'text-slate-500'}`}>
+          <span className="material-symbols-outlined">sensors</span>
+          <span className="text-[10px] font-semibold uppercase">Live Ops</span>
         </NavLink>
         {userProfile?.role === "admin" && (
           <NavLink to="/admin" className={({ isActive }) => `flex flex-col items-center gap-1 ${isActive ? 'text-error' : 'text-slate-500'}`}>

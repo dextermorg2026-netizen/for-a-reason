@@ -287,21 +287,30 @@ export const calculateScore = async (sessionId, userId) => {
       { merge: true }
     );
 
-    // ✅ STORE HISTORY (ONLY IF ATTEMPTED)
-    if (Object.keys(answers).length > 0) {
+    // ✅ STORE HISTORY (ALWAYS FOR ANALYSIS, OR IF ATTEMPTED FOR OTHERS)
+    const sessionRef = doc(db, "liveQuizzes", sessionId);
+    const sessionSnap = await getDoc(sessionRef);
+    const sessionData = sessionSnap.data();
+    const isAnalysis = sessionData?.type === "analysis";
+
+    if (Object.keys(answers).length > 0 || isAnalysis) {
+      // Ensure session meta exists in history list and trigger update
+      const histRef = doc(db, "liveQuizHistory", sessionId);
+      await setDoc(histRef, {
+        subject: sessionData?.subject || "General",
+        id: sessionId,
+        date: Date.now(), // update date to trigger snapshot
+        totalQuestions: Object.keys(questions).length,
+        updatedAt: Date.now() 
+      }, { merge: true });
+
       await setDoc(
-        doc(
-          db,
-          "liveQuizHistory",
-          sessionId,
-          "participants",
-          userId
-        ),
+        doc(db, "liveQuizHistory", sessionId, "participants", userId),
         {
           username: userData.username,
           score,
           totalQuestions: Object.keys(questions).length,
-          answers, // Store answers for detailed report
+          answers,
           coins: coinsEarned,
           submittedAt: Date.now(),
         }
@@ -417,39 +426,39 @@ export const getPastLeaderboard = async (sessionId) => {
 };
 
 // ==============================
-// 🔹 GET MY LIVE HISTORY
+// 🔹 SUBSCRIBE TO MY LIVE HISTORY (REAL-TIME)
 // ==============================
-export const getMyLiveQuizHistory = async (userId) => {
-  if (!userId) return [];
-  
-  try {
-    // We'll use a collection group query on 'participants' where the document ID matches the userId
-    // Note: This requires a Firestore index for collection group 'participants'
-    // Alternatively, we can just fetch all history sessions and check if user participated.
-    // Given potential scale, a dedicated "userHistory" collection might be better, 
-    // but for now let's try to fetch recent history and filter for simplicity if no index.
-    
-    // Better approach: Join participant results with session meta
-    const sessions = await getAllPastSessions();
-    const myHistory = [];
+export const subscribeToMyLiveHistory = (userId, callback) => {
+  if (!userId) return () => {};
 
-    for (const session of sessions) {
-      const partRef = doc(db, "liveQuizHistory", session.id, "participants", userId);
-      const partSnap = await getDoc(partRef);
+  const q = query(
+    collection(db, "liveQuizHistory"),
+    orderBy("date", "desc")
+  );
+
+  return onSnapshot(q, async (snap) => {
+    try {
+      const sessions = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       
-      if (partSnap.exists()) {
-        myHistory.push({
-          ...session,
-          participation: partSnap.data()
-        });
-      }
-    }
+      const checks = sessions.map(async (session) => {
+        const partRef = doc(db, "liveQuizHistory", session.id, "participants", userId);
+        const partSnap = await getDoc(partRef);
+        if (partSnap.exists()) {
+          return {
+            ...session,
+            participation: partSnap.data()
+          };
+        }
+        return null;
+      });
 
-    return myHistory;
-  } catch (err) {
-    console.error("[liveQuizService] Failed to get personal history:", err.message);
-    return [];
-  }
+      const results = await Promise.all(checks);
+      callback(results.filter(r => r !== null));
+    } catch (err) {
+      console.error("[liveQuizService] Error in history subscription:", err.message);
+      callback([]);
+    }
+  });
 };
 
 // ==============================

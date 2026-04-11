@@ -227,10 +227,11 @@ const LiveQuiz = () => {
         return alert("This quiz has already ended!");
       }
 
-      // ✅ STRICT RE-ATTEMPT BLOCKADE
+      // ✅ PREVENT RE-ATTENDANCE BUT ALLOW ANALYSIS ACCESS
       const participant = await getParticipant(sessionId, currentUser?.uid);
       if (participant?.finished) {
-        alert("MISSION RESTRICTION: You have already submitted intel for this mission. Access to the simulation is permamently revoked for this node.");
+        alert("MISSION COMPLETE: You have already submitted intel for this mission. Redirecting to Tactical Analysis...");
+        navigate("/live/result", { state: { sessionId } });
         return;
       }
 

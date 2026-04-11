@@ -212,11 +212,35 @@ const LiveResult = () => {
           </button>
         ) : (
           <div className="w-full space-y-6">
-            <h3 className="font-headline font-semibold text-[10px] text-slate-600 uppercase tracking-[0.4em] mb-8 flex items-center gap-3 px-4">
-              <span className="w-4 h-[1px] bg-slate-800"></span>
-              Intel Breakdown
-              <span className="w-4 h-[1px] bg-slate-800"></span>
-            </h3>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 px-4">
+              <h3 className="font-headline font-semibold text-[10px] text-slate-600 uppercase tracking-[0.4em] flex items-center gap-3">
+                <span className="w-4 h-[1px] bg-slate-800"></span>
+                Intel Breakdown
+                <span className="w-4 h-[1px] bg-slate-800"></span>
+              </h3>
+              
+              <div className="flex items-center gap-4 bg-surface-container-low border border-white/5 px-6 py-3 rounded-xl asymmetric-card-small">
+                <div>
+                   <p className="text-[8px] font-headline font-bold text-slate-500 uppercase tracking-widest mb-1">Personal Score</p>
+                   <p className="font-headline font-bold text-xl text-primary tracking-tighter">
+                     {Object.keys(answersMap).reduce((acc, idx) => {
+                       const q = questions[idx];
+                       return acc + (answersMap[idx] === q?.correctAnswer ? 1 : 0);
+                     }, 0)} <span className="text-xs text-slate-600 font-semibold tracking-normal">/ {questions.length}</span>
+                   </p>
+                </div>
+                <div className="h-8 w-[1px] bg-white/10 mx-2"></div>
+                <div>
+                   <p className="text-[8px] font-headline font-bold text-slate-500 uppercase tracking-widest mb-1">Accuracy</p>
+                   <p className="font-headline font-bold text-xl text-secondary tracking-tighter">
+                     {Math.round((Object.keys(answersMap).reduce((acc, idx) => {
+                       const q = questions[idx];
+                       return acc + (answersMap[idx] === q?.correctAnswer ? 1 : 0);
+                     }, 0) / (questions.length || 1)) * 100)}%
+                   </p>
+                </div>
+              </div>
+            </div>
 
             {questions.map((q, i) => {
               const userAns = answersMap[i];

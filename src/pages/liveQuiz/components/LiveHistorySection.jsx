@@ -53,10 +53,26 @@ const LiveHistorySection = ({ userId }) => {
     );
   }
 
-  if (history.length === 0) return null;
+  if (history.length === 0) {
+    return (
+      <div className="w-full max-w-2xl mt-8 px-4 text-center">
+        <div className="flex items-center gap-3 mb-6 opacity-30">
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/10"></div>
+          <h3 className="font-headline font-bold text-[9px] text-slate-500 uppercase tracking-[0.4em] whitespace-nowrap">
+            Mission History Locked
+          </h3>
+          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/10"></div>
+        </div>
+        <div className="p-8 border border-white/5 bg-white/[0.02] rounded-2xl flex flex-col items-center gap-3">
+           <span className="material-symbols-outlined text-slate-700 text-3xl">history_toggle_off</span>
+           <p className="font-headline text-[10px] uppercase tracking-[0.2em] text-slate-600">No mission logs detected in your local core.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full max-w-2xl mt-12 px-4">
+    <div className="w-full max-w-2xl mt-8 px-4">
       <div className="flex items-center gap-3 mb-8">
         <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/10"></div>
         <h3 className="font-headline font-bold text-[10px] text-slate-500 uppercase tracking-[0.4em] whitespace-nowrap">

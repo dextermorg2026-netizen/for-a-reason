@@ -227,13 +227,10 @@ const LiveQuiz = () => {
         return alert("This quiz has already ended!");
       }
 
-      // ✅ CHECK IF ALREADY FINISHED
+      // ✅ STRICT RE-ATTEMPT BLOCKADE
       const participant = await getParticipant(sessionId, currentUser?.uid);
       if (participant?.finished) {
-        setIsFinished(true);
-        hasAutoSubmittedRef.current = true;
-        setJoined(true);
-        subscribeToLiveQuiz(sessionId, setSession);
+        alert("MISSION RESTRICTION: You have already submitted intel for this mission. Access to the simulation is permamently revoked for this node.");
         return;
       }
 
@@ -431,8 +428,10 @@ const LiveQuiz = () => {
           </div>
         </div>
 
-        {/* Global Personal History Section */}
-        <LiveHistorySection userId={currentUser?.uid} />
+        {/* Global Personal History Section - Integrated directly under join protocol */}
+        <div className="w-full max-w-2xl mt-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+           <LiveHistorySection userId={currentUser?.uid} />
+        </div>
       </div>
     );
   }

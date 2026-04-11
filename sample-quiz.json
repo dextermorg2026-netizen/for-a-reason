@@ -1,34 +1,464 @@
 [
     {
-        "question": "Which of the following hook is used to manage state in React?",
+        "question": "Strassen’s algorithm improves matrix multiplication by:",
         "options": [
-            "useEffect",
-            "useState",
-            "useContext",
-            "useReducer"
+            "Reducing additions",
+            "Reducing multiplications",
+            "Reducing memory",
+            "Reducing recursion depth"
         ],
         "correctAnswer": 1,
-        "explanation": "useState is specifically designed to handle and update local component state."
+        "explanation": "Strassen’s algorithm reduces the number of multiplications from 8 to 7, improving efficiency."
     },
     {
-        "question": "What does CSS stand for?",
+        "question": "The recurrence relation for Strassen’s algorithm is:",
         "options": [
-            "Computer Style Sheets",
-            "Creative Style System",
-            "Cascading Style Sheets",
-            "Colorful Style Sheets"
+            "T(n) = 8T(n/2) + O(n^2)",
+            "T(n) = 7T(n/2) + O(n^2)",
+            "T(n) = 6T(n/2) + O(n^3)",
+            "T(n) = 4T(n/2) + O(n^2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Strassen’s algorithm reduces one multiplication, leading to the recurrence T(n) = 7T(n/2) + O(n^2)."
+    },
+    {
+        "question": "Time complexity of Strassen’s algorithm is:",
+        "options": [
+            "O(n^3)",
+            "O(n^2 log n)",
+            "O(n^2.81)",
+            "O(n log n)"
         ],
         "correctAnswer": 2,
-        "explanation": "CSS stands for Cascading Style Sheets, used for styling web documents."
+        "explanation": "Solving the recurrence gives O(n^log2(7)) ≈ O(n^2.81)."
     },
     {
-        "question": "Is JavaScript a strongly typed language?",
+        "question": "Which paradigm does Strassen’s algorithm follow?",
         "options": [
-            "Yes",
-            "No",
-            "Only in strict mode"
+            "Greedy",
+            "Dynamic Programming",
+            "Divide and Conquer",
+            "Backtracking"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Strassen’s algorithm divides matrices into submatrices, solves recursively, and combines results."
+    },
+    {
+        "question": "A triangular matrix is invertible if:",
+        "options": [
+            "All elements are non-zero",
+            "Diagonal elements are non-zero",
+            "It is symmetric",
+            "It is square"
         ],
         "correctAnswer": 1,
-        "explanation": "JavaScript is a loosely typed (or dynamically typed) language."
+        "explanation": "A triangular matrix is invertible only if all diagonal elements are non-zero."
+    },
+    {
+        "question": "The inverse of a triangular matrix is:",
+        "options": [
+            "Diagonal",
+            "Triangular",
+            "Identity",
+            "Symmetric"
+        ],
+        "correctAnswer": 1,
+        "explanation": "The inverse of a triangular matrix remains triangular."
+    },
+    {
+        "question": "Which relation represents LUP decomposition?",
+        "options": [
+            "A = LU",
+            "PA = LU",
+            "AP = LU",
+            "A = UL"
+        ],
+        "correctAnswer": 1,
+        "explanation": "LUP decomposition expresses matrix A as PA = LU, where P is a permutation matrix."
+    },
+    {
+        "question": "In LUP decomposition, P denotes:",
+        "options": [
+            "Product matrix",
+            "Permutation matrix",
+            "Pivot value",
+            "Projection matrix"
+        ],
+        "correctAnswer": 1,
+        "explanation": "P is a permutation matrix used for row exchanges during pivoting."
+    },
+    {
+        "question": "The main purpose of permutation matrix in LUP is to:",
+        "options": [
+            "Reduce time complexity",
+            "Handle pivoting",
+            "Improve storage",
+            "Reduce recursion"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Permutation matrix ensures numerical stability by enabling pivoting."
+    },
+    {
+        "question": "LUP decomposition is mainly used for:",
+        "options": [
+            "Sorting arrays",
+            "Graph traversal",
+            "Solving linear equations",
+            "Searching elements"
+        ],
+        "correctAnswer": 2,
+        "explanation": "LUP decomposition helps efficiently solve systems of linear equations."
+    },
+    {
+        "question": "Time complexity of LUP decomposition is:",
+        "options": [
+            "O(n^2)",
+            "O(n log n)",
+            "O(n^3)",
+            "O(n^4)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "LUP decomposition involves nested loops over matrix dimensions, giving O(n^3)."
+    },
+    {
+        "question": "A matrix is invertible if:",
+        "options": [
+            "Determinant = 0",
+            "Determinant ≠ 0",
+            "It is triangular",
+            "It is symmetric"
+        ],
+        "correctAnswer": 1,
+        "explanation": "A matrix is invertible only if its determinant is non-zero."
+    },
+    {
+        "question": "Which statement is TRUE?",
+        "options": [
+            "Strassen is slower than standard multiplication",
+            "LU decomposition always needs pivoting",
+            "Singular matrices are invertible",
+            "Strassen reduces multiplication count"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Strassen’s algorithm reduces the number of multiplications, improving performance over standard multiplication."
+    },
+    {
+        "question": "Floyd-Warshall algorithm is used to find:",
+        "options": [
+            "Single source shortest path",
+            "Minimum spanning tree",
+            "All pairs shortest paths",
+            "Maximum flow"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Floyd-Warshall computes shortest paths between all pairs of vertices."
+    },
+    {
+        "question": "Time complexity of Floyd-Warshall algorithm is:",
+        "options": [
+            "O(V^2)",
+            "O(V log V)",
+            "O(V^3)",
+            "O(E log V)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "It uses three nested loops over vertices, giving O(V^3)."
+    },
+    {
+        "question": "Floyd-Warshall algorithm is based on:",
+        "options": [
+            "Greedy",
+            "Divide and Conquer",
+            "Dynamic Programming",
+            "Backtracking"
+        ],
+        "correctAnswer": 2,
+        "explanation": "It builds solutions using overlapping subproblems and optimal substructure."
+    },
+    {
+        "question": "Floyd-Warshall works correctly in presence of:",
+        "options": [
+            "Negative edges",
+            "Negative cycles",
+            "Only positive edges",
+            "Only DAG"
+        ],
+        "correctAnswer": 0,
+        "explanation": "It handles negative edges but fails with negative cycles."
+    },
+    {
+        "question": "Dynamic Programming is applicable when:",
+        "options": [
+            "Subproblems are independent",
+            "Overlapping subproblems exist",
+            "Only greedy works",
+            "Problem is iterative"
+        ],
+        "correctAnswer": 1,
+        "explanation": "DP exploits overlapping subproblems to improve efficiency."
+    },
+    {
+        "question": "Chinese Remainder Theorem is used to:",
+        "options": [
+            "Solve shortest path",
+            "Solve simultaneous congruences",
+            "Sort numbers",
+            "Multiply matrices"
+        ],
+        "correctAnswer": 1,
+        "explanation": "CRT solves systems of modular equations with pairwise coprime moduli."
+    },
+    {
+        "question": "CRT requires moduli to be:",
+        "options": [
+            "Equal",
+            "Prime only",
+            "Pairwise coprime",
+            "Even"
+        ],
+        "correctAnswer": 2,
+        "explanation": "CRT works when moduli are pairwise coprime."
+    },
+    {
+        "question": "Modulo representation represents numbers using:",
+        "options": [
+            "Binary digits",
+            "Remainders",
+            "Matrices",
+            "Graphs"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Numbers are represented using their remainders with respect to moduli."
+    },
+    {
+        "question": "Conversion from modulo to base representation uses:",
+        "options": [
+            "Greedy",
+            "Chinese Remainder Theorem",
+            "FFT",
+            "Backtracking"
+        ],
+        "correctAnswer": 1,
+        "explanation": "CRT reconstructs the number from its remainders."
+    },
+    {
+        "question": "Interpolation problem refers to:",
+        "options": [
+            "Shortest path finding",
+            "Reconstructing polynomial from points",
+            "Sorting arrays",
+            "Matrix inversion"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Interpolation finds a polynomial passing through given points."
+    },
+    {
+        "question": "DFT converts:",
+        "options": [
+            "Time domain to frequency domain",
+            "Graph to tree",
+            "Matrix to vector",
+            "Polynomial to matrix"
+        ],
+        "correctAnswer": 0,
+        "explanation": "DFT transforms signals into frequency components."
+    },
+    {
+        "question": "DFT uses:",
+        "options": [
+            "Prime numbers",
+            "Roots of unity",
+            "Matrices only",
+            "Sorting"
+        ],
+        "correctAnswer": 1,
+        "explanation": "DFT relies on complex roots of unity."
+    },
+    {
+        "question": "FFT reduces time complexity from:",
+        "options": [
+            "O(n^3) to O(n^2)",
+            "O(n^2) to O(n log n)",
+            "O(n log n) to O(n)",
+            "O(n^3) to O(n log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "FFT computes DFT efficiently in O(n log n)."
+    },
+    {
+        "question": "FFT is based on:",
+        "options": [
+            "Greedy",
+            "Divide and Conquer",
+            "Dynamic Programming",
+            "Backtracking"
+        ],
+        "correctAnswer": 1,
+        "explanation": "FFT recursively divides the problem into smaller parts."
+    },
+    {
+        "question": "Schonhage-Strassen algorithm is used for:",
+        "options": [
+            "Matrix multiplication",
+            "Integer multiplication",
+            "Sorting",
+            "Graph traversal"
+        ],
+        "correctAnswer": 1,
+        "explanation": "It uses FFT-based methods for fast integer multiplication."
+    },
+ {
+        "question": "Linear Programming deals with:",
+        "options": [
+            "Non-linear optimization",
+            "Optimization of linear objective function",
+            "Sorting problems",
+            "Graph traversal"
+        ],
+        "correctAnswer": 1,
+        "explanation": "LP optimizes a linear objective function under linear constraints."
+    },
+    {
+        "question": "The feasible region in LP is:",
+        "options": [
+            "Random",
+            "Intersection of constraints",
+            "Circular",
+            "Discrete"
+        ],
+        "correctAnswer": 1,
+        "explanation": "It is formed by intersection of all linear constraints."
+    },
+    {
+        "question": "The feasible region is always:",
+        "options": [
+            "Non-convex",
+            "Convex",
+            "Discrete",
+            "Undefined"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Feasible region of LP is convex."
+    },
+    {
+        "question": "Optimal solution occurs at:",
+        "options": [
+            "Interior point",
+            "Corner point",
+            "Random point",
+            "Edge midpoint"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Optimal solutions occur at extreme (corner) points."
+    },
+    {
+        "question": "Simplex algorithm is used to:",
+        "options": [
+            "Find MST",
+            "Solve LP problems",
+            "Sort data",
+            "Search graphs"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Simplex is a method to solve LP problems efficiently."
+    },
+    {
+        "question": "Simplex moves from:",
+        "options": [
+            "Interior point to interior point",
+            "Vertex to adjacent vertex",
+            "Random point",
+            "Edge to edge"
+        ],
+        "correctAnswer": 1,
+        "explanation": "It traverses adjacent vertices of feasible region."
+    },
+    {
+        "question": "NP stands for:",
+        "options": [
+            "Non-polynomial",
+            "Non-deterministic Polynomial",
+            "Normal Polynomial",
+            "Negative Polynomial"
+        ],
+        "correctAnswer": 1,
+        "explanation": "NP means problems verifiable in polynomial time."
+    },
+    {
+        "question": "A problem is in NP if:",
+        "options": [
+            "Hard to solve",
+            "Solution verifiable in polynomial time",
+            "Unsolvable",
+            "Recursive"
+        ],
+        "correctAnswer": 1,
+        "explanation": "NP problems have solutions that can be verified quickly."
+    },
+    {
+        "question": "NP-hard problems are:",
+        "options": [
+            "Easier than NP",
+            "At least as hard as NP",
+            "Equal to NP",
+            "Polynomial only"
+        ],
+        "correctAnswer": 1,
+        "explanation": "NP-hard problems are at least as difficult as NP problems."
+    },
+    {
+        "question": "NP-complete problems are:",
+        "options": [
+            "Only NP",
+            "Only NP-hard",
+            "Both NP and NP-hard",
+            "Polynomial"
+        ],
+        "correctAnswer": 2,
+        "explanation": "NP-complete problems are both in NP and NP-hard."
+    },
+    {
+        "question": "If an NP-complete problem is solved in polynomial time:",
+        "options": [
+            "P ≠ NP",
+            "P = NP",
+            "NP is empty",
+            "No change"
+        ],
+        "correctAnswer": 1,
+        "explanation": "This implies all NP problems can be solved in polynomial time."
+    },
+    {
+        "question": "Proving NP-completeness requires:",
+        "options": [
+            "Sorting",
+            "Reduction",
+            "Searching",
+            "Traversal"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Reduction is used to show NP-completeness."
+    },
+    {
+        "question": "Recent data structures improve searching by:",
+        "options": [
+            "Increasing complexity",
+            "Improving efficiency",
+            "Removing recursion",
+            "Increasing memory"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Advanced structures reduce time complexity of operations."
+    },
+    {
+        "question": "Advanced sorting techniques aim to:",
+        "options": [
+            "Increase comparisons",
+            "Optimize performance",
+            "Reduce memory only",
+            "Avoid algorithms"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Modern sorting focuses on improving performance and efficiency."
     }
 ]

@@ -267,7 +267,7 @@ export const calculateScore = async (sessionId, userId) => {
       }
     });
 
-    const coinsEarned = score * 20;
+    const coinsEarned = score * 2;
 
     // ✅ UPDATE PARTICIPANT
     await updateDoc(userRef, {

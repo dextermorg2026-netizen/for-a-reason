@@ -4,6 +4,7 @@ import {
   subscribeToLeaderboard,
   getLiveQuizQuestions,
   subscribeToLiveQuiz,
+  getLiveQuizSession,
 } from "../../services/liveQuizService";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
@@ -27,7 +28,14 @@ const LiveResult = () => {
   // ================= SESSION =================
   useEffect(() => {
     if (!sessionId) return;
-    const unsub = subscribeToLiveQuiz(sessionId, setSession);
+    const unsub = subscribeToLiveQuiz(sessionId, (data) => {
+      if (data) {
+        setSession(data);
+      } else {
+        // ✅ Fallback to history if not in active
+        getLiveQuizSession(sessionId).then(setSession);
+      }
+    });
     return () => unsub && unsub();
   }, [sessionId]);
 
@@ -84,7 +92,7 @@ const LiveResult = () => {
     );
   }
 
-  if (!session || session.status !== "finished") {
+  if (!session || (session.status !== "finished" && session.type !== "analysis")) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center p-6">
         <div className="bg-[#131313] asymmetric-card hud-border p-10 text-center flex flex-col items-center gap-6">
@@ -98,6 +106,8 @@ const LiveResult = () => {
     );
   }
 
+  const isAnalysisMode = session?.type === "analysis";
+
   return (
     <main className="w-full pb-20">
       <section className="mb-12 text-center">
@@ -105,12 +115,16 @@ const LiveResult = () => {
            <span className="w-2 h-2 rounded-full bg-primary pulse-emerald"></span>
            <span className="font-headline text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Session_Finalized :: Intel_Published</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-on-surface tracking-tighter uppercase mb-2">Operation Standings</h1>
-        <p className="text-slate-500 font-label text-sm uppercase tracking-[0.4em]">SQUAD_SYNC // PERFORMANCE_METRICS</p>
+        <h1 className="text-4xl md:text-5xl font-headline font-bold text-on-surface tracking-tighter uppercase mb-2">
+          {isAnalysisMode ? "Mission Analysis" : "Operation Standings"}
+        </h1>
+        <p className="text-slate-500 font-label text-sm uppercase tracking-[0.4em]">
+          {isAnalysisMode ? "POST_MISSION // DATA_BREAKDOWN" : "SQUAD_SYNC // PERFORMANCE_METRICS"}
+        </p>
       </section>
 
       {/* PODIUM SECTION */}
-      {leaderboard.length >= 3 && (
+      {!isAnalysisMode && leaderboard.length >= 3 && (
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-end">
            {/* 2nd Place */}
            <div className="order-2 md:order-1 h-64 bg-surface-container-low asymmetric-card hud-border p-6 flex flex-col items-center justify-end relative group hover:bg-white/5 transition-all">
@@ -157,7 +171,8 @@ const LiveResult = () => {
       )}
 
       {/* FULL LEADERBOARD */}
-      <section className="bg-[#131313] asymmetric-card hud-border p-8 mb-12">
+      {!isAnalysisMode && (
+        <section className="bg-[#131313] asymmetric-card hud-border p-8 mb-12">
         <div className="flex items-center gap-3 mb-8">
            <span className="material-symbols-outlined text-secondary">format_list_numbered</span>
            <h2 className="font-headline font-semibold text-xs text-slate-500 uppercase tracking-[0.3em]">Full Tactical Standings</h2>
@@ -184,10 +199,11 @@ const LiveResult = () => {
            ))}
         </div>
       </section>
+      )}
 
       {/* REVIEW SECTION */}
       <div className="flex justify-center mb-12">
-        {!showReview ? (
+        {(!showReview && !isAnalysisMode) ? (
           <button
             onClick={() => setShowReview(true)}
             className="px-12 py-5 bg-secondary text-on-secondary font-headline font-bold text-xs uppercase tracking-[0.3em] asymmetric-card shadow-[0_0_30px_rgba(78,222,163,0.3)] hover:scale-[1.05] transition-all"
@@ -269,7 +285,10 @@ const LiveResult = () => {
 
       <div className="mt-12 flex justify-center pt-8 border-t border-white/5">
         <button
-          onClick={() => (window.location.href = "/")}
+          onClick={() => {
+            localStorage.removeItem("liveQuizSession");
+            window.location.href = "/";
+          }}
           className="px-12 py-5 bg-surface-container-high text-on-surface-variant font-headline font-bold text-xs uppercase tracking-[0.3em] asymmetric-card hover:bg-white/10 transition-all"
         >
           Return to Command Center

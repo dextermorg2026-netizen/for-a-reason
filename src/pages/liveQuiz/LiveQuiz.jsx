@@ -36,7 +36,7 @@ const LiveQuiz = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [participantData, setParticipantData] = useState(undefined);
-  const [globalLiveDetail, setGlobalLiveDetail] = useState({ isLive: false, code: "" });
+  const [activeSessions, setActiveSessions] = useState([]);
   const hasAutoSubmittedRef = useRef(false);
 
   const isHost = userProfile?.role === "admin";
@@ -52,22 +52,25 @@ const LiveQuiz = () => {
   // ================= GLOBAL LIVE DETECTION =================
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
-      let live = false;
-      let code = "";
+      const active = [];
       snap.forEach((doc) => {
         if (doc.data().status === "playing") {
-          live = true;
-          code = doc.id;
+          active.push({ 
+            code: doc.id, 
+            type: doc.data().type || 'competitive',
+            subject: doc.data().subject || 'General'
+          });
         }
       });
-      setGlobalLiveDetail({ isLive: live, code });
+      setActiveSessions(active);
     });
     return () => unsub();
   }, []);
 
-  const handleQuickSync = () => {
-    if (globalLiveDetail.code) {
-      setSessionId(globalLiveDetail.code);
+  const handleQuickSync = (code) => {
+    if (code) {
+      clearAndReset(); // Wipe old mission state
+      setSessionId(code); // Pre-fill new mission ID
     }
   };
 
@@ -138,6 +141,9 @@ const LiveQuiz = () => {
     setAnswersMap({});
     setSession(undefined);
     setParticipantData(undefined);
+    setIsFinished(false);
+    setCurrentIndex(0);
+    hasAutoSubmittedRef.current = false;
     if (msg) alert(msg);
   };
 
@@ -197,16 +203,15 @@ const LiveQuiz = () => {
 
   // ================= NAVIGATION =================
   useEffect(() => {
-    if (session?.status === "finished" && isFinished) {
-      // Clear local storage ONLY when the user is truly done
-      localStorage.removeItem("liveQuizSession");
+    const isReadyForResults = session?.status === "finished" || (session?.type === "analysis" && isFinished);
 
+    if (isReadyForResults && isFinished) {
       // Move to results
       navigate("/live/result", {
         state: { sessionId },
       });
     }
-  }, [session?.status, isFinished]);
+  }, [session?.status, session?.type, isFinished]);
 
   // ================= JOIN =================
   const handleJoin = async () => {
@@ -335,26 +340,35 @@ const LiveQuiz = () => {
   if (!joined) {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 gap-6">
-        {/* Active Mission Alert Banner */}
-        {globalLiveDetail.isLive && (
-          <div className="w-full max-w-md animate-bounce">
-            <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 flex items-center justify-between backdrop-blur-md shadow-[0_0_20px_rgba(221,183,255,0.2)]">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                   <span className="material-symbols-outlined text-primary animate-pulse">radar</span>
+        {/* Active Mission Alert Banners */}
+        {activeSessions.length > 0 && (
+          <div className="w-full max-w-md space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
+            {activeSessions.map((s) => (
+              <div key={s.code} className="bg-primary/10 border border-primary/30 rounded-xl p-4 flex items-center justify-between backdrop-blur-md shadow-[0_0_20px_rgba(221,183,255,0.1)] group hover:border-primary/50 transition-all">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/20">
+                     <span className={`material-symbols-outlined text-primary ${s.type === 'analysis' ? 'text-secondary' : ''} animate-pulse`}>
+                        {s.type === 'analysis' ? 'analytics' : 'radar'}
+                     </span>
+                  </div>
+                  <div>
+                     <div className="flex items-center gap-2">
+                        <h4 className="text-[10px] font-headline font-bold text-primary uppercase tracking-[0.2em]">Active Mission</h4>
+                        {s.type === 'analysis' && (
+                          <span className="text-[8px] px-1.5 py-0.5 bg-secondary/20 text-secondary border border-secondary/30 rounded font-bold uppercase tracking-tighter">Analysis</span>
+                        )}
+                     </div>
+                     <p className="text-[11px] font-mono text-white/70 font-bold uppercase tracking-widest">{s.code} <span className="text-[8px] opacity-40 mx-2">//</span> {s.subject}</p>
+                  </div>
                 </div>
-                <div>
-                   <h4 className="text-[10px] font-headline font-bold text-primary uppercase tracking-[0.2em] mb-0.5">Active Mission Detected</h4>
-                   <p className="text-[11px] font-mono text-white/70 font-bold uppercase tracking-widest">{globalLiveDetail.code}</p>
-                </div>
+                <button 
+                  onClick={() => handleQuickSync(s.code)}
+                  className="px-4 py-2 bg-primary/20 hover:bg-primary/40 border border-primary/40 rounded text-[9px] font-headline font-bold text-primary uppercase tracking-widest transition-all active:scale-95 whitespace-nowrap"
+                >
+                  Quick Sync
+                </button>
               </div>
-              <button 
-                onClick={handleQuickSync}
-                className="px-4 py-2 bg-primary/20 hover:bg-primary/40 border border-primary/40 rounded text-[9px] font-headline font-bold text-primary uppercase tracking-widest transition-all active:scale-95"
-              >
-                Quick Sync
-              </button>
-            </div>
+            ))}
           </div>
         )}
 
@@ -462,10 +476,14 @@ const LiveQuiz = () => {
     );
   }
 
-  if (joined && isFinished && session?.status !== "finished") {
+  if (joined && isFinished && session?.status !== "finished" && session?.type !== "analysis") {
+    const otherSessions = activeSessions.filter(s => s.code !== sessionId);
+
     return (
-      <div className="min-h-[80vh] flex items-center justify-center p-6">
-        <div className="w-full max-w-lg bg-[#131313] asymmetric-card hud-border p-12 text-center">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 gap-10">
+        <div className="w-full max-w-lg bg-[#131313] asymmetric-card hud-border p-12 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+          
           <div className="w-24 h-24 bg-tertiary/20 rounded-full flex items-center justify-center mx-auto mb-8 border border-tertiary/20 shadow-[0_0_30px_rgba(78,222,163,0.2)]">
             <span className="material-symbols-outlined text-5xl text-tertiary">check_circle</span>
           </div>
@@ -473,7 +491,7 @@ const LiveQuiz = () => {
           <p className="font-body text-slate-500 text-sm uppercase tracking-[0.2em] mb-8 leading-relaxed">
             All operational data has been successfully uploaded to the central mainframe.
           </p>
-          <div className="p-6 bg-surface-container-lowest border-l-4 border-secondary rounded flex justify-between items-center">
+          <div className="p-6 bg-surface-container-lowest border-l-4 border-secondary rounded flex justify-between items-center mb-8">
              <div className="text-left">
                <p className="font-headline text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-1">System Status</p>
                <p className="font-headline text-xs font-semibold text-on-surface tracking-widest">AWAITING_SQUAD_COMPLETION...</p>
@@ -481,10 +499,53 @@ const LiveQuiz = () => {
              <span className="material-symbols-outlined text-secondary animate-pulse">cloud_upload</span>
           </div>
 
+          <div className="grid grid-cols-1 gap-4">
+            <button 
+              onClick={() => clearAndReset()}
+              className="w-full py-4 bg-surface-container-low border border-white/10 text-on-surface font-headline font-semibold text-[10px] uppercase tracking-[0.3em] asymmetric-card hover:bg-white/5 transition-all flex items-center justify-center gap-3"
+            >
+              <span className="material-symbols-outlined text-sm">rebase_edit</span> Retarget Signal Hub
+            </button>
+          </div>
+
           <div className="mt-12 pt-8 border-t border-white/5">
              <SignalGame />
           </div>
         </div>
+
+        {/* Other Active Missions Section */}
+        {otherSessions.length > 0 && (
+          <div className="w-full max-w-lg space-y-4">
+            <div className="flex items-center gap-3 mb-2 px-4">
+              <span className="w-2 h-2 rounded-full bg-secondary"></span>
+              <h3 className="font-headline font-semibold text-[10px] text-slate-500 uppercase tracking-[0.3em]">Other Active Frequencies Detected</h3>
+            </div>
+            {otherSessions.map((s) => (
+              <div key={s.code} className="bg-primary/10 border border-primary/30 rounded-xl p-4 flex items-center justify-between backdrop-blur-md shadow-[0_0_20px_rgba(221,183,255,0.1)] group hover:border-primary/50 transition-all scale-95 opacity-80 hover:opacity-100 hover:scale-100 duration-300">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/20">
+                     <span className={`material-symbols-outlined text-primary text-sm ${s.type === 'analysis' ? 'text-secondary' : ''} animate-pulse`}>
+                        {s.type === 'analysis' ? 'analytics' : 'radar'}
+                     </span>
+                  </div>
+                  <div>
+                     <div className="flex items-center gap-1">
+                        <h4 className="text-[8px] font-headline font-bold text-primary uppercase tracking-[0.2em]">{s.code}</h4>
+                        {s.type === 'analysis' && <span className="text-[7px] px-1 py-0.5 bg-secondary/20 text-secondary rounded font-bold uppercase">Analysis</span>}
+                     </div>
+                     <p className="text-[9px] font-mono text-white/50 uppercase tracking-widest">{s.subject}</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => handleQuickSync(s.code)}
+                  className="px-3 py-1.5 bg-primary/20 hover:bg-primary/40 border border-primary/40 rounded text-[8px] font-headline font-bold text-primary uppercase tracking-widest transition-all active:scale-95"
+                >
+                  Quick Sync
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }

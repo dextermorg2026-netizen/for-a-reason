@@ -67,9 +67,14 @@ export const recordParticipantStartTime = async (sessionId, userId) => {
 // ==============================
 // 🔹 GET SESSION DATA
 // ==============================
-export const getLiveQuizSession = async (sessionId) => { if (!sessionId) return null;
+export const getLiveQuizSession = async (sessionId) => {
+  if (!sessionId) return null;
   const snap = await getDoc(doc(db, "liveQuizzes", sessionId));
-  return snap.exists() ? snap.data() : null;
+  if (snap.exists()) return snap.data();
+
+  // ✅ Fallback to history if not found in active sessions
+  const historySnap = await getDoc(doc(db, "liveQuizHistory", sessionId));
+  return historySnap.exists() ? historySnap.data() : null;
 };
 
 // ==============================
@@ -98,19 +103,23 @@ export const subscribeToParticipant = (sessionId, userId, callback) => {
 // ==============================
 // 🔹 GET QUESTIONS
 // ==============================
-export const getLiveQuizQuestions = async (sessionId) => { if (!sessionId) return [];
+export const getLiveQuizQuestions = async (sessionId) => {
+  if (!sessionId) return [];
   const snap = await getDocs(
     collection(db, "liveQuizzes", sessionId, "questions")
   );
 
-  const questions = [];
+  if (!snap.empty) {
+    const questions = [];
+    snap.forEach((docSnap) => {
+      const index = parseInt(docSnap.id);
+      questions[index] = docSnap.data();
+    });
+    return questions;
+  }
 
-  snap.forEach((docSnap) => {
-    const index = parseInt(docSnap.id);
-    questions[index] = docSnap.data();
-  });
-
-  return questions;
+  // ✅ Fallback to history
+  return getHistoryQuestions(sessionId);
 };
 
 // ==============================
@@ -241,6 +250,13 @@ export const calculateScore = async (sessionId, userId) => {
     if (!userSnap.exists()) return 0;
 
     const userData = userSnap.data();
+    
+    // ✅ BUG FIX: PREVENT REDUNDANT SCORE / COINS
+    if (userData.finished) {
+      console.warn("[liveQuizService] Participant already finalized. Skipping calculation.");
+      return userData.score || 0;
+    }
+
     const answers = userData.answers || {};
 
     let score = 0;
@@ -340,7 +356,13 @@ export const subscribeToLeaderboard = (sessionId, callback) => {
 // ==============================
 // 🔹 CREATE LIVE QUIZ (ADMIN)
 // ==============================
-export const createLiveQuiz = async (roomCode, questions, subject = "General", durationInSeconds = 1200) => {
+export const createLiveQuiz = async (
+  roomCode,
+  questions,
+  subject = "General",
+  durationInSeconds = 1200,
+  type = "competitive"
+) => {
   const ref = doc(db, "liveQuizzes", roomCode);
 
   // Set the main session document
@@ -349,7 +371,8 @@ export const createLiveQuiz = async (roomCode, questions, subject = "General", d
     subject,
     totalQuestions: questions.length,
     duration: durationInSeconds,
-    createdAt: Date.now()
+    type,
+    createdAt: Date.now(),
   });
 
   // Write each question

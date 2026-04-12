@@ -14,7 +14,7 @@ import { QuizProvider } from "../context/QuizContext.jsx";
 import { CoinProvider } from "../context/CoinContext";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 import NotificationToast from "../components/common/NotificationToast";
 import "../styles/AppLayout.css";
@@ -34,18 +34,12 @@ function AppLayout() {
   const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
-      let live = false;
-      let code = "";
-      snap.forEach((doc) => {
-        if (doc.data().status === "playing") {
-          live = true;
-          code = doc.id; // Usually the doc ID is the room code
-        }
-      });
-      setIsLive(live);
-      setLiveCode(code);
+    const q = query(collection(db, "liveQuizzes"), where("status", "==", "playing"));
+    const unsub = onSnapshot(q, (snap) => {
+      setIsLive(!snap.empty);
+      setLiveCode(!snap.empty ? snap.docs[0].id : "");
     });
+
     return () => unsub();
   }, []);
 

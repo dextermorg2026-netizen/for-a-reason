@@ -15,7 +15,7 @@ import {
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import LiveHistorySection from "./components/LiveHistorySection";
 
@@ -51,17 +51,13 @@ const LiveQuiz = () => {
 
   // ================= GLOBAL LIVE DETECTION =================
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "liveQuizzes"), (snap) => {
-      const active = [];
-      snap.forEach((doc) => {
-        if (doc.data().status === "playing") {
-          active.push({ 
-            code: doc.id, 
-            type: doc.data().type || 'competitive',
-            subject: doc.data().subject || 'General'
-          });
-        }
-      });
+    const q = query(collection(db, "liveQuizzes"), where("status", "==", "playing"));
+    const unsub = onSnapshot(q, (snap) => {
+      const active = snap.docs.map(doc => ({
+        code: doc.id,
+        type: doc.data().type || 'competitive',
+        subject: doc.data().subject || 'General'
+      }));
       setActiveSessions(active);
     });
     return () => unsub();

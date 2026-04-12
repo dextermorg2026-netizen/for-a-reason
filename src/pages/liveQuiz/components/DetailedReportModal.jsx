@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
   if (!isOpen || !session) return null;
@@ -6,11 +7,11 @@ const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
   const participation = session.participation || {};
   const answers = participation.answers || {};
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        className="absolute inset-0 bg-black/95 backdrop-blur-xl"
         onClick={onClose}
       ></div>
 
@@ -49,7 +50,7 @@ const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
           <div className="bg-[#0f0f0f] p-6 text-center border-x border-white/5">
             <p className="text-[10px] font-headline font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Accuracy</p>
             <p className="text-3xl font-headline font-bold text-secondary">
-              {Math.round((participation.score / session.totalQuestions) * 100)}%
+              {session.totalQuestions > 0 ? Math.round((participation.score / session.totalQuestions) * 100) : 0}%
             </p>
           </div>
           <div className="bg-[#0f0f0f] p-6 text-center">
@@ -69,7 +70,6 @@ const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
               
               return (
                 <div key={idx} className="bg-surface-container-lowest border border-white/5 p-6 rounded-sm relative overflow-hidden">
-                  {/* Decorative indicator */}
                   <div className={`absolute top-0 left-0 w-1 h-full ${isCorrect ? 'bg-tertiary' : 'bg-error'}`}></div>
                   
                   <div className="flex justify-between items-start mb-4">
@@ -118,7 +118,6 @@ const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
                     })}
                   </div>
 
-                  {/* Explanation Section */}
                   {q.explanation && (
                     <div className="bg-primary/5 border-l-2 border-primary/30 p-4 mt-2 animate-in fade-in slide-in-from-left-2 duration-700">
                       <div className="flex items-center gap-2 mb-2">
@@ -133,10 +132,36 @@ const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
                 </div>
               );
             })
+          ) : Object.keys(answers).length > 0 ? (
+            <div className="space-y-4">
+              <div className="p-6 bg-error/10 border border-error/20 rounded-xl mb-8">
+                 <div className="flex items-center gap-3 mb-2">
+                    <span className="material-symbols-outlined text-error">history_toggle_off</span>
+                    <h4 className="font-headline text-xs font-bold text-error uppercase tracking-widest">Question Payload Expired</h4>
+                 </div>
+                 <p className="text-[10px] font-body text-slate-400 uppercase tracking-tight leading-relaxed">
+                    This mission was completed before the central archive system was initialized. While the question text is unavailable, your tactical responses have been recovered below.
+                 </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {Object.keys(answers).sort((a,b) => parseInt(a)-parseInt(b)).map((idx) => (
+                  <div key={idx} className="bg-surface-container-lowest border border-white/5 p-4 rounded-sm">
+                    <p className="text-[8px] font-headline font-semibold text-slate-600 uppercase tracking-widest mb-2">Log_{parseInt(idx)+1}</p>
+                    <div className="flex items-center gap-2">
+                       <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">
+                          {String.fromCharCode(65 + answers[idx])}
+                       </div>
+                       <span className="text-[10px] font-headline font-bold text-slate-400">Response</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
             <div className="py-20 text-center">
               <span className="material-symbols-outlined text-5xl text-slate-800 mb-4">history_toggle_off</span>
-              <p className="font-headline text-xs text-slate-600 uppercase tracking-[0.3em]">Detailed report unavailable for this legacy session.</p>
+              <p className="font-headline text-xs text-slate-600 uppercase tracking-[0.3em]">No operational data recovered for this session.</p>
             </div>
           )}
         </div>
@@ -153,6 +178,8 @@ const DetailedReportModal = ({ isOpen, onClose, session, questions }) => {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default DetailedReportModal;

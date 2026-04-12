@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { subscribeToMyLiveHistory, getHistoryQuestions } from "../../../services/liveQuizService";
+import { subscribeToMyLiveHistory, getLiveQuizQuestions } from "../../../services/liveQuizService";
 import DetailedReportModal from "./DetailedReportModal";
 
 const LiveHistorySection = ({ userId }) => {
@@ -26,7 +26,7 @@ const LiveHistorySection = ({ userId }) => {
     setFetchingReport(true);
     setIsModalOpen(true);
     try {
-      const qs = await getHistoryQuestions(session.id);
+      const qs = await getLiveQuizQuestions(session.id);
       setQuestions(qs);
     } catch (err) {
       console.error("Failed to load report questions:", err);
@@ -78,7 +78,9 @@ const LiveHistorySection = ({ userId }) => {
         {history.map((session) => {
           const date = new Date(session.date).toLocaleDateString();
           const participation = session.participation || {};
-          const accuracy = Math.round((participation.score / session.totalQuestions) * 100);
+          const accuracy = session.totalQuestions > 0 
+            ? Math.round((participation.score / session.totalQuestions) * 100) 
+            : 0;
 
           return (
             <div 

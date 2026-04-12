@@ -9,6 +9,9 @@ import {
   increment,
   query,
   orderBy,
+  where,
+  collectionGroup,
+  limit,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -37,6 +40,7 @@ export const joinParticipant = async ({
   await setDoc(
     ref,
     {
+      userId,
       username,
       joinedAt: Date.now(),
       startedAt,
@@ -307,12 +311,16 @@ export const calculateScore = async (sessionId, userId) => {
       await setDoc(
         doc(db, "liveQuizHistory", sessionId, "participants", userId),
         {
+          userId,
+          sessionId,
+          subject: sessionData?.subject || "General",
           username: userData.username,
           score,
           totalQuestions: Object.keys(questions).length,
           answers,
           coins: coinsEarned,
           submittedAt: Date.now(),
+          date: sessionData?.date || Date.now()
         }
       );
     }
@@ -334,8 +342,13 @@ export const subscribeToLeaderboard = (sessionId, callback) => {
     sessionId,
     "participants"
   );
+  const q = query(
+    ref,
+    orderBy("score", "desc"),
+    limit(20)
+  );
 
-  return onSnapshot(ref, (snap) => {
+  return onSnapshot(q, (snap) => {
     const users = [];
 
     snap.forEach((docSnap) => {
@@ -391,12 +404,18 @@ export const createLiveQuiz = async (
   }
 };
 
-// ==============================
-// ?? GET PARTICIPANT
-// ==============================
-export const getParticipant = async (sessionId, userId) => { if (!sessionId || !userId) return null;
-  const ref = doc(db, 'liveQuizzes', sessionId, 'participants', userId);
-  const snap = await getDoc(ref);
+export const getParticipant = async (sessionId, userId) => {
+  if (!sessionId || !userId) return null;
+  // Try Live (Active) first
+  let ref = doc(db, 'liveQuizzes', sessionId, 'participants', userId);
+  let snap = await getDoc(ref);
+  
+  if (!snap.exists()) {
+    // Try History (Archive)
+    ref = doc(db, 'liveQuizHistory', sessionId, 'participants', userId);
+    snap = await getDoc(ref);
+  }
+  
   return snap.exists() ? snap.data() : null;
 };
 
@@ -431,33 +450,64 @@ export const getPastLeaderboard = async (sessionId) => {
 export const subscribeToMyLiveHistory = (userId, callback) => {
   if (!userId) return () => {};
 
+  // ✅ Collection Group Query: Find all documents in any 'participants' collection where ID is userId
+  // This is MUCH more efficient than reading all global sessions.
   const q = query(
-    collection(db, "liveQuizHistory"),
-    orderBy("date", "desc")
+    collectionGroup(db, "participants"),
+    where("userId", "==", userId),
+    where("submittedAt", ">", 0), 
+    orderBy("submittedAt", "desc")
   );
 
   return onSnapshot(q, async (snap) => {
-    try {
-      const sessions = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    // No longer need to filter in memory - the query does it!
+    const participationDocs = snap.docs;
+    
+    const hydratedResults = await Promise.all(participationDocs.map(async (pDoc) => {
+      const pData = pDoc.data();
+      const sessionId = pData.sessionId || pDoc.ref.parent.parent?.id;
       
-      const checks = sessions.map(async (session) => {
-        const partRef = doc(db, "liveQuizHistory", session.id, "participants", userId);
-        const partSnap = await getDoc(partRef);
-        if (partSnap.exists()) {
-          return {
-            ...session,
-            participation: partSnap.data()
-          };
-        }
-        return null;
-      });
+      // If we are missing subject or totalQuestions (Legacy data), fetch them from the parent session
+      let subject = pData.subject;
+      let totalQuestions = pData.totalQuestions;
+      let date = pData.date || pData.submittedAt;
 
-      const results = await Promise.all(checks);
-      callback(results.filter(r => r !== null));
-    } catch (err) {
-      console.error("[liveQuizService] Error in history subscription:", err.message);
-      callback([]);
-    }
+      if (!subject || !totalQuestions || !date) {
+        try {
+          // One-time fetch for legacy metadata
+          const sessionSnap = await getDoc(doc(db, "liveQuizHistory", sessionId));
+          if (sessionSnap.exists()) {
+            const sData = sessionSnap.data();
+            subject = subject || sData.subject;
+            totalQuestions = totalQuestions || sData.totalQuestions;
+            date = date || sData.date;
+          }
+        } catch (e) {
+          console.warn("Could not hydrate legacy session:", sessionId);
+        }
+      }
+
+      return {
+        id: sessionId || "LEGACY",
+        subject: subject || "General Assessment",
+        date: date || Date.now(),
+        totalQuestions: totalQuestions || Object.keys(pData.answers || {}).length || 0,
+        participation: pData
+      };
+    }));
+    
+    // De-duplicate by sessionId (in case a session exists in both liveQuizzes and history)
+    const uniqueResults = [];
+    const seenSessions = new Set();
+
+    hydratedResults.sort((a, b) => b.date - a.date).forEach(res => {
+      if (!seenSessions.has(res.id)) {
+        uniqueResults.push(res);
+        seenSessions.add(res.id);
+      }
+    });
+    
+    callback(uniqueResults);
   });
 };
 

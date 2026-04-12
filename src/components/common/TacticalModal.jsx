@@ -1,13 +1,14 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 const TacticalModal = ({ isOpen, onClose, onConfirm, title, message, confirmText = "Confirm", cancelText = "Cancel", type = "warning" }) => {
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300" 
+        className="absolute inset-0 bg-black/90 backdrop-blur-md animate-in fade-in duration-300" 
         onClick={onClose}
       />
       
@@ -53,6 +54,8 @@ const TacticalModal = ({ isOpen, onClose, onConfirm, title, message, confirmText
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default TacticalModal;

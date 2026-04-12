@@ -50,17 +50,13 @@ const LiveResult = () => {
     if (!sessionId || !currentUser) return;
 
     const fetchAnswers = async () => {
-      const ref = doc(
-        db,
-        "liveQuizzes",
-        sessionId,
-        "participants",
-        currentUser.uid
-      );
-
-      const snap = await getDoc(ref);
-      if (snap.exists()) {
-        setAnswersMap(snap.data().answers || {});
+      try {
+        const data = await getParticipant(sessionId, currentUser.uid);
+        if (data?.answers) {
+          setAnswersMap(data.answers);
+        }
+      } catch (err) {
+        console.error("Failed to fetch results:", err);
       }
     };
 

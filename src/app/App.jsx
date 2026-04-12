@@ -95,7 +95,7 @@ function AppLayout() {
             <span className="material-symbols-outlined">menu</span>
           </button>
           
-          <div className="hidden md:flex items-center gap-2 pr-4 border-r border-white/10 relative">
+          <div className="flex items-center gap-2 md:pr-4 md:border-r border-white/10 relative">
             <button 
               className={`p-2 transition-all rounded-lg group relative ${showNotificationDropdown ? 'text-primary bg-primary/10' : 'text-slate-400 hover:text-primary'}`}
               onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
@@ -116,7 +116,7 @@ function AppLayout() {
             />
 
             <button 
-              className="p-2 text-slate-400 hover:text-error transition-all rounded-lg group" 
+              className="hidden md:flex p-2 text-slate-400 hover:text-error transition-all rounded-lg group" 
               onClick={() => setShowLogoutModal(true)}
             >
               <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">logout</span>
@@ -210,6 +210,13 @@ function AppLayout() {
               <span className="material-symbols-outlined text-lg">help</span>
               <span className="uppercase tracking-widest text-[10px]">Support</span>
             </NavLink>
+            <button 
+              onClick={() => { setSidebarVisible(false); setShowLogoutModal(true); }}
+              className="w-full group flex items-center gap-4 px-4 py-2 text-slate-500 hover:text-error hover:bg-error/10 transition-all duration-100 ease-in active:scale-95"
+            >
+              <span className="material-symbols-outlined text-lg">logout</span>
+              <span className="uppercase tracking-widest text-[10px]">Logout</span>
+            </button>
           </div>
           
           <button 

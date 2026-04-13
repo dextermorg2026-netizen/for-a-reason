@@ -37,16 +37,47 @@ export const migrateUserStats = async () => {
 
     let totalQuestions = 0;
     let totalCorrect = 0;
+    const historyDates = new Set();
 
     attemptsSnap.forEach(snap => {
       const data = snap.data();
       totalCorrect += data.score || 0;
       totalQuestions += data.questions?.length || 0;
+      
+      if (data.createdAt) {
+        const d = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+        d.setHours(0,0,0,0);
+        historyDates.add(d.getTime());
+      }
     });
+
+    // Calculate Streak (Simple consecutive day check from today backwards)
+    let streak = 0;
+    const sortedDates = Array.from(historyDates).sort((a,b) => b - a);
+    const now = new Date();
+    now.setHours(0,0,0,0);
+
+    if (sortedDates.length > 0) {
+      let current = now.getTime();
+      let i = 0;
+      
+      // If no activity today, check if they did something yesterday
+      if (sortedDates[0] < current) {
+        current -= (1000 * 60 * 60 * 24);
+      }
+
+      while (i < sortedDates.length && sortedDates[i] === current) {
+        streak++;
+        current -= (1000 * 60 * 60 * 24);
+        i++;
+      }
+    }
 
     await updateDoc(doc(db, "users", userId), {
       totalQuestionsAttempted: totalQuestions,
-      totalCorrectAnswers: totalCorrect
+      totalCorrectAnswers: totalCorrect,
+      quizzesAttempted: attemptsSnap.size,
+      streak: streak
     });
   }
   console.log("User Stats Migration Complete.");

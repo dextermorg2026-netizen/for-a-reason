@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, Timestamp } from "firebase/firestore";
+import { collection, query, where, getDocs, Timestamp, orderBy, limit } from "firebase/firestore";
 import { db } from "./firebase";
 
 /**
@@ -13,23 +13,39 @@ export const getDashboardActivityData = async (userId) => {
     thirtyDaysAgo.setDate(now.getDate() - 30);
     thirtyDaysAgo.setHours(0,0,0,0);
 
+    // Safer query: Equality on userId + OrderBy. 
+    // This uses the most common index pattern and avoids range index errors.
     const q = query(
       collection(db, "quizAttempts"),
       where("userId", "==", userId),
-      where("createdAt", ">=", Timestamp.fromDate(thirtyDaysAgo))
+      orderBy("createdAt", "desc"),
+      limit(150) // More than enough for one month of dashboard history
     );
 
     const snapshot = await getDocs(q);
-    const attempts = snapshot.docs.map(doc => doc.data());
+    const allRecentAttempts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    // Filter for 30 days in memory to avoid needing a complex range index
+    const attempts = allRecentAttempts.filter(d => {
+      const date = d.createdAt?.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
+      return date >= thirtyDaysAgo;
+    });
 
     return {
       last28: calculateLast28(attempts, now),
       weekly: calculateWeekly(attempts, now),
-      currentWeek: calculateCurrentWeek(attempts, now)
+      currentWeek: calculateCurrentWeek(attempts, now),
+      totalCount: allRecentAttempts.length // Reliable recent total for achievements
     };
   } catch (error) {
     console.error("Error fetching dashboard activity:", error);
-    return { last28: [], weekly: [0, 0, 0, 0], currentWeek: [] };
+    // Robust fallback: Return early with zeroed data rather than crashing
+    return { 
+      last28: Array(28).fill(0).map((_, i) => ({ date: i, count: 0 })),
+      weekly: [0, 0, 0, 0], 
+      currentWeek: [],
+      totalCount: 0
+    };
   }
 };
 
@@ -88,14 +104,15 @@ function calculateCurrentWeek(attempts, now) {
   const dayCounts = [0, 0, 0, 0, 0, 0, 0];
 
   attempts.forEach((data) => {
-    const date = data.createdAt.toDate();
+    const date = data.createdAt?.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
     date.setHours(0, 0, 0, 0);
     const diffDays = (date - monday) / (1000 * 60 * 60 * 24);
     if (diffDays >= 0 && diffDays < 7) {
       const dayIndex = Math.floor(diffDays);
-      const correct = (data.correctQuestionIds || []).length;
-      const wrong = (data.wrongQuestionIds || []).length;
-      dayCounts[dayIndex] += correct + wrong;
+      // Fallback: If quizAttempt doesn't have detailed question arrays, use score or 5 as a proxy
+      const correct = (data.correctQuestionIds || []).length || data.score || 0;
+      const wrong = (data.wrongQuestionIds || []).length || 0;
+      dayCounts[dayIndex] += Math.max(1, correct + wrong); 
     }
   });
 

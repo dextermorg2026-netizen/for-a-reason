@@ -14,6 +14,7 @@ import {
   updateParticipantIndex,
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
+import { useLiveOps } from "../../context/LiveOpsContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { db } from "../../services/firebase";
@@ -36,7 +37,7 @@ const LiveQuiz = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [participantData, setParticipantData] = useState(undefined);
-  const [activeSessions, setActiveSessions] = useState([]);
+  const { activeSessions } = useLiveOps();
   const hasAutoSubmittedRef = useRef(false);
 
   const isHost = userProfile?.role === "admin";
@@ -49,19 +50,6 @@ const LiveQuiz = () => {
     return null;
   };
 
-  // ================= GLOBAL LIVE DETECTION =================
-  useEffect(() => {
-    const q = query(collection(db, "liveQuizzes"), where("status", "==", "playing"));
-    const unsub = onSnapshot(q, (snap) => {
-      const active = snap.docs.map(doc => ({
-        code: doc.id,
-        type: doc.data().type || 'competitive',
-        subject: doc.data().subject || 'General'
-      }));
-      setActiveSessions(active);
-    });
-    return () => unsub();
-  }, []);
 
   const handleQuickSync = (code) => {
     if (code) {
@@ -293,15 +281,13 @@ const LiveQuiz = () => {
   useEffect(() => {
     if (!joined) return;
     const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+    // ✅ PERSIST TO LOCAL STORAGE
     localStorage.setItem(
       "liveQuizSession",
       JSON.stringify({ ...saved, currentIndex })
     );
 
-    // ✅ PERSIST TO FIREBASE FOR CROSS-DEVICE
-    if (sessionId && currentUser?.uid) {
-      updateParticipantIndex(sessionId, currentUser.uid, currentIndex);
-    }
+    // Optimization: Removed high-frequency Firestore write to save costs.
   }, [currentIndex, joined]);
 
   // ================= SUBMIT =================

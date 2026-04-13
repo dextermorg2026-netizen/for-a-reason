@@ -5,10 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { getGlobalCoins, getSkillRating } from "../../services/statsService";
 import "./Dashboard.css";
 import {
-  getUserStreak,
-  getWeeklyStats,
-  getCurrentWeekStats,
-  getLast28DaysActivity,
+  getDashboardActivityData
 } from "../../services/streakService";
 import { getGlobalLeaderboard } from "../../services/leaderboardService";
 
@@ -18,7 +15,7 @@ import Achievements from "./components/Achievements";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const { currentUser, userProfile } = useAuth();
   const { level, progress, totalXP } = useXP();
 
   const [stats, setStats] = useState({
@@ -53,16 +50,18 @@ const Dashboard = () => {
         setLoading(true);
         setError("");
 
-        const [coins, streak, weekly, currentWeek, last28Raw, leaderboard, fetchedRating] =
+        const [coins, leaderboard, fetchedRating, activityData] =
           await Promise.all([
             getGlobalCoins(currentUser.uid),
-            getUserStreak(currentUser.uid),
-            getWeeklyStats(currentUser.uid),
-            getCurrentWeekStats(currentUser.uid),
-            getLast28DaysActivity(currentUser.uid),
             getGlobalLeaderboard(),
             getSkillRating(currentUser.uid),
+            getDashboardActivityData(currentUser.uid)
           ]);
+        
+        const streak = userProfile?.streak || 0;
+        const weekly = activityData.weekly;
+        const currentWeek = activityData.currentWeek;
+        const last28Raw = activityData.last28;
 
         const safeWeekly = Array.isArray(weekly) ? weekly : [];
         const quizzes = safeWeekly.reduce(

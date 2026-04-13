@@ -21,6 +21,7 @@ import "../styles/AppLayout.css";
 
 import TacticalModal from "../components/common/TacticalModal";
 import NotificationDropdown from "../components/common/NotificationDropdown";
+import { LiveOpsProvider, useLiveOps } from "../context/LiveOpsContext";
 
 function AppLayout() {
   const { logoutUser, userProfile, currentUser } = useAuth();
@@ -28,20 +29,10 @@ function AppLayout() {
   const navigate = useNavigate();
 
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [isLive, setIsLive] = useState(false);
-  const [liveCode, setLiveCode] = useState("");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
+  const { isLive, liveCode } = useLiveOps();
 
-  useEffect(() => {
-    const q = query(collection(db, "liveQuizzes"), where("status", "==", "playing"));
-    const unsub = onSnapshot(q, (snap) => {
-      setIsLive(!snap.empty);
-      setLiveCode(!snap.empty ? snap.docs[0].id : "");
-    });
-
-    return () => unsub();
-  }, []);
 
   const handleLogout = () => {
     setShowLogoutModal(false);
@@ -280,7 +271,9 @@ function App() {
         <QuizProvider>
           <CoinProvider>
             <XPProvider>
-              <AppLayout />
+              <LiveOpsProvider>
+                <AppLayout />
+              </LiveOpsProvider>
             </XPProvider>
           </CoinProvider>
         </QuizProvider>

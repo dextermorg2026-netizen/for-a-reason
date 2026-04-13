@@ -14,6 +14,7 @@ import {
   updateParticipantIndex,
 } from "../../services/liveQuizService";
 import { useAuth } from "../../context/AuthContext";
+import { useLiveOps } from "../../context/LiveOpsContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { db } from "../../services/firebase";
@@ -36,7 +37,7 @@ const LiveQuiz = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [participantData, setParticipantData] = useState(undefined);
-  const [activeSessions, setActiveSessions] = useState([]);
+  const { activeSessions } = useLiveOps();
   const hasAutoSubmittedRef = useRef(false);
 
   const isHost = userProfile?.role === "admin";
@@ -49,19 +50,6 @@ const LiveQuiz = () => {
     return null;
   };
 
-  // ================= GLOBAL LIVE DETECTION =================
-  useEffect(() => {
-    const q = query(collection(db, "liveQuizzes"), where("status", "==", "playing"));
-    const unsub = onSnapshot(q, (snap) => {
-      const active = snap.docs.map(doc => ({
-        code: doc.id,
-        type: doc.data().type || 'competitive',
-        subject: doc.data().subject || 'General'
-      }));
-      setActiveSessions(active);
-    });
-    return () => unsub();
-  }, []);
 
   const handleQuickSync = (code) => {
     if (code) {
@@ -188,7 +176,8 @@ const LiveQuiz = () => {
   
     try {
       if (sessionId && currentUser?.uid) {
-        await calculateScore(sessionId, currentUser.uid);
+        // ✅ PASS LOCAL ANSWERS FOR FINAL SYNC
+        await calculateScore(sessionId, currentUser.uid, answersMap);
       }
     } catch (err) {
       console.error("Score calculation failed:", err);
@@ -264,44 +253,34 @@ const LiveQuiz = () => {
   };
 
   // ================= ANSWER =================
-  const handleSelect = async (index) => {
-    try {
-      await submitLiveAnswer({
-        sessionId,
-        userId: currentUser?.uid,
-        questionIndex: currentIndex,
-        selectedOptionIndex: index,
-      });
+  const handleSelect = (index) => {
+    // Optimization: No longer writing to Firestore on every click.
+    // Answers are saved locally and synced ONCE at the end.
 
-      setAnswersMap((prev) => {
-        const newMap = { ...prev, [currentIndex]: index };
-        
-        const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
-        localStorage.setItem(
-          "liveQuizSession",
-          JSON.stringify({ ...saved, answersMap: newMap })
-        );
-        
-        return newMap;
-      });
-    } catch (err) {
-      console.error("Answer submission failed:", err);
-    }
+    setAnswersMap((prev) => {
+      const newMap = { ...prev, [currentIndex]: index };
+      
+      const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+      localStorage.setItem(
+        "liveQuizSession",
+        JSON.stringify({ ...saved, answersMap: newMap })
+      );
+      
+      return newMap;
+    });
   };
 
   // ✅ PERSIST CURRENT INDEX
   useEffect(() => {
     if (!joined) return;
     const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+    // ✅ PERSIST TO LOCAL STORAGE
     localStorage.setItem(
       "liveQuizSession",
       JSON.stringify({ ...saved, currentIndex })
     );
 
-    // ✅ PERSIST TO FIREBASE FOR CROSS-DEVICE
-    if (sessionId && currentUser?.uid) {
-      updateParticipantIndex(sessionId, currentUser.uid, currentIndex);
-    }
+    // Optimization: Removed high-frequency Firestore write to save costs.
   }, [currentIndex, joined]);
 
   // ================= SUBMIT =================

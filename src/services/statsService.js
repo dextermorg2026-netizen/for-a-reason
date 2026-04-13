@@ -17,7 +17,6 @@ export const getGlobalCoins = async (userId) => {
 };
 
 // Deprecated helper – kept for backwards compatibility only
-// (not used anywhere in the codebase).
 export const getGlobalScore = getGlobalCoins;
 
 
@@ -41,24 +40,20 @@ export const getLastAttemptedSubject = async (userId) => {
   };
 };
 
+/**
+ * Optimized: Uses denormalized stats on the user document.
+ * Cost: 1 Read (instead of N reads for all attempts).
+ */
 export const getSkillRating = async (userId) => {
   try {
-    const q = query(
-      collection(db, "quizAttempts"),
-      where("userId", "==", userId)
-    );
-    const snap = await getDocs(q);
+    const userRef = doc(db, "users", userId);
+    const snap = await getDoc(userRef);
     
-    if (snap.empty) return "B";
+    if (!snap.exists()) return "B";
 
-    let totalQuestions = 0;
-    let totalCorrect = 0;
-    
-    snap.forEach((docSnap) => {
-      const data = docSnap.data();
-      totalCorrect += data.score || 0;
-      totalQuestions += data.questions?.length || 0;
-    });
+    const data = snap.data();
+    const totalCorrect = data.totalCorrectAnswers || 0;
+    const totalQuestions = data.totalQuestionsAttempted || 0;
 
     if (totalQuestions === 0) return "B";
 
@@ -75,23 +70,18 @@ export const getSkillRating = async (userId) => {
   }
 };
 
+/**
+ * Optimized: Removed full 'questions' collection scan (which cost hundreds of reads).
+ * Uses a system constant for level calculation.
+ */
 export const getLevelData = async (userCoins) => {
   try {
-    const snap = await getDocs(collection(db, "questions"));
-    let maxCoins = 1000; // Safe default
-    
-    if (!snap.empty) {
-      maxCoins = 0;
-      snap.forEach((docSnap) => {
-        const diff = docSnap.data().difficulty;
-        if (diff === "hard") maxCoins += 15;
-        else if (diff === "medium") maxCoins += 10;
-        else maxCoins += 5;
-      });
-    }
+    // Optimization: Hardcoded max coins target to avoid scanning entire DB
+    // In a production app, this could be stored in a single 'system_meta' document.
+    const maxCoinsEstimate = 5000; 
 
     const NUMBER_OF_BASE_LEVELS = 10;
-    const xpPerLevel = Math.max(10, Math.ceil(maxCoins / NUMBER_OF_BASE_LEVELS));
+    const xpPerLevel = 250; // Every 250 coins = 1 level
     
     const currentLevel = Math.floor(userCoins / xpPerLevel) + 1;
     const xpInCurrentLevel = userCoins % xpPerLevel;

@@ -14,6 +14,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { updateUserStats } from "./userService";
 
 // ==============================
 // 🔹 JOIN PARTICIPANT
@@ -48,6 +49,10 @@ export const joinParticipant = async ({
       score: 0,
       coins: 0,
       finished: false,
+      // Denormalized for History (Reduces Reads)
+      subject: sessionData?.subject || "General",
+      totalQuestions: sessionData?.totalQuestions || 0,
+      sessionId
     },
     { merge: true }
   );
@@ -146,8 +151,6 @@ export const submitLiveAnswer = async ({
 
     await updateDoc(ref, {
       [`answers.${questionIndex}`]: selectedOptionIndex,
-      lastViewedIndex: questionIndex,
-      updatedAt: Date.now(),
     });
   } catch (err) {
     console.warn("[liveQuizService] Failed to submit answer:", err.message);
@@ -158,15 +161,8 @@ export const submitLiveAnswer = async ({
 // 🔹 UPDATE CURRENT INDEX
 // ==============================
 export const updateParticipantIndex = async (sessionId, userId, index) => {
-  try {
-    const ref = doc(db, "liveQuizzes", sessionId, "participants", userId);
-    await updateDoc(ref, { 
-      lastViewedIndex: index,
-      updatedAt: Date.now()
-    });
-  } catch (err) {
-    console.warn("[liveQuizService] Failed to update participant index:", err.message);
-  }
+  // Optimization: Removed high-frequency write to stop read-multiplier on leaderboard
+  return;
 };
 
 // ==============================
@@ -230,7 +226,7 @@ export const finishLiveQuiz = async (sessionId) => {
 // ==============================
 // 🔹 CALCULATE SCORE + COINS + HISTORY
 // ==============================
-export const calculateScore = async (sessionId, userId) => {
+export const calculateScore = async (sessionId, userId, clientAnswers = null) => {
   try {
     const qSnap = await getDocs(
       collection(db, "liveQuizzes", sessionId, "questions")
@@ -250,21 +246,20 @@ export const calculateScore = async (sessionId, userId) => {
     );
 
     const userSnap = await getDoc(userRef);
-
     if (!userSnap.exists()) return 0;
 
     const userData = userSnap.data();
     
-    // ✅ BUG FIX: PREVENT REDUNDANT SCORE / COINS
+    // ✅ PREVENT REDUNDANT SCORE / COINS
     if (userData.finished) {
       console.warn("[liveQuizService] Participant already finalized. Skipping calculation.");
       return userData.score || 0;
     }
 
-    const answers = userData.answers || {};
+    // Use passed answers if available (Final Sync mode), otherwise fallback to DB
+    const answers = clientAnswers || userData.answers || {};
 
     let score = 0;
-
     Object.keys(answers).forEach((qIndex) => {
       if (questions[qIndex]?.correctAnswer === answers[qIndex]) {
         score++;
@@ -273,15 +268,18 @@ export const calculateScore = async (sessionId, userId) => {
 
     const coinsEarned = score * 2;
 
-    // ✅ UPDATE PARTICIPANT
+    // ✅ UPDATE PARTICIPANT (ONE SINGLE BATCH SAVE)
     await updateDoc(userRef, {
       score,
       coins: coinsEarned,
       finished: true,
       submittedAt: Date.now(),
+      answers, // Save the full answer map now
     });
 
-    // ✅ ADD COINS TO USER PROFILE
+    // ✅ UPDATE USER ASSETS & STATS
+    await updateUserStats(userId, Object.keys(questions).length, score);
+    
     const userDoc = doc(db, "users", userId);
     await setDoc(
       userDoc,
@@ -291,19 +289,18 @@ export const calculateScore = async (sessionId, userId) => {
       { merge: true }
     );
 
-    // ✅ STORE HISTORY (ALWAYS FOR ANALYSIS, OR IF ATTEMPTED FOR OTHERS)
+    // ✅ STORE HISTORY
     const sessionRef = doc(db, "liveQuizzes", sessionId);
     const sessionSnap = await getDoc(sessionRef);
     const sessionData = sessionSnap.data();
     const isAnalysis = sessionData?.type === "analysis";
 
     if (Object.keys(answers).length > 0 || isAnalysis) {
-      // Ensure session meta exists in history list and trigger update
       const histRef = doc(db, "liveQuizHistory", sessionId);
       await setDoc(histRef, {
         subject: sessionData?.subject || "General",
         id: sessionId,
-        date: Date.now(), // update date to trigger snapshot
+        date: Date.now(),
         totalQuestions: Object.keys(questions).length,
         updatedAt: Date.now() 
       }, { merge: true });
@@ -327,7 +324,7 @@ export const calculateScore = async (sessionId, userId) => {
 
     return score;
   } catch (err) {
-    console.error("[liveQuizService] Failed to calculate score:", err.message);
+    console.error("[liveQuizService] Failed to calculate and sync score:", err.message);
     return 0;
   }
 };
@@ -447,11 +444,11 @@ export const getPastLeaderboard = async (sessionId) => {
 // ==============================
 // 🔹 SUBSCRIBE TO MY LIVE HISTORY (REAL-TIME)
 // ==============================
+const sessionCache = {};
+
 export const subscribeToMyLiveHistory = (userId, callback) => {
   if (!userId) return () => {};
 
-  // ✅ Collection Group Query: Find all documents in any 'participants' collection where ID is userId
-  // This is MUCH more efficient than reading all global sessions.
   const q = query(
     collectionGroup(db, "participants"),
     where("userId", "==", userId),
@@ -460,51 +457,23 @@ export const subscribeToMyLiveHistory = (userId, callback) => {
   );
 
   return onSnapshot(q, async (snap) => {
-    // No longer need to filter in memory - the query does it!
-    const participationDocs = snap.docs;
-    
-    const hydratedResults = await Promise.all(participationDocs.map(async (pDoc) => {
-      const pData = pDoc.data();
-      const sessionId = pData.sessionId || pDoc.ref.parent.parent?.id;
-      
-      // If we are missing subject or totalQuestions (Legacy data), fetch them from the parent session
-      let subject = pData.subject;
-      let totalQuestions = pData.totalQuestions;
-      let date = pData.date || pData.submittedAt;
-
-      if (!subject || !totalQuestions || !date) {
-        try {
-          // One-time fetch for legacy metadata
-          const sessionSnap = await getDoc(doc(db, "liveQuizHistory", sessionId));
-          if (sessionSnap.exists()) {
-            const sData = sessionSnap.data();
-            subject = subject || sData.subject;
-            totalQuestions = totalQuestions || sData.totalQuestions;
-            date = date || sData.date;
-          }
-        } catch (e) {
-          console.warn("Could not hydrate legacy session:", sessionId);
-        }
-      }
-
-      return {
-        id: sessionId || "LEGACY",
-        subject: subject || "General Assessment",
-        date: date || Date.now(),
-        totalQuestions: totalQuestions || Object.keys(pData.answers || {}).length || 0,
-        participation: pData
-      };
-    }));
-    
-    // De-duplicate by sessionId (in case a session exists in both liveQuizzes and history)
     const uniqueResults = [];
     const seenSessions = new Set();
 
-    hydratedResults.sort((a, b) => b.date - a.date).forEach(res => {
-      if (!seenSessions.has(res.id)) {
-        uniqueResults.push(res);
-        seenSessions.add(res.id);
-      }
+    snap.docs.forEach(pDoc => {
+      const pData = pDoc.data();
+      const sessionId = pData.sessionId || pDoc.ref.parent.parent?.id;
+      
+      if (!sessionId || seenSessions.has(sessionId)) return;
+
+      uniqueResults.push({
+        id: sessionId,
+        subject: pData.subject || "General Assessment",
+        date: pData.submittedAt || Date.now(),
+        totalQuestions: pData.totalQuestions || 0,
+        participation: pData
+      });
+      seenSessions.add(sessionId);
     });
     
     callback(uniqueResults);

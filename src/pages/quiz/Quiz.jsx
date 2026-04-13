@@ -16,6 +16,7 @@ import {
   saveQuizAttempt,
   getPreviouslyCorrectQuestionIds,
 } from "../../services/quizAttemptService";
+import { updateUserStats } from "../../services/userService";
 
 import TacticalModal from "../../components/common/TacticalModal";
 
@@ -201,6 +202,7 @@ const Quiz = () => {
 
     try {
       await addCoins(coinsEarned, subjectId);
+      await updateUserStats(currentUser.uid, questions.length, correctCount);
 
       await saveQuizAttempt({
         userId: currentUser.uid,

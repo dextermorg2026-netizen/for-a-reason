@@ -3,13 +3,14 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-  increment
+  increment,
+  Timestamp
 } from "firebase/firestore";
 import { db } from "./firebase";
 
 /* =====================================================
    🔹 CREATE USER PROFILE (Runs on Signup / Google Login)
-===================================================== */
+==================================================== */
 export const createUserProfile = async (uid, name, email) => {
   const userRef = doc(db, "users", uid);
   const docSnap = await getDoc(userRef);
@@ -22,7 +23,10 @@ export const createUserProfile = async (uid, name, email) => {
       coins: 0,
       xp: 0,
       quizzesAttempted: 0,
+      totalQuestionsAttempted: 0,
+      totalCorrectAnswers: 0,
       streak: 0,
+      lastActivityDate: null,
       subjectCoins: {}, // per-subject breakdown
       createdAt: new Date()
     });
@@ -44,25 +48,47 @@ export const getUserProfile = async (uid) => {
 };
 
 /* =====================================================
-   🔹 (legacy) UPDATE USER QUIZ STATS
-   This project now uses coins instead of a raw score.  The
-   helper below is no longer invoked anywhere and can be
-   removed once the database has migrated.  Coins are added
-   via `addUserCoins` instead (which also tracks
-   per-subject breakdown).
-===================================================== */
-// export const updateUserStats = async (uid, scoreToAdd) => {
-//   const userRef = doc(db, "users", uid);
-//
-//   await updateDoc(userRef, {
-//     totalScore: increment(scoreToAdd),
-//     quizzesAttempted: increment(1)
-//   });
-//};
+   🔹 UPDATE USER STREAK logic
+   This is called whenever a user completes a meaningful action (quiz/mission).
+==================================================== */
+export const updateUserStreak = async (uid) => {
+  if (!uid) return;
+  const userRef = doc(db, "users", uid);
+  const userSnap = await getDoc(userRef);
+  
+  if (!userSnap.exists()) return;
+  
+  const data = userSnap.data();
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  
+  const lastActivity = data.lastActivityDate ? data.lastActivityDate.toDate() : null;
+  if (lastActivity) lastActivity.setHours(0,0,0,0);
+
+  let newStreak = data.streak || 0;
+
+  if (!lastActivity) {
+    newStreak = 1;
+  } else {
+    const diffTime = now.getTime() - lastActivity.getTime();
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      newStreak += 1; // Consecutive day
+    } else if (diffDays > 1) {
+      newStreak = 1; // Streak broken
+    }
+    // If diffDays is 0, they already did something today, no change
+  }
+
+  await updateDoc(userRef, {
+    streak: newStreak,
+    lastActivityDate: Timestamp.fromDate(now)
+  });
+};
 
 /* =====================================================
    🔹 ADD COINS
-   Used by CoinContext when quiz completes
 ===================================================== */
 export const addUserCoins = async (uid, coinsToAdd, subjectId) => {
   const userRef = doc(db, "users", uid);
@@ -71,6 +97,22 @@ export const addUserCoins = async (uid, coinsToAdd, subjectId) => {
     coins: increment(coinsToAdd),
     [`subjectCoins.${subjectId}`]: increment(coinsToAdd)
   });
+};
+
+/* =====================================================
+   🔹 UPDATE GLOBAL STATS
+===================================================== */
+export const updateUserStats = async (uid, questionsCount, correctCount) => {
+  if (!uid) return;
+  const userRef = doc(db, "users", uid);
+  await updateDoc(userRef, {
+    totalQuestionsAttempted: increment(questionsCount),
+    totalCorrectAnswers: increment(correctCount),
+    quizzesAttempted: increment(1)
+  });
+  
+  // Also trigger streak update
+  await updateUserStreak(uid);
 };
 
 /* =====================================================

@@ -176,7 +176,8 @@ const LiveQuiz = () => {
   
     try {
       if (sessionId && currentUser?.uid) {
-        await calculateScore(sessionId, currentUser.uid);
+        // ✅ PASS LOCAL ANSWERS FOR FINAL SYNC
+        await calculateScore(sessionId, currentUser.uid, answersMap);
       }
     } catch (err) {
       console.error("Score calculation failed:", err);
@@ -253,13 +254,8 @@ const LiveQuiz = () => {
 
   // ================= ANSWER =================
   const handleSelect = async (index) => {
-    try {
-      await submitLiveAnswer({
-        sessionId,
-        userId: currentUser?.uid,
-        questionIndex: currentIndex,
-        selectedOptionIndex: index,
-      });
+      // Optimization: No longer writing to Firestore on every click.
+      // Answers are saved locally and synced ONCE at the end.
 
       setAnswersMap((prev) => {
         const newMap = { ...prev, [currentIndex]: index };

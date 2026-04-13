@@ -226,7 +226,7 @@ export const finishLiveQuiz = async (sessionId) => {
 // ==============================
 // 🔹 CALCULATE SCORE + COINS + HISTORY
 // ==============================
-export const calculateScore = async (sessionId, userId) => {
+export const calculateScore = async (sessionId, userId, clientAnswers = null) => {
   try {
     const qSnap = await getDocs(
       collection(db, "liveQuizzes", sessionId, "questions")
@@ -246,21 +246,20 @@ export const calculateScore = async (sessionId, userId) => {
     );
 
     const userSnap = await getDoc(userRef);
-
     if (!userSnap.exists()) return 0;
 
     const userData = userSnap.data();
     
-    // ✅ BUG FIX: PREVENT REDUNDANT SCORE / COINS
+    // ✅ PREVENT REDUNDANT SCORE / COINS
     if (userData.finished) {
       console.warn("[liveQuizService] Participant already finalized. Skipping calculation.");
       return userData.score || 0;
     }
 
-    const answers = userData.answers || {};
+    // Use passed answers if available (Final Sync mode), otherwise fallback to DB
+    const answers = clientAnswers || userData.answers || {};
 
     let score = 0;
-
     Object.keys(answers).forEach((qIndex) => {
       if (questions[qIndex]?.correctAnswer === answers[qIndex]) {
         score++;
@@ -269,12 +268,13 @@ export const calculateScore = async (sessionId, userId) => {
 
     const coinsEarned = score * 2;
 
-    // ✅ UPDATE PARTICIPANT
+    // ✅ UPDATE PARTICIPANT (ONE SINGLE BATCH SAVE)
     await updateDoc(userRef, {
       score,
       coins: coinsEarned,
       finished: true,
       submittedAt: Date.now(),
+      answers, // Save the full answer map now
     });
 
     // ✅ UPDATE USER ASSETS & STATS
@@ -289,19 +289,18 @@ export const calculateScore = async (sessionId, userId) => {
       { merge: true }
     );
 
-    // ✅ STORE HISTORY (ALWAYS FOR ANALYSIS, OR IF ATTEMPTED FOR OTHERS)
+    // ✅ STORE HISTORY
     const sessionRef = doc(db, "liveQuizzes", sessionId);
     const sessionSnap = await getDoc(sessionRef);
     const sessionData = sessionSnap.data();
     const isAnalysis = sessionData?.type === "analysis";
 
     if (Object.keys(answers).length > 0 || isAnalysis) {
-      // Ensure session meta exists in history list and trigger update
       const histRef = doc(db, "liveQuizHistory", sessionId);
       await setDoc(histRef, {
         subject: sessionData?.subject || "General",
         id: sessionId,
-        date: Date.now(), // update date to trigger snapshot
+        date: Date.now(),
         totalQuestions: Object.keys(questions).length,
         updatedAt: Date.now() 
       }, { merge: true });
@@ -325,7 +324,7 @@ export const calculateScore = async (sessionId, userId) => {
 
     return score;
   } catch (err) {
-    console.error("[liveQuizService] Failed to calculate score:", err.message);
+    console.error("[liveQuizService] Failed to calculate and sync score:", err.message);
     return 0;
   }
 };

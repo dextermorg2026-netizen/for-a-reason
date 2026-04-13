@@ -59,15 +59,13 @@ const Dashboard = () => {
           ]);
         
         const streak = userProfile?.streak || 0;
+        // Fallback: Use profile total, or the count from our recent history fetch
+        const totalQuizzes = userProfile?.quizzesAttempted || activityData?.totalCount || 0;
         const weekly = activityData.weekly;
         const currentWeek = activityData.currentWeek;
         const last28Raw = activityData.last28;
 
         const safeWeekly = Array.isArray(weekly) ? weekly : [];
-        const quizzes = safeWeekly.reduce(
-          (sum, n) => sum + (Number(n) || 0),
-          0
-        );
 
         const rankIndex = Array.isArray(leaderboard)
           ? leaderboard.findIndex((x) => x.userId === currentUser.uid)
@@ -82,7 +80,7 @@ const Dashboard = () => {
         setStats({
           coins: Number(coins) || 0,
           rank,
-          quizzes,
+          quizzes: totalQuizzes,
           streak: Number(streak) || 0,
         });
 

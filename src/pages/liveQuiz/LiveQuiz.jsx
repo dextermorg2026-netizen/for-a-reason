@@ -253,24 +253,21 @@ const LiveQuiz = () => {
   };
 
   // ================= ANSWER =================
-  const handleSelect = async (index) => {
-      // Optimization: No longer writing to Firestore on every click.
-      // Answers are saved locally and synced ONCE at the end.
+  const handleSelect = (index) => {
+    // Optimization: No longer writing to Firestore on every click.
+    // Answers are saved locally and synced ONCE at the end.
 
-      setAnswersMap((prev) => {
-        const newMap = { ...prev, [currentIndex]: index };
-        
-        const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
-        localStorage.setItem(
-          "liveQuizSession",
-          JSON.stringify({ ...saved, answersMap: newMap })
-        );
-        
-        return newMap;
-      });
-    } catch (err) {
-      console.error("Answer submission failed:", err);
-    }
+    setAnswersMap((prev) => {
+      const newMap = { ...prev, [currentIndex]: index };
+      
+      const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
+      localStorage.setItem(
+        "liveQuizSession",
+        JSON.stringify({ ...saved, answersMap: newMap })
+      );
+      
+      return newMap;
+    });
   };
 
   // ✅ PERSIST CURRENT INDEX

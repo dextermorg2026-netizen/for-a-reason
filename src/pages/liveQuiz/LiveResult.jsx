@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   subscribeToLeaderboard,
   getLiveQuizQuestions,
   subscribeToLiveQuiz,
   getLiveQuizSession,
+  getParticipant,
 } from "../../services/liveQuizService";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
@@ -13,6 +14,7 @@ import { useAuth } from "../../context/AuthContext";
 const LiveResult = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const saved = JSON.parse(localStorage.getItem("liveQuizSession") || "{}");
   const state = location.state || {};
@@ -20,9 +22,9 @@ const LiveResult = () => {
   const sessionId = state.sessionId || saved.sessionId;
 
   const [leaderboard, setLeaderboard] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [answersMap, setAnswersMap] = useState({});
-  const [session, setSession] = useState(null);
+  const [questions, setQuestions] = useState(state.questions || []);
+  const [answersMap, setAnswersMap] = useState(state.answersMap || {});
+  const [session, setSession] = useState(state.session || null);
   const [showReview, setShowReview] = useState(false);
 
   // ================= SESSION =================
@@ -31,8 +33,8 @@ const LiveResult = () => {
     const unsub = subscribeToLiveQuiz(sessionId, (data) => {
       if (data) {
         setSession(data);
-      } else {
-        // ✅ Fallback to history if not in active
+      } else if (!session) {
+        // ✅ Fallback to history if not in active and not already loaded
         getLiveQuizSession(sessionId).then(setSession);
       }
     });
@@ -41,13 +43,13 @@ const LiveResult = () => {
 
   // ================= QUESTIONS =================
   useEffect(() => {
-    if (!sessionId) return;
+    if (!sessionId || questions.length > 0) return;
     getLiveQuizQuestions(sessionId).then(setQuestions);
-  }, [sessionId]);
+  }, [sessionId, questions.length]);
 
   // ================= ANSWERS =================
   useEffect(() => {
-    if (!sessionId || !currentUser) return;
+    if (!sessionId || !currentUser || Object.keys(answersMap).length > 0) return;
 
     const fetchAnswers = async () => {
       try {
@@ -61,14 +63,16 @@ const LiveResult = () => {
     };
 
     fetchAnswers();
-  }, [sessionId, currentUser]);
+  }, [sessionId, currentUser, answersMap]);
 
   // ================= LEADERBOARD =================
   useEffect(() => {
-    if (!sessionId) return;
+    // Only subscribe to leaderboard if we have a session AND it's NOT analysis mode
+    if (!sessionId || (session && session.type === "analysis")) return;
+    
     const unsub = subscribeToLeaderboard(sessionId, setLeaderboard);
     return () => unsub && unsub();
-  }, [sessionId]);
+  }, [sessionId, session?.type]);
 
   // ================= MEDALS =================
   const getMedal = (i) => {
@@ -106,6 +110,16 @@ const LiveResult = () => {
 
   return (
     <main className="w-full pb-20">
+      <div className="flex justify-start mb-12 px-4">
+        <button
+          onClick={() => navigate("/leaderboard")}
+          className="flex items-center gap-2 px-6 py-3 bg-surface-container-low border border-white/5 text-slate-400 font-headline font-bold text-[10px] uppercase tracking-[0.2em] asymmetric-card-small hover:bg-white/10 transition-all group shadow-lg"
+        >
+          <span className="material-symbols-outlined text-sm group-hover:translate-y-[-2px] transition-transform">leaderboard</span>
+          Global Tactical Standings
+        </button>
+      </div>
+
       <section className="mb-12 text-center">
         <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
            <span className="w-2 h-2 rounded-full bg-primary pulse-emerald"></span>
@@ -307,7 +321,7 @@ const LiveResult = () => {
         <button
           onClick={() => {
             localStorage.removeItem("liveQuizSession");
-            window.location.href = "/";
+            navigate("/");
           }}
           className="px-12 py-5 bg-surface-container-high text-on-surface-variant font-headline font-bold text-xs uppercase tracking-[0.3em] asymmetric-card hover:bg-white/10 transition-all"
         >

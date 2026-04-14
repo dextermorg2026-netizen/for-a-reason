@@ -193,7 +193,12 @@ const LiveQuiz = () => {
     if (isReadyForResults && isFinished) {
       // Move to results
       navigate("/live/result", {
-        state: { sessionId },
+        state: { 
+          sessionId, 
+          questions, 
+          answersMap,
+          session
+        },
       });
     }
   }, [session?.status, session?.type, isFinished]);

@@ -1,0 +1,607 @@
+[
+    {
+        "question": "In mathematical induction, what is the purpose of the base case?",
+        "options": [
+            "To verify the starting point is true",
+            "To assume the statement is true",
+            "To prove the statement for all n",
+            "To complete the inductive step"
+        ],
+        "correctAnswer": 0,
+        "explanation": "The base case ensures the statement holds for the initial value, forming the foundation of induction."
+    },
+    {
+        "question": "In strong induction, the inductive hypothesis assumes:",
+        "options": [
+            "Only P(k+1) is true",
+            "No assumption is made",
+            "Only P(k) is true",
+            "P(1), P(2), ..., P(k) are true"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Strong induction assumes the statement is true for all values up to k to prove it for k+1."
+    },
+    {
+        "question": "The well-ordering principle states that:",
+        "options": [
+            "All numbers are ordered",
+            "Every integer has a successor",
+            "Every non-empty set of natural numbers has a least element",
+            "Every sequence is finite"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Well-ordering principle ensures every non-empty subset of natural numbers has a smallest element."
+    },
+    {
+        "question": "Strong induction is particularly useful when:",
+        "options": [
+            "The statement is false",
+            "Each case depends on multiple previous values",
+            "There is no base case",
+            "Each case depends only on the previous one"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Strong induction is used when proving a case depends on several previous cases."
+    },
+    {
+        "question": "A recursive definition must include:",
+        "options": [
+            "Infinite definitions",
+            "Base case and recursive rule",
+            "Only recursive rule",
+            "Only base case"
+        ],
+        "correctAnswer": 1,
+        "explanation": "A recursive definition requires a base case and a rule to define further elements."
+    },
+    {
+        "question": "Which of the following is a valid recursive definition of factorial?",
+        "options": [
+            "n! = (n−1)!",
+            "n! = n²",
+            "n! = n × (n−1)! with 0! = 1",
+            "n! = n × (n−1)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Factorial is recursively defined with a base case 0! = 1 and recursive step n! = n × (n−1)!."
+    },
+    {
+        "question": "Structural induction is used to prove properties of:",
+        "options": [
+            "Matrices",
+            "Linear equations",
+            "Only numbers",
+            "Recursively defined structures"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Structural induction applies to objects like trees, strings, and recursively defined structures."
+    },
+    {
+        "question": "In structural induction, the base case corresponds to:",
+        "options": [
+            "Smallest structure",
+            "Infinite structure",
+            "Random structure",
+            "Largest structure"
+        ],
+        "correctAnswer": 0,
+        "explanation": "The base case verifies the property for the simplest structure."
+    },
+    {
+        "question": "What is the most essential requirement for a recursive algorithm?",
+        "options": [
+            "Sorting",
+            "Loop",
+            "Base condition",
+            "Multiple variables"
+        ],
+        "correctAnswer": 2,
+        "explanation": "A base condition prevents infinite recursion and ensures termination."
+    },
+    {
+        "question": "What happens if a recursive algorithm lacks a base case?",
+        "options": [
+            "No effect",
+            "It becomes faster",
+            "It becomes iterative",
+            "It results in infinite recursion"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Without a base case, recursion never stops, causing stack overflow."
+    },
+    {
+        "question": "Recursive function calls are stored in:",
+        "options": [
+            "Cache",
+            "Stack",
+            "Heap",
+            "Register"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Each recursive call is stored in the call stack."
+    },
+    {
+        "question": "Which problem is least suitable for recursion?",
+        "options": [
+            "Factorial",
+            "Binary search",
+            "Simple linear search",
+            "Tree traversal"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Simple linear search does not benefit much from recursion compared to iteration."
+    },
+    {
+        "question": "A precondition is:",
+        "options": [
+            "Condition before execution",
+            "Exit condition",
+            "Loop condition",
+            "Condition after execution"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Precondition specifies what must be true before program execution."
+    },
+    {
+        "question": "A postcondition is:",
+        "options": [
+            "Condition during execution",
+            "Condition before execution",
+            "Loop condition",
+            "Condition after execution"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Postcondition specifies what must be true after execution."
+    },
+    {
+        "question": "Partial correctness means:",
+        "options": [
+            "Program never terminates",
+            "Output is always wrong",
+            "If program terminates, output is correct",
+            "Program always terminates"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Partial correctness ensures correctness of result assuming termination."
+    },
+    {
+        "question": "Total correctness ensures:",
+        "options": [
+            "Efficiency",
+            "Correctness and termination",
+            "Only termination",
+            "Only correctness"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Total correctness ensures both correctness of output and program termination."
+    },
+    {
+        "question": "A loop invariant is:",
+        "options": [
+            "Loop exit condition",
+            "Recursive condition",
+            "Condition always true before and after each iteration",
+            "Condition that changes every iteration"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Loop invariant remains true throughout the execution of the loop."
+    },
+    {
+        "question": "Program verification is based on:",
+        "options": [
+            "Compilation",
+            "Mathematical proof",
+            "Testing",
+            "Debugging"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Program verification uses formal mathematical reasoning to prove correctness."
+    },
+    {
+        "question": "The probability of any event lies in the range:",
+        "options": [
+            "1 to infinity",
+            "-1 to 1",
+            "0 to 1",
+            "-infinity to infinity"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Probability values always lie between 0 and 1 inclusive."
+    },
+    {
+        "question": "If two events A and B are independent, then:",
+        "options": [
+            "P(A ∩ B) = P(A)P(B)",
+            "P(A) = P(B)",
+            "P(A ∪ B) = P(A)P(B)",
+            "P(A ∩ B) = P(A) + P(B)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "For independent events, the probability of intersection equals the product of their probabilities."
+    },
+    {
+        "question": "Bayes’ theorem is primarily used to:",
+        "options": [
+            "Solve recurrence relations",
+            "Count permutations",
+            "Update probabilities based on new information",
+            "Find total probability"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Bayes’ theorem updates prior probabilities using new evidence."
+    },
+    {
+        "question": "Expected value of a random variable represents:",
+        "options": [
+            "Maximum value",
+            "Most frequent outcome",
+            "Minimum value",
+            "Average value over many trials"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Expected value is the long-run average outcome of a random experiment."
+    },
+    {
+        "question": "Variance of a random variable measures:",
+        "options": [
+            "Spread of values",
+            "Central value",
+            "Frequency",
+            "Probability"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Variance measures how far values are spread from the mean."
+    },
+    {
+        "question": "If variance is zero, then:",
+        "options": [
+            "Mean is zero",
+            "All values are equal",
+            "Probability is zero",
+            "Values are random"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Zero variance means no deviation, so all values are identical."
+    },
+    {
+        "question": "A recurrence relation defines:",
+        "options": [
+            "A sequence using previous terms",
+            "A probability distribution",
+            "A matrix equation",
+            "A function using integration"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Recurrence relations define terms based on earlier terms."
+    },
+    {
+        "question": "Which is a linear recurrence relation?",
+        "options": [
+            "aₙ = sin(aₙ₋₁)",
+            "aₙ = aₙ₋₁²",
+            "aₙ = aₙ₋₁ + 3",
+            "aₙ = log(aₙ₋₁)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Linear recurrence involves terms raised to the first power."
+    },
+    {
+        "question": "The order of a recurrence relation is:",
+        "options": [
+            "Degree of equation",
+            "Number of solutions",
+            "Number of previous terms used",
+            "Number of variables"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Order is determined by how many previous terms are used."
+    },
+    {
+        "question": "Divide-and-conquer algorithms are analyzed using:",
+        "options": [
+            "Sets",
+            "Matrices",
+            "Graphs",
+            "Recurrence relations"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Their recursive structure is expressed using recurrence relations."
+    },
+    {
+        "question": "The recurrence T(n) = T(n/2) + 1 has time complexity:",
+        "options": [
+            "O(n²)",
+            "O(1)",
+            "O(log n)",
+            "O(n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Each step halves the problem, leading to logarithmic complexity."
+    },
+    {
+        "question": "Which method is commonly used to solve recurrence relations?",
+        "options": [
+            "Integration",
+            "Sorting",
+            "Substitution method",
+            "Differentiation"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Substitution (or iteration) is a common method to solve recurrences."
+    },
+    {
+        "question": "Generating functions are used to:",
+        "options": [
+            "Compute derivatives",
+            "Represent sequences as power series",
+            "Solve matrices",
+            "Solve only probability problems"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Generating functions encode sequences into algebraic form."
+    },
+    {
+        "question": "The coefficient of xⁿ in a generating function represents:",
+        "options": [
+            "Variance",
+            "Probability",
+            "nth term of sequence",
+            "Mean value"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Each coefficient corresponds to a term in the sequence."
+    },
+    {
+        "question": "Inclusion-Exclusion principle is used to:",
+        "options": [
+            "Solve recursion",
+            "Avoid overcounting",
+            "Multiply probabilities",
+            "Find averages"
+        ],
+        "correctAnswer": 1,
+        "explanation": "It corrects overcounting when sets overlap."
+    },
+    {
+        "question": "For two sets A and B, |A ∪ B| equals:",
+        "options": [
+            "|A| × |B|",
+            "|A| − |B|",
+            "|A| + |B|",
+            "|A| + |B| − |A ∩ B|"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Subtracting intersection avoids double counting."
+    },
+    {
+        "question": "Inclusion-Exclusion is mainly required when:",
+        "options": [
+            "Sets are identical",
+            "Sets are disjoint",
+            "Sets overlap",
+            "Sets are empty"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Overlapping sets cause double counting, which this principle fixes."
+    },
+    {
+        "question": "A graph consists of:",
+        "options": [
+            "Vertices and edges",
+            "Only edges",
+            "Matrices",
+            "Only vertices"
+        ],
+        "correctAnswer": 0,
+        "explanation": "A graph is made up of vertices (nodes) and edges (connections)."
+    },
+    {
+        "question": "The degree of a vertex is:",
+        "options": [
+            "Number of vertices in graph",
+            "Number of edges connected to it",
+            "Number of paths",
+            "Number of components"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Degree counts how many edges are incident on the vertex."
+    },
+    {
+        "question": "In an undirected graph, the sum of degrees of all vertices equals:",
+        "options": [
+            "Number of edges",
+            "Square of edges",
+            "Twice the number of edges",
+            "Half the number of edges"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Each edge contributes 2 to the total degree count."
+    },
+    {
+        "question": "Which of the following is NOT a graph representation?",
+        "options": [
+            "Adjacency list",
+            "Adjacency matrix",
+            "Incidence matrix",
+            "Sorting array"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Sorting array is not a graph representation method."
+    },
+    {
+        "question": "Two graphs are isomorphic if they have:",
+        "options": [
+            "Same number of edges only",
+            "Same labels",
+            "Same drawing",
+            "Same structure"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Isomorphic graphs preserve structure regardless of labeling."
+    },
+    {
+        "question": "A graph is connected if:",
+        "options": [
+            "There is a path between every pair of vertices",
+            "All vertices have same degree",
+            "It has cycles",
+            "It has no edges"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Connectivity means all vertices are reachable from each other."
+    },
+    {
+        "question": "An Euler circuit exists if:",
+        "options": [
+            "Graph is complete",
+            "All vertices have even degree",
+            "All vertices have odd degree",
+            "Graph is planar"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Euler circuit requires every vertex to have even degree."
+    },
+    {
+        "question": "An Euler path (not circuit) exists if:",
+        "options": [
+            "Exactly two vertices have odd degree",
+            "All vertices even",
+            "All vertices odd",
+            "No edges"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Exactly two odd-degree vertices allow a path but not a circuit."
+    },
+    {
+        "question": "A Hamiltonian path visits:",
+        "options": [
+            "Every vertex once",
+            "Every edge once",
+            "Some vertices twice",
+            "Only edges"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Hamiltonian paths focus on visiting vertices exactly once."
+    },
+    {
+        "question": "Which algorithm is used for shortest path?",
+        "options": [
+            "DFS",
+            "Dijkstra",
+            "Prim",
+            "BFS"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Dijkstra’s algorithm finds shortest paths in weighted graphs."
+    },
+    {
+        "question": "A planar graph can be drawn:",
+        "options": [
+            "With crossing edges",
+            "Only in 3D",
+            "Without crossing edges",
+            "Only as trees"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Planar graphs can be drawn without edge crossings."
+    },
+    {
+        "question": "For planar graphs, V − E + F equals:",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "0"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Euler’s formula for planar graphs is V − E + F = 2."
+    },
+    {
+        "question": "Graph coloring assigns:",
+        "options": [
+            "Numbers to edges",
+            "Weights to graphs",
+            "Colors to vertices",
+            "Labels to paths"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Graph coloring assigns colors to vertices such that adjacent vertices differ."
+    },
+    {
+        "question": "The minimum number of colors required is called:",
+        "options": [
+            "Degree",
+            "Chromatic number",
+            "Edge count",
+            "Path length"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Chromatic number is the minimum colors needed for proper coloring."
+    },
+    {
+        "question": "A tree is a graph that is:",
+        "options": [
+            "Connected and acyclic",
+            "Cyclic",
+            "Disconnected",
+            "Directed only"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Trees are connected graphs with no cycles."
+    },
+    {
+        "question": "A tree with n vertices has how many edges?",
+        "options": [
+            "n",
+            "n − 1",
+            "n + 1",
+            "n²"
+        ],
+        "correctAnswer": 1,
+        "explanation": "A fundamental property of trees is that edges = vertices − 1."
+    },
+    {
+        "question": "Preorder traversal follows:",
+        "options": [
+            "Root → Left → Right",
+            "Left → Right → Root",
+            "Left → Root → Right",
+            "Right → Root → Left"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Preorder traversal visits root first, then left and right subtrees."
+    },
+    {
+        "question": "A spanning tree connects:",
+        "options": [
+            "All vertices without cycles",
+            "Only edges",
+            "Only root node",
+            "Some vertices"
+        ],
+        "correctAnswer": 0,
+        "explanation": "A spanning tree includes all vertices with no cycles."
+    },
+    {
+        "question": "Minimum Spanning Tree minimizes:",
+        "options": [
+            "Total edge weight",
+            "Number of vertices",
+            "Number of edges",
+            "Path length"
+        ],
+        "correctAnswer": 0,
+        "explanation": "MST minimizes the sum of weights of selected edges."
+    },
+    {
+        "question": "Which algorithm is used to find MST?",
+        "options": [
+            "Kruskal",
+            "DFS",
+            "BFS",
+            "Dijkstra"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kruskal's algorithm constructs MST using a greedy approach."
+    }
+]

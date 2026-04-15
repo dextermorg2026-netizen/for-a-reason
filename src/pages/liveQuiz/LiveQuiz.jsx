@@ -100,8 +100,10 @@ const LiveQuiz = () => {
     // Check if finished
     getParticipant(savedId, currentUser.uid).then((p) => {
       if (p?.finished) {
-        setIsFinished(true);
-        hasAutoSubmittedRef.current = true;
+        // ✅ FIX: If previous session is finished, clear it instead of auto-redirecting.
+        // This prevents the user from being "stuck" in a redirect loop to Results.
+        console.log("[LiveQuiz] Stale finished session detected. Clearing localStorage.");
+        clearAndReset();
       }
     });
 
